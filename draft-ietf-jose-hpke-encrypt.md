@@ -3,7 +3,7 @@ title: "Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and 
 abbrev: "Use of HPKE in JOSE"
 category: std
 
-docname: draft-ietf-jose-hpke-encrypt
+docname: draft-ietf-jose-hpke-encrypt-latest
 submissiontype: IETF
 number:
 date:
