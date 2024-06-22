@@ -213,7 +213,8 @@ This example demonstrates the representaton of an encapsulated key as a JWK.
 ~~~
 {
    "kty": "EK",
-   "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21DqqgPweuPpjglnXDnOuQ4kt9tHCs3PUzPxQs"
+   "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21DqqgPweu
+   PpjglnXDnOuQ4kt9tHCs3PUzPxQs"
 }
 ~~~
 
@@ -242,8 +243,14 @@ In HPKE Direct Encryption mode:
 
 The following example demonstrates the use of Direct Encryption with Compact Serialization:
 
+Note that newlines are for readability.
+
 ~~~
-eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEEyNTYtQUVTMTI4R0NNIiwiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCR05ranp0MDc2YnNSR2o3OGFYNUF6VF9IRU9KQmJZOXEyWm9fNWU3dGJLMGFQcXU0ZVQxV0kxNmp2UmxacXBNeXFaZlAtUndSNEp3dGF6XzhVOXRoWEEifX0...DG3qygxcMHw3iACy5mX_T4N4EqWc03W0nkTHjMJsC4nb6JS6vVj6wTGdlr5TOSr0ykaoyzpePXEvEyHhvpUwCyQQr6kbGlGuZsrJdUbZ728vmA.
+eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEEyNTYtQUVTMTI4R0NNIi
+wiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCR05ranp0MDc2YnNSR2o3OGFYNUF6VF9IRU9K
+QmJZOXEyWm9fNWU3dGJLMGFQcXU0ZVQxV0kxNmp2UmxacXBNeXFaZlAtUndSNEp3dGF6Xz
+hVOXRoWEEifX0...DG3qygxcMHw3iACy5mX_T4N4EqWc03W0nkTHjMJsC4nb6JS6vVj6wT
+Gdlr5TOSr0ykaoyzpePXEvEyHhvpUwCyQQr6kbGlGuZsrJdUbZ728vmA.
 ~~~
 {: #direct-encryption-compact align="left" title="Direct Encryption with Compact Serialization"}
 
@@ -255,15 +262,21 @@ In the above example, the JWE Protected Header value is:
   "enc": "HPKE-Base-P256-SHA256-AES128GCM",
   "epk": {
     "kty": "EK",
-    "ek": "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jvRlZqpMyqZfP-RwR4Jwtaz_8U9thXA"
+    "ek":
+    "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jvRlZqpM
+    yqZfP-RwR4Jwtaz_8U9thXA"
   }
 }
 ~~~
 
 ~~~
 {
-    "protected": "eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEEyNTYtQUVTMTI4R0NNIiwiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCTzRFbGZXd0xKRDZWcERza3c5LWxWMm9OMDJ2U1FKTW55ZHk3enhvSVlKZ1kydk9taE44Q1BqSHdRM1NONkhTcnNHNElacVpHVUR3dExKZjBoeHFTWGsifX0",
-    "ciphertext": "1ATsw0jshqPrv8CFcm9Rem9Wfi1Ygv30sozlRTtNNzcaaZ828GqP0AXtqQ1Msv8YXI9XZqh81MK3QnlZ7pOBC1BP7j00J1rrHujdb3zvnOpmJg"
+    "protected": "eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEE
+    yNTYtQUVTMTI4R0NNIiwiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCTzRFbGZXd0xK
+    RDZWcERza3c5LWxWMm9OMDJ2U1FKTW55ZHk3enhvSVlKZ1kydk9taE44Q1BqSHdRM
+    1NONkhTcnNHNElacVpHVUR3dExKZjBoeHFTWGsifX0",
+    "ciphertext": "1ATsw0jshqPrv8CFcm9Rem9Wfi1Ygv30sozlRTtNNzcaaZ828G
+    qP0AXtqQ1Msv8YXI9XZqh81MK3QnlZ7pOBC1BP7j00J1rrHujdb3zvnOpmJg"
 }
 ~~~
 {: #direct-encryption-json align="left" title="Direct Encryption with JSON Serialization"}
@@ -276,7 +289,8 @@ In the above example, the JWE Protected Header value is:
   "enc": "HPKE-Base-P256-SHA256-AES128GCM",
   "epk": {
     "kty": "EK",
-    "ek": "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jvRlZqpMyqZfP-RwR4Jwtaz_8U9thXA"
+    "ek": "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jv
+    RlZqpMyqZfP-RwR4Jwtaz_8U9thXA"
   }
 }
 ~~~
@@ -285,7 +299,7 @@ In the above example, the JWE Protected Header value is:
 
 This mode supports more than one recipient.
 
-HPKE is used to encrypt the	Content Encryption Key (CEK), and the resulting ciphertext is included in the JWE Encrypted Key. The plaintext will be encrypted using the CEK as explained in Step 15 of Section 5.1 of {{RFC7516}}.
+HPKE is used to encrypt the Content Encryption Key (CEK), and the resulting ciphertext is included in the JWE Encrypted Key. The plaintext will be encrypted using the CEK as explained in Step 15 of Section 5.1 of {{RFC7516}}.
 
 When there are multiple recipients, the sender MUST place the 'epk' parameter in the per-recipient unprotected header to indicate the use of HPKE. In this case, the 'enc' (Encryption Algorithm) Header Parameter MUST be a content encryption algorithm from JSON Web Signature and Encryption Algorithms in {{JOSE-IANA}}, and it MUST be present in the JWE Protected Header. The integrity-protected 'enc' parameter provides protection against an attacker who manipulates the encryption algorithm in the 'enc' parameter. This attack is discussed in {{?I-D.draft-ietf-lamps-cms-cek-hkdf-sha256}}.
 
@@ -298,7 +312,8 @@ The following example demonstrates the use of Key Encryption with General JSON S
 ~~~
 {
   "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "ciphertext": "S0qqrM3xXPUavbmL9LQkgUKRBu8BZ7DQWoT-mdNIZVU-ip_V-fbMokiGwp2aPM57DX3cXCK3TKHqdhZ8rSNduUja",
+  "ciphertext": "S0qqrM3xXPUavbmL9LQkgUKRBu8BZ7DQWoT-mdNIZVU-ip_V-fbM
+  okiGwp2aPM57DX3cXCK3TKHqdhZ8rSNduUja",
   "iv": "AzaXpooLg3ZxEASQ",
   "aad": "8J-SgCBhYWQ",
   "tag": "S0omWw35S0H7tyEHsmGLDw",
@@ -306,18 +321,21 @@ The following example demonstrates the use of Key Encryption with General JSON S
     {
       "encrypted_key": "yDVZLsO7-ecy_GCgEluwn9U723TCHNAzeYRRQPOfpHM",
       "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:adjwW6fyyZ94ZBjGjx_OpDEKHLGfd1ELkug_YmRAjCk",
+        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:adjwW6fy
+        yZ94ZBjGjx_OpDEKHLGfd1ELkug_YmRAjCk",
         "alg": "HPKE-Base-P256-SHA256-AES128GCM",
         "epk": {
           "kty": "EK",
-          "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21DqqgPweuPpjglnXDnOuQ4kt9tHCs3PUzPxQs"
+          "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21D
+          qqgPweuPpjglnXDnOuQ4kt9tHCs3PUzPxQs"
         }
       }
     },
     {
       "encrypted_key": "iS73TFqJ61gkmh4DHAXADx4wyftA7pnY",
       "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:D2FKlj9MTIQma5bwdOVXk5Zh3_d60knzlbmD-SyMNAI",
+        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:D2FKlj9M
+        TIQma5bwdOVXk5Zh3_d60knzlbmD-SyMNAI",
         "alg": "ECDH-ES+A128KW",
         "epk": {
           "kty": "EC",
@@ -342,10 +360,14 @@ In the above example, the JWE Protected Header value is:
 
 ~~~
 {
-  "protected": "eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDTSIsImVuYyI6IkExMjhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJQUlRLbjhtUUw0aE4xYXlva1I4Z2twVHk1SFFsZDROMEhYWEI5Y1h0alVJUTM3enNKREw3VHVnVmttRDFhRllUeC0wYk0wdGZ4emVqTGN0U0RLak1RcyJ9fQ",
+  "protected": "eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDT
+  SIsImVuYyI6IkExMjhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJQUlRLbjht
+  UUw0aE4xYXlva1I4Z2twVHk1SFFsZDROMEhYWEI5Y1h0alVJUTM3enNKREw3VHVnVmt
+  tRDFhRllUeC0wYk0wdGZ4emVqTGN0U0RLak1RcyJ9fQ",
   "encrypted_key": "zR0ArfrVVRQ9-X_heDU2riwx36QxLBffRrKAWU-tLC4",
   "iv": "o3v11Hw6gUxUN-pY",
-  "ciphertext": "Ny-2IDGHMI3MzVsUAVMGNoKAZfoewTZ1dkAIBikPy4eZUfHW_LPhhKpD6Mf4zYGkhAeLwGgJKjyDoFIj0EuDsEtJ",
+  "ciphertext": "Ny-2IDGHMI3MzVsUAVMGNoKAZfoewTZ1dkAIBikPy4eZUfHW_LPh
+  hKpD6Mf4zYGkhAeLwGgJKjyDoFIj0EuDsEtJ",
   "tag": "0sfzHJvxVoWt02EPxMTh8w"
 }
 ~~~
@@ -360,13 +382,19 @@ In the above example, the JWE Protected Header value is:
   "enc": "A128GCM",
   "epk": {
     "kty": "EK",
-    "ek": "BPRTKn8mQL4hN1ayokR8gkpTy5HQld4N0HXXB9cXtjUIQ37zsJDL7TugVkmD1aFYTx-0bM0tfxzejLctSDKjMQs"
+    "ek": "BPRTKn8mQL4hN1ayokR8gkpTy5HQld4N0HXXB9cXtjUIQ37zsJDL7TugVk
+    mD1aFYTx-0bM0tfxzejLctSDKjMQs"
   }
 }
 ~~~
 
 ~~~
-eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDTSIsImVuYyI6IkExMjhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJKN3JkTmJrdnd1bnNzZGp1NVdEa0FhekxhQlgzSWRjTFJqeTFSRFNBOXNpajAwamR5YmFIdVFQVHQ2UDMxQmkwbkUya1lXXzdMX3RhQXFBRks3NURlayJ9fQ.xaAa0nFxNJxsQQ5J6EFdzUYROd2aV517o2kZnfwhO7s.AgBYEWTj-EMji17I.Ejwu2iEP4xs3FfGO_zTZYu35glQmUvd_qpHpvB1hNqg6Yz5ek3NsZRGMzd--HYWvABNslxBkRwrkZDXnv_BTgOTj.u0ac86ipoAwUZuYwkaKwNw
+eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDTSIsImVuYyI6IkExM
+jhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJKN3JkTmJrdnd1bnNzZGp1NVdEa0
+FhekxhQlgzSWRjTFJqeTFSRFNBOXNpajAwamR5YmFIdVFQVHQ2UDMxQmkwbkUya1lXXzd
+MX3RhQXFBRks3NURlayJ9fQ.xaAa0nFxNJxsQQ5J6EFdzUYROd2aV517o2kZnfwhO7s.A
+gBYEWTj-EMji17I.Ejwu2iEP4xs3FfGO_zTZYu35glQmUvd_qpHpvB1hNqg6Yz5ek3NsZ
+RGMzd--HYWvABNslxBkRwrkZDXnv_BTgOTj.u0ac86ipoAwUZuYwkaKwNw
 ~~~
 {: #key-encryption-single-recipient-compact align="left" title="Key Encryption (single recipient) Compact"}
 
@@ -378,7 +406,8 @@ In the above example, the JWE Protected Header value is:
   "enc": "A128GCM",
   "epk": {
     "kty": "EK",
-    "ek": "BJ7rdNbkvwunssdju5WDkAazLaBX3IdcLRjy1RDSA9sij00jdybaHuQPTt6P31Bi0nE2kYW_7L_taAqAFK75Dek"
+    "ek": "BJ7rdNbkvwunssdju5WDkAazLaBX3IdcLRjy1RDSA9sij00jdybaHuQPTt
+    6P31Bi0nE2kYW_7L_taAqAFK75Dek"
   }
 }
 ~~~
@@ -470,7 +499,7 @@ The following entry is added to the "JSON Web Key Types" registry:
 - Key Type Description: HPKE Encapsulated Key Type (See issue #18)
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 
 ## JSON Web Key Parameters
 
@@ -480,7 +509,7 @@ The following entry is added to the "JSON Web Key Parameters" registry:
 - Parameter Description: Encapsulated Key
 - Parameter Information Class: Public
 - Used with "kty" Value(s): "EK"
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 
 ## JSON Web Signature and Encryption Algorithms
 
@@ -491,7 +520,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-P384-SHA384-AES256GCM
@@ -499,7 +528,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-P521-SHA512-AES256GCM
@@ -507,7 +536,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-X25519-SHA256-AES128GCM
@@ -515,7 +544,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-X25519-SHA256-ChaCha20Poly1305
@@ -523,7 +552,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-X448-SHA512-AES256GCM
@@ -531,7 +560,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 - Algorithm Name: HPKE-Base-X448-SHA512-ChaCha20Poly1305
@@ -539,7 +568,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): [[TBD: This RFC]]
+- Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
 ## JSON Web Signature and Encryption Header Parameters
@@ -551,14 +580,14 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Parameter Information Class: Public
 - Used with "kty" Value(s): *
 - Change Controller: IETF
-- Specification Document(s): [[This specification]]
+- Specification Document(s):   RFCXXXX
 
 - Parameter Name: "auth_kid"
 - Parameter Description: A key identifier (kid) for the asymmetric key as defined in { Section 5.1.4 of RFC9180 }
 - Parameter Information Class: Public
 - Used with "kty" Value(s): *
 - Change Controller: IETF
-- Specification Document(s): [[This specification]]
+- Specification Document(s):   RFCXXXX
 
 --- back
 
