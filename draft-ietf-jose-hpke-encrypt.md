@@ -8,19 +8,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Security"
+workgroup: "Javascript Object Signing and Encryption"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Javascript Object Signing and Encryption"
+  type: "Working Group"
+  mail: "jose@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/jose/"
+  github: "OR13/draft-ietf-jose-hpke-encrypt"
+  latest: "https://OR13.github.io/draft-ietf-jose-hpke-encrypt/draft-ietf-jose-hpke-encrypt.html"
 
 author:
  -
