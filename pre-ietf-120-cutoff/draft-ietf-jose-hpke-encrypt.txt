@@ -900,6 +900,8 @@ Document History
 
    -01
 
+   *  Apply feedback from call for adoption.
+
    *  Provide examples of auth and psk modes for JSON and Compact
       Serializations
 
