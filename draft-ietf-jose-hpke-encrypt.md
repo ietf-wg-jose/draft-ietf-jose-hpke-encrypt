@@ -122,7 +122,6 @@ bringing support for KEMs and the possibility of Post Quantum or Hybrid KEMs to 
 
 This specification uses the following abbreviations and terms:
 
-- Key Type (kty), see {{RFC7517}}.
 - Content Encryption Key (CEK), is defined in {{RFC7517}}.
 - Hybrid Public Key Encryption (HPKE) is defined in {{RFC9180}}.
 - pkR is the public key of the recipient, as defined in {{RFC9180}}.
@@ -171,7 +170,7 @@ We provide the following table for additional clarity:
 
 | Name                   | Recipients | Serializations | Content Encryption Key | Similar to
 |---
-| Direct Encryption      | 1          | Compact, JSON  | Derived from HPKE      | Direct Key Agreement
+| Integrated Encryption  | 1          | Compact, JSON  | Derived from HPKE      | Direct Key Agreement
 | Key Encryption         | 1 or More  | Compact, JSON  | Encrypted by HPKE      | Key Agreement with Key Wrapping
 {: #serialization-mode-table align="left" title="JOSE HPKE Serializations and Modes"}
 
@@ -197,26 +196,6 @@ There exist two cases of HPKE plaintext which need to be distinguished:
 The recipient will create the receiving HPKE context by invoking SetupBaseR() (Section 5.1.1 of {{RFC9180}}) with "skR", "enc" (output of base64url decoded 'ek'), and "info" (empty string). This yields the context "rctxt". The receiver then decrypts "ct" by invoking the Open() method on "rctxt" (Section 5.2 of {{RFC9180}}) with "aad", yielding "pt" or an error on failure.
 
 The Open function will, if successful, decrypts "ct".  When decrypted, the result will be either the CEK (when Key Encryption mode is used), or the content (if Direct Encryption mode is used).  The CEK is the symmetric key used to decrypt the ciphertext.
-
-## Encapsulated JSON Web Keys {#EK}
-
-An encapsulated key is represented as JSON Web Key as described in { Section 4 of RFC7515 }.
-
-The "kty" parameter MUST be "EK".
-
-The "ek" parameter MUST be present, and MUST be the base64url encoded output of the encap operation defined for the HPKE KEM.
-
-As described in { Section 4 of RFC7515 }, additional members can be present in the JWK; if not understood by implementations encountering them, they MUST be ignored.
-
-This example demonstrates the representaton of an encapsulated key as a JWK.
-
-~~~
-{
-   "kty": "EK",
-   "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21DqqgPweu
-   PpjglnXDnOuQ4kt9tHCs3PUzPxQs"
-}
-~~~
 
 ### HPKE Direct Encryption
 
@@ -492,61 +471,51 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 
 This document adds entries to {{JOSE-IANA}}.
 
-## JSON Web Key Types
-
-The following entry is added to the "JSON Web Key Types" registry:
-
-- "kty" Parameter Value: "EK"
-- Key Type Description: HPKE Encapsulated Key Type (See issue #18)
-- JOSE Implementation Requirements: Optional
-- Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-
-## JSON Web Key Parameters
-
-The following entry is added to the "JSON Web Key Parameters" registry:
-
-- Parameter Name: "ek"
-- Parameter Description: Encapsulated Key
-- Parameter Information Class: Public
-- Used with "kty" Value(s): "EK"
-- Specification Document(s):   RFCXXXX
-
 ## JSON Web Signature and Encryption Algorithms
 
 The following entries are added to the "JSON Web Signature and Encryption Algorithms" registry:
 
+### HPKE-P256-SHA256-A128GCM
+
 - Algorithm Name: HPKE-P256-SHA256-A128GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
+
+### HPKE-P384-SHA384-A256GCM
 
 - Algorithm Name: HPKE-P384-SHA384-A256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
+
+### HPKE-P521-SHA512-A256GCM
 
 - Algorithm Name: HPKE-P521-SHA512-A256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
+### HPKE-X25519-SHA256-A128GCM
+
 - Algorithm Name: HPKE-X25519-SHA256-A128GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
+
+### HPKE-X25519-SHA256-ChaCha20Poly1305
 
 - Algorithm Name: HPKE-X25519-SHA256-ChaCha20Poly1305
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
@@ -556,17 +525,21 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
+### HPKE-X448-SHA512-A256GCM
+
 - Algorithm Name: HPKE-X448-SHA512-A256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
+### HPKE-X448-SHA512-ChaCha20Poly1305
+
 - Algorithm Name: HPKE-X448-SHA512-ChaCha20Poly1305
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
@@ -576,17 +549,27 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 
 The following entries are added to the "JSON Web Key Parameters" registry:
 
-- Parameter Name: "psk_id"
-- Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.1 of RFC9180 }
-- Parameter Information Class: Public
-- Used with "kty" Value(s): *
+### ek
+
+- Header Parameter Name: "ek"
+- Header Parameter Description: An encapsulated key as defined in { Section 5.1.1 of RFC9180 }
+- Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 
-- Parameter Name: "auth_kid"
-- Parameter Description: A key identifier (kid) for the asymmetric key as defined in { Section 5.1.4 of RFC9180 }
-- Parameter Information Class: Public
-- Used with "kty" Value(s): *
+### psk_id
+
+- Header Parameter Name: "psk_id"
+- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }
+- Header Parameter Usage Location(s): JWE
+- Change Controller: IETF
+- Specification Document(s):   RFCXXXX
+
+### auth_kid
+
+- Header Parameter Name: "auth_kid"
+- Header Parameter Description: A key identifier (kid) for the asymmetric key as defined in { Section 5.1.3 of RFC9180 }
+- Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
 
@@ -603,6 +586,7 @@ This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to
 
 -01
 
+* Adjust IANA registration requests
 * Remove HPKE Mode from named algorithms
 * Fix AEAD named algorithms
 
