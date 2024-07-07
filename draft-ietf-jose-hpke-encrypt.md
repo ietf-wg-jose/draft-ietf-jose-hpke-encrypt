@@ -601,6 +601,11 @@ This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to
 # Document History
 {: numbered="false"}
 
+-01
+
+* Remove HPKE Mode from named algorithms
+* Fix AEAD named algorithms
+
 -00
 
 * Created initial working group version from draft-rha-jose-hpke-encrypt-07
