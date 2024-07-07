@@ -174,7 +174,7 @@ To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HP
 
 The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of {{RFC7516}} which is repeated here for clarity:
 
-Let the Additional Authenticated Data encryption parameter be ASCII(Encoded Protected Header).  
+Let the Additional Authenticated Data encryption parameter be ASCII(Encoded Protected Header).
 However, if a JWE AAD value is present (which can only be the case when using the JWE JSON Serialization), instead let the Additional Authenticated Data encryption parameter be ASCII(Encoded Protected Header || '.' || BASE64URL(JWE AAD)).
 
 ## Encapsulated Keys
@@ -223,11 +223,11 @@ HPKE assumes the sender is in possession of the public key of the recipient and
 HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
 mechanism is assumed to exist but outside the scope of this document.
 
-HPKE in Base mode does not offer authentication as part of the HPKE KEM. 
-In this case JOSE constructs like JWS and JSON Web Tokens (JWTs) can be used to add authentication. 
+HPKE in Base mode does not offer authentication as part of the HPKE KEM.
+In this case JOSE constructs like JWS and JSON Web Tokens (JWTs) can be used to add authentication.
 HPKE also offers modes that offer authentication.
 
-HPKE relies on a source of randomness to be available on the device. 
+HPKE relies on a source of randomness to be available on the device.
 In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it MUST be ensured that the guidelines in {{RFC8937}} for random number generations are followed.
 
 ## Plaintext Compression
@@ -242,14 +242,14 @@ Additionally, Unprotected Headers can contain similar information which an attac
 
 ## Ensure Cryptographic Keys Have Sufficient Entropy
 
-Implementers are advised to review Section 3.5 of {{RFC8725}}, which provides comments on entropy requirements for keys. 
-This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption. 
+Implementers are advised to review Section 3.5 of {{RFC8725}}, which provides comments on entropy requirements for keys.
+This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption.
 Additionally, this guidance is applicable to content encryption keys used in Key Encryption mode.
 
 ## Validate Cryptographic Inputs
 
-Implementers are advised to review Section 3.4 of {{RFC8725}}, which provides comments on the validation of cryptographic inputs. 
-This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption, specifically focusing on the structure of the public and private keys. 
+Implementers are advised to review Section 3.4 of {{RFC8725}}, which provides comments on the validation of cryptographic inputs.
+This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption, specifically focusing on the structure of the public and private keys.
 These inputs are crucial for the HPKE KEM operations.
 
 ## Use Appropriate Algorithms
@@ -261,6 +261,38 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 #  IANA Considerations {#IANA}
 
 This document adds entries to {{JOSE-IANA}}.
+
+## Ciphersuite Registration
+
+This specification registers a number of ciphersuites for use with HPKE.
+A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
+An HPKE ciphersuite, is composed of the following choices:
+
+- HPKE Mode
+- KEM Algorithm
+- KDF Algorithm
+- AEAD Algorithm
+
+The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
+
+For readability the algorithm ciphersuites labels are built according to the following scheme:
+
+~~~
+HPKE-<KEM>-<KDF>-<AEAD>
+~~~
+
+The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
+
+- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
+which only enables encryption to the holder of a given KEM private key.
+- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
+which authenticates using a pre-shared key.
+- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
+which authenticates using an asymmetric key.
+- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
+which authenticates using both a PSK and an asymmetric key.
+
+Implementations detect the use of modes by inspecting header parameters.
 
 ## JSON Web Signature and Encryption Algorithms
 
@@ -370,40 +402,6 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 {: numbered="false"}
 
 This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki and Filip Skokan for their feedback.
-
-# Ciphersuite Registration
-
-This specification registers a number of ciphersuites for use with HPKE.
-A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
-An HPKE ciphersuite, is composed of the following choices:
-
-- HPKE Mode
-- KEM Algorithm
-- KDF Algorithm
-- AEAD Algorithm
-
-The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
-
-For readability the algorithm ciphersuites labels are built according to the following scheme:
-
-~~~
-HPKE-<KEM>-<KDF>-<AEAD>
-~~~
-
-The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
-
-- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
-which only enables encryption to the holder of a given KEM private key.
-- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
-which authenticates using a pre-shared key.
-- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
-which authenticates using an asymmetric key.
-- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
-which authenticates using both a PSK and an asymmetric key.
-
-Implementations detect the use of modes by inspecting header parameters.
-
-For a list of ciphersuite registrations, please see {{IANA}}.
 
 # Document History
 {: numbered="false"}
