@@ -259,7 +259,7 @@ In the above example, the JWE Protected Header value is:
 ~~~
 {
   "alg": "dir",
-  "enc": "HPKE-Base-P256-SHA256-AES128GCM",
+  "enc": "HPKE-P256-SHA256-AES128GCM",
   "epk": {
     "kty": "EK",
     "ek":
@@ -286,7 +286,7 @@ In the above example, the JWE Protected Header value is:
 ~~~
 {
   "alg": "dir",
-  "enc": "HPKE-Base-P256-SHA256-AES128GCM",
+  "enc": "HPKE-P256-SHA256-AES128GCM",
   "epk": {
     "kty": "EK",
     "ek": "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jv
@@ -323,7 +323,7 @@ The following example demonstrates the use of Key Encryption with General JSON S
       "header": {
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:adjwW6fy
         yZ94ZBjGjx_OpDEKHLGfd1ELkug_YmRAjCk",
-        "alg": "HPKE-Base-P256-SHA256-AES128GCM",
+        "alg": "HPKE-P256-SHA256-AES128GCM",
         "epk": {
           "kty": "EK",
           "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21D
@@ -378,7 +378,7 @@ In the above example, the JWE Protected Header value is:
 ~~~
 {
 
-  "alg": "HPKE-Base-P256-SHA256-AES128GCM",
+  "alg": "HPKE-P256-SHA256-AES128GCM",
   "enc": "A128GCM",
   "epk": {
     "kty": "EK",
@@ -402,7 +402,7 @@ In the above example, the JWE Protected Header value is:
 
 ~~~
 {
-  "alg": "HPKE-Base-P256-SHA256-AES128GCM",
+  "alg": "HPKE-P256-SHA256-AES128GCM",
   "enc": "A128GCM",
   "epk": {
     "kty": "EK",
@@ -429,11 +429,10 @@ The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPK
 For readability the algorithm ciphersuites labels are built according to the following scheme:
 
 ~~~
-HPKE-<Mode>-<KEM>-<KDF>-<AEAD>
+HPKE-<KEM>-<KDF>-<AEAD>
 ~~~
 
-The "Mode" indicator may be populated with the following values from
-Table 1 of {{RFC9180}}:
+The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
 
 - "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
 which only enables encryption to the holder of a given KEM private key.
@@ -443,6 +442,8 @@ which authenticates using a pre-shared key.
 which authenticates using an asymmetric key.
 - "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
 which authenticates using both a PSK and an asymmetric key.
+
+Implementations detect the use of modes by inspecting header parameters.
 
 For a list of ciphersuite registrations, please see {{IANA}}.
 
@@ -515,7 +516,7 @@ The following entry is added to the "JSON Web Key Parameters" registry:
 
 The following entries are added to the "JSON Web Signature and Encryption Algorithms" registry:
 
-- Algorithm Name: HPKE-Base-P256-SHA256-AES128GCM
+- Algorithm Name: HPKE-P256-SHA256-AES128GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -523,7 +524,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-P384-SHA384-AES256GCM
+- Algorithm Name: HPKE-P384-SHA384-AES256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -531,7 +532,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-P521-SHA512-AES256GCM
+- Algorithm Name: HPKE-P521-SHA512-AES256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -539,7 +540,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-X25519-SHA256-AES128GCM
+- Algorithm Name: HPKE-X25519-SHA256-AES128GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -547,7 +548,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-X25519-SHA256-ChaCha20Poly1305
+- Algorithm Name: HPKE-X25519-SHA256-ChaCha20Poly1305
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -555,7 +556,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-X448-SHA512-AES256GCM
+- Algorithm Name: HPKE-X448-SHA512-AES256GCM
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -563,7 +564,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-- Algorithm Name: HPKE-Base-X448-SHA512-ChaCha20Poly1305
+- Algorithm Name: HPKE-X448-SHA512-ChaCha20Poly1305
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
