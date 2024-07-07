@@ -677,6 +677,7 @@ This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to
 
 -01
 
+* Apply feedback from call for adoption.
 * Provide examples of auth and psk modes for JSON and Compact Serializations
 * Simplify description of HPKE modes
 * Adjust IANA registration requests
