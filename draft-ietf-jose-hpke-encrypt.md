@@ -135,26 +135,11 @@ This specification uses the following abbreviations and terms:
 
 ## Overview
 
-JSON Web Encryption (JWE) {{RFC7516}} defines several serializations for expressing encrypted content with JSON:
-
-* Compact JWE Serialization
-* General JWE JSON Serialization
-* Flattened JWE JSON Serialization
-
-JSON Web Algorithms (JWA) {{Section 4.6 of RFC7518}} defines two ways to use public key cryptography with JWE:
-
-- Direct Key Agreement
-- Key Agreement with Key Wrapping
-
-The specification enables Hybrid Public Key Encryption (HPKE) {{RFC9180}} to be used with the serializations defined in JWE.
-
-Unless otherwise stated, no changes to the processes described in {{RFC7516}} have been made.
-
 This specification describes two modes of use for HPKE in JWE:
 
-  *  HPKE Direct Encryption mode, where HPKE is used to encrypt the plaintext. This mode can only be used with a single recipient. This setup is conceptually similar to Direct Key Agreement.
+  *  HPKE Integrated Encryption mode, where HPKE is used to encrypt the plaintext. This mode can only be used with a single recipient.
 
-  *  HPKE Key Encryption mode, where HPKE is used to encrypt a content encryption key (CEK) and the CEK is subsequently used to encrypt the plaintext. This mode supports multiple recipients. This setup is conceptually similar to Key Agreement with Key Wrapping.
+  *  HPKE Key Encryption mode, where HPKE is used to encrypt a content encryption key (CEK) and the CEK is subsequently used to encrypt the plaintext. This mode can be used with multiple recipients.
 
 When the alg value or enc value is set to any of algorithms registered by this specification then the 'epk' header parameter MUST be present, and it MUST be a JSON Web Key as defined in {{EK}} of this document.
 
@@ -219,61 +204,6 @@ In HPKE Direct Encryption mode:
 
 *  The HPKE "aad" parameter MUST be set to the JWE Additional Authenticated Data encryption parameter defined in Step 14 of Section 5.1 of {{RFC7516}} as input.
 
-
-The following example demonstrates the use of Direct Encryption with Compact Serialization:
-
-Note that newlines are for readability.
-
-~~~
-eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEEyNTYtQUVTMTI4R0NNIi
-wiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCR05ranp0MDc2YnNSR2o3OGFYNUF6VF9IRU9K
-QmJZOXEyWm9fNWU3dGJLMGFQcXU0ZVQxV0kxNmp2UmxacXBNeXFaZlAtUndSNEp3dGF6Xz
-hVOXRoWEEifX0...DG3qygxcMHw3iACy5mX_T4N4EqWc03W0nkTHjMJsC4nb6JS6vVj6wT
-Gdlr5TOSr0ykaoyzpePXEvEyHhvpUwCyQQr6kbGlGuZsrJdUbZ728vmA.
-~~~
-{: #direct-encryption-compact align="left" title="Direct Encryption with Compact Serialization"}
-
-In the above example, the JWE Protected Header value is:
-
-~~~
-{
-  "alg": "dir",
-  "enc": "HPKE-P256-SHA256-A128GCM",
-  "epk": {
-    "kty": "EK",
-    "ek":
-    "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jvRlZqpM
-    yqZfP-RwR4Jwtaz_8U9thXA"
-  }
-}
-~~~
-
-~~~
-{
-    "protected": "eyJhbGciOiJkaXIiLCJlbmMiOiJIUEtFLUJhc2UtUDI1Ni1TSEE
-    yNTYtQUVTMTI4R0NNIiwiZXBrIjp7Imt0eSI6IkVLIiwiZWsiOiJCTzRFbGZXd0xK
-    RDZWcERza3c5LWxWMm9OMDJ2U1FKTW55ZHk3enhvSVlKZ1kydk9taE44Q1BqSHdRM
-    1NONkhTcnNHNElacVpHVUR3dExKZjBoeHFTWGsifX0",
-    "ciphertext": "1ATsw0jshqPrv8CFcm9Rem9Wfi1Ygv30sozlRTtNNzcaaZ828G
-    qP0AXtqQ1Msv8YXI9XZqh81MK3QnlZ7pOBC1BP7j00J1rrHujdb3zvnOpmJg"
-}
-~~~
-{: #direct-encryption-json align="left" title="Direct Encryption with JSON Serialization"}
-
-In the above example, the JWE Protected Header value is:
-
-~~~
-{
-  "alg": "dir",
-  "enc": "HPKE-P256-SHA256-A128GCM",
-  "epk": {
-    "kty": "EK",
-    "ek": "BGNkjzt076bsRGj78aX5AzT_HEOJBbY9q2Zo_5e7tbK0aPqu4eT1WI16jv
-    RlZqpMyqZfP-RwR4Jwtaz_8U9thXA"
-  }
-}
-~~~
-
 ### HPKE Key Encryption
 
 This mode supports more than one recipient.
@@ -281,150 +211,6 @@ This mode supports more than one recipient.
 HPKE is used to encrypt the Content Encryption Key (CEK), and the resulting ciphertext is included in the JWE Encrypted Key. The plaintext will be encrypted using the CEK as explained in Step 15 of Section 5.1 of {{RFC7516}}.
 
 When there are multiple recipients, the sender MUST place the 'epk' parameter in the per-recipient unprotected header to indicate the use of HPKE. In this case, the 'enc' (Encryption Algorithm) Header Parameter MUST be a content encryption algorithm from JSON Web Signature and Encryption Algorithms in {{JOSE-IANA}}, and it MUST be present in the JWE Protected Header. The integrity-protected 'enc' parameter provides protection against an attacker who manipulates the encryption algorithm in the 'enc' parameter. This attack is discussed in {{?I-D.draft-ietf-lamps-cms-cek-hkdf-sha256}}.
-
-In HPKE Key Encryption mode:
-
-*  The JWE Encrypted Key MUST be the resulting HPKE ciphertext ('ct' value) encoded using base64url.
-
-The following example demonstrates the use of Key Encryption with General JSON Serialization:
-
-~~~
-{
-  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "ciphertext": "S0qqrM3xXPUavbmL9LQkgUKRBu8BZ7DQWoT-mdNIZVU-ip_V-fbM
-  okiGwp2aPM57DX3cXCK3TKHqdhZ8rSNduUja",
-  "iv": "AzaXpooLg3ZxEASQ",
-  "aad": "8J-SgCBhYWQ",
-  "tag": "S0omWw35S0H7tyEHsmGLDw",
-  "recipients": [
-    {
-      "encrypted_key": "yDVZLsO7-ecy_GCgEluwn9U723TCHNAzeYRRQPOfpHM",
-      "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:adjwW6fy
-        yZ94ZBjGjx_OpDEKHLGfd1ELkug_YmRAjCk",
-        "alg": "HPKE-P256-SHA256-A128GCM",
-        "epk": {
-          "kty": "EK",
-          "ek": "BHpP-u5JKziyUpqxNQqb0apHx1ecH2UzcRlhHR4ngJVS__gNu21D
-          qqgPweuPpjglnXDnOuQ4kt9tHCs3PUzPxQs"
-        }
-      }
-    },
-    {
-      "encrypted_key": "iS73TFqJ61gkmh4DHAXADx4wyftA7pnY",
-      "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:D2FKlj9M
-        TIQma5bwdOVXk5Zh3_d60knzlbmD-SyMNAI",
-        "alg": "ECDH-ES+A128KW",
-        "epk": {
-          "kty": "EC",
-          "crv": "P-256",
-          "x": "nX6Y3DWC0olVe5H7-NkCzVDghsYSa_L9da3jzkHYkV8",
-          "y": "wDshQdcaY0J08wx25V3ystQSNe_qjsCaaFeeRWJqcE0"
-        }
-      }
-    }
-  ]
-}
-~~~
-{: #key-encryption-multiple-recipient-general-json align="left" title="Key Encryption (multiple recipient) General JSON Serialization"}
-
-In the above example, the JWE Protected Header value is:
-
-~~~
-{
-   "enc": "A128GCM"
-}
-~~~
-
-~~~
-{
-  "protected": "eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDT
-  SIsImVuYyI6IkExMjhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJQUlRLbjht
-  UUw0aE4xYXlva1I4Z2twVHk1SFFsZDROMEhYWEI5Y1h0alVJUTM3enNKREw3VHVnVmt
-  tRDFhRllUeC0wYk0wdGZ4emVqTGN0U0RLak1RcyJ9fQ",
-  "encrypted_key": "zR0ArfrVVRQ9-X_heDU2riwx36QxLBffRrKAWU-tLC4",
-  "iv": "o3v11Hw6gUxUN-pY",
-  "ciphertext": "Ny-2IDGHMI3MzVsUAVMGNoKAZfoewTZ1dkAIBikPy4eZUfHW_LPh
-  hKpD6Mf4zYGkhAeLwGgJKjyDoFIj0EuDsEtJ",
-  "tag": "0sfzHJvxVoWt02EPxMTh8w"
-}
-~~~
-{: #key-encryption-single-recipient-flattened-json align="left" title="Key Encryption (single recipient) Flattened JSON Serialization"}
-
-In the above example, the JWE Protected Header value is:
-
-~~~
-{
-
-  "alg": "HPKE-P256-SHA256-A128GCM",
-  "enc": "A128GCM",
-  "epk": {
-    "kty": "EK",
-    "ek": "BPRTKn8mQL4hN1ayokR8gkpTy5HQld4N0HXXB9cXtjUIQ37zsJDL7TugVk
-    mD1aFYTx-0bM0tfxzejLctSDKjMQs"
-  }
-}
-~~~
-
-~~~
-eyJhbGciOiAiSFBLRS1CYXNlLVAyNTYtU0hBMjU2LUFFUzEyOEdDTSIsImVuYyI6IkExM
-jhHQ00iLCJlcGsiOnsia3R5IjoiRUsiLCJlayI6IkJKN3JkTmJrdnd1bnNzZGp1NVdEa0
-FhekxhQlgzSWRjTFJqeTFSRFNBOXNpajAwamR5YmFIdVFQVHQ2UDMxQmkwbkUya1lXXzd
-MX3RhQXFBRks3NURlayJ9fQ.xaAa0nFxNJxsQQ5J6EFdzUYROd2aV517o2kZnfwhO7s.A
-gBYEWTj-EMji17I.Ejwu2iEP4xs3FfGO_zTZYu35glQmUvd_qpHpvB1hNqg6Yz5ek3NsZ
-RGMzd--HYWvABNslxBkRwrkZDXnv_BTgOTj.u0ac86ipoAwUZuYwkaKwNw
-~~~
-{: #key-encryption-single-recipient-compact align="left" title="Key Encryption (single recipient) Compact"}
-
-In the above example, the JWE Protected Header value is:
-
-~~~
-{
-  "alg": "HPKE-P256-SHA256-A128GCM",
-  "enc": "A128GCM",
-  "epk": {
-    "kty": "EK",
-    "ek": "BJ7rdNbkvwunssdju5WDkAazLaBX3IdcLRjy1RDSA9sij00jdybaHuQPTt
-    6P31Bi0nE2kYW_7L_taAqAFK75Dek"
-  }
-}
-~~~
-
-
-# Ciphersuite Registration
-
-This specification registers a number of ciphersuites for use with HPKE.
-A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
-An HPKE ciphersuite, is composed of the following choices:
-
-- HPKE Mode
-- KEM Algorithm
-- KDF Algorithm
-- AEAD Algorithm
-
-The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
-
-For readability the algorithm ciphersuites labels are built according to the following scheme:
-
-~~~
-HPKE-<KEM>-<KDF>-<AEAD>
-~~~
-
-The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
-
-- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
-which only enables encryption to the holder of a given KEM private key.
-- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
-which authenticates using a pre-shared key.
-- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
-which authenticates using an asymmetric key.
-- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
-which authenticates using both a PSK and an asymmetric key.
-
-Implementations detect the use of modes by inspecting header parameters.
-
-For a list of ciphersuite registrations, please see {{IANA}}.
 
 # Security Considerations
 
@@ -580,6 +366,39 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 
 This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki and Filip Skokan for their feedback.
 
+# Ciphersuite Registration
+
+This specification registers a number of ciphersuites for use with HPKE.
+A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
+An HPKE ciphersuite, is composed of the following choices:
+
+- HPKE Mode
+- KEM Algorithm
+- KDF Algorithm
+- AEAD Algorithm
+
+The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
+
+For readability the algorithm ciphersuites labels are built according to the following scheme:
+
+~~~
+HPKE-<KEM>-<KDF>-<AEAD>
+~~~
+
+The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
+
+- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
+which only enables encryption to the holder of a given KEM private key.
+- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
+which authenticates using a pre-shared key.
+- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
+which authenticates using an asymmetric key.
+- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
+which authenticates using both a PSK and an asymmetric key.
+
+Implementations detect the use of modes by inspecting header parameters.
+
+For a list of ciphersuite registrations, please see {{IANA}}.
 
 # Document History
 {: numbered="false"}
