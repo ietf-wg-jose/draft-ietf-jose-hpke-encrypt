@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-11T00:17:53.462237+00:00",
+  "timestamp": "2024-07-14T00:19:24.454597+00:00",
   "repo": "OR13/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOMMuuSM6PQl5e",
+      "title": "Allow hpke-info",
+      "url": "https://github.com/OR13/draft-ietf-jose-hpke-encrypt/issues/2",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "From: https://mailarchive.ietf.org/arch/msg/jose/ipj36h_QVgijtAGPlKtX8yXK71Y/\r\n\r\nProposed text:\r\n\r\n> For HPKE JWE Integrated Encryption and Key Encryption hpke-info SHOULD be empty, however, if both sender and recipient agree, hpke-info can be set to any value that is consistent with section ___ of RFC9180.\r\n\r\n",
+      "createdAt": "2024-07-11T15:31:21Z",
+      "updatedAt": "2024-07-12T13:23:08Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
