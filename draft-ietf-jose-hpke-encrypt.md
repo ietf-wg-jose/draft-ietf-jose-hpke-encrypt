@@ -56,11 +56,18 @@ author:
     country: United States
 
  -
-    ins: M. Jones
+    ins: M. B. Jones
     name: Michael B. Jones
     organization: Self-Issued Consulting
     email: michael_b_jones@hotmail.com
     uri: https://self-issued.info/
+    country: United States
+
+ -
+    ins: M. Chanda
+    name: Matt Chanda
+    organization: Apple
+    email: chanda@apple.com
     country: United States
 
 normative:
@@ -670,10 +677,14 @@ paul atreides
 # Acknowledgments
 {: numbered="false"}
 
-This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki and Filip Skokan for their feedback.
+This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to thank Ilari Liusvaara, Aaron Parecki, and Filip Skokan for their feedback.
 
 # Document History
 {: numbered="false"}
+
+-02
+
+* Added Matt Chanda as an author.
 
 -01
 
