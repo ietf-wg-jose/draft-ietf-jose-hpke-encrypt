@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 8 January 2025                                                 
+Expires: 27 April 2025                                                  
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                             7 July 2024
+                                                         24 October 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2025.
+   This Internet-Draft will expire on 27 April 2025.
 
 Copyright Notice
 
@@ -642,9 +642,9 @@ Table of Contents
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-07, 22 October 2023,
+              Internet-Draft, draft-ietf-cose-hpke-09, 12 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-07>.
+              hpke-09>.
 
    [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
               and C. Wood, "Randomness Improvements for Security
