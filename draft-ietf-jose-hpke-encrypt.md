@@ -264,7 +264,7 @@ In HPKE JWE Key Encryption:
 - The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
-- The recipient unprotected header MUST contain an "alg" that starts with "HPKE".
+- The recipient unprotected header MUST contain a registered HPKE "alg" value.
 - The recipient unprotected header MUST contain an "enc" and it must be set to the value "dir".
 - The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in { Section 5.1 of RFC7516 }.
 - The recipient "encrypted_key" is as described in { Section 7.2.1 of RFC7516 } .
