@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 27 April 2025                                                  
+Expires: 28 April 2025                                                  
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         24 October 2024
+                                                         25 October 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 April 2025.
+   This Internet-Draft will expire on 28 April 2025.
 
 Copyright Notice
 
@@ -341,8 +341,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  The recipient unprotected header parameter "ek" MUST be present.
 
-   *  The recipient unprotected header MUST contain an "alg" that starts
-      with "HPKE".
+   *  The recipient unprotected header MUST contain a registered HPKE
+      "alg" value.
 
    *  The recipient unprotected header MUST contain an "enc" and it must
       be set to the value "dir".
