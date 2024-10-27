@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-24T01:18:44.918923+00:00",
+  "timestamp": "2024-10-27T01:24:29.348737+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -97,6 +97,37 @@
       "updatedAt": "2024-07-15T15:19:43Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOMMuuSM6bsn5w",
+      "title": "Algorithm identifiers like HPKE-P256-SHA256-A128GCM are overly verbose",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/8",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The \"alg\" values should be short identifiers that fully-specify the computation to be performed. They should not contain syntax that is parsed, such as a required \"HPKE\" string prefix.\r\n\r\nLet's decide on reasonable short identifiers for each of the algorithms - ideally 8 characters each or less.",
+      "createdAt": "2024-10-24T17:21:19Z",
+      "updatedAt": "2024-10-24T17:31:10Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Hpke Jose Cipher Suite 0 - HPKE-P256-SHA256-A128GCM -> HJCS-0 ?",
+          "createdAt": "2024-10-24T17:26:09Z",
+          "updatedAt": "2024-10-24T17:26:09Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "`ECDH-ES+A128KW` has obvious structure.\r\n\r\nhttps://www.iana.org/assignments/hpke/hpke.xhtml has the source of truth for the values.\r\n\r\nThere is also the problem of \"why register all these in JOSE / COSE, who actually wants to use them\"",
+          "createdAt": "2024-10-24T17:28:29Z",
+          "updatedAt": "2024-10-24T17:31:10Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -133,21 +164,21 @@
       "id": "PR_kwDOMMuuSM53fKFh",
       "title": "Add Matt Chanda as an author",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Cc @tireddy2 @auriee @hannestschofenig\r\n\r\nIf one of you has Matt's GitHub ID, please also add him in a comment.",
       "createdAt": "2024-08-05T19:14:04Z",
-      "updatedAt": "2024-08-05T19:22:27Z",
+      "updatedAt": "2024-10-24T15:49:50Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "1d21801148e4f9123cf9439e2e32346aa1937531",
       "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-matt",
       "headRefOid": "faed9e544eee67328481835d03795b0422b45f3e",
-      "closedAt": null,
+      "closedAt": "2024-10-24T15:49:50Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -164,6 +195,194 @@
           "body": "",
           "createdAt": "2024-08-05T19:22:27Z",
           "updatedAt": "2024-08-05T19:22:27Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOMMuuSM5_y4sd",
+      "title": "Tooling update",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/6",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is the result of running:\r\n\r\n```\r\nmake\r\nmake update-files \r\n```\r\n\r\nKeeping tooling up to date.",
+      "createdAt": "2024-10-24T15:51:27Z",
+      "updatedAt": "2024-10-24T15:52:19Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "1d21801148e4f9123cf9439e2e32346aa1937531",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tooling-update",
+      "headRefOid": "a1b2ff4d8276344042639c86df55e4586d0c9aac",
+      "closedAt": "2024-10-24T15:52:19Z",
+      "mergedAt": "2024-10-24T15:52:19Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "6e267c725b5379e5747f12df7a4075a61ad654d5"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOMMuuSM5_zQNe",
+      "title": "Use enc: dir",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/7",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This pull request simplifies some examples, adds support for HPKE Setup Info, and clarifies the use of \"enc: dir\" for both HPKE JWE modes.",
+      "createdAt": "2024-10-24T16:47:32Z",
+      "updatedAt": "2024-10-25T08:26:01Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "6e267c725b5379e5747f12df7a4075a61ad654d5",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "enc-dir-jwts",
+      "headRefOid": "6785f69024967e797bf382ada9eb515f7b527b6b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6OpijO",
+          "commit": {
+            "abbreviatedOid": "795ad44"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-24T16:59:57Z",
+          "updatedAt": "2024-10-24T16:59:58Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\r\n- The recipient unprotected header MUST contain a registered HPKE \"alg\" value.\r\n```\r\nThe \"alg\" value should be registered a short identifier that fully-specifies the computation to be performed.  It should not contain syntax that is parsed, such as a required string prefix.",
+              "createdAt": "2024-10-24T16:59:57Z",
+              "updatedAt": "2024-10-24T17:01:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Opl0p",
+          "commit": {
+            "abbreviatedOid": "795ad44"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-24T17:03:35Z",
+          "updatedAt": "2024-10-24T17:03:36Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "We should deal with this in a different issue, but this is the longest \"alg\" value ever - by far.  They're meant to be short registered identifiers - not strings you can parse.",
+              "createdAt": "2024-10-24T17:03:35Z",
+              "updatedAt": "2024-10-24T17:03:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6OuP98",
+          "commit": {
+            "abbreviatedOid": "795ad44"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-25T07:52:49Z",
+          "updatedAt": "2024-10-25T07:52:50Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "You may want to replace \"must\" with \"MUST\". ",
+              "createdAt": "2024-10-25T07:52:49Z",
+              "updatedAt": "2024-10-25T07:52:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6OuVzT",
+          "commit": {
+            "abbreviatedOid": "795ad44"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-25T08:03:49Z",
+          "updatedAt": "2024-10-25T08:03:49Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "we will have to remove the following line from the draft: \r\nThe \"Setup info\" MUST NOT be used with either HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.",
+              "createdAt": "2024-10-25T08:03:49Z",
+              "updatedAt": "2024-10-25T08:03:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6OuaNz",
+          "commit": {
+            "abbreviatedOid": "6785f69"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-25T08:11:09Z",
+          "updatedAt": "2024-10-25T08:11:09Z",
+          "comments": [
+            {
+              "originalPosition": 94,
+              "body": "In the case of Key Encryption, what is the need to convey \"enc\" in the recipient unprotected header? I don\u2019t see a need for it in this mode, as the HPKE JWE Key Encryption Mode can function similarly to Key Agreement with ECDH-ES.",
+              "createdAt": "2024-10-25T08:11:09Z",
+              "updatedAt": "2024-10-25T08:11:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6OugDt",
+          "commit": {
+            "abbreviatedOid": "6785f69"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-25T08:19:28Z",
+          "updatedAt": "2024-10-25T08:19:28Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "I think for interoperability we should say the following for both modes :\r\nWhen apu / apv are present, the HPKE Setup info parameter will carry the JOSE context-specific data defined in Section 4.6.2 of [RFC7518].",
+              "createdAt": "2024-10-25T08:19:28Z",
+              "updatedAt": "2024-10-25T08:19:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6OulSB",
+          "commit": {
+            "abbreviatedOid": "6785f69"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Most of the changes look good. ",
+          "createdAt": "2024-10-25T08:26:01Z",
+          "updatedAt": "2024-10-25T08:26:01Z",
           "comments": []
         }
       ]
