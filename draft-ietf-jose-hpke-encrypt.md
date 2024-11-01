@@ -166,8 +166,6 @@ HPKE has two places at which applications can specify auxiliary authenticated in
 
 HPKE algorithms are not required to process "apu" and "apv" as described in Section 4.6.1 of {{RFC7518}}, despite appearing to be similar to key agreement algorithms (such as "ECDH-ES").
 
-The "Setup info" MUST NOT be used with either HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
-
 The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 
 To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and Seal().
@@ -190,13 +188,13 @@ In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted co
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that starts with "HPKE".
-- The protected header MUST contain an "enc" and it must be set to the value "dir".
+- The protected header MUST contain an "enc" and it MUST be set to the value "dir". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "dir" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
 - The protected header parameters "psk_id" and "auth_kid" MAY be present.
 - The protected header parameters "ek" MUST NOT be present.
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used and its values are not constrained by this specification, by default it is empty.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
 
 ## Compact Example
 
@@ -265,13 +263,12 @@ In HPKE JWE Key Encryption:
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The recipient unprotected header MUST contain an "enc" and it must be set to the value "dir".
 - The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in { Section 5.1 of RFC7516 }.
 - The recipient "encrypted_key" is as described in { Section 7.2.1 of RFC7516 } .
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in { Section 5.1 of RFC7516 }.
-- The HPKE Setup info parameter MAY be used and its values are not constrained by this specification, by default it is empty.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
 
 ## Multiple Recipients
 
@@ -302,7 +299,6 @@ For example:
       "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
       "header": {
         "alg": "HPKE-P256-SHA256-A128GCM",
-        "enc": "dir",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
         "psk_id": "our-pre-shared-key-id",
         "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
