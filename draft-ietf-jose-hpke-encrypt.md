@@ -86,7 +86,7 @@ informative:
      title: Hybrid Public Key Encryption (HPKE) IANA Registry
      target: https://www.iana.org/assignments/hpke/hpke.xhtml
      date: October 2023
-
+---
 
 
 --- abstract
@@ -183,19 +183,76 @@ Encapsulated keys MUST be the base64url encoded encapsulated key as defined in S
 
 In HPKE JWE Integrated Encryption, JWE Encrypted Key is the encapsulated key.
 
-In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the encapsulated key is found in the recipient header.
+In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the encapsulated key (ek) is found in the recipient header.
 
 # Integrated Encryption
 
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that starts with "HPKE".
-- The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
+- The protected header MUST contain an "enc" and it must be set to the value "dir".
 - The protected header parameters "psk_id" and "auth_kid" MAY be present.
 - The protected header parameters "ek" MUST NOT be present.
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
+- The HPKE Setup info parameter MAY be used and its values are not constrained by this specification, by default it is empty.
+
+## Compact Example
+
+A Compact JWE or JSON Web Token:
+
+~~~
+eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1Njp2b2RIQ3FjVVdFbV83NUpWcXlhTjhaS1FVMjF3VEFSYzhkRzhuVU1jZlBVIn0.BCsvYxTHM4CO_OwQxL3lkJDdlw3UDjx2xN9MIXnbVzfTgFJmo_Es2xdH-fYs9EXfH_V53JgMWfUm7rBD_oE5efU..7_va6cnwClMsw7h7lqpm2tCrH9NkciM-g9UabdPWcOeIRmAf01NLYG7Wn8fFoohHlcGgd0nh7Jmo9nvHFi7sH6kOX7pplBnvLUoPrqeyW4TdXo_X8YThNKf9BFyWGyF6fjelbic5jSYClFaenMkTnjpHxFW1sWuiuZVmO1EOzrlNttWy.
+~~~
+
+After verification:
+
+~~~
+{
+  "protectedHeader": {
+    "alg": "HPKE-P256-SHA256-A128GCM",
+    "enc": "dir",
+    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
+  },
+  "payload": {
+    "urn:example:claim": true,
+    "iss": "urn:example:issuer",
+    "aud": "urn:example:audience",
+    "iat": 1729785491,
+    "exp": 1729792691
+  }
+}
+~~~
+
+## JSON Example
+
+A JSON Encoded JWE:
+
+~~~
+{
+  "protected": "eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIiwicHNrX2lkIjoib3VyLXByZS1zaGFyZWQta2V5LWlkIiwiYXV0aF9raWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIn0",
+  "encrypted_key": "BD7QVodtG-FwYASgb36zuTzUCc80aiYwS6JOOE-6_heUGyAZt-cU0818e4oYqP7ebBuW3KTM9EQA0vM5fWp6hj0",
+  "ciphertext": "ZxqtYoomgVQGctnv1I_EBVI1NIeJ7qJw2iVtqwUw3fXa8FK-",
+  "aad": "8J-PtOKAjeKYoO-4jyBiZXdhcmUgdGhlIGFhZCE"
+}
+~~~
+
+After verification:
+
+~~~
+{
+  "protectedHeader": {
+    "alg": "HPKE-P256-SHA256-A128GCM",
+    "enc": "dir",
+    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
+    "psk_id": "our-pre-shared-key-id",
+    "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s"
+  },
+  "plaintext": "🖤 this plaintext!",
+  "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
+}
+~~~
 
 # Key Encryption
 
@@ -207,12 +264,74 @@ In HPKE JWE Key Encryption:
 - The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
-- The recipient unprotected header parameter MAY contain "alg" and "enc" values.
+- The recipient unprotected header MUST contain a registered HPKE "alg" value.
+- The recipient unprotected header MUST contain an "enc" and it must be set to the value "dir".
 - The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in { Section 5.1 of RFC7516 }.
 - The recipient "encrypted_key" is as described in { Section 7.2.1 of RFC7516 } .
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in { Section 5.1 of RFC7516 }.
+- The HPKE Setup info parameter MAY be used and its values are not constrained by this specification, by default it is empty.
+
+## Multiple Recipients
+
+For example:
+
+~~~
+{
+  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
+  "iv": "ZL0HDvZJizA6vyTV",
+  "ciphertext": "Oq26x9vppULrGNzCn2jaB_Sl-Swjv7e0AcgnhUR5AtrjEf2v6jee09WN-Ne-HIGXBgQpgJPchg0eWNmgv4Ozi5I",
+  "tag": "ULnlOiJRYfCzM_r5j9sLEQ",
+  "aad": "cGF1bCBhdHJlaWRlcw",
+  "recipients": [
+    {
+      "encrypted_key": "G3HmlpOgA4H1i_RQhT44Nw7svDwUqvNR",
+      "header": {
+        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:cxQC_lWt22BIjH5AWSLHCZk_f-mU3-W4Ztcu5-ZbwTk",
+        "alg": "ECDH-ES+A128KW",
+        "epk": {
+          "kty": "EC",
+          "crv": "P-256",
+          "x": "JnGWSQ90hlt0H7bfcgfaw2DZE-qqv_cwA4_Dn_CkLzE",
+          "y": "6jw1AC5q9-qewwBh9DK5YzUHLOogToGDSpoYAJdNo-E"
+        }
+      }
+    },
+    {
+      "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
+      "header": {
+        "alg": "HPKE-P256-SHA256-A128GCM",
+        "enc": "dir",
+        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
+        "psk_id": "our-pre-shared-key-id",
+        "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
+        "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
+      }
+    }
+  ]
+}
+~~~
+
+After verification:
+
+~~~
+{
+  "plaintext": "🎵 My lungs taste the air of Time Blown past falling sands 🎵",
+  "protectedHeader": {
+    "enc": "A128GCM"
+  },
+  "unprotectedHeader": {
+    "alg": "HPKE-P256-SHA256-A128GCM",
+    "enc": "dir",
+    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
+    "psk_id": "our-pre-shared-key-id",
+    "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
+    "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
+  },
+  "additionalAuthenticatedData": "paul atreides"
+}
+~~~
 
 # Security Considerations
 
@@ -398,11 +517,9 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 
 --- back
 
-# Examples
+# Keys Used In Examples
 
-The following examples contain newlines for readability.
-
-This private key and it implied public key are used in the following examples:
+This private key and it implied public key are used the examples:
 
 ~~~ text
 {
@@ -416,7 +533,7 @@ This private key and it implied public key are used in the following examples:
 }
 ~~~
 
-This pre shared key is used in the following examples:
+This pre shared key is used in the examples:
 
 ~~~ text
 {
@@ -425,247 +542,6 @@ This pre shared key is used in the following examples:
   "k": "anVnZW11anVnZW11Z29rb3Vub3N1cmlraXJla2FpamE"
 }
 ~~~
-
-## Integrated Encryption
-
-### Example 0
-
-This example demonstrates the use of Integrated Encryption with Auth Mode and a Pre shared key.
-
-The compact serialization is:
-
-~~~ text
-eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJBMTI4R0NNIiwi
-a2lkIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnByaW50OnNoYS0yNTY6
-UzZBWGZkVV82WWZ6dnUwS0RESmIwc0Z1d25JV1BrNkxNVEVyWWhQYjMycyIsInBza19p
-ZCI6Im91ci1wcmUtc2hhcmVkLWtleS1pZCIsImF1dGhfa2lkIjoidXJuOmlldGY6cGFy
-YW1zOm9hdXRoOmp3ay10aHVtYnByaW50OnNoYS0yNTY6UzZBWGZkVV82WWZ6dnUwS0RE
-SmIwc0Z1d25JV1BrNkxNVEVyWWhQYjMycyJ9.BL_K7-o0jtNcCtYfoFhgh42jPxrz4aW
-1jvjeSyHnAXKsomGQ1VCvwjSduwaWJ1Ewrrh3G1vf94xJ_Bb9YwYE9JU..Fl0HsSaXA-
-ICfSz97iRRW6qApb5MFQct9llEPvkL0gEim9GmrDm8REJcquETwdTTaGitDZ_IbnwTwk
-57ic1nfyRjWTFzEZLs_IAqZphP2J6KcqKHHBJJraeTkN9r1kNrDP6yg4xqcceCVmcn_f
-dd2Oudij-FlU2IXsQKRyo2B2H9Q2si.
-~~~
-
-The json serialization is:
-
-~~~ text
-{
-  "protected":"eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiO
-  iJBMTI4R0NNIiwia2lkIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnB
-  yaW50OnNoYS0yNTY6UzZBWGZkVV82WWZ6dnUwS0RESmIwc0Z1d25JV1BrNkxNVEVyW
-  WhQYjMycyIsInBza19pZCI6Im91ci1wcmUtc2hhcmVkLWtleS1pZCIsImF1dGhfa2l
-  kIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnByaW50OnNoYS0yNTY6U
-  zZBWGZkVV82WWZ6dnUwS0RESmIwc0Z1d25JV1BrNkxNVEVyWWhQYjMycyJ9",
-
-  "encrypted_key":"BL_K7-o0jtNcCtYfoFhgh42jPxrz4aW1jvjeSyHnAXKsomGQ1
-  VCvwjSduwaWJ1Ewrrh3G1vf94xJ_Bb9YwYE9JU",
-
-  "ciphertext":"Fl0HsSaXA-ICfSz97iRRW6qApb5MFQct9llEPvkL0gEim9GmrDm8
-  REJcquETwdTTaGitDZ_IbnwTwk57ic1nfyRjWTFzEZLs_IAqZphP2J6KcqKHHBJJra
-  eTkN9r1kNrDP6yg4xqcceCVmcn_fdd2Oudij-FlU2IXsQKRyo2B2H9Q2si"
-}
-~~~
-
-The decoded protected header is:
-
-~~~ text
-{
-  "alg": "HPKE-P256-SHA256-A128GCM",
-  "enc": "A128GCM",
-  "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzv
-  u0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  "psk_id": "our-pre-shared-key-id",
-  "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_
-  6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s"
-}
-~~~
-
-The decrypted plaintext is:
-
-~~~ text
-{
-  "urn:example:claim":true,
-  "iss":"urn:example:issuer",
-  "aud":"urn:example:audience",
-  "iat":1720387513,
-  "exp":1720394713
-}
-~~~
-
-### Example 1
-
-This example demonstrates the use of Integrated Encryption with Auth Mode and a Pre shared key as well as JWE Additional Authenticated Data.
-
-There is way to express a JWE with aad in Compact JWE Serialization.
-
-~~~ text
-{
-  "protected":"eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiO
-  iJBMTI4R0NNIiwia2lkIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnB
-  yaW50OnNoYS0yNTY6UzZBWGZkVV82WWZ6dnUwS0RESmIwc0Z1d25JV1BrNkxNVEVyW
-  WhQYjMycyIsInBza19pZCI6Im91ci1wcmUtc2hhcmVkLWtleS1pZCIsImF1dGhfa2l
-  kIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnByaW50OnNoYS0yNTY6U
-  zZBWGZkVV82WWZ6dnUwS0RESmIwc0Z1d25JV1BrNkxNVEVyWWhQYjMycyJ9",
-
-  "encrypted_key":"BPlPRS-eX1m6zcxNScg4f_W6-eZTvu9n0F-wUcTuJZNsnf7Z1
-  wasEW_g4sdbhFiDxBdd1_gCtyXpAatukbunN_I",
-
-  "ciphertext":"RM7Bhz3WHSTeVYDlzLuYMhvECfKXhFIJPgMb1gUGMMkyUZeR",
-
-  "aad":"8J-PtOKAjeKYoO-4jyBiZXdhcmUgdGhlIGFhZCE"
-}
-~~~
-
-The decoded protected header is:
-
-~~~ text
-{
-  "alg": "HPKE-P256-SHA256-A128GCM",
-  "enc": "A128GCM",
-  "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzv
-  u0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  "psk_id": "our-pre-shared-key-id",
-  "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_
-  6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s"
-}
-~~~
-
-The decrypted plaintext is:
-
-~~~ text
-🖤 this plaintext!
-~~~
-
-The decoded aad is:
-
-~~~ text
-🏴‍☠️ beware the aad!
-~~~
-
-
-## Key Encryption
-
-### Example 2
-
-This example demonstrates the use of Key Encryption with Auth Mode and a Pre shared key, in both Compact JWE Serialization and General JWE JSON Serialization.
-
-~~~ text
- eyJlbmMiOiJBMTI4R0NNIn0.S_y3YPaLfjiwGz5o65BHciu14AZv-0J4Kzgtp2s7p7Q
- .EfX5ELXllga3S6Xx.up_VjB87-VSXd7d5ycPmhK9RtHx6vxOQJNjHjcqdrNKAWJcqb
- QEFzypSRhtSn9GmmlRQKl2j0DxUbT9q9mVZ.PutkemRFtDPkog7lh3aqbw
-~~~
-
-Note that the recipient structure is destroyed when converting to compact serialization, and that "ek" moves to "encrypted_key".
-
-~~~ text
-{
-  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "iv": "EfX5ELXllga3S6Xx",
-  "ciphertext": "up_VjB87-VSXd7d5ycPmhK9RtHx6vxOQJNjHjcqdrNKAWJcqbQE
-  FzypSRhtSn9GmmlRQKl2j0DxUbT9q9mVZ",
-  "tag": "PutkemRFtDPkog7lh3aqbw",
-  "recipients": [
-    {
-      "encrypted_key": "S_y3YPaLfjiwGz5o65BHciu14AZv-0J4Kzgtp2s7p7Q",
-      "header": {
-        "alg": "HPKE-P256-SHA256-A128GCM",
-        "enc": "A128GCM",
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:bVviD6o
-        OxaE-bCceWhaMYxOA7V-uy8fUl1xxvZ-Krvc",
-        "psk_id": "our-pre-shared-key-id",
-        "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:bV
-        viD6oOxaE-bCceWhaMYxOA7V-uy8fUl1xxvZ-Krvc",
-        "ek": "BKVLrAsOZ81MrTY3oyvSHnbBQWBp0viMZi0xYJkrOWcFIJThiyHkl
-        LwplWoLQsQyE3xM6glXxWhJyb4LCzMGOLc"
-      }
-    }
-  ]
-}
-~~~
-
-
-The decoded protected header is:
-
-~~~ text
-{
-  "enc": "A128GCM"
-}
-~~~
-
-The decrypted plaintext is:
-
-~~~ text
-⌛ My lungs taste the air of Time Blown past falling sands ⌛
-~~~
-
-### Example 3
-
-This example demonstrates the use of Key Encryption with Auth Mode and a Pre shared key, JWE Additional Authenticated Data and General JWE JSON Serialization.
-
-There is way to express a JWE with aad in Compact JWE Serialization.
-
-~~~ text
-{
-  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "iv": "Koo4oayn9ooLgbKp",
-  "ciphertext": "rGtay4qzhd_PyahVR7YcjmVd9txM1xndn74Bo5xGG3EIQJ5CPXl
-  O7VqA8H_YDTWICdpoUWJbJNKI1wniEwhO",
-  "tag": "Q68sYFCFFYH6CGXUbPcU0g",
-  "aad": "cGF1bCBhdHJlaWRlcw",
-  "recipients": [
-    {
-      "encrypted_key": "hSi_NAlaas0QarPbpESlBXuE9d204faW",
-      "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:gnW5wb1
-        7yYOST5_wEv87Y6Cf_bqF7dV5b0v_8Lxsrko",
-        "alg": "ECDH-ES+A128KW",
-        "epk": {
-          "kty": "EC",
-          "crv": "P-256",
-          "x": "41mLA3QKwfhO9yWbPeMV6Xw35Vwpn1di6deLdK0kGjc",
-          "y": "SzVzu3IWH6YaPA9DjgKh81jDcRvhcmRgpP9S_qEechU"
-        }
-      }
-    },
-    {
-      "encrypted_key": "2WJXQE3eKLITL7m61gz4MXA37bE8QfPHjwnt0Kgq3u8",
-      "header": {
-        "alg": "HPKE-P256-SHA256-A128GCM",
-        "enc": "A128GCM",
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:1x34RWo
-        fdglrdlAhqUJotlSnknAc0pcsarZtZPADNxk",
-        "psk_id": "our-pre-shared-key-id",
-        "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:1x
-        34RWofdglrdlAhqUJotlSnknAc0pcsarZtZPADNxk",
-        "ek": "BLRK__E3XUC75sGRAo8de-wDasg_IDNcmmC-Lfnvk1S-uJ00fccdf
-        TKKXgDeo4cGGYviPYdq7xhEWbAA4VpIxVg"
-      }
-    }
-  ]
-}
-~~~
-
-The decoded protected header is:
-
-~~~ text
-{
-  "enc": "A128GCM"
-}
-~~~
-
-The decrypted plaintext is:
-
-~~~ text
-⌛ My lungs taste the air of Time Blown past falling sands ⌛
-~~~
-
-The decoded aad is:
-
-~~~ text
-paul atreides
-~~~
-
 
 # Acknowledgments
 {: numbered="false"}
