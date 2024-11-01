@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 28 April 2025                                                  
+Expires: 5 May 2025                                                     
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         25 October 2024
+                                                         1 November 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 April 2025.
+   This Internet-Draft will expire on 5 May 2025.
 
 Copyright Notice
 
@@ -213,9 +213,6 @@ Table of Contents
    described in Section 4.6.1 of [RFC7518], despite appearing to be
    similar to key agreement algorithms (such as "ECDH-ES").
 
-   The "Setup info" MUST NOT be used with either HPKE JWE Integrated
-   Encryption and HPKE JWE Key Encryption.
-
    The "aad parameter" for Open() and Seal() MUST be used with both HPKE
    JWE Integrated Encryption and HPKE JWE Key Encryption.
 
@@ -253,8 +250,12 @@ Table of Contents
    *  The protected header MUST contain an "alg" that starts with
       "HPKE".
 
-   *  The protected header MUST contain an "enc" and it must be set to
-      the value "dir".
+   *  The protected header MUST contain an "enc" and it MUST be set to
+      the value "dir".  It updates Section 4.1.2 of [RFC7516] to clarify
+      that in case where HPKE JWE Integrated Encryption is used, setting
+      "enc" set to "dir" is appropriate, as both the derivation of the
+      CEK and the encryption of the plaintext are fully handled within
+      the HPKE encryption.
 
    *  The protected header parameters "psk_id" and "auth_kid" MAY be
       present.
@@ -269,8 +270,10 @@ Table of Contents
    *  The "ciphertext" MUST be the base64url encoded ciphertext as
       defined in Section 5.2 of [RFC9180].
 
-   *  The HPKE Setup info parameter MAY be used and its values are not
-      constrained by this specification, by default it is empty.
+   *  The HPKE Setup info parameter MAY be used, and its values are not
+      constrained by this specification.  By default, it is empty unless
+      apu or apv are present, in which case it will carry the JOSE
+      context-specific data as defined in Section 4.6.2 of [RFC7518].
 
 5.1.  Compact Example
 
@@ -344,9 +347,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    *  The recipient unprotected header MUST contain a registered HPKE
       "alg" value.
 
-   *  The recipient unprotected header MUST contain an "enc" and it must
-      be set to the value "dir".
-
    *  The "encrypted_key" MUST be the base64url encoded content
       encryption key as described in Step 15 in { Section 5.1 of RFC7516
       }.
@@ -361,8 +361,10 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    *  The "ciphertext" MUST be the base64url encoded ciphertext as
       described in Step 19 in { Section 5.1 of RFC7516 }.
 
-   *  The HPKE Setup info parameter MAY be used and its values are not
-      constrained by this specification, by default it is empty.
+   *  The HPKE Setup info parameter MAY be used, and its values are not
+      constrained by this specification.  By default, it is empty unless
+      apu or apv are present, in which case it will carry the JOSE
+      context-specific data as defined in Section 4.6.2 of [RFC7518].
 
 6.1.  Multiple Recipients
 
@@ -392,7 +394,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
       "header": {
         "alg": "HPKE-P256-SHA256-A128GCM",
-        "enc": "dir",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
         "psk_id": "our-pre-shared-key-id",
         "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
