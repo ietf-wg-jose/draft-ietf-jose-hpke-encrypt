@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-31T01:20:17.835663+00:00",
+  "timestamp": "2024-11-03T01:24:17.427787+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -232,25 +232,49 @@
       "id": "PR_kwDOMMuuSM5_zQNe",
       "title": "Use enc: dir",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/7",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This pull request simplifies some examples, adds support for HPKE Setup Info, and clarifies the use of \"enc: dir\" for both HPKE JWE modes.",
       "createdAt": "2024-10-24T16:47:32Z",
-      "updatedAt": "2024-10-25T08:26:01Z",
+      "updatedAt": "2024-11-01T08:58:45Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "6e267c725b5379e5747f12df7a4075a61ad654d5",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "enc-dir-jwts",
       "headRefOid": "6785f69024967e797bf382ada9eb515f7b527b6b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-11-01T08:52:27Z",
+      "mergedAt": "2024-11-01T08:52:27Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "e37f01f5194691497ffc610c8f6622722d9eb70e"
+      },
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@tireddy2 would you mind merging this, and then making adjustments in https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/9\r\n\r\nWe still have some further alignment to cover, but it would be good to have no open PRs during the week of IETF.\r\n\r\nAnd we can consider publishing a new version when the draft window opens up.",
+          "createdAt": "2024-10-31T15:57:16Z",
+          "updatedAt": "2024-10-31T15:57:16Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Agreed - the spec will be improved by merging this.  I just approved.\n\nFrom: Orie Steele ***@***.***>\nSent: Thursday, October 31, 2024 8:58 AM\nTo: ietf-wg-jose/draft-ietf-jose-hpke-encrypt ***@***.***>\nCc: Michael B. Jones ***@***.***>; Comment ***@***.***>\nSubject: Re: [ietf-wg-jose/draft-ietf-jose-hpke-encrypt] Use enc: dir (PR #7)\n\n\n@tireddy2<https://github.com/tireddy2> would you mind merging this, and then making adjustments in #9<https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/9>\n\nWe still have some further alignment to cover, but it would be good to have no open PRs during the week of IETF.\n\nAnd we can consider publishing a new version when the draft window opens up.\n\n-\nReply to this email directly, view it on GitHub<https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/7#issuecomment-2450239134>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AB2KJ7QHRSH4YVBNMXMF7JTZ6JHPHAVCNFSM6AAAAABQRQI6LCVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDINJQGIZTSMJTGQ>.\nYou are receiving this because you commented.Message ID: ***@***.******@***.***>>\n",
+          "createdAt": "2024-10-31T16:47:41Z",
+          "updatedAt": "2024-10-31T16:47:41Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@OR13 @selfissued - Merged the PR, please review https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/9",
+          "createdAt": "2024-11-01T08:58:44Z",
+          "updatedAt": "2024-11-01T08:58:44Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOMMuuSM6OpijO",
@@ -383,6 +407,69 @@
           "body": "Most of the changes look good. ",
           "createdAt": "2024-10-25T08:26:01Z",
           "updatedAt": "2024-10-25T08:26:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6PjzY8",
+          "commit": {
+            "abbreviatedOid": "6785f69"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-31T16:46:39Z",
+          "updatedAt": "2024-10-31T16:46:39Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOMMuuSM6AhKT8",
+      "title": "Address pending issues",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/9",
+      "state": "MERGED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-31T12:43:00Z",
+      "updatedAt": "2024-11-01T09:24:33Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "enc-dir-jwts",
+      "baseRefOid": "6785f69024967e797bf382ada9eb515f7b527b6b",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-1",
+      "headRefOid": "cb07b873a3b6a62d95116600d38b81c94bf805f5",
+      "closedAt": "2024-11-01T09:24:33Z",
+      "mergedAt": "2024-11-01T09:24:33Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "13bc9096df81c3216a6f558585e1a73d8807b6d3"
+      },
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looks good to me, Mike also pointed out the extraneous enc in the recipient, thanks for fixing that",
+          "createdAt": "2024-11-01T09:14:12Z",
+          "updatedAt": "2024-11-01T09:14:12Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6Poelx",
+          "commit": {
+            "abbreviatedOid": "cb07b87"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-01T09:13:11Z",
+          "updatedAt": "2024-11-01T09:13:12Z",
           "comments": []
         }
       ]
