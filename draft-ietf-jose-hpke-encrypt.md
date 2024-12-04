@@ -188,13 +188,13 @@ In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted co
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that starts with "HPKE".
-- The protected header MUST contain an "enc" and it MUST be set to the value "dir". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "dir" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
+- The protected header MUST contain an "enc" and it MUST be set to the value "intg". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "intg" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
 - The protected header parameters "psk_id" and "auth_kid" MAY be present.
-- The protected header parameters "ek" MUST NOT be present.
+- The protected header parameter "ek" MUST NOT be present.
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, PartyVInfo, SuppPubInfo, and SuppPrivInfo. It does not include Z or keydatalen.
 
 ## Compact Example
 
@@ -263,12 +263,12 @@ In HPKE JWE Key Encryption:
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in { Section 5.1 of RFC7516 }.
-- The recipient "encrypted_key" is as described in { Section 7.2.1 of RFC7516 } .
+- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in Section 5.1 of {{RFC7516}}.
+- The recipient "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in { Section 5.1 of RFC7516 }.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
+- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, PartyVInfo, SuppPubInfo, and SuppPrivInfo. It does not include Z or keydatalen.
 
 ## Multiple Recipients
 
@@ -328,6 +328,10 @@ After verification:
   "additionalAuthenticatedData": "paul atreides"
 }
 ~~~
+
+# Key Management 
+
+As noted in Section 9.2.3 of {{RFC9180}} reusing a single KEM key across multiple algorithm combinations MUST be avoided to maintain cryptographic security. Each key and its associated algorithm suite, comprising the KEM, KDF, and AEAD should be managed independently. This separation prevents unintended interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are preserved.
 
 # Security Considerations
 
