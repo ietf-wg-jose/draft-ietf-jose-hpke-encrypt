@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 5 May 2025                                                     
+Expires: 7 June 2025                                                    
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         1 November 2024
+                                                         4 December 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 May 2025.
+   This Internet-Draft will expire on 7 June 2025.
 
 Copyright Notice
 
@@ -90,29 +90,30 @@ Table of Contents
      5.2.  JSON Example
    6.  Key Encryption
      6.1.  Multiple Recipients
-   7.  Security Considerations
-     7.1.  Plaintext Compression
-     7.2.  Header Parameters
-     7.3.  Ensure Cryptographic Keys Have Sufficient Entropy
-     7.4.  Validate Cryptographic Inputs
-     7.5.  Use Appropriate Algorithms
-   8.  IANA Considerations
-     8.1.  Ciphersuite Registration
-     8.2.  JSON Web Signature and Encryption Algorithms
-       8.2.1.  HPKE-P256-SHA256-A128GCM
-       8.2.2.  HPKE-P384-SHA384-A256GCM
-       8.2.3.  HPKE-P521-SHA512-A256GCM
-       8.2.4.  HPKE-X25519-SHA256-A128GCM
-       8.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
-       8.2.6.  HPKE-X448-SHA512-A256GCM
-       8.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
-     8.3.  JSON Web Signature and Encryption Header Parameters
-       8.3.1.  ek
-       8.3.2.  psk_id
-       8.3.3.  auth_kid
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   7.  Key Management
+   8.  Security Considerations
+     8.1.  Plaintext Compression
+     8.2.  Header Parameters
+     8.3.  Ensure Cryptographic Keys Have Sufficient Entropy
+     8.4.  Validate Cryptographic Inputs
+     8.5.  Use Appropriate Algorithms
+   9.  IANA Considerations
+     9.1.  Ciphersuite Registration
+     9.2.  JSON Web Signature and Encryption Algorithms
+       9.2.1.  HPKE-P256-SHA256-A128GCM
+       9.2.2.  HPKE-P384-SHA384-A256GCM
+       9.2.3.  HPKE-P521-SHA512-A256GCM
+       9.2.4.  HPKE-X25519-SHA256-A128GCM
+       9.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
+       9.2.6.  HPKE-X448-SHA512-A256GCM
+       9.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
+     9.3.  JSON Web Signature and Encryption Header Parameters
+       9.3.1.  ek
+       9.3.2.  psk_id
+       9.3.3.  auth_kid
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Keys Used In Examples
    Acknowledgments
    Document History
@@ -260,7 +261,7 @@ Table of Contents
    *  The protected header parameters "psk_id" and "auth_kid" MAY be
       present.
 
-   *  The protected header parameters "ek" MUST NOT be present.
+   *  The protected header parameter "ek" MUST NOT be present.
 
    *  The "encrypted_key" MUST be the base64url encoded encapsulated key
       as defined in Section 5.1.1 of [RFC9180].
@@ -273,7 +274,10 @@ Table of Contents
    *  The HPKE Setup info parameter MAY be used, and its values are not
       constrained by this specification.  By default, it is empty unless
       apu or apv are present, in which case it will carry the JOSE
-      context-specific data as defined in Section 4.6.2 of [RFC7518].
+      context-specific data as defined in Section 4.6.2 of [RFC7518],
+      i.e., the concatenation of AlgorithmID, PartyUInfo, PartyVInfo,
+      SuppPubInfo, and SuppPrivInfo.  It does not include Z or
+      keydatalen.
 
 5.1.  Compact Example
 
@@ -348,23 +352,26 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       "alg" value.
 
    *  The "encrypted_key" MUST be the base64url encoded content
-      encryption key as described in Step 15 in { Section 5.1 of RFC7516
-      }.
+      encryption key as described in Step 15 in Section 5.1 of
+      [RFC7516].
 
-   *  The recipient "encrypted_key" is as described in { Section 7.2.1
-      of RFC7516 } .
+   *  The recipient "encrypted_key" is as described in Section 7.2.1 of
+      [RFC7516].
 
    *  The "iv", "tag" JWE members MUST be present.
 
    *  The "aad" JWE member MAY be present.
 
    *  The "ciphertext" MUST be the base64url encoded ciphertext as
-      described in Step 19 in { Section 5.1 of RFC7516 }.
+      described in Step 19 in Section 5.1 of [RFC7516].
 
    *  The HPKE Setup info parameter MAY be used, and its values are not
       constrained by this specification.  By default, it is empty unless
       apu or apv are present, in which case it will carry the JOSE
-      context-specific data as defined in Section 4.6.2 of [RFC7518].
+      context-specific data as defined in Section 4.6.2 of [RFC7518],
+      i.e., the concatenation of AlgorithmID, PartyUInfo, PartyVInfo,
+      SuppPubInfo, and SuppPrivInfo.  It does not include Z or
+      keydatalen.
 
 6.1.  Multiple Recipients
 
@@ -421,7 +428,17 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
   "additionalAuthenticatedData": "paul atreides"
 }
 
-7.  Security Considerations
+7.  Key Management
+
+   As noted in Section 9.2.3 of [RFC9180] reusing a single KEM key
+   across multiple algorithm combinations MUST be avoided to maintain
+   cryptographic security.  Each key and its associated algorithm suite,
+   comprising the KEM, KDF, and AEAD should be managed independently.
+   This separation prevents unintended interactions or vulnerabilities
+   between suites, ensuring the integrity and security guarantees of
+   each algorithm suite are preserved.
+
+8.  Security Considerations
 
    This specification is based on HPKE and the security considerations
    of [RFC9180] are therefore applicable also to this specification.
@@ -441,14 +458,14 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    generated and it MUST be ensured that the guidelines in [RFC8937] for
    random number generations are followed.
 
-7.1.  Plaintext Compression
+8.1.  Plaintext Compression
 
    Implementers are advised to review Section 3.6 of [RFC8725], which
    states: Compression of data SHOULD NOT be done before encryption,
    because such compressed data often reveals information about the
    plaintext.
 
-7.2.  Header Parameters
+8.2.  Header Parameters
 
    Implementers are advised to review Section 3.10 of [RFC8725], which
    comments on application processing of JWE Protected Headers.
@@ -456,7 +473,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    which an attacker could leverage to mount denial of service, forgery
    or injection attacks.
 
-7.3.  Ensure Cryptographic Keys Have Sufficient Entropy
+8.3.  Ensure Cryptographic Keys Have Sufficient Entropy
 
    Implementers are advised to review Section 3.5 of [RFC8725], which
    provides comments on entropy requirements for keys.  This guidance is
@@ -464,7 +481,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    and Integrated Encryption.  Additionally, this guidance is applicable
    to content encryption keys used in Key Encryption mode.
 
-7.4.  Validate Cryptographic Inputs
+8.4.  Validate Cryptographic Inputs
 
    Implementers are advised to review Section 3.4 of [RFC8725], which
    provides comments on the validation of cryptographic inputs.  This
@@ -473,7 +490,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    structure of the public and private keys.  These inputs are crucial
    for the HPKE KEM operations.
 
-7.5.  Use Appropriate Algorithms
+8.5.  Use Appropriate Algorithms
 
    Implementers are advised to review Section 3.2 of [RFC8725], which
    comments on the selection of appropriate algorithms.  This is
@@ -482,11 +499,11 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    This document adds entries to [JOSE-IANA].
 
-8.1.  Ciphersuite Registration
+9.1.  Ciphersuite Registration
 
    This specification registers a number of ciphersuites for use with
    HPKE.  A ciphersuite is a group of algorithms, often sharing
@@ -528,12 +545,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    Implementations detect the use of modes by inspecting header
    parameters.
 
-8.2.  JSON Web Signature and Encryption Algorithms
+9.2.  JSON Web Signature and Encryption Algorithms
 
    The following entries are added to the "JSON Web Signature and
    Encryption Algorithms" registry:
 
-8.2.1.  HPKE-P256-SHA256-A128GCM
+9.2.1.  HPKE-P256-SHA256-A128GCM
 
    *  Algorithm Name: HPKE-P256-SHA256-A128GCM
 
@@ -551,7 +568,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.2.  HPKE-P384-SHA384-A256GCM
+9.2.2.  HPKE-P384-SHA384-A256GCM
 
    *  Algorithm Name: HPKE-P384-SHA384-A256GCM
 
@@ -569,7 +586,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.3.  HPKE-P521-SHA512-A256GCM
+9.2.3.  HPKE-P521-SHA512-A256GCM
 
    *  Algorithm Name: HPKE-P521-SHA512-A256GCM
 
@@ -587,7 +604,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.4.  HPKE-X25519-SHA256-A128GCM
+9.2.4.  HPKE-X25519-SHA256-A128GCM
 
    *  Algorithm Name: HPKE-X25519-SHA256-A128GCM
 
@@ -605,7 +622,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
+9.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
 
    *  Algorithm Name: HPKE-X25519-SHA256-ChaCha20Poly1305
 
@@ -623,7 +640,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.6.  HPKE-X448-SHA512-A256GCM
+9.2.6.  HPKE-X448-SHA512-A256GCM
 
    *  Algorithm Name: HPKE-X448-SHA512-A256GCM
 
@@ -641,7 +658,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
+9.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
 
    *  Algorithm Name: HPKE-X448-SHA512-ChaCha20Poly1305
 
@@ -659,12 +676,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.3.  JSON Web Signature and Encryption Header Parameters
+9.3.  JSON Web Signature and Encryption Header Parameters
 
    The following entries are added to the "JSON Web Key Parameters"
    registry:
 
-8.3.1.  ek
+9.3.1.  ek
 
    *  Header Parameter Name: "ek"
 
@@ -677,7 +694,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-8.3.2.  psk_id
+9.3.2.  psk_id
 
    *  Header Parameter Name: "psk_id"
 
@@ -690,7 +707,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-8.3.3.  auth_kid
+9.3.3.  auth_kid
 
    *  Header Parameter Name: "auth_kid"
 
@@ -703,9 +720,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [JOSE-IANA]
               IANA, "JSON Web Signature and Encryption Algorithms",
@@ -741,7 +758,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [HPKE-IANA]
               IANA, "Hybrid Public Key Encryption (HPKE) IANA Registry",
