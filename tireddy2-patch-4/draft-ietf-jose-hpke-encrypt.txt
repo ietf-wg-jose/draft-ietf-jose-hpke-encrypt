@@ -278,7 +278,7 @@ Table of Contents
       i.e., the concatenation of AlgorithmID, PartyUInfo, and
       PartyVInfo.  It does not include Z, keydatalen, SuppPubInfo, or
       SuppPrivInfo.  AlgorithmID is structured as defined in
-      Section 4.6.2 of [RFC7518] and the Data feild in AlgorithmID will
+      Section 4.6.2 of [RFC7518] and the Data field in AlgorithmID will
       be set to set to the octets of the ASCII representation of the
       "enc" Header Parameter value.
 
@@ -375,7 +375,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       i.e., the concatenation of AlgorithmID, PartyUInfo, and
       PartyVInfo.  It does not include Z, keydatalen, SuppPubInfo, or
       SuppPrivInfo.  AlgorithmID is structured as defined in
-      Section 4.6.2 of [RFC7518] and the Data feild in AlgorithmID will
+      Section 4.6.2 of [RFC7518] and the Data field in AlgorithmID will
       be set to the the octets of the ASCII representation of the "alg"
       (algorithm) Header Parameter value.
 
