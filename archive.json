@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:25:55.000916+00:00",
+  "timestamp": "2024-12-05T01:26:06.904284+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -479,26 +479,104 @@
       "id": "PR_kwDOMMuuSM6DUmq3",
       "title": "Address comments from Illari",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/10",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-11-27T11:06:00Z",
-      "updatedAt": "2024-11-27T11:06:00Z",
+      "updatedAt": "2024-12-04T14:03:21Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "909853a7e08049eb61036d5f51982a7610028af3",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-2",
       "headRefOid": "1d57849149085140a38b908abb1c9bb478223a58",
-      "closedAt": null,
+      "closedAt": "2024-12-04T14:03:21Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOMMuuSM6EC9cr",
+      "title": "Address comments from the WG",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/11",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-04T14:03:12Z",
+      "updatedAt": "2024-12-04T16:32:59Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "909853a7e08049eb61036d5f51982a7610028af3",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-4",
+      "headRefOid": "b19ab2f8940b79f0e8237b015a938a15aa3e6aa0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6Twjsg",
+          "commit": {
+            "abbreviatedOid": "b19ab2f"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-04T15:05:03Z",
+          "updatedAt": "2024-12-04T15:05:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6TxZHO",
+          "commit": {
+            "abbreviatedOid": "b19ab2f"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-04T15:59:41Z",
+          "updatedAt": "2024-12-04T16:32:59Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "There are some issues with this:\r\n- Section 4.6.2. of RFC7518 does not define what AlgorithmID should be in this case (it only says anything about Direct Key Agreement and Key Agreement with Key Wrapping, and this is neither of those).\r\n- Section 4.6.2. of RFC7518 defines SuppPubInfo to be keydatalen (keydatalen is not well-defined in HPKE).\r\n- Section 4.6.2. of RFC7518 defines SuppPrivInfo to always be empty, so it does nothing.\r\n",
+              "createdAt": "2024-12-04T15:59:42Z",
+              "updatedAt": "2024-12-04T16:32:59Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "The comment above applies here too.",
+              "createdAt": "2024-12-04T16:01:46Z",
+              "updatedAt": "2024-12-04T16:32:59Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "This should presumably be a subsection of Security Considerations instead of being its own top-level section.",
+              "createdAt": "2024-12-04T16:05:44Z",
+              "updatedAt": "2024-12-04T16:32:59Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "Section 9.2.3. of RFC9180 does not say anything about using a single key for multiple algorithms, it talks about using a single key for multiple modes (Base, Auth, PSK, AuthPSK). It notes that this should be safe, even if there is no proof this is the case.\r\n\r\nUsing multiple HPKE algorithm combinations with the same key is safe. However, using the same key with HPKE and non-HPKE is not generically safe. However, unless the non-HPKE mechanism is specifically designed to interact badly with HPKE, bad interactions are unlikely to be possible.",
+              "createdAt": "2024-12-04T16:26:58Z",
+              "updatedAt": "2024-12-04T16:32:59Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
