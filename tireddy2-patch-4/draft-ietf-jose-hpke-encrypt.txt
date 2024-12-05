@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 7 June 2025                                                    
+Expires: 8 June 2025                                                    
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         4 December 2024
+                                                         5 December 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 June 2025.
+   This Internet-Draft will expire on 8 June 2025.
 
 Copyright Notice
 
