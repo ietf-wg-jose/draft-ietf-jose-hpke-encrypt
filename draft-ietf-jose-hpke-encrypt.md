@@ -190,11 +190,11 @@ In HPKE JWE Integrated Encryption:
 - The protected header MUST contain an "alg" that starts with "HPKE".
 - The protected header MUST contain an "enc" and it MUST be set to the value "dir". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "dir" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
 - The protected header parameters "psk_id" and "auth_kid" MAY be present.
-- The protected header parameters "ek" MUST NOT be present.
+- The protected header parameter "ek" MUST NOT be present.
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to set to the octets of the ASCII representation of the "enc" Header Parameter value.
 
 ## Compact Example
 
@@ -263,12 +263,12 @@ In HPKE JWE Key Encryption:
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in { Section 5.1 of RFC7516 }.
-- The recipient "encrypted_key" is as described in { Section 7.2.1 of RFC7516 } .
+- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in Section 5.1 of {{RFC7516}}.
+- The recipient "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in { Section 5.1 of RFC7516 }.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}.
+- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to the the octets of the ASCII representation of the "alg" (algorithm) Header Parameter value.
 
 ## Multiple Recipients
 
@@ -344,6 +344,12 @@ HPKE also offers modes that offer authentication.
 
 HPKE relies on a source of randomness to be available on the device.
 In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it MUST be ensured that the guidelines in {{RFC8937}} for random number generations are followed.
+
+## Key Management
+
+Reusing a single KEM key across multiple algorithm combinations MUST be avoided to maintain cryptographic security. Each key and its associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently. This separation prevents unintended interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are preserved.
+Additionally, the same key MUST NOT be used for both key wrapping and content encryption, as it may introduce security risks.  It
+creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
 
 ## Plaintext Compression
 
