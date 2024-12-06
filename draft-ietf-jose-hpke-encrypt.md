@@ -194,7 +194,7 @@ In HPKE JWE Integrated Encryption:
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to set to the octets of the ASCII representation of the "enc" Header Parameter value.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to the octets of the ASCII representation of the "enc" Header Parameter value.
 
 ## Compact Example
 
@@ -268,7 +268,7 @@ In HPKE JWE Key Encryption:
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to the the octets of the ASCII representation of the "alg" (algorithm) Header Parameter value.
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. By default, it is empty unless apu or apv are present, in which case it will carry the JOSE context-specific data as defined in Section 4.6.2 of {{RFC7518}}, i.e., the concatenation of AlgorithmID, PartyUInfo, and PartyVInfo. It does not include Z, keydatalen, SuppPubInfo, or SuppPrivInfo. AlgorithmID is structured as defined in Section 4.6.2 of {{RFC7518}} and the Data field in AlgorithmID will be set to the octets of the ASCII representation of the "alg" (algorithm) Header Parameter value.
 
 ## Multiple Recipients
 
