@@ -561,7 +561,7 @@ for their contributions to the specification.
 
 -04
 
-* Fixed #8: Use short algorithm identifiers, per the JOSE IANA registration instructions.
+* Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.
 
 -01
 
