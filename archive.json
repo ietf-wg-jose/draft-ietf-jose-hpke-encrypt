@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-10T01:27:08.331228+00:00",
+  "timestamp": "2024-12-12T01:25:39.442371+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -126,7 +126,7 @@
       "labels": [],
       "body": "The \"alg\" values should be short identifiers that fully-specify the computation to be performed. They should not contain syntax that is parsed, such as a required \"HPKE\" string prefix.\r\n\r\nLet's decide on reasonable short identifiers for each of the algorithms - ideally 8 characters each or less.",
       "createdAt": "2024-10-24T17:21:19Z",
-      "updatedAt": "2024-12-06T20:08:16Z",
+      "updatedAt": "2024-12-11T02:15:28Z",
       "closedAt": null,
       "comments": [
         {
@@ -191,6 +191,20 @@
           "body": "One subtle consideration is that any sort of systematic pattern can be interpreted as adding all the algorithms (since it is obvious what the algorithm name would be). Advantage of being systematic would be eliminating the possibility that an algorithm gets added in subtly incompatible way (which could cause major interoperability headaches).\r\n\r\nThen these algorithms could presumably get used with kty=AKP. There is an obvious interpretation for \"priv\" and \"pub\" in this case (raw HPKE private and public keys).\r\n\r\nHowever, it depends on KEM if it is possible to derive \"pub\" from \"priv\" (and including both causes possible security issue), or not (both are needed). I think KEM 0x30 (which is essentially deprecated) is currently the only one where it is not possible to derive public key from private key.",
           "createdAt": "2024-12-06T20:08:15Z",
           "updatedAt": "2024-12-06T20:08:15Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "NONE",
+          "body": "My vote (that doesn't count because I'm a tourist in JOSE):\r\n\r\nFully specified is useful so that devs don't need to fish around in the guts of RFCs to figure out what actually makes up a given cipher suite.\r\n\r\nShort-forms over the wire are also fine. I have a slight preference for `HPKE-0` rather than `HPKE10-1` because A) if you have to look it up, then you have to look it up, and B) this scheme may not extend well to hybrid KEMs.",
+          "createdAt": "2024-12-11T00:11:48Z",
+          "updatedAt": "2024-12-11T00:11:48Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It also occurred to me that names of the form HPKE-n will probably better correspond to COSE algorithm identifiers, where they will be a single integer anyway.  So unless people voice objections here shortly, I'll plan to create a PR to accomplish that.  Getting to stable algorithm identifiers is a big step towards enabling deployments (something being contemplated at https://github.com/openid/oid4vc-haip/issues/131).",
+          "createdAt": "2024-12-11T02:15:27Z",
+          "updatedAt": "2024-12-11T02:15:27Z"
         }
       ]
     }
