@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-12T01:25:39.442371+00:00",
+  "timestamp": "2024-12-15T01:39:11.924462+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -126,7 +126,7 @@
       "labels": [],
       "body": "The \"alg\" values should be short identifiers that fully-specify the computation to be performed. They should not contain syntax that is parsed, such as a required \"HPKE\" string prefix.\r\n\r\nLet's decide on reasonable short identifiers for each of the algorithms - ideally 8 characters each or less.",
       "createdAt": "2024-10-24T17:21:19Z",
-      "updatedAt": "2024-12-11T02:15:28Z",
+      "updatedAt": "2024-12-12T16:12:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -205,8 +205,38 @@
           "body": "It also occurred to me that names of the form HPKE-n will probably better correspond to COSE algorithm identifiers, where they will be a single integer anyway.  So unless people voice objections here shortly, I'll plan to create a PR to accomplish that.  Getting to stable algorithm identifiers is a big step towards enabling deployments (something being contemplated at https://github.com/openid/oid4vc-haip/issues/131).",
           "createdAt": "2024-12-11T02:15:27Z",
           "updatedAt": "2024-12-11T02:15:27Z"
+        },
+        {
+          "author": "lee-preimesberger",
+          "authorAssociation": "NONE",
+          "body": "late to the party, but i really prefer this approach with the short(est) codes.  the verbose tags takes too much space - and like mentioned above if we need to refer back to the RFC anyway smaller is better.",
+          "createdAt": "2024-12-12T14:24:12Z",
+          "updatedAt": "2024-12-12T14:24:12Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Its also easier to read, write and compare \"HPKE-0\" in contrast to \"HPKE-P256-SHA265-A128GCM\" (review this carefully for a case in point).\r\n",
+          "createdAt": "2024-12-12T16:12:32Z",
+          "updatedAt": "2024-12-12T16:12:32Z"
         }
       ]
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOMMuuSM6jIgme",
+      "title": "Support for detached JWE AAD",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/13",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "For various reasons, it makes sense to introduce a mechanism to support **\"detached\" JWE AAD** where the Additional Authenticated Data (AAD) for a JWE is not transmitted in-band but is instead derived by the sender and receiver from contextual information out-of-band. This approach can enhance **security**, **efficiency**, and **flexibility**.\r\n\r\n### Use Case: Mitigating the \"Lazy Verifier\" Problem\r\nOne specific use case arises from **OID4VC**, where detached JWE AAD could help mitigate the so-called \"lazy verifier\" problem. \r\n\r\nIn this scenario:\r\n- A verifier website sends a request to a wallet (typically a native mobile app).\r\n- The wallet responds with an encrypted message, including contextual information (e.g., the request's origin) as part of the AAD in the JWE response.\r\n\r\nThis contextual information is authenticated via AEAD but may not be validated by a \"lazy verifier,\" which skips verifying these fields against their expected values based on the established context. This lack of validation makes the system prone to phishing attacks. For example, the wallet might encode the origin where it received the verifier's request in the AAD, e.g., attacker.com. However, if the verifier does not verify this information, an attacker could exploit the oversight.\r\n\r\nBy requiring the verifier to derive the JWE AAD from contextual information rather than transmitting it in-band:\r\n- The AAD becomes more tightly bound to the verifier's session and context.\r\n- It eliminates the need for explicit validation of the AAD, as the verifier computes it directly from its established session context.\r\n- This reduces the attack surface, making phishing attacks harder to execute.\r\n\r\n### Need for a Generalized Solution\r\nSince **\"detached\" JWE AAD** is not currently defined in the JWE specification and applies to other encryption algorithms (e.g., ECDH-ES), a more general solution could be developed. This would be especially relevant for OID4VC, which uses JARM (JWT Secured Authorization Response Mode, using the JWE compact form) to send encrypted responses. Ensuring compatibility with the JWE compact form would be critical.\r\n\r\n### Proposed Solution\r\n#### JWE JSON Serialization (already supports dedicated `aad` parameter)\r\nFor JWE JSON serialization, the existing `aad` parameter could indicate that the AAD is detached by setting its value to `null`. \r\n\r\n#### JWE Compact Serialization (no dedicated `aad` parameter yet)\r\nFor JWE compact serialization, the format could be extended to optionally include the AAD as an additional segment:\r\n- **Extended Format**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **Behavior**:\r\n  - If the `AAD` segment is empty or omitted (e.g., `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`), it signals that the AAD is detached and must be computed or derived from contextual information by the sender and receiver.\r\n  - The computation of AAD for the AEAD algorithm would follow the same logic as for the JWE JSON form.\r\n\r\nExamples:\r\n- **JWE Compact Form without AAD** (Standard): `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>`\r\n- **JWE Compact Form with AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **JWE Compact Form with Detached AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`\r\n\r\n### Relevance to OID4VC\r\nThis approach could address challenges in **OID4VC**, particularly in ensuring robust validation of contextual information by the verifier without relying on error-prone implementations. \r\n\r\nFor example:\r\n- Issue [openid/oid4vc-haip#131](https://github.com/openid/oid4vc-haip/issues/131)\r\n- Issue [openid/OpenID4VP#347](https://github.com/openid/OpenID4VP/issues/347)\r\n- Issue [openid/OpenID4VP#65](https://github.com/openid/OpenID4VP/issues/65)",
+      "createdAt": "2024-12-12T21:30:43Z",
+      "updatedAt": "2024-12-12T21:30:43Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -720,6 +750,46 @@
           "body": "",
           "createdAt": "2024-12-05T15:43:41Z",
           "updatedAt": "2024-12-05T15:43:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOMMuuSM6FBHT8",
+      "title": "Use short algorithm identifiers",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/12",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "... per the [JOSE naming conventions](https://www.rfc-editor.org/rfc/rfc7518.html#section-1):\r\n> Names defined by this specification are short because a core goal is for the resulting representations to be compact.\r\n\r\nFixes #8",
+      "createdAt": "2024-12-12T13:18:05Z",
+      "updatedAt": "2024-12-12T14:32:17Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "12d60286191eed280bc5918524cee823b8f1c8a5",
+      "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-shorter-algs",
+      "headRefOid": "b395be7258a5f7736281e4452064064e6bb4045d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6VAGkK",
+          "commit": {
+            "abbreviatedOid": "b395be7"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Assuming there is consensus to apply these names consistently to COSE:\r\n\r\nhttps://github.com/cose-wg/HPKE/pull/60",
+          "createdAt": "2024-12-12T14:32:17Z",
+          "updatedAt": "2024-12-12T14:32:17Z",
           "comments": []
         }
       ]
