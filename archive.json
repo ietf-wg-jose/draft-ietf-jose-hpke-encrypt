@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-15T01:39:11.924462+00:00",
+  "timestamp": "2024-12-17T01:25:47.147219+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -790,6 +790,74 @@
           "body": "Assuming there is consensus to apply these names consistently to COSE:\r\n\r\nhttps://github.com/cose-wg/HPKE/pull/60",
           "createdAt": "2024-12-12T14:32:17Z",
           "updatedAt": "2024-12-12T14:32:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOMMuuSM6FUXte",
+      "title": "Define JOSE-HPKE for other specs",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/14",
+      "state": "OPEN",
+      "author": "ilaril",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This attempts to define JOSE-HPKE as a generic mechanism other specifications defining cipher suites can refer to.\r\n\r\nThis avoids having other specifications adding cipher suites essentially re-define JOSE-HPKE (or leave a lot implicit). Not only is that tedious, it is also error-prone.\r\n\r\nThis rewrites a large part of section 4. There are quite a bit of technical changes. Most of those changes are to align how Key Encryption works with the requirements in JWE. AAD construction for Key Encryption is also changed, the new construction should pose less implementation difficulties and addresses both cross-mode and oracle attacks, even if JOSE implementation omits mandatory checks. Finally, this also defines how keys (including AKP) work.\r\n\r\nNeeds a lot of wordsmithing (and I copied text from original that I think needs editorial improvement).\r\n",
+      "createdAt": "2024-12-16T08:28:07Z",
+      "updatedAt": "2024-12-16T14:33:54Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "12d60286191eed280bc5918524cee823b8f1c8a5",
+      "headRepository": "ilaril/JOSE-HPKE",
+      "headRefName": "generic-jose-hpke",
+      "headRefOid": "e3129f7a705e953139cc1aa0e2ea2a88e893f628",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I recommend merging this in 1 week, unless there are objections.",
+          "createdAt": "2024-12-16T14:33:53Z",
+          "updatedAt": "2024-12-16T14:33:53Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6VY-LI",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T14:29:16Z",
+          "updatedAt": "2024-12-16T14:29:16Z",
+          "comments": [
+            {
+              "originalPosition": 111,
+              "body": "I don't have an objection to this, but ideally we have something similar in the COSE draft, and cross references between the two to make this easier to understand.",
+              "createdAt": "2024-12-16T14:29:16Z",
+              "updatedAt": "2024-12-16T14:29:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6VY-8r",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-16T14:30:30Z",
+          "updatedAt": "2024-12-16T14:30:30Z",
           "comments": []
         }
       ]
