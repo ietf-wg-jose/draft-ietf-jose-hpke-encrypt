@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 9 June 2025                                                    
+Expires: 21 June 2025                                                   
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         6 December 2024
+                                                        18 December 2024
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2025.
+   This Internet-Draft will expire on 21 June 2025.
 
 Copyright Notice
 
@@ -100,13 +100,13 @@ Table of Contents
    8.  IANA Considerations
      8.1.  Ciphersuite Registration
      8.2.  JSON Web Signature and Encryption Algorithms
-       8.2.1.  HPKE-P256-SHA256-A128GCM
-       8.2.2.  HPKE-P384-SHA384-A256GCM
-       8.2.3.  HPKE-P521-SHA512-A256GCM
-       8.2.4.  HPKE-X25519-SHA256-A128GCM
-       8.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
-       8.2.6.  HPKE-X448-SHA512-A256GCM
-       8.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
+       8.2.1.  HPKE-0
+       8.2.2.  HPKE-1
+       8.2.3.  HPKE-2
+       8.2.4.  HPKE-3
+       8.2.5.  HPKE-4
+       8.2.6.  HPKE-5
+       8.2.7.  HPKE-6
      8.3.  JSON Web Signature and Encryption Header Parameters
        8.3.1.  ek
        8.3.2.  psk_id
@@ -114,7 +114,7 @@ Table of Contents
    9.  References
      9.1.  Normative References
      9.2.  Informative References
-   Appendix A.  Keys Used In Examples
+   Appendix A.  Keys Used in Examples
    Acknowledgments
    Document History
    Authors' Addresses
@@ -292,7 +292,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
 {
   "protectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
   },
@@ -320,7 +320,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
 {
   "protectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "psk_id": "our-pre-shared-key-id",
@@ -406,7 +406,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
     {
       "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
       "header": {
-        "alg": "HPKE-P256-SHA256-A128GCM",
+        "alg": "HPKE-0",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
         "psk_id": "our-pre-shared-key-id",
         "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
@@ -424,7 +424,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
     "enc": "A128GCM"
   },
   "unprotectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "psk_id": "our-pre-shared-key-id",
@@ -559,9 +559,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    The following entries are added to the "JSON Web Signature and
    Encryption Algorithms" registry:
 
-8.2.1.  HPKE-P256-SHA256-A128GCM
+8.2.1.  HPKE-0
 
-   *  Algorithm Name: HPKE-P256-SHA256-A128GCM
+   *  Algorithm Name: HPKE-0
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF
@@ -577,9 +577,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.2.  HPKE-P384-SHA384-A256GCM
+8.2.2.  HPKE-1
 
-   *  Algorithm Name: HPKE-P384-SHA384-A256GCM
+   *  Algorithm Name: HPKE-1
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF,
@@ -595,9 +595,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.3.  HPKE-P521-SHA512-A256GCM
+8.2.3.  HPKE-2
 
-   *  Algorithm Name: HPKE-P521-SHA512-A256GCM
+   *  Algorithm Name: HPKE-2
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF,
@@ -613,9 +613,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.4.  HPKE-X25519-SHA256-A128GCM
+8.2.4.  HPKE-3
 
-   *  Algorithm Name: HPKE-X25519-SHA256-A128GCM
+   *  Algorithm Name: HPKE-3
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF,
@@ -631,9 +631,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.5.  HPKE-X25519-SHA256-ChaCha20Poly1305
+8.2.5.  HPKE-4
 
-   *  Algorithm Name: HPKE-X25519-SHA256-ChaCha20Poly1305
+   *  Algorithm Name: HPKE-4
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF,
@@ -649,9 +649,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.6.  HPKE-X448-SHA512-A256GCM
+8.2.6.  HPKE-5
 
-   *  Algorithm Name: HPKE-X448-SHA512-A256GCM
+   *  Algorithm Name: HPKE-5
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF,
@@ -667,9 +667,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.2.7.  HPKE-X448-SHA512-ChaCha20Poly1305
+8.2.7.  HPKE-6
 
-   *  Algorithm Name: HPKE-X448-SHA512-ChaCha20Poly1305
+   *  Algorithm Name: HPKE-6
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode
       that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF,
@@ -787,13 +787,13 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Protocols", RFC 8937, DOI 10.17487/RFC8937, October 2020,
               <https://www.rfc-editor.org/rfc/rfc8937>.
 
-Appendix A.  Keys Used In Examples
+Appendix A.  Keys Used in Examples
 
-   This private key and it implied public key are used the examples:
+   This private key and its implied public key are used the examples:
 
    {
      "kid": "S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-     "alg": "HPKE-P256-SHA256-A128GCM",
+     "alg": "HPKE-0",
      "kty": "EC",
      "crv": "P-256",
      "x": "wt36K06T4T4APWfGtioqDBXCvRN9evqkZjNydib9MaM",
@@ -801,7 +801,7 @@ Appendix A.  Keys Used In Examples
      "d": "O3KznUTAxw-ov-9ZokwNaJ289RgP9VxQc7GJthaXzWY"
    }
 
-   This pre shared key is used in the examples:
+   This pre-shared key is used in the examples:
 
    {
      "kty": "oct",
@@ -812,10 +812,15 @@ Appendix A.  Keys Used In Examples
 Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
-   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki and
-   Filip Skokan for their feedback.
+   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki, and
+   Filip Skokan for their contributions to the specification.
 
 Document History
+
+   -04
+
+   *  Fixed #8: Use short algorithm identifiers, per the JOSE naming
+      conventions.
 
    -01
 
