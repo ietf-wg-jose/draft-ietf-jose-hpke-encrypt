@@ -209,7 +209,7 @@ After verification:
 ~~~
 {
   "protectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
   },
@@ -241,7 +241,7 @@ After verification:
 ~~~
 {
   "protectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "psk_id": "our-pre-shared-key-id",
@@ -298,7 +298,7 @@ For example:
     {
       "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
       "header": {
-        "alg": "HPKE-P256-SHA256-A128GCM",
+        "alg": "HPKE-0",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
         "psk_id": "our-pre-shared-key-id",
         "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
@@ -318,7 +318,7 @@ After verification:
     "enc": "A128GCM"
   },
   "unprotectedHeader": {
-    "alg": "HPKE-P256-SHA256-A128GCM",
+    "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "psk_id": "our-pre-shared-key-id",
@@ -419,9 +419,9 @@ Implementations detect the use of modes by inspecting header parameters.
 
 The following entries are added to the "JSON Web Signature and Encryption Algorithms" registry:
 
-### HPKE-P256-SHA256-A128GCM
+### HPKE-0
 
-- Algorithm Name: HPKE-P256-SHA256-A128GCM
+- Algorithm Name: HPKE-0
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -429,9 +429,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-P384-SHA384-A256GCM
+### HPKE-1
 
-- Algorithm Name: HPKE-P384-SHA384-A256GCM
+- Algorithm Name: HPKE-1
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -439,9 +439,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-P521-SHA512-A256GCM
+### HPKE-2
 
-- Algorithm Name: HPKE-P521-SHA512-A256GCM
+- Algorithm Name: HPKE-2
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -449,9 +449,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-X25519-SHA256-A128GCM
+### HPKE-3
 
-- Algorithm Name: HPKE-X25519-SHA256-A128GCM
+- Algorithm Name: HPKE-3
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -459,9 +459,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-X25519-SHA256-ChaCha20Poly1305
+### HPKE-4
 
-- Algorithm Name: HPKE-X25519-SHA256-ChaCha20Poly1305
+- Algorithm Name: HPKE-4
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
@@ -469,9 +469,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-X448-SHA512-A256GCM
+### HPKE-5
 
-- Algorithm Name: HPKE-X448-SHA512-A256GCM
+- Algorithm Name: HPKE-5
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -479,9 +479,9 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Specification Document(s):   RFCXXXX
 - Algorithm Analysis Documents(s): TODO
 
-### HPKE-X448-SHA512-ChaCha20Poly1305
+### HPKE-6
 
-- Algorithm Name: HPKE-X448-SHA512-ChaCha20Poly1305
+- Algorithm Name: HPKE-6
 - Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
@@ -519,14 +519,14 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 
 --- back
 
-# Keys Used In Examples
+# Keys Used in Examples
 
-This private key and it implied public key are used the examples:
+This private key and its implied public key are used the examples:
 
 ~~~ text
 {
   "kid": "S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  "alg": "HPKE-P256-SHA256-A128GCM",
+  "alg": "HPKE-0",
   "kty": "EC",
   "crv": "P-256",
   "x": "wt36K06T4T4APWfGtioqDBXCvRN9evqkZjNydib9MaM",
@@ -535,7 +535,7 @@ This private key and it implied public key are used the examples:
 }
 ~~~
 
-This pre shared key is used in the examples:
+This pre-shared key is used in the examples:
 
 ~~~ text
 {
@@ -548,10 +548,20 @@ This pre shared key is used in the examples:
 # Acknowledgments
 {: numbered="false"}
 
-This specification leverages text from {{?I-D.ietf-cose-hpke}}. We would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki and Filip Skokan for their feedback.
+This specification leverages text from {{?I-D.ietf-cose-hpke}}.
+We would like to thank
+Matt Chanda,
+Ilari Liusvaara,
+Aaron Parecki,
+and Filip Skokan
+for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-04
+
+* Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.
 
 -01
 
