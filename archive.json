@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-17T01:25:47.147219+00:00",
+  "timestamp": "2024-12-19T01:23:24.721440+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -119,15 +119,15 @@
       "id": "I_kwDOMMuuSM6bsn5w",
       "title": "Algorithm identifiers like HPKE-P256-SHA256-A128GCM are overly verbose",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The \"alg\" values should be short identifiers that fully-specify the computation to be performed. They should not contain syntax that is parsed, such as a required \"HPKE\" string prefix.\r\n\r\nLet's decide on reasonable short identifiers for each of the algorithms - ideally 8 characters each or less.",
       "createdAt": "2024-10-24T17:21:19Z",
-      "updatedAt": "2024-12-12T16:12:34Z",
-      "closedAt": null,
+      "updatedAt": "2024-12-18T19:48:58Z",
+      "closedAt": "2024-12-18T19:48:58Z",
       "comments": [
         {
           "author": "OR13",
@@ -759,24 +759,26 @@
       "id": "PR_kwDOMMuuSM6FBHT8",
       "title": "Use short algorithm identifiers",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "... per the [JOSE naming conventions](https://www.rfc-editor.org/rfc/rfc7518.html#section-1):\r\n> Names defined by this specification are short because a core goal is for the resulting representations to be compact.\r\n\r\nFixes #8",
       "createdAt": "2024-12-12T13:18:05Z",
-      "updatedAt": "2024-12-12T14:32:17Z",
+      "updatedAt": "2024-12-18T19:48:58Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "12d60286191eed280bc5918524cee823b8f1c8a5",
       "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-shorter-algs",
       "headRefOid": "b395be7258a5f7736281e4452064064e6bb4045d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-12-18T19:48:58Z",
+      "mergedAt": "2024-12-18T19:48:57Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "d3c6d5120c128e0001b051718a62f3c87b27ea40"
+      },
       "comments": [],
       "reviews": [
         {
