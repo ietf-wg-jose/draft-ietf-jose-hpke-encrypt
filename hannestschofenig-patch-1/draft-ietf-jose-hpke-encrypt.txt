@@ -5,7 +5,7 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 25 June 2025                                                   
+Expires: 25 June 2025                                              H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
@@ -853,7 +853,8 @@ Authors' Addresses
 
 
    Hannes Tschofenig
-   Austria
+   University of Applied Sciences Bonn-Rhein-Sieg
+   Germany
    Email: hannes.tschofenig@gmx.net
 
 
