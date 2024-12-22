@@ -36,11 +36,14 @@ author:
     country: India
     email: "kondtir@gmail.com"
 
- -
-    fullname: Hannes Tschofenig
-    country: Austria
-    email: "hannes.tschofenig@gmx.net"
-
+-
+    ins: H. Tschofenig
+    name: Hannes Tschofenig
+    email: hannes.tschofenig@gmx.net
+    abbrev: H-BRS
+    organization: University of Applied Sciences Bonn-Rhein-Sieg
+    country: Germany
+  
  -
     fullname: Aritra Banerjee
     organization: Nokia
