@@ -36,12 +36,10 @@ author:
     country: India
     email: "kondtir@gmail.com"
 
--
+ -
     fullname: Hannes Tschofenig
-    abbrev: H-BRS
-    organization: University of Applied Sciences Bonn-Rhein-Sieg
-    country: Germany
-    email: hannes.tschofenig@gmx.net
+    country: Austria
+    email: "hannes.tschofenig@gmx.net"
 
  -
     fullname: Aritra Banerjee
