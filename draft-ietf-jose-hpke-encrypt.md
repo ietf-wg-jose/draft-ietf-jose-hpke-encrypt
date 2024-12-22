@@ -38,7 +38,9 @@ author:
 
  -
     fullname: Hannes Tschofenig
-    country: Austria
+    organization: University of Applied Sciences Bonn-Rhein-Sieg
+    abbrev: H-BRS
+    country: Germany
     email: "hannes.tschofenig@gmx.net"
 
  -
