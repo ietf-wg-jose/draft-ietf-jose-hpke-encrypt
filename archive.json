@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-22T01:25:05.044198+00:00",
+  "timestamp": "2024-12-24T01:19:07.447367+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -863,6 +863,62 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOMMuuSM6GBIY-",
+      "title": "Undo author info update",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/15",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Author info update caused strange behavior",
+      "createdAt": "2024-12-22T16:15:36Z",
+      "updatedAt": "2024-12-22T16:16:11Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "14f38ab5a9a38b21bd039abc7610688b8e7cbadd",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "774588d8eee453baa0ea8a5332604120a69ade78",
+      "closedAt": "2024-12-22T16:16:08Z",
+      "mergedAt": "2024-12-22T16:16:08Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "308b0140067d65da7de46529a8f3694ff307d5d2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOMMuuSM6GBJM6",
+      "title": "Author Info Update",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/16",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-22T16:25:52Z",
+      "updatedAt": "2024-12-22T16:33:38Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "308b0140067d65da7de46529a8f3694ff307d5d2",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "a0220d1df6d1d3883a80ca9148064796346f364e",
+      "closedAt": "2024-12-22T16:33:31Z",
+      "mergedAt": "2024-12-22T16:33:31Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "81a3d8a206cfda9fa3b7336e1a8353ca0ab3b21d"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
