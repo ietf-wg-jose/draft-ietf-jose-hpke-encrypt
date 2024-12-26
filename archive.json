@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-24T01:19:07.447367+00:00",
+  "timestamp": "2024-12-26T01:18:23.856683+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -808,7 +808,7 @@
       "labels": [],
       "body": "This attempts to define JOSE-HPKE as a generic mechanism other specifications defining cipher suites can refer to.\r\n\r\nThis avoids having other specifications adding cipher suites essentially re-define JOSE-HPKE (or leave a lot implicit). Not only is that tedious, it is also error-prone.\r\n\r\nThis rewrites a large part of section 4. There are quite a bit of technical changes. Most of those changes are to align how Key Encryption works with the requirements in JWE. AAD construction for Key Encryption is also changed, the new construction should pose less implementation difficulties and addresses both cross-mode and oracle attacks, even if JOSE implementation omits mandatory checks. Finally, this also defines how keys (including AKP) work.\r\n\r\nNeeds a lot of wordsmithing (and I copied text from original that I think needs editorial improvement).\r\n",
       "createdAt": "2024-12-16T08:28:07Z",
-      "updatedAt": "2024-12-16T14:33:54Z",
+      "updatedAt": "2024-12-25T22:48:14Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "12d60286191eed280bc5918524cee823b8f1c8a5",
@@ -861,6 +861,246 @@
           "createdAt": "2024-12-16T14:30:30Z",
           "updatedAt": "2024-12-16T14:30:30Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WW2XT",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T12:26:47Z",
+          "updatedAt": "2024-12-25T13:02:13Z",
+          "comments": [
+            {
+              "originalPosition": 96,
+              "body": "Why explicitly discuss about \u201czip\u201d parameter,  the draft does not do anything new with compressing plaintext data. It was discussed in the previous versions of the draft and removed for this reason.",
+              "createdAt": "2024-12-25T12:26:48Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 108,
+              "body": "How is the Recipient Context defined in Section 4.2 used by HPKE ?",
+              "createdAt": "2024-12-25T12:27:29Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 108,
+              "body": "Why is the Recipient Context not used for JWE Integrated Encryption ?",
+              "createdAt": "2024-12-25T12:28:05Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "Why is the HPKE Setup info not used to convey the JOSE context-specific data (enc, apu and apv) ?\r\nFor example TLS ECH uses both aad and info, and the size of HPKE setup info is much larger than 64 bytes. TLS ECH is already supported by browsers. ",
+              "createdAt": "2024-12-25T12:32:26Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 250,
+              "body": "I prefer to use \"MUST NOT\" instead of \"SHOULD NOT\". I don't think \"authentication key\" is defined anywhere in this doc and HPKE draft. It needs to be defined. ",
+              "createdAt": "2024-12-25T12:36:47Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 252,
+              "body": "I prefer to use \"MUST NOT\" instead of \"SHOULD NOT\". ",
+              "createdAt": "2024-12-25T12:38:01Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 255,
+              "body": "If the key is compromised in one of the modes, it will impact the other mode, what is the use case to allow the same key for both Integrated Encryption and Key Encryption ?",
+              "createdAt": "2024-12-25T12:50:58Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 243,
+              "body": "please elaborate on the insecurity issue. ",
+              "createdAt": "2024-12-25T12:53:52Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "Replace \"SHALL\" with \"MUST\"",
+              "createdAt": "2024-12-25T12:59:43Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 62,
+              "body": "Replace \"SHALL\" with \"MUST\"",
+              "createdAt": "2024-12-25T12:59:58Z",
+              "updatedAt": "2024-12-25T13:02:13Z"
+            },
+            {
+              "originalPosition": 63,
+              "body": "Replace all occurrences of \"SHALL\" with \"MUST\" (lines 183 to 192). ",
+              "createdAt": "2024-12-25T13:01:39Z",
+              "updatedAt": "2024-12-25T13:03:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNIF",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:03:56Z",
+          "updatedAt": "2024-12-25T22:03:56Z",
+          "comments": [
+            {
+              "originalPosition": 96,
+              "body": "JWE does not define what happens with Integrated Encryption.",
+              "createdAt": "2024-12-25T22:03:56Z",
+              "updatedAt": "2024-12-25T22:03:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNJX",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:05:17Z",
+          "updatedAt": "2024-12-25T22:05:17Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "As aad input in the Key Encryption case.",
+              "createdAt": "2024-12-25T22:05:17Z",
+              "updatedAt": "2024-12-25T22:05:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNMm",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:08:30Z",
+          "updatedAt": "2024-12-25T22:08:30Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Because it is not enough for that case: One needs to authenticate the protected header and JWE AAD.",
+              "createdAt": "2024-12-25T22:08:30Z",
+              "updatedAt": "2024-12-25T22:08:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNV9",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:17:27Z",
+          "updatedAt": "2024-12-25T22:17:27Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "That is to leave the HPKE setup info free for application to use for actual context binding.  Apu and apv in JOSE are pretty much completely broken.\r\n\r\nAlso, it is unsound to allow any aad,info pair to be valid for both Integrated Encryption and Key Encryption.",
+              "createdAt": "2024-12-25T22:17:27Z",
+              "updatedAt": "2024-12-25T22:37:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNek",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:26:03Z",
+          "updatedAt": "2024-12-25T22:26:03Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "Looking at HPKE RFC, I think it should be \"sender key\" instead of \"authentication key\".",
+              "createdAt": "2024-12-25T22:26:03Z",
+              "updatedAt": "2024-12-25T22:26:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNoP",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:34:26Z",
+          "updatedAt": "2024-12-25T22:34:26Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "Restricting key to one mode does not help against key compromise, as any such compromise must involve mechanisms outside JOSE-HPKE.\r\n\r\nIntegrated Encryption is more straightforward for one recipient, but can not handle multiple recipients.",
+              "createdAt": "2024-12-25T22:34:26Z",
+              "updatedAt": "2024-12-25T22:34:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXNwe",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:41:59Z",
+          "updatedAt": "2024-12-25T22:41:59Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "Anyone that has access to CEK can alter the message by just encrypting a new one and replacing the protected headers / ciphertext.",
+              "createdAt": "2024-12-25T22:41:59Z",
+              "updatedAt": "2024-12-25T22:41:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WXN3p",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-25T22:48:14Z",
+          "updatedAt": "2024-12-25T22:48:14Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "Thinking about it, switching between keywords with no defined or obvious pattern (but in this case there is a pattern) looks odd.",
+              "createdAt": "2024-12-25T22:48:14Z",
+              "updatedAt": "2024-12-25T22:48:14Z"
+            }
+          ]
         }
       ]
     },
