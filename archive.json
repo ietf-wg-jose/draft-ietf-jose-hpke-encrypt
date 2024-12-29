@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-26T01:18:23.856683+00:00",
+  "timestamp": "2024-12-29T01:25:56.957118+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -808,7 +808,7 @@
       "labels": [],
       "body": "This attempts to define JOSE-HPKE as a generic mechanism other specifications defining cipher suites can refer to.\r\n\r\nThis avoids having other specifications adding cipher suites essentially re-define JOSE-HPKE (or leave a lot implicit). Not only is that tedious, it is also error-prone.\r\n\r\nThis rewrites a large part of section 4. There are quite a bit of technical changes. Most of those changes are to align how Key Encryption works with the requirements in JWE. AAD construction for Key Encryption is also changed, the new construction should pose less implementation difficulties and addresses both cross-mode and oracle attacks, even if JOSE implementation omits mandatory checks. Finally, this also defines how keys (including AKP) work.\r\n\r\nNeeds a lot of wordsmithing (and I copied text from original that I think needs editorial improvement).\r\n",
       "createdAt": "2024-12-16T08:28:07Z",
-      "updatedAt": "2024-12-25T22:48:14Z",
+      "updatedAt": "2024-12-28T10:56:06Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "12d60286191eed280bc5918524cee823b8f1c8a5",
@@ -1099,6 +1099,1026 @@
               "body": "Thinking about it, switching between keywords with no defined or obvious pattern (but in this case there is a pattern) looks odd.",
               "createdAt": "2024-12-25T22:48:14Z",
               "updatedAt": "2024-12-25T22:48:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYG4w",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T07:32:41Z",
+          "updatedAt": "2024-12-26T07:32:41Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "Yes, while \"SHALL\" and \"MUST\" both indicate mandatory requirements, I prefer sticking to one term in the document which would improve consistency and clarity.",
+              "createdAt": "2024-12-26T07:32:41Z",
+              "updatedAt": "2024-12-26T07:32:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYI1A",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T07:42:35Z",
+          "updatedAt": "2024-12-26T07:42:35Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "It is not clear to me why the Authenticated HPKE mode cannot be used \r\nwith Key Encryption ?\r\n\r\n",
+              "createdAt": "2024-12-26T07:42:35Z",
+              "updatedAt": "2024-12-26T07:42:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYK9s",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T07:53:36Z",
+          "updatedAt": "2024-12-26T07:53:37Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "Why a key needs to be used for both Integrated Encryption and Key Encryption modes ?\r\n\r\nIt would also introduce additional complexity of multiple key_ops (derivebits and wrapKey).\r\nI don't see any such rule defined in in JWE which allows a key to be re-used for direct key agreement and key encryption modes.",
+              "createdAt": "2024-12-26T07:53:37Z",
+              "updatedAt": "2024-12-26T08:30:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYLYo",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T07:55:31Z",
+          "updatedAt": "2024-12-26T07:55:31Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "I can't find the term \"sender key\" in HPKE RFC. ",
+              "createdAt": "2024-12-26T07:55:31Z",
+              "updatedAt": "2024-12-26T07:55:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYR0z",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T08:25:51Z",
+          "updatedAt": "2024-12-26T08:25:51Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "If apu and apv in JOSE are pretty much completely broken. why use it in the Recipient context ? \r\nWhat about the \"JWE Additional Authenticated Data encryption parameter\" defined in Step 14 of Section 5.1 of RFC7516 ?  \r\nIt needs to be used for both modes.",
+              "createdAt": "2024-12-26T08:25:51Z",
+              "updatedAt": "2024-12-26T08:29:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYSB1",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T08:26:42Z",
+          "updatedAt": "2024-12-26T08:26:43Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "I meant the HPKE Setup info can be used to be carry the Recipient context in case of JWE Integrated Encryption. ",
+              "createdAt": "2024-12-26T08:26:42Z",
+              "updatedAt": "2024-12-26T08:26:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYSnf",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T08:29:41Z",
+          "updatedAt": "2024-12-26T08:29:41Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "If apu and apv is broken, why use it for key encryption mode ?\r\n",
+              "createdAt": "2024-12-26T08:29:41Z",
+              "updatedAt": "2024-12-26T08:30:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYl9o",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T09:57:38Z",
+          "updatedAt": "2024-12-26T09:57:39Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Apu and apv were included before, I guess to maintain parity with Key Agreement.\r\n\r\nAnd both modes do include JWE AAD. It is part of \"Additional Authenticated Data encryption parameter\", which then gets fed as aad to bulk encryption (either HPKE or JWE native bulk encryption).",
+              "createdAt": "2024-12-26T09:57:39Z",
+              "updatedAt": "2024-12-26T09:57:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYnVI",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:04:18Z",
+          "updatedAt": "2024-12-26T10:04:18Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "That would require multiplexing that field, since HPKE Setup info is also used for non-broken context binding from application.",
+              "createdAt": "2024-12-26T10:04:18Z",
+              "updatedAt": "2024-12-26T10:04:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYnv6",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:06:19Z",
+          "updatedAt": "2024-12-26T10:06:19Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I included because it was there before, I can only speculate why it was there.",
+              "createdAt": "2024-12-26T10:06:19Z",
+              "updatedAt": "2024-12-26T10:06:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYpe-",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:13:42Z",
+          "updatedAt": "2024-12-26T10:13:43Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "I got that from reading section 5.1.3...\r\n\r\nThe notation section implies that the terms are \"sender role\" and \"recipient role\". So presumably the statement should be:\r\n\r\nA single key SHOULD NOT be used in both sender and recipient roles, as this has not been proven to be safe.\r\n",
+              "createdAt": "2024-12-26T10:13:43Z",
+              "updatedAt": "2024-12-26T10:13:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYr5k",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:22:53Z",
+          "updatedAt": "2024-12-26T10:22:53Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "It is operationally easier to allow both. And AFAIK there is no good reasons to disallow it (where \"it might not be safe\", e.g., mixing sender and recipient roles, would count as a good reason).\r\n\r\nI think key_ops are just totally busted. And it would not need multiple key_ops: Both invoke HPKE, which I think is derivebits (not sure given the mess that is key_ops).",
+              "createdAt": "2024-12-26T10:22:53Z",
+              "updatedAt": "2024-12-26T10:22:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYtOk",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:25:59Z",
+          "updatedAt": "2024-12-26T10:25:59Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "Put another way, using Authenticated HPKE with Key Encryption would authenticate the CEK. Which does not even indirectly authenticate the actual message.\r\n\r\nWhereas Authenticated HPKE with Integrated Encryption does authenticate protected headers, JWE AAD and the  message plaintext.",
+              "createdAt": "2024-12-26T10:25:59Z",
+              "updatedAt": "2024-12-26T10:25:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WYuil",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T10:32:26Z",
+          "updatedAt": "2024-12-26T10:32:26Z",
+          "comments": [
+            {
+              "originalPosition": 252,
+              "body": "Regarding these two, it might be useful to define \"use\" values for the two roles (e.g., \"HPKE\" and \"HPKE-auth\"), in order to signal that a key is only meant for HPKE recipient role, or HPKE sender role.\r\n\r\nAFAIK, registered \"crv\" values for EC2 and OKP key types can represent any currently valid HPKE sender role key pair.",
+              "createdAt": "2024-12-26T10:32:26Z",
+              "updatedAt": "2024-12-26T10:32:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZFUc",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T12:42:57Z",
+          "updatedAt": "2024-12-26T12:42:57Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "The problem is JWE AAD is not included in the Key Encryption mode, it is only included in the Integrated Encryption mode.  It needs to be fixed; it was included in both modes in the latest published version of the draft. \r\n\r\nOne possible solution for both modes would be use HPKE Setup info to carry the Recipient Context. In both modes, JWE AAD should be conveyed in HPKE aad. ",
+              "createdAt": "2024-12-26T12:42:57Z",
+              "updatedAt": "2024-12-26T12:42:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZHv0",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T12:53:49Z",
+          "updatedAt": "2024-12-26T12:53:50Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Yes, if apu and apv are empty then info carries the context binding from the application. ",
+              "createdAt": "2024-12-26T12:53:49Z",
+              "updatedAt": "2024-12-26T12:53:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZIUv",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T12:56:59Z",
+          "updatedAt": "2024-12-26T12:56:59Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I prefer including them in both modes to maintain consistency with Section 4.6.2 of RFC 7518, or alternatively, not including them with an explanation that it is broken.",
+              "createdAt": "2024-12-26T12:56:59Z",
+              "updatedAt": "2024-12-26T12:57:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZJpQ",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T13:04:18Z",
+          "updatedAt": "2024-12-26T13:04:18Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "Why would an application use the same key for sender and recipient roles ?\r\nI don't see this attack discussed in HPKE.\r\n",
+              "createdAt": "2024-12-26T13:04:18Z",
+              "updatedAt": "2024-12-26T13:04:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZKF7",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T13:06:55Z",
+          "updatedAt": "2024-12-26T13:06:55Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "I prefer to keep it simple, managing keys for multiple purposes within the same system increases the complexity of key management and raises the risk of implementation errors. ",
+              "createdAt": "2024-12-26T13:06:55Z",
+              "updatedAt": "2024-12-26T13:06:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZMVW",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T13:17:50Z",
+          "updatedAt": "2024-12-26T13:17:50Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "Authenticated HPKE already authenticates the CEK, ensuring it originates from the sender. The plaintext is then encrypted using AEAD, which provides both confidentiality and authentication for the message.\r\n\r\nWhy does the receiver need stronger assurances that the plaintext itself is cryptographically bound to the sender's identity? The CEK is authenticated, and the AEAD encryption protects the plaintext's integrity and confidentiality.\r\n\r\nCould you clarify the specific threat model where this additional assurance becomes critical? \r\n\r\nI don\u2019t see the threat.",
+              "createdAt": "2024-12-26T13:17:50Z",
+              "updatedAt": "2024-12-26T13:17:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZo24",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T15:43:59Z",
+          "updatedAt": "2024-12-26T15:43:59Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "It **is** included in Key Encryption mode, as JWE implicitly includes it.\r\n\r\nIntegrated Encryption has to explicitly include it, because it bypasses the parts of JWE that normally ensure that JWE AAD gets included.\r\n\r\n",
+              "createdAt": "2024-12-26T15:43:59Z",
+              "updatedAt": "2024-12-26T15:43:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZp2D",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T15:50:13Z",
+          "updatedAt": "2024-12-26T15:50:13Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "If message has apu or apv and application specifies context, what then? Overriding the context from application is not acceptable.",
+              "createdAt": "2024-12-26T15:50:13Z",
+              "updatedAt": "2024-12-26T15:50:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZulu",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T16:20:43Z",
+          "updatedAt": "2024-12-26T16:20:43Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "Section 4.6.2 is only applicable to Key Agreement, which HPKE is not (the internal structure of HPKE is irrelevant here).\r\n\r\nConsistency would be to other Key Encryption algorithms, which do not support apu nor apv. The \"enc\" ensures that cross-mode attack is not possible, and that bad JWE implementations are not exposed to oracle attack.\r\n\r\nAFAICT, apu and apv are just useless in JWE. The arguments for those only hold for ECDH-SS or implicit apu, and the section 4.6.2 context structure would not work for ECDH-SS (no place to put the nonce required for security) nor does it allow implicit apu.",
+              "createdAt": "2024-12-26T16:20:43Z",
+              "updatedAt": "2024-12-26T16:58:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZwik",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T16:33:10Z",
+          "updatedAt": "2024-12-26T16:33:10Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "I guess application could use the same key for sender and recipient roles because it is easier. It is not good cryptographic practice.\r\n\r\nLast paragraph of section 9.2.3. The paragraph talks about using key in multiple \"modes\", but the only possible issue is with using the same key in both sender and recipient roles. Most likely that is not an issue, but there is no proof of that.",
+              "createdAt": "2024-12-26T16:33:10Z",
+              "updatedAt": "2024-12-26T16:33:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZx4H",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T16:41:13Z",
+          "updatedAt": "2024-12-26T16:41:13Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "Not tracking the purpose is simpler.\r\n\r\nAnd given this is asymmetric encryption, the purpose would have to be expressible in public keys.",
+              "createdAt": "2024-12-26T16:41:13Z",
+              "updatedAt": "2024-12-26T16:41:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WZzb1",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-26T16:51:58Z",
+          "updatedAt": "2024-12-26T16:51:59Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "If there are multiple recipients in the original message, the message authentication breaks down since any other recipient might have forged the message.\r\n\r\nChecking for one recipient does not work: The number of recipients is not authenticated, so attacker might have stripped all recipients except the target, so the message appears to have just a single recipient.",
+              "createdAt": "2024-12-26T16:51:58Z",
+              "updatedAt": "2024-12-26T16:51:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Wa9MA",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T04:30:22Z",
+          "updatedAt": "2024-12-27T04:30:22Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "In the revised Key Encryption Section, HPKE aad only carries the Recipient Context. JWE AAD needs to be conveyed in the HPKE aad. ",
+              "createdAt": "2024-12-27T04:30:22Z",
+              "updatedAt": "2024-12-27T04:30:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Wa9d0",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T04:33:09Z",
+          "updatedAt": "2024-12-27T04:33:09Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "I don't see existing JWE spec allows application context to be used as aad. what is the need in JWE HPKE to carry the application specific context ?\r\nIf application specific context is required, recipient context can be concatenated to application specific context. ",
+              "createdAt": "2024-12-27T04:33:09Z",
+              "updatedAt": "2024-12-27T04:33:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbEJQ",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T05:12:12Z",
+          "updatedAt": "2024-12-27T05:12:12Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "Agreed, I propose to update the text as follows::\r\nA single key MUST NOT be used in both sender and recipient roles. Avoiding the use of the same key for both sender and recipient roles ensures clear cryptographic boundaries and minimizes unintended interactions.",
+              "createdAt": "2024-12-27T05:12:12Z",
+              "updatedAt": "2024-12-27T05:12:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbFBk",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T05:19:41Z",
+          "updatedAt": "2024-12-27T05:19:41Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "Yes, if any recipient acts as a MiTM to modify the message or strip the recipient list, such an attack cannot be detected in JWE, even when Authenticated HPKE is not used. ",
+              "createdAt": "2024-12-27T05:19:41Z",
+              "updatedAt": "2024-12-27T05:19:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbGVw",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T05:28:14Z",
+          "updatedAt": "2024-12-27T05:28:15Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "I prefer to prioritize simplicity: each key should have a well-defined, single purpose. This approach minimizes risk and aligns with the principle of least privilege in cryptographic systems. If there is a strong operational need to allow key reuse, it should be clearly documented along with the associated trade-offs, potential risks and use of multiple key_ops.",
+              "createdAt": "2024-12-27T05:28:14Z",
+              "updatedAt": "2024-12-27T05:28:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbIbT",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T05:38:27Z",
+          "updatedAt": "2024-12-27T05:38:27Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I don't see any specification stating that apu and apv are useless in JWE. Until there is consensus in the WG, we will need to include apu and apv in both modes. As an alternative, we could consider explicitly documenting the decision to exclude apu and apv and explain that they are not necessary for HPKE in JWE. This would provide clarity to implementers and trigger further discussion within the WG",
+              "createdAt": "2024-12-27T05:38:27Z",
+              "updatedAt": "2024-12-27T05:38:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbpoQ",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T08:42:26Z",
+          "updatedAt": "2024-12-27T08:42:27Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "No, it does not need to be conveyed in the HPKE aad. JWE handles JWE AAD itself for all its algorithms.",
+              "createdAt": "2024-12-27T08:42:26Z",
+              "updatedAt": "2024-12-27T08:46:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbrjM",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T08:50:22Z",
+          "updatedAt": "2024-12-27T08:50:23Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Someone requested ability to use the HPKE setup info for implicit context binding. The easiest way to implement that is to default the HPKE setup info to empty (using aad for recipient context) unless application specifies a value.\r\n\r\nWhich is what this PR does.",
+              "createdAt": "2024-12-27T08:50:22Z",
+              "updatedAt": "2024-12-27T08:50:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbsOG",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T08:53:41Z",
+          "updatedAt": "2024-12-27T08:53:41Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "No current Key Encryption algorithm supports apu nor apv. That would be one reason to exclude those.",
+              "createdAt": "2024-12-27T08:53:41Z",
+              "updatedAt": "2024-12-27T08:53:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbtPV",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T08:58:46Z",
+          "updatedAt": "2024-12-27T08:58:46Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "AFACIT, there are no trade-offs and no risks beyond those inherit in having an implementation for both.\r\n\r\nAnd what key_ops does HPKE use anyway? I know some implementation used DeriveBits because that was required to enable the needed interfaces.",
+              "createdAt": "2024-12-27T08:58:46Z",
+              "updatedAt": "2024-12-27T08:58:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WbtfK",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T09:00:05Z",
+          "updatedAt": "2024-12-27T09:00:05Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "Such message does not even pretend to be authenticated (unless done by external means like signatures).",
+              "createdAt": "2024-12-27T09:00:05Z",
+              "updatedAt": "2024-12-27T09:00:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcNtX",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T11:28:47Z",
+          "updatedAt": "2024-12-27T11:28:48Z",
+          "comments": [
+            {
+              "originalPosition": 243,
+              "body": "I propose to modify the text as follows:\r\nAuthenticated HPKE modes MUST NOT be used for Key Encryption, as the message is not authenticated. Any recipient could act as a man-in-the-middle (MitM) and modify the message.",
+              "createdAt": "2024-12-27T11:28:47Z",
+              "updatedAt": "2024-12-27T11:28:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcQzA",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T11:47:32Z",
+          "updatedAt": "2024-12-27T11:47:33Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Yes, but why did you delete most of the existing text in Section 6 (Key Encryption) ?",
+              "createdAt": "2024-12-27T11:47:32Z",
+              "updatedAt": "2024-12-27T11:47:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcRSS",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T11:50:37Z",
+          "updatedAt": "2024-12-27T11:50:38Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "I don\u2019t see any issues raised on GitHub or discussions in the WG regarding the need for application-specific context. Why is this requirement specific to JWE HPKE and not ECDH-ES ?",
+              "createdAt": "2024-12-27T11:50:38Z",
+              "updatedAt": "2024-12-27T11:50:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcSUq",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T11:56:59Z",
+          "updatedAt": "2024-12-27T11:56:59Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "As per Section 4.6.2 of RFC 7518, both apu and apv are used to derive the key which is used to encrypt the CEK. ",
+              "createdAt": "2024-12-27T11:56:59Z",
+              "updatedAt": "2024-12-27T11:56:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcTKz",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T12:01:47Z",
+          "updatedAt": "2024-12-27T12:01:47Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "I disagree. Combining multiple key_ops (e.g., encryption and derivation) can lead to unintended consequences in certain scenarios, such as algorithm confusion or key misuse across contexts. I suggest raising this issue on the WG mailing list for further discussion.",
+              "createdAt": "2024-12-27T12:01:47Z",
+              "updatedAt": "2024-12-27T12:01:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Wcch5",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T12:51:58Z",
+          "updatedAt": "2024-12-27T12:51:58Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Most of that section was just repeating stuff from JWE, often not quite correctly.",
+              "createdAt": "2024-12-27T12:51:58Z",
+              "updatedAt": "2024-12-27T12:51:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Wcd14",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T12:59:28Z",
+          "updatedAt": "2024-12-27T12:59:28Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "It was one mailing list post. However, I think this mechanism does not work correctly, and should be ripped out.\r\n\r\nExpanding a bit on the issue: While one could do things like extract the key thumbprint from envelope signature and then use that as implicit context (to bind the message to its origin), that only being supported for HPKE and not other algorithms is a footgun.\r\n\r\nIf application wants to bind message to its origin, it should stick whatever context data it is using to either JWE AAD or to protected headers and then check that on decryption.\r\n\r\n(Applicability to COSE: everything meant to be usable at layer0 should support external aad, e.g. by using Enc_structure; HPKE in COSE / COSE-HPKE does that.)",
+              "createdAt": "2024-12-27T12:59:28Z",
+              "updatedAt": "2024-12-28T19:09:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WchNu",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T13:17:15Z",
+          "updatedAt": "2024-12-27T13:17:15Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "And there is an attack that exploits precisely that behavior (and there is an analog of that against HPKE that can not be fixed). Basically,  apu and apv in JWE are broken beyond repair.\r\n\r\nThe apu and apv stuff should just be ripped out.\r\n\r\nExpanding a bit on the issue: There is no authentication on the apu and apv values, so an attacker that has the public key of the victim can just set those fields to arbitrary values Then if using Key Agreement with Key Wrapping (or HPKE), the attacker can also set CEK to arbitrary value.\r\n\r\nParty U Info and Party V Info are only usable with ECDH-SS (or some authenticated ECDH construction), where attacker can not just specify arbitrary values. And it is really only useful for ECDH-SS, which otherwise would have directional symmetry, that could allow attacks (that symmetry is quoted as the reason for Party U Info and Party V Info). \r\n\r\n(Applicability to COSE: COSE does support ECDH-SS, where PartyUInfo and PartyVInfo are actually useful, and PartyUInfo.nonce is crucial for security. However, for everything else, those fields are useless.)",
+              "createdAt": "2024-12-27T13:17:15Z",
+              "updatedAt": "2024-12-28T19:15:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WcjRy",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-27T13:28:15Z",
+          "updatedAt": "2024-12-27T13:28:15Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "Neither algorithm confusion nor key misuse across contexts is possible with JOSE-HPKE recipient role keys. To get either, one would have to use the same key with sender role, or with something else, and both are NOT RECOMMENDED.",
+              "createdAt": "2024-12-27T13:28:15Z",
+              "updatedAt": "2024-12-27T13:28:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WeSq3",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-28T05:09:28Z",
+          "updatedAt": "2024-12-28T05:09:28Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "I don\u2019t see any issues with removing the redundant content from JWE. However, I will need to review all the changes to ensure that no relevant text is removed. I noticed the following:\r\n\r\n1. Section 4.2 is removed.\r\n2. In Key Encryption section, the latest version of the draft says encrypted_key is base64url encoded content\r\n    encryption key but in the PR it says encrypted_key carries the raw enc output.",
+              "createdAt": "2024-12-28T05:09:28Z",
+              "updatedAt": "2024-12-28T05:09:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WeUv7",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-28T05:13:42Z",
+          "updatedAt": "2024-12-28T05:13:42Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Agreed. I will post a message on the JOSE WG mailing list after the holidays to close the issue.",
+              "createdAt": "2024-12-28T05:13:42Z",
+              "updatedAt": "2024-12-28T05:13:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WeUx-",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-28T05:15:06Z",
+          "updatedAt": "2024-12-28T05:15:06Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I will raise an issue on GitHub and start a thread on the JOSE WG mailing list after the holidays.",
+              "createdAt": "2024-12-28T05:15:06Z",
+              "updatedAt": "2024-12-28T05:15:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6WeYbE",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-28T05:36:53Z",
+          "updatedAt": "2024-12-28T05:36:53Z",
+          "comments": [
+            {
+              "originalPosition": 255,
+              "body": "Is it a common practice to reuse the key in different modes, ?\r\nwhat is the use case to use the same key for JWE Integrated Encryption and Key Encryption ?",
+              "createdAt": "2024-12-28T05:36:53Z",
+              "updatedAt": "2024-12-28T05:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6We9Wy",
+          "commit": {
+            "abbreviatedOid": "e3129f7"
+          },
+          "author": "ilaril",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-28T10:56:05Z",
+          "updatedAt": "2024-12-28T10:56:06Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "Regarding 1., that section was redundant with specified HPKE I/O mappings.\r\n\r\nRegarding 2., Note that the PR says \"JWE Encrypted Key\", not \"encrypted_key\".  JWE specifies that the latter is base64url encoding of the former. So the field ends up base64url-encoded.\r\n\r\nFor the \"ek\" parameter, there is no automatic base64url-encoding, so the PR explicitly specifies base64url endec.",
+              "createdAt": "2024-12-28T10:56:06Z",
+              "updatedAt": "2024-12-28T10:56:06Z"
             }
           ]
         }
