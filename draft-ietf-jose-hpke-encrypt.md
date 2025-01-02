@@ -70,7 +70,6 @@ normative:
   RFC8174:
   RFC9180:
   RFC7516:
-  RFC7518:
   RFC7517:
   RFC8725:
   JOSE-IANA:
@@ -183,15 +182,15 @@ Additionally, if the "auth_kid" header parameter is present:
 The resulting JWE is filled as follows:
 
 - JWE Protected Header:
-  * SHALL contain "enc" with value "dir"
-  * SHALL contain "alg" that is the used JOSE-HPKE algorithm.
+  * MUST contain "enc" with value "dir"
+  * MUST contain "alg" that is the used JOSE-HPKE algorithm.
   * MUST contain the "apu", "apv" and "zip" header parameters, if present.
-- JWE Initialization Vector SHALL be empty.
-- JWE Ciphertext SHALL be the raw ct output from HPKE Seal operation.
-- JWE Authentication Tag SHALL be empty.
+- JWE Initialization Vector MUST be empty.
+- JWE Ciphertext MUST be the raw ct output from HPKE Seal operation.
+- JWE Authentication Tag MUST be empty.
 - There MUST be exactly one recipient, with:
   * JWE Per-Recipient Unprotected Header MUST be empty.
-  * JWE Encrypted Key SHALL contain the raw enc output from HPKE Seal operation.
+  * JWE Encrypted Key MUST contain the raw enc output from HPKE Seal operation.
 
 The "ek" header parameter MUST NOT be present.
 
@@ -230,9 +229,12 @@ Where:
 
  - `×||y` is the concatenation of byte strings x and y.
  - len32(x) is number of bytes in x as four-byte big-endian integer.
- - enc is the value of "enc" header parameter in JOSE header.
+ - enc is the value of "enc" header parameter in JOSE header. The integrity-protected 'enc' parameter provides protection against an
+   attacker who manipulates the encryption algorithm in the 'enc' parameter.
  - apu is The value of "apu" header parameter if present in JOSE header, otherwise empty string.
  - apv is The value of "apv" header parameter if present in JOSE header, otherwise empty string.
+
+ TBD: Authenticated key agreement mechanisms, such as ECDH-SS or authenticated HPKE modes, mitigate the risk of misusing apu and apv by binding the derived key to the specific identities of the participants. This ensures that any alteration to apu or apv invalidates the derived key, preventing unintended use. However, in the base mode of HPKE, where no authentication is provided, the use of apu and apv does not offer any security guarantees and could be subject to misuse. Do we really need apu and apv in the Recipient Context and why is it not required for JWE Integrated Encryption ?
 
 The "auth_kid" header parameter MUST NOT be present in JOSE header.
 
@@ -243,6 +245,7 @@ When encrypting, the inputs to HPKE Seal operation are set as follows:
 - kdf_id: Depends on the JOSE-HPKE algorithm used.
 - aead_id: Depends on the JOSE-HPKE algorithm used.
 - info: By default, an empty string. Application MAY specify some other value.
+TBD: The existing JWE specifications do not provide a mechanism to include application context as AAD. Addressing this limitation exclusively for HPKE, while not applying similar measures to other algorithms, introduces an asymmetry in how messages are bound to their origin. This inconsistency could create potential vulnerabilities by differing security assurances across cryptographic algorithms. Why is this required just for JWE HPKE ?
 - aad: The Recipient Context.
 - pt: The CEK.
 
@@ -278,7 +281,7 @@ The resulting plaintext is the CEK.
 
 JWKs can be used to to represent KEM private or public keys. When using JWK for JOSE-HPKE, the following checks are made:
 
-* If the "kty" field is "AKP", then the public and private keys SHALL be raw HPKE public and private
+* If the "kty" field is "AKP", then the public and private keys MUST be raw HPKE public and private
 keys (respectively) for the KEM used by the algorithm.
 * Otherwise, the key MUST be suitable for the KEM used by the algorithm. In case the "kty" parameter
 is "EC" or "OKP", this means the value of "crv" parameter is suitable. For the algorithms defined in
@@ -433,16 +436,15 @@ In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it
 
 ## HPKE authentication
 
-Authenticated HPKE modes MUST NOT be used with Key Encryption, as this is trivially insecure.
+Authenticated HPKE modes MUST NOT be used for Key Encryption, as the message is not authenticated. Any recipient could act as a man-in-the-middle (MitM) and modify the message.
 
 ## Key Management
 
-A single key SHOULD NOT be used as both authentication key and recipient key, as this has not been proven to be safe.
+A single key MUST NOT be used in both sender and recipient roles. Avoiding the use of the same key for both sender and recipient roles ensures clear cryptographic boundaries and minimizes unintended interactions.
 
-A single key SHOULD NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
+A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
 
-The context binding performed by JOSE-HPKE and HPKE ensures that it is safe to use a single key with multiple JOSE-HPKE algorithms and for both
-Integrated Encryption and Key Encryption.
+The context binding performed by JOSE-HPKE and HPKE ensures that it is safe to use a single key with multiple JOSE-HPKE algorithms and for both Integrated Encryption and Key Encryption.
 
 ## Plaintext Compression
 
