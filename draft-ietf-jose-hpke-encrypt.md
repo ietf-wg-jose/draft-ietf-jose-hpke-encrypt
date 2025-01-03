@@ -309,8 +309,8 @@ To ensure predictable key usage within JOSE-HPKE, the following restrictions and
 
 1. **New Key Use Values**
    The following values are registered in the "JSON Web Key Use" registry to explicitly identify the roles of keys in HPKE operations:
-   - **HPKE-Sender:** A key intended for use in the sender role of HPKE operations, performing encryption and key encapsulation.
-   - **HPKE-Receiver:** A key intended for use in the receiver role of HPKE operations, performing decryption and key decapsulation.
+   - **HPKEauth:** A key intended for use in the sender role of HPKE operations, performing encryption and key encapsulation.
+   - **HPKErecv:** A key intended for use in the receiver role of HPKE operations, performing decryption and key decapsulation.
 
 These values allow implementations to explicitly track and enforce role-specific key usage in HPKE operations and prevent key reuse with other cryptographic algorithms.
 
@@ -493,12 +493,12 @@ This document adds entries to {{JOSE-IANA}}.
 
 The "JSON Web Key Use" registry is updated as follows:
 
-   o  Use Member Value: "HPKE-Sender"
-   o  Use Description: Key for HPKE sender role (encapsulation)
+   o  Use Member Value: "HPKEauth"
+   o  Use Description: Key for HPKE sender role (authentication)
    o  Change Controller: IESG
    o  Specification Document(s): This document
 
-   o  Use Member Value: "HPKE-Receiver"
+   o  Use Member Value: "HPKErecv"
    o  Use Description: Key for HPKE receiver role (decapsulation)
    o  Change Controller: IESG
    o  Specification Document(s): This document
