@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 6 July 2025                                               H-BRS
+Expires: 7 July 2025                                               H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                          2 January 2025
+                                                          3 January 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 July 2025.
+   This Internet-Draft will expire on 7 July 2025.
 
 Copyright Notice
 
@@ -86,9 +86,10 @@ Table of Contents
      4.1.  HPKE JWE Integrated Encryption
      4.2.  Key Encryption
      4.3.  Keys
-     4.4.  Compact Example
-     4.5.  JSON Example
-     4.6.  Multiple Recipients example
+     4.4.  Key Usage Guidelines for JOSE-HPKE
+     4.5.  Compact Example
+     4.6.  JSON Example
+     4.7.  Multiple Recipients example
    5.  Security Considerations
      5.1.  HPKE authentication
      5.2.  Key Management
@@ -98,19 +99,20 @@ Table of Contents
      5.6.  Validate Cryptographic Inputs
      5.7.  Use Appropriate Algorithms
    6.  IANA Considerations
-     6.1.  Ciphersuite Registration
-     6.2.  JSON Web Signature and Encryption Algorithms
-       6.2.1.  HPKE-0
-       6.2.2.  HPKE-1
-       6.2.3.  HPKE-2
-       6.2.4.  HPKE-3
-       6.2.5.  HPKE-4
-       6.2.6.  HPKE-5
-       6.2.7.  HPKE-6
-     6.3.  JSON Web Signature and Encryption Header Parameters
-       6.3.1.  ek
-       6.3.2.  psk_id
-       6.3.3.  auth_kid
+     6.1.  Updates to "JSON Web Key Use" Registry
+     6.2.  Ciphersuite Registration
+     6.3.  JSON Web Signature and Encryption Algorithms
+       6.3.1.  HPKE-0
+       6.3.2.  HPKE-1
+       6.3.3.  HPKE-2
+       6.3.4.  HPKE-3
+       6.3.5.  HPKE-4
+       6.3.6.  HPKE-5
+       6.3.7.  HPKE-6
+     6.4.  JSON Web Signature and Encryption Header Parameters
+       6.4.1.  ek
+       6.4.2.  psk_id
+       6.4.3.  auth_kid
    7.  References
      7.1.  Normative References
      7.2.  Informative References
@@ -424,7 +426,27 @@ Table of Contents
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites
 
-4.4.  Compact Example
+4.4.  Key Usage Guidelines for JOSE-HPKE
+
+   To ensure predictable key usage within JOSE-HPKE, the following
+   restrictions and guidelines are introduced:
+
+   1.  *New Key Use Values* The following values are registered in the
+       "JSON Web Key Use" registry to explicitly identify the roles of
+       keys in HPKE operations:
+
+       *  *HPKE-Sender:* A key intended for use in the sender role of
+          HPKE operations, performing encryption and key encapsulation.
+
+       *  *HPKE-Receiver:* A key intended for use in the receiver role
+          of HPKE operations, performing decryption and key
+          decapsulation.
+
+   These values allow implementations to explicitly track and enforce
+   role-specific key usage in HPKE operations and prevent key reuse with
+   other cryptographic algorithms.
+
+4.5.  Compact Example
 
    A Compact JWE or JSON Web Token:
 
@@ -447,7 +469,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
   }
 }
 
-4.5.  JSON Example
+4.6.  JSON Example
 
    A JSON Encoded JWE:
 
@@ -472,7 +494,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
   "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
 }
 
-4.6.  Multiple Recipients example
+4.7.  Multiple Recipients example
 
    For example:
 
@@ -612,7 +634,19 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    This document adds entries to [JOSE-IANA].
 
-6.1.  Ciphersuite Registration
+6.1.  Updates to "JSON Web Key Use" Registry
+
+   The "JSON Web Key Use" registry is updated as follows:
+
+   o Use Member Value: "HPKE-Sender" o Use Description: Key for HPKE
+   sender role (encapsulation) o Change Controller: IESG o Specification
+   Document(s): This document
+
+   o Use Member Value: "HPKE-Receiver" o Use Description: Key for HPKE
+   receiver role (decapsulation) o Change Controller: IESG o
+   Specification Document(s): This document
+
+6.2.  Ciphersuite Registration
 
    This specification registers a number of JOSE-HPKE algorithms/
    ciphersuites.  A ciphersuite is a group of algorithms, often sharing
@@ -636,12 +670,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    Implementations detect the use of modes by inspecting header
    parameters.
 
-6.2.  JSON Web Signature and Encryption Algorithms
+6.3.  JSON Web Signature and Encryption Algorithms
 
    The following entries are added to the "JSON Web Signature and
    Encryption Algorithms" registry:
 
-6.2.1.  HPKE-0
+6.3.1.  HPKE-0
 
    *  Algorithm Name: HPKE-0
 
@@ -659,7 +693,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.2.  HPKE-1
+6.3.2.  HPKE-1
 
    *  Algorithm Name: HPKE-1
 
@@ -677,7 +711,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.3.  HPKE-2
+6.3.3.  HPKE-2
 
    *  Algorithm Name: HPKE-2
 
@@ -695,7 +729,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.4.  HPKE-3
+6.3.4.  HPKE-3
 
    *  Algorithm Name: HPKE-3
 
@@ -713,7 +747,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.5.  HPKE-4
+6.3.5.  HPKE-4
 
    *  Algorithm Name: HPKE-4
 
@@ -731,7 +765,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.6.  HPKE-5
+6.3.6.  HPKE-5
 
    *  Algorithm Name: HPKE-5
 
@@ -749,7 +783,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.2.7.  HPKE-6
+6.3.7.  HPKE-6
 
    *  Algorithm Name: HPKE-6
 
@@ -767,12 +801,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-6.3.  JSON Web Signature and Encryption Header Parameters
+6.4.  JSON Web Signature and Encryption Header Parameters
 
    The following entries are added to the "JSON Web Key Parameters"
    registry:
 
-6.3.1.  ek
+6.4.1.  ek
 
    *  Header Parameter Name: "ek"
 
@@ -785,7 +819,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-6.3.2.  psk_id
+6.4.2.  psk_id
 
    *  Header Parameter Name: "psk_id"
 
@@ -798,7 +832,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-6.3.3.  auth_kid
+6.4.3.  auth_kid
 
    *  Header Parameter Name: "auth_kid"
 
