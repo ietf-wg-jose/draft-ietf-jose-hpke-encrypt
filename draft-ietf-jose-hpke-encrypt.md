@@ -303,6 +303,17 @@ this document, the valid combinations of the KEM, "kty" and "crv" are shown in  
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
 
 
+## Key Usage Guidelines for JOSE-HPKE
+
+To ensure predictable key usage within JOSE-HPKE, the following restrictions and guidelines are introduced:
+
+1. **New Key Use Values**
+   The following values are registered in the "JSON Web Key Use" registry to explicitly identify the roles of keys in HPKE operations:
+   - **HPKE-Sender:** A key intended for use in the sender role of HPKE operations, performing encryption and key encapsulation.
+   - **HPKE-Receiver:** A key intended for use in the receiver role of HPKE operations, performing decryption and key decapsulation.
+
+These values allow implementations to explicitly track and enforce role-specific key usage in HPKE operations and prevent key reuse with other cryptographic algorithms.
+
 ## Compact Example
 
 A Compact JWE or JSON Web Token:
@@ -477,6 +488,20 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 #  IANA Considerations {#IANA}
 
 This document adds entries to {{JOSE-IANA}}.
+
+## Updates to "JSON Web Key Use" Registry
+
+The "JSON Web Key Use" registry is updated as follows:
+
+   o  Use Member Value: "HPKE-Sender"
+   o  Use Description: Key for HPKE sender role (encapsulation)
+   o  Change Controller: IESG
+   o  Specification Document(s): This document
+
+   o  Use Member Value: "HPKE-Receiver"
+   o  Use Description: Key for HPKE receiver role (decapsulation)
+   o  Change Controller: IESG
+   o  Specification Document(s): This document
 
 ## Ciphersuite Registration
 
