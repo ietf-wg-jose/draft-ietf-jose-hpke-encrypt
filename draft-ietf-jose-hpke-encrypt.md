@@ -186,7 +186,7 @@ The resulting JWE is filled as follows:
   * MUST contain "alg" that is the used JOSE-HPKE algorithm.
   * MUST contain the "apu", "apv" and "zip" header parameters, if present.
 - JWE Initialization Vector MUST be empty.
-- JWE Ciphertext MUST be the raw ct output from HPKE Seal operation.
+- JWE Ciphertext MUST be the raw ciphertext (ct) output from HPKE Seal operation.
 - JWE Authentication Tag MUST be empty.
 - There MUST be exactly one recipient, with:
   * JWE Per-Recipient Unprotected Header MUST be empty.
@@ -232,9 +232,7 @@ Where:
  - enc is the value of "enc" header parameter in JOSE header. The integrity-protected 'enc' parameter provides protection against an
    attacker who manipulates the encryption algorithm in the 'enc' parameter.
  - apu is The value of "apu" header parameter if present in JOSE header, otherwise empty string.
- - apv is The value of "apv" header parameter if present in JOSE header, otherwise empty string.
-
- TBD: Authenticated key agreement mechanisms, such as ECDH-SS or authenticated HPKE modes, mitigate the risk of misusing apu and apv by binding the derived key to the specific identities of the participants. This ensures that any alteration to apu or apv invalidates the derived key, preventing unintended use. However, in the base mode of HPKE, where no authentication is provided, the use of apu and apv does not offer any security guarantees and could be subject to misuse. Do we really need apu and apv in the Recipient Context and why is it not required for JWE Integrated Encryption ?
+ - apv is The value of "apv" header parameter if present in JOSE header, otherwise empty string. 
 
 The "auth_kid" header parameter MUST NOT be present in JOSE header.
 
@@ -245,7 +243,6 @@ When encrypting, the inputs to HPKE Seal operation are set as follows:
 - kdf_id: Depends on the JOSE-HPKE algorithm used.
 - aead_id: Depends on the JOSE-HPKE algorithm used.
 - info: By default, an empty string. Application MAY specify some other value.
-TBD: The existing JWE specifications do not provide a mechanism to include application context as AAD. Addressing this limitation exclusively for HPKE, while not applying similar measures to other algorithms, introduces an asymmetry in how messages are bound to their origin. This inconsistency could create potential vulnerabilities by differing security assurances across cryptographic algorithms. Why is this required just for JWE HPKE ?
 - aad: The Recipient Context.
 - pt: The CEK.
 
