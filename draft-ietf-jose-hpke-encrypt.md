@@ -452,7 +452,7 @@ A single key MUST NOT be used in both sender and recipient roles. Avoiding the u
 
 A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
 
-The context binding performed by JOSE-HPKE and HPKE ensures that it is safe to use a single key with multiple JOSE-HPKE algorithms and for both Integrated Encryption and Key Encryption.
+A single key MAY be used with both Integrated Encryption and Key Encryption.
 
 ## Plaintext Compression
 
