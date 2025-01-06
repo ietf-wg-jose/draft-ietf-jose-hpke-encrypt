@@ -299,18 +299,6 @@ this document, the valid combinations of the KEM, "kty" and "crv" are shown in  
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
 
-
-## Key Usage Guidelines for JOSE-HPKE
-
-To ensure predictable key usage within JOSE-HPKE, the following restrictions and guidelines are introduced:
-
-1. **New Key Use Values**
-   The following values are registered in the "JSON Web Key Use" registry to explicitly identify the roles of keys in HPKE operations:
-   - **HPKEauth:** A key intended for use in the sender role of HPKE operations, performing encryption and key encapsulation.
-   - **HPKErecv:** A key intended for use in the receiver role of HPKE operations, performing decryption and key decapsulation.
-
-These values allow implementations to explicitly track and enforce role-specific key usage in HPKE operations and prevent key reuse with other cryptographic algorithms.
-
 ## Compact Example
 
 A Compact JWE or JSON Web Token:
@@ -444,7 +432,7 @@ In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it
 
 ## HPKE authentication
 
-Authenticated HPKE modes MUST NOT be used for Key Encryption, as the message is not authenticated. Any recipient could act as a man-in-the-middle (MitM) and modify the message.
+Authenticated HPKE modes MUST NOT be used for Key Encryption, as they do not authenticate the message. These modes validate the sender's identity by ensuring that the shared secret originates from the sender's static public key, a pre-shared key, or a combination of both. However, this authentication is limited to the key exchange process and does not cover the message encrypted with the CEK. For example, a malicious recipient could decrypt the CEK, modify the decrypted message, and re-encrypt it using the same CEK. Other recipients, unaware of the tampering, might mistakenly trust the altered message as if it came from the authenticated sender.
 
 ## Key Management
 
@@ -485,20 +473,6 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 #  IANA Considerations {#IANA}
 
 This document adds entries to {{JOSE-IANA}}.
-
-## Updates to "JSON Web Key Use" Registry
-
-The "JSON Web Key Use" registry is updated as follows:
-
-   o  Use Member Value: "HPKEauth"
-   o  Use Description: Key for HPKE sender role (authentication)
-   o  Change Controller: IESG
-   o  Specification Document(s): This document
-
-   o  Use Member Value: "HPKErecv"
-   o  Use Description: Key for HPKE receiver role (decapsulation)
-   o  Change Controller: IESG
-   o  Specification Document(s): This document
 
 ## Ciphersuite Registration
 
