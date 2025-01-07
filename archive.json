@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-05T01:25:14.608660+00:00",
+  "timestamp": "2025-01-07T01:19:37.193701+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -2241,13 +2241,13 @@
       "labels": [],
       "body": "Updates based on the discussion https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/14",
       "createdAt": "2025-01-02T10:58:05Z",
-      "updatedAt": "2025-01-04T16:15:36Z",
+      "updatedAt": "2025-01-06T13:17:36Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "832915b77bbadc9a1e82c996e263ec6188f0acc3",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-5",
-      "headRefOid": "eff560200070c4b8261de21fd8e21b838970ef79",
+      "headRefOid": "a1e227ae0d96e7f0061c2cde9215a395b2d01672",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2259,6 +2259,27 @@
           "body": "> This PR introduces unnecessary changes to Key Use. The correct key use value for any encryption operation is \"enc\", which is already defined.\r\n\r\nWhy does section 4.2 (use) of JWK define a registry? It seems hard to me to define any (arguably) new uses without a major extension to JOSE, which would not need a registry. So I would presume that use is meant to be useful for more fine-grained scoping as well.\r\n\r\nThe HPKE sender role keys are not used for encryption, those are used for authentication (this is not a counterexample to previous, because there is a major extension involved). Using the same key for encryption and authentication is not a good practice (even if it probably is ultimately safe).\r\n\r\nAnd using the same key with multiple mechanisms (e.g. the JOSE ECDH-ES and HPKE) is not a good practice either, even if it almost invariably ends up being safe.\r\n",
           "createdAt": "2025-01-04T10:02:48Z",
           "updatedAt": "2025-01-04T10:02:48Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Lets split up the editorial clean up from registering new json web key usage params\r\n\r\nWorks for me.",
+          "createdAt": "2025-01-06T08:17:05Z",
+          "updatedAt": "2025-01-06T08:17:05Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This PR runs into massive merge conflicts with merged PR #20, since that PR reverts PR #14, which this is based upon.\r\n\r\nMentions of \"apu\" and \"apv\" should be removed, except maybe text in security considerations discussing why those are broken.",
+          "createdAt": "2025-01-06T08:32:57Z",
+          "updatedAt": "2025-01-06T08:43:02Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> conflict\r\n\r\nwe plan to have a meeting to discuss the changes proposed by you.",
+          "createdAt": "2025-01-06T13:17:34Z",
+          "updatedAt": "2025-01-06T13:17:34Z"
         }
       ],
       "reviews": [
@@ -2767,6 +2788,146 @@
           "createdAt": "2025-01-04T16:15:36Z",
           "updatedAt": "2025-01-04T16:15:36Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W2vYj",
+          "commit": {
+            "abbreviatedOid": "c5b76bf"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-05T16:43:39Z",
+          "updatedAt": "2025-01-05T16:43:39Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "Unfortunately, COSE does not currently have \"use\" (only the broken key_ops).\r\n\r\nMight be worth adding \"use\" to COSE (like \"typ\" was recently added).",
+              "createdAt": "2025-01-05T16:43:39Z",
+              "updatedAt": "2025-01-05T16:43:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W2vnV",
+          "commit": {
+            "abbreviatedOid": "eff5602"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-05T16:49:52Z",
+          "updatedAt": "2025-01-05T16:49:52Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "\"encrypt to yourself\" is usually done using symmetric algorithms, and this is the only known way of doing it post-quantum.\r\n\r\nHowever, the algorithms available for this in JOSE are not great. Only the AES-CBC-HMAC is suitable for Direct Encryption (it is non-trivial to use AES-GCM in Direct Encryption without NDA attack).",
+              "createdAt": "2025-01-05T16:49:52Z",
+              "updatedAt": "2025-01-05T16:49:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W5Lzj",
+          "commit": {
+            "abbreviatedOid": "eff5602"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-06T08:11:21Z",
+          "updatedAt": "2025-01-06T08:11:21Z",
+          "comments": [
+            {
+              "originalPosition": 75,
+              "body": "Please review the below proposed text:\r\nAuthenticated HPKE modes MUST NOT be used for Key Encryption, as they do not authenticate the message. These modes validate the sender's identity by ensuring that the shared secret originates from the sender's static public key, a pre-shared key, or a combination of both. However, this authentication is limited to the key exchange process and does not cover the message encrypted with the CEK. For example, a malicious recipient could decrypt the CEK, modify the decrypted message, and re-encrypt it using the same CEK. Other recipients, unaware of the tampering, might mistakenly trust the altered message as if it came from the authenticated sender.",
+              "createdAt": "2025-01-06T08:11:21Z",
+              "updatedAt": "2025-01-06T08:37:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W5VmA",
+          "commit": {
+            "abbreviatedOid": "c5b76bf"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-06T08:33:18Z",
+          "updatedAt": "2025-01-06T08:33:18Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Removed text.",
+              "createdAt": "2025-01-06T08:33:18Z",
+              "updatedAt": "2025-01-06T08:33:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W5V8U",
+          "commit": {
+            "abbreviatedOid": "c2dcb97"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-06T08:34:18Z",
+          "updatedAt": "2025-01-06T08:34:18Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Mentions of \"apu\" and \"apv\" should be removed, given how broken those are.",
+              "createdAt": "2025-01-06T08:34:18Z",
+              "updatedAt": "2025-01-06T08:34:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W5XE_",
+          "commit": {
+            "abbreviatedOid": "c2dcb97"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-06T08:37:21Z",
+          "updatedAt": "2025-01-06T08:37:21Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "\"apu\" and \"apv\" should be removed as broken. And the recipient context structure above should be updated to something like:\r\n\r\n`len32(enc)||enc`.\r\n\r\nIncidentally, this matches the COSE-HPKE one (minus the fields that do not exist on JOSE side).",
+              "createdAt": "2025-01-06T08:37:21Z",
+              "updatedAt": "2025-01-06T09:03:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6W5ey0",
+          "commit": {
+            "abbreviatedOid": "d07b510"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-06T08:48:52Z",
+          "updatedAt": "2025-01-06T08:48:52Z",
+          "comments": [
+            {
+              "originalPosition": 115,
+              "body": "While this text is going to be removed from this PR...\r\n\r\nThe public part of receiver role key is used for encapsulation/encryption and the private part is used for decapsulation/decryption.\r\n\r\nWhile the public part of sender role key is used to verify the (optional) message authentication, and private part is used to (optionally) authenticate the message.\r\n\r\n\r\n\r\n",
+              "createdAt": "2025-01-06T08:48:52Z",
+              "updatedAt": "2025-01-06T08:48:52Z"
+            }
+          ]
         }
       ]
     },
@@ -2775,24 +2936,26 @@
       "id": "PR_kwDOMMuuSM6GvGcU",
       "title": "Revert changes merged during 2024 holidays without adequate review",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/20",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-04T18:51:47Z",
-      "updatedAt": "2025-01-04T18:55:42Z",
+      "updatedAt": "2025-01-05T18:16:20Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "832915b77bbadc9a1e82c996e263ec6188f0acc3",
       "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-revert-unreviewed-holiday-2024-changes",
       "headRefOid": "ead6837ef5d97d700f3357d6119e1d9d858814c7",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-01-05T18:16:20Z",
+      "mergedAt": "2025-01-05T18:16:20Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "4b1e0a2e34a18f1aa3da3406f524167ba1c96300"
+      },
       "comments": [],
       "reviews": [
         {
