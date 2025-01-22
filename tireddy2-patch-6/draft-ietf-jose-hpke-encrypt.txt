@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 21 June 2025                                                   
+Expires: 26 July 2025                                              H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                        18 December 2024
+                                                         22 January 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,11 +61,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 June 2025.
+   This Internet-Draft will expire on 26 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -89,14 +89,15 @@ Table of Contents
      5.1.  Compact Example
      5.2.  JSON Example
    6.  Key Encryption
-     6.1.  Multiple Recipients
+     6.1.  Multiple Recipients Example
    7.  Security Considerations
-     7.1.  Key Management
-     7.2.  Plaintext Compression
-     7.3.  Header Parameters
-     7.4.  Ensure Cryptographic Keys Have Sufficient Entropy
-     7.5.  Validate Cryptographic Inputs
-     7.6.  Use Appropriate Algorithms
+     7.1.  HPKE authentication
+     7.2.  Key Management
+     7.3.  Plaintext Compression
+     7.4.  Header Parameters
+     7.5.  Ensure Cryptographic Keys Have Sufficient Entropy
+     7.6.  Validate Cryptographic Inputs
+     7.7.  Use Appropriate Algorithms
    8.  IANA Considerations
      8.1.  Ciphersuite Registration
      8.2.  JSON Web Signature and Encryption Algorithms
@@ -169,12 +170,15 @@ Table of Contents
       encryption key (CEK) and the CEK is subsequently used to encrypt
       the plaintext.
 
-   When "alg" and "enc" are both present in a protected header and when
-   "iv" and "tag" are empty, the mode is HPKE JWE Integrated Encryption.
+   When "alg" is a JOSE-HPKE algorithm:
 
-   When "enc" is present in a protected header and "alg" is absent, the
-   mode is HPKE JWE Key Encryption when a valid HPKE "alg" value is
-   present in the unprotected headers.
+   *  If "enc" is "dir", HPKE JWE Integrated Encryption is used.
+
+   *  If "enc" is an AEAD algorithm, The recipient Key Managment mode is
+      Key Encryption.
+
+   The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm
+   used.
 
    HPKE supports several modes, which are described in Table 1 of
    [RFC9180].
@@ -221,17 +225,6 @@ Table of Contents
    the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and
    Seal().
 
-   The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated
-   Data encryption parameter" defined in Step 14 of Section 5.1 of
-   [RFC7516] which is repeated here for clarity:
-
-   Let the Additional Authenticated Data encryption parameter be
-   ASCII(Encoded Protected Header).  However, if a JWE AAD value is
-   present (which can only be the case when using the JWE JSON
-   Serialization), instead let the Additional Authenticated Data
-   encryption parameter be ASCII(Encoded Protected Header || '.' ||
-   BASE64URL(JWE AAD)).
-
 4.2.  Encapsulated Keys
 
    Encapsulated keys MUST be the base64url encoded encapsulated key as
@@ -272,15 +265,19 @@ Table of Contents
       defined in Section 5.2 of [RFC9180].
 
    *  The HPKE Setup info parameter MAY be used, and its values are not
-      constrained by this specification.  By default, it is empty unless
-      apu or apv are present, in which case it will carry the JOSE
-      context-specific data as defined in Section 4.6.2 of [RFC7518],
-      i.e., the concatenation of AlgorithmID, PartyUInfo, and
-      PartyVInfo.  It does not include Z, keydatalen, SuppPubInfo, or
-      SuppPrivInfo.  AlgorithmID is structured as defined in
-      Section 4.6.2 of [RFC7518] and the Data field in AlgorithmID will
-      be set to the octets of the ASCII representation of the "enc"
-      Header Parameter value.
+      constrained by this specification.
+
+   *  The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated
+      Data encryption parameter" defined in Step 14 of Section 5.1 of
+      [RFC7516].
+
+   If the "zip" header parameter is present, the resulting plaintext is
+   uncompressed using the algorithm specified and the result is the raw
+   message plaintext.  Otherwise the resulting plaintext is the raw
+   message plaintext.
+
+   When decrypting, the checks in [RFC7516] section 5.2, steps 1 through
+   5 MUST be performed.
 
 5.1.  Compact Example
 
@@ -369,17 +366,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       described in Step 19 in Section 5.1 of [RFC7516].
 
    *  The HPKE Setup info parameter MAY be used, and its values are not
-      constrained by this specification.  By default, it is empty unless
-      apu or apv are present, in which case it will carry the JOSE
-      context-specific data as defined in Section 4.6.2 of [RFC7518],
-      i.e., the concatenation of AlgorithmID, PartyUInfo, and
-      PartyVInfo.  It does not include Z, keydatalen, SuppPubInfo, or
-      SuppPrivInfo.  AlgorithmID is structured as defined in
-      Section 4.6.2 of [RFC7518] and the Data field in AlgorithmID will
-      be set to the octets of the ASCII representation of the "alg"
-      (algorithm) Header Parameter value.
+      constrained by this specification.
 
-6.1.  Multiple Recipients
+6.1.  Multiple Recipients Example
 
    For example:
 
@@ -454,27 +443,40 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    generated and it MUST be ensured that the guidelines in [RFC8937] for
    random number generations are followed.
 
-7.1.  Key Management
+7.1.  HPKE authentication
 
-   Reusing a single KEM key across multiple algorithm combinations MUST
-   be avoided to maintain cryptographic security.  Each key and its
-   associated algorithm suite, comprising the KEM, KDF, and AEAD, should
-   be managed independently.  This separation prevents unintended
-   interactions or vulnerabilities between suites, ensuring the
-   integrity and security guarantees of each algorithm suite are
-   preserved.  Additionally, the same key MUST NOT be used for both key
-   wrapping and content encryption, as it may introduce security risks.
-   It creates algorithm confusion, increases the potential for key
-   leakage, cross-suite attacks, and improper handling of the key.
+   Authenticated HPKE modes MUST NOT be used for Key Encryption, as they
+   do not authenticate the message.  These modes validate the sender's
+   identity by ensuring that the shared secret originates from the
+   sender's static public key, a pre-shared key, or a combination of
+   both.  However, this authentication is limited to the key exchange
+   process and does not cover the message encrypted with the CEK.  For
+   example, a malicious recipient could decrypt the CEK, modify the
+   decrypted message, and re-encrypt it using the same CEK.  Other
+   recipients, unaware of the tampering, might mistakenly trust the
+   altered message as if it came from the authenticated sender.
 
-7.2.  Plaintext Compression
+7.2.  Key Management
+
+   A single key MUST NOT be used in both sender and recipient roles.
+   Avoiding the use of the same key for both sender and recipient roles
+   ensures clear cryptographic boundaries and minimizes unintended
+   interactions.
+
+   A single key MUST NOT be used with both JOSE-HPKE and other
+   algorithms as this might enable cross-protocol attacks.
+
+   A single key MAY be used with both Integrated Encryption and Key
+   Encryption.
+
+7.3.  Plaintext Compression
 
    Implementers are advised to review Section 3.6 of [RFC8725], which
    states: Compression of data SHOULD NOT be done before encryption,
    because such compressed data often reveals information about the
    plaintext.
 
-7.3.  Header Parameters
+7.4.  Header Parameters
 
    Implementers are advised to review Section 3.10 of [RFC8725], which
    comments on application processing of JWE Protected Headers.
@@ -482,7 +484,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    which an attacker could leverage to mount denial of service, forgery
    or injection attacks.
 
-7.4.  Ensure Cryptographic Keys Have Sufficient Entropy
+7.5.  Ensure Cryptographic Keys Have Sufficient Entropy
 
    Implementers are advised to review Section 3.5 of [RFC8725], which
    provides comments on entropy requirements for keys.  This guidance is
@@ -490,7 +492,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    and Integrated Encryption.  Additionally, this guidance is applicable
    to content encryption keys used in Key Encryption mode.
 
-7.5.  Validate Cryptographic Inputs
+7.6.  Validate Cryptographic Inputs
 
    Implementers are advised to review Section 3.4 of [RFC8725], which
    provides comments on the validation of cryptographic inputs.  This
@@ -499,7 +501,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    structure of the public and private keys.  These inputs are crucial
    for the HPKE KEM operations.
 
-7.6.  Use Appropriate Algorithms
+7.7.  Use Appropriate Algorithms
 
    Implementers are advised to review Section 3.2 of [RFC8725], which
    comments on the selection of appropriate algorithms.  This is
@@ -517,7 +519,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    This specification registers a number of ciphersuites for use with
    HPKE.  A ciphersuite is a group of algorithms, often sharing
    component algorithms such as hash functions, targeting a security
-   level.  An HPKE ciphersuite, is composed of the following choices:
+   level.  A JOSE-HPKE algorithm, is composed of the following choices:
 
    *  HPKE Mode
 
@@ -778,9 +780,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-09, 12 July 2024,
+              Internet-Draft, draft-ietf-cose-hpke-10, 18 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-09>.
+              hpke-10>.
 
    [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
               and C. Wood, "Randomness Improvements for Security
@@ -853,7 +855,8 @@ Authors' Addresses
 
 
    Hannes Tschofenig
-   Austria
+   University of Applied Sciences Bonn-Rhein-Sieg
+   Germany
    Email: hannes.tschofenig@gmx.net
 
 
