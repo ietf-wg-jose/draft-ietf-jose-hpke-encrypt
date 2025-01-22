@@ -199,7 +199,7 @@ In HPKE JWE Integrated Encryption:
 
 
 If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
-raw message plaintext. Otherwise the resulting plaintext is the raw message plaintext.
+raw message plaintext.
 
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed.
 
