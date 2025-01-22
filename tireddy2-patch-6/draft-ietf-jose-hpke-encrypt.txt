@@ -273,7 +273,6 @@ Table of Contents
 
    If the "zip" header parameter is present, the resulting plaintext is
    uncompressed using the algorithm specified and the result is the raw
-   message plaintext.  Otherwise the resulting plaintext is the raw
    message plaintext.
 
    When decrypting, the checks in [RFC7516] section 5.2, steps 1 through
