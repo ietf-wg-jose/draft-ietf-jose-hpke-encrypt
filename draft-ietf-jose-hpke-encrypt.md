@@ -194,7 +194,7 @@ In HPKE JWE Integrated Encryption:
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. 
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification.
 - The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of {{RFC7516}}.
 
 
@@ -276,16 +276,8 @@ In HPKE JWE Key Encryption:
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification. 
-- The HPKE AEAD AAD parameter is set to the Recipient Context. The Recipient Context is defined as follows:
-   `len32(enc)||enc`
-    Where:
+- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification.
 
-    * `×||y` is the concatenation of byte strings x and y.
-    * len32(x) is number of bytes in x as four-byte big-endian integer.
-    * enc is the value of "enc" header parameter in JOSE header. The integrity-protected 'enc' parameter provides protection against an
-      attacker who manipulates the encryption algorithm in the 'enc' parameter.
- 
 ## Multiple Recipients Example
 
 For example:
