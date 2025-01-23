@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 26 July 2025                                              H-BRS
+Expires: 27 July 2025                                              H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         22 January 2025
+                                                         23 January 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 July 2025.
+   This Internet-Draft will expire on 27 July 2025.
 
 Copyright Notice
 
@@ -462,8 +462,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    ensures clear cryptographic boundaries and minimizes unintended
    interactions.
 
-   A single key MUST NOT be used with both JOSE-HPKE and other
-   algorithms as this might enable cross-protocol attacks.
+   A single recipient or sender key MUST NOT be used with both JOSE-HPKE
+   and other algorithms as this might enable cross-protocol attacks.
 
    A single key MAY be used with both Integrated Encryption and Key
    Encryption.
