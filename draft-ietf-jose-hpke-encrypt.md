@@ -361,7 +361,7 @@ Authenticated HPKE modes MUST NOT be used for Key Encryption, as they do not aut
 
 A single key MUST NOT be used in both sender and recipient roles. Avoiding the use of the same key for both sender and recipient roles ensures clear cryptographic boundaries and minimizes unintended interactions.
 
-A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
+A single recipient or sender key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
 
 A single key MAY be used with both Integrated Encryption and Key Encryption.
 
