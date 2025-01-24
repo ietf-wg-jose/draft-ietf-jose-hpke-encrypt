@@ -268,8 +268,8 @@ Table of Contents
       constrained by this specification.
 
    *  The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated
-      Data encryption parameter" defined in Step 14 of Section 5.1 of
-      [RFC7516].
+      Data encryption parameter", as defined in Step 14 of Section 5.1
+      of [RFC7516].
 
    If the "zip" header parameter is present, the resulting plaintext is
    uncompressed using the algorithm specified and the result is the raw
