@@ -143,7 +143,7 @@ This specification describes two modes of use for HPKE in JWE:
 When "alg" is a JOSE-HPKE algorithm:
 
   * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
-  * If "enc" is an AEAD algorithm, The recipient Key Managment mode is Key Encryption.
+  * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
 
 The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.
 
