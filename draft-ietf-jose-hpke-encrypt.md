@@ -145,7 +145,7 @@ When "alg" is a JOSE-HPKE algorithm:
   * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
   * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
 
-The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.
+The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
