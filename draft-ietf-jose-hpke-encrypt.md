@@ -195,7 +195,7 @@ In HPKE JWE Integrated Encryption:
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
 - The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification.
-- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of {{RFC7516}}.
+- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 
 
 If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
