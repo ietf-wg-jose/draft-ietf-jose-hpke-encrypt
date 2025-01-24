@@ -177,7 +177,7 @@ Table of Contents
    *  If "enc" is an AEAD algorithm, the recipient Key Managment mode is
       Key Encryption.
 
-   The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm
+   The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm
    used.
 
    HPKE supports several modes, which are described in Table 1 of
