@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 27 July 2025                                              H-BRS
+Expires: 28 July 2025                                              H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         23 January 2025
+                                                         24 January 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 July 2025.
+   This Internet-Draft will expire on 28 July 2025.
 
 Copyright Notice
 
@@ -174,7 +174,7 @@ Table of Contents
 
    *  If "enc" is "dir", HPKE JWE Integrated Encryption is used.
 
-   *  If "enc" is an AEAD algorithm, The recipient Key Managment mode is
+   *  If "enc" is an AEAD algorithm, the recipient Key Managment mode is
       Key Encryption.
 
    The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm
