@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-23T01:17:09.964157+00:00",
+  "timestamp": "2025-01-26T01:19:36.379479+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -2302,21 +2302,21 @@
       "id": "PR_kwDOMMuuSM6GkcnR",
       "title": "Update to draft",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Updates based on the discussion https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/14",
       "createdAt": "2025-01-02T10:58:05Z",
-      "updatedAt": "2025-01-06T13:17:36Z",
+      "updatedAt": "2025-01-24T16:25:44Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "832915b77bbadc9a1e82c996e263ec6188f0acc3",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-5",
       "headRefOid": "a1e227ae0d96e7f0061c2cde9215a395b2d01672",
-      "closedAt": null,
+      "closedAt": "2025-01-24T16:25:44Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -3053,13 +3053,13 @@
       "labels": [],
       "body": "The PR addresses https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/21, https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/19 and https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/18",
       "createdAt": "2025-01-21T14:01:58Z",
-      "updatedAt": "2025-01-22T15:22:08Z",
+      "updatedAt": "2025-01-24T15:57:46Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c39269f5b0a13e8d87c34ce06f0af629d91f9ae4",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-6",
-      "headRefOid": "ba0c38dad082e89ef53564743db71a2a13fe71a7",
+      "headRefOid": "d93c5b8f5c1e66f47c3c15d76f9f5522922b8bdd",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3158,6 +3158,226 @@
           "createdAt": "2025-01-22T15:22:08Z",
           "updatedAt": "2025-01-22T15:22:08Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZIZfO",
+          "commit": {
+            "abbreviatedOid": "ba0c38d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-23T08:00:54Z",
+          "updatedAt": "2025-01-23T08:00:54Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "Encrypting messages to yourself is typically done using symmetric algorithms, For instance, in case of PQC KEM, it looks complex to encrypt the symmetric key to yourself using encap and then later using decap to get the symmetric key. I don't see any benefit for the additional compute.",
+              "createdAt": "2025-01-23T08:00:54Z",
+              "updatedAt": "2025-01-23T08:00:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXG3_",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:33:05Z",
+          "updatedAt": "2025-01-24T15:33:05Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\n  * If \"enc\" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.\r\n```",
+              "createdAt": "2025-01-24T15:33:05Z",
+              "updatedAt": "2025-01-24T15:33:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXIWk",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:34:52Z",
+          "updatedAt": "2025-01-24T15:34:52Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nThe HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.\r\n```",
+              "createdAt": "2025-01-24T15:34:52Z",
+              "updatedAt": "2025-01-24T15:34:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXJx3",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:37:27Z",
+          "updatedAt": "2025-01-24T15:37:28Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "This doesn't say how the HPKE Setup Info parameter value is provided.",
+              "createdAt": "2025-01-24T15:37:28Z",
+              "updatedAt": "2025-01-24T15:37:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXLMn",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:40:05Z",
+          "updatedAt": "2025-01-24T15:40:06Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "```suggestion\r\n- The HPKE AEAD AAD MUST be set to the \"JWE Additional Authenticated Data encryption parameter\", as defined in Step 14 of Section 5.1 of {{RFC7516}}.\r\n```",
+              "createdAt": "2025-01-24T15:40:06Z",
+              "updatedAt": "2025-01-24T15:40:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXPgw",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:47:57Z",
+          "updatedAt": "2025-01-24T15:47:57Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\n```\r\n\r\nTalking about zip is unnecessary here because JWE specifies this behavior, which applies to all algorithms.",
+              "createdAt": "2025-01-24T15:47:57Z",
+              "updatedAt": "2025-01-24T15:47:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXP6R",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:48:39Z",
+          "updatedAt": "2025-01-24T15:48:40Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "```suggestion\r\n```\r\n\r\nThis is also unnecessary, as it is specified by JWE.",
+              "createdAt": "2025-01-24T15:48:40Z",
+              "updatedAt": "2025-01-24T15:48:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXQc3",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:49:39Z",
+          "updatedAt": "2025-01-24T15:49:39Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "This doesn't say how the HPKE Setup Info parameter value is provided.",
+              "createdAt": "2025-01-24T15:49:39Z",
+              "updatedAt": "2025-01-24T15:49:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXRe0",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:51:33Z",
+          "updatedAt": "2025-01-24T15:51:33Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "I'm not sure why the good guidance above is being deleted.",
+              "createdAt": "2025-01-24T15:51:33Z",
+              "updatedAt": "2025-01-24T15:51:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXSoB",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:53:40Z",
+          "updatedAt": "2025-01-24T15:53:40Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Not reusing a key across multiple algorithms is normal cryptographic hygiene, and not specific to HPKE.  Do we really need to say this here?\r\n\r\nIn my view, we should only be adding text about how to use HPKE with JWE.",
+              "createdAt": "2025-01-24T15:53:40Z",
+              "updatedAt": "2025-01-24T15:53:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZXS4t",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-24T15:54:08Z",
+          "updatedAt": "2025-01-24T15:54:08Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "Why is this OK?  This seems like a form of key reuse.",
+              "createdAt": "2025-01-24T15:54:08Z",
+              "updatedAt": "2025-01-24T15:54:08Z"
+            }
+          ]
         }
       ]
     }
