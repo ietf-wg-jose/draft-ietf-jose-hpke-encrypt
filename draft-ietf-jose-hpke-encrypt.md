@@ -143,9 +143,9 @@ This specification describes two modes of use for HPKE in JWE:
 When "alg" is a JOSE-HPKE algorithm:
 
   * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
-  * If "enc" is an AEAD algorithm, The recipient Key Managment mode is Key Encryption.
+  * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
 
-The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.
+The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
@@ -195,11 +195,11 @@ In HPKE JWE Integrated Encryption:
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
 - The HPKE Setup info parameter MUST be set to an empty string.
-- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of {{RFC7516}}.
+- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 
 
 If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
-raw message plaintext. Otherwise the resulting plaintext is the raw message plaintext.
+raw message plaintext. 
 
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed.
 
@@ -365,7 +365,7 @@ interactions or vulnerabilities between suites, ensuring the integrity and secur
 preserved.  Additionally, the same key MUST NOT be used for both key wrapping and content encryption, as it may introduce security risks.
 It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
 
-A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
+A single recipient or sender key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
 
 ## Plaintext Compression
 
