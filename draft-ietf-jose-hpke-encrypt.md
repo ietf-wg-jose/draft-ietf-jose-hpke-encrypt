@@ -143,9 +143,9 @@ This specification describes two modes of use for HPKE in JWE:
 When "alg" is a JOSE-HPKE algorithm:
 
   * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
-  * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
+  * If "enc" is an AEAD algorithm, The recipient Key Managment mode is Key Encryption.
 
-The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
+The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
@@ -194,12 +194,12 @@ In HPKE JWE Integrated Encryption:
 - The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
 - The "iv", "tag" and "aad" members MUST NOT be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification.
-- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
+- The HPKE Setup info parameter MUST be set to an empty string.
+- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of {{RFC7516}}.
 
 
 If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
-raw message plaintext.
+raw message plaintext. Otherwise the resulting plaintext is the raw message plaintext.
 
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed.
 
@@ -276,7 +276,7 @@ In HPKE JWE Key Encryption:
 - The "iv", "tag" JWE members MUST be present.
 - The "aad" JWE member MAY be present.
 - The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
-- The HPKE Setup info parameter MAY be used, and its values are not constrained by this specification.
+- The HPKE Setup info parameter MUST be set to an empty string.
 
 ## Multiple Recipients Example
 
@@ -359,11 +359,13 @@ Authenticated HPKE modes MUST NOT be used for Key Encryption, as they do not aut
 
 ## Key Management
 
-A single key MUST NOT be used in both sender and recipient roles. Avoiding the use of the same key for both sender and recipient roles ensures clear cryptographic boundaries and minimizes unintended interactions.
+Reusing a single KEM key across multiple algorithm combinations MUST be avoided to maintain cryptographic security.  Each key and its
+associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
+interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
+preserved.  Additionally, the same key MUST NOT be used for both key wrapping and content encryption, as it may introduce security risks.
+It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
 
-A single recipient or sender key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
-
-A single key MAY be used with both Integrated Encryption and Key Encryption.
+A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
 
 ## Plaintext Compression
 
