@@ -1396,10 +1396,10 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-4-4.1.1">If "enc" is "dir", HPKE JWE Integrated Encryption is used.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-4.2">
-          <p id="section-4-4.2.1">If "enc" is an AEAD algorithm, The recipient Key Managment mode is Key Encryption.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.2.1">If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-4-5">The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-5">The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">HPKE supports several modes, which are described in Table 1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">In JWE, the use of specific HPKE modes such as "mode_base" or "mode_auth_psk" is determined by the presence of the header parameters "psk_id" and "auth_kid".<a href="#section-4-7" class="pilcrow">¶</a></p>
 <p id="section-4-8">JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>, General JWE JSON Serialization as described in Section 3.2 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
@@ -1473,11 +1473,11 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-5-2.8.1">The HPKE Setup info parameter <span class="bcp14">MUST</span> be set to an empty string.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.9">
-          <p id="section-5-2.9.1">The HPKE AEAD AAD <span class="bcp14">MUST</span> be set to the "JWE Additional Authenticated Data encryption parameter" defined in Step 14 of Section 5.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.9.1">The HPKE AEAD AAD <span class="bcp14">MUST</span> be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-5-3">If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
-raw message plaintext. Otherwise the resulting plaintext is the raw message plaintext.<a href="#section-5-3" class="pilcrow">¶</a></p>
+raw message plaintext.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">When decrypting, the checks in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> section 5.2, steps 1 through 5 <span class="bcp14">MUST</span> be performed.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <div id="compact-example">
 <section id="section-5.1">
@@ -1688,7 +1688,7 @@ associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed
 interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
 preserved.  Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both key wrapping and content encryption, as it may introduce security risks.
 It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">A single key <span class="bcp14">MUST NOT</span> be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">A single recipient or sender key <span class="bcp14">MUST NOT</span> be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="plaintext-compression">
