@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-26T01:19:36.379479+00:00",
+  "timestamp": "2025-01-28T01:17:00.072847+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -3053,13 +3053,13 @@
       "labels": [],
       "body": "The PR addresses https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/21, https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/19 and https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/18",
       "createdAt": "2025-01-21T14:01:58Z",
-      "updatedAt": "2025-01-24T15:57:46Z",
+      "updatedAt": "2025-01-27T07:36:33Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c39269f5b0a13e8d87c34ce06f0af629d91f9ae4",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-6",
-      "headRefOid": "d93c5b8f5c1e66f47c3c15d76f9f5522922b8bdd",
+      "headRefOid": "a54eb85a87b1529576fa3e2ede3adb2ae5fdbed6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3376,6 +3376,146 @@
               "body": "Why is this OK?  This seems like a form of key reuse.",
               "createdAt": "2025-01-24T15:54:08Z",
               "updatedAt": "2025-01-24T15:54:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdXNj",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T06:19:52Z",
+          "updatedAt": "2025-01-27T06:19:52Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "As per our discussion in the call, I updated the text to align with COSE. \r\nThe HPKE Setup info parameter MUST be set to an empty string.",
+              "createdAt": "2025-01-27T06:19:52Z",
+              "updatedAt": "2025-01-27T06:19:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdXQe",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T06:20:03Z",
+          "updatedAt": "2025-01-27T06:20:03Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "As per our discussion in the call, I updated the text to align with COSE.\r\nThe HPKE Setup info parameter MUST be set to an empty string.",
+              "createdAt": "2025-01-27T06:20:03Z",
+              "updatedAt": "2025-01-27T06:20:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdXgU",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T06:21:01Z",
+          "updatedAt": "2025-01-27T06:21:01Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "The above text is only specified for the new JWE Integrated Encryption mode. ",
+              "createdAt": "2025-01-27T06:21:01Z",
+              "updatedAt": "2025-01-27T07:30:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdXjU",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T06:21:11Z",
+          "updatedAt": "2025-01-27T06:21:11Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "The above text is only specified for the new JWE Integrated Encryption mode. ",
+              "createdAt": "2025-01-27T06:21:11Z",
+              "updatedAt": "2025-01-27T07:30:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdYmo",
+          "commit": {
+            "abbreviatedOid": "ba0c38d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T06:25:26Z",
+          "updatedAt": "2025-01-27T06:25:26Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "As per our discussion in the call, reverted the text, it will taken up in a separate PR.",
+              "createdAt": "2025-01-27T06:25:26Z",
+              "updatedAt": "2025-01-27T07:29:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZdqlL",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T07:28:24Z",
+          "updatedAt": "2025-01-27T07:28:24Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Explicitly stating this helps ensure that implementers are aware of and avoid potential cross-protocol attack surfaces.",
+              "createdAt": "2025-01-27T07:28:24Z",
+              "updatedAt": "2025-01-27T07:28:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Zdqng",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T07:28:31Z",
+          "updatedAt": "2025-01-27T07:28:31Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "As discussed in the call, the text is reverted. ",
+              "createdAt": "2025-01-27T07:28:31Z",
+              "updatedAt": "2025-01-27T07:28:32Z"
             }
           ]
         }
