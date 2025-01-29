@@ -1686,7 +1686,7 @@ In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it
 <p id="section-7.2-1">Reusing a single KEM key across multiple algorithm combinations <span class="bcp14">MUST</span> be avoided to maintain cryptographic security.  Each key and its
 associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
 interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
-preserved.  Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both key wrapping and content encryption, as it may introduce security risks.
+preserved.  Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both key encryption and integrated encryption, as it may introduce security risks.
 It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">A single recipient or sender key <span class="bcp14">MUST NOT</span> be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
 </section>

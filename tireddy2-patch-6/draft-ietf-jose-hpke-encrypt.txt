@@ -462,9 +462,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    interactions or vulnerabilities between suites, ensuring the
    integrity and security guarantees of each algorithm suite are
    preserved.  Additionally, the same key MUST NOT be used for both key
-   wrapping and content encryption, as it may introduce security risks.
-   It creates algorithm confusion, increases the potential for key
-   leakage, cross-suite attacks, and improper handling of the key.
+   encryption and integrated encryption, as it may introduce security
+   risks.  It creates algorithm confusion, increases the potential for
+   key leakage, cross-suite attacks, and improper handling of the key.
 
    A single recipient or sender key MUST NOT be used with both JOSE-HPKE
    and other algorithms as this might enable cross-protocol attacks.
