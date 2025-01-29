@@ -197,12 +197,10 @@ In HPKE JWE Integrated Encryption:
 - The HPKE Setup info parameter MUST be set to an empty string.
 - The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 
+Note that compression is possible with integrated encryption, see Section 4.1.3 of {{RFC7516}}.
 
-If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
-raw message plaintext.
-
-When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed.
-
+When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
+base64url encoded encapsulated key.
 
 ## Compact Example
 
