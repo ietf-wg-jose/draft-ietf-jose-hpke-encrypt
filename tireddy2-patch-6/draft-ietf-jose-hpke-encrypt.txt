@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 31 July 2025                                              H-BRS
+Expires: 2 August 2025                                             H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         27 January 2025
+                                                         29 January 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 July 2025.
+   This Internet-Draft will expire on 2 August 2025.
 
 Copyright Notice
 
@@ -91,7 +91,7 @@ Table of Contents
    6.  Key Encryption
      6.1.  Multiple Recipients Example
    7.  Security Considerations
-     7.1.  HPKE authentication
+     7.1.  Authentication using an Asymmetric Key
      7.2.  Key Management
      7.3.  Plaintext Compression
      7.4.  Header Parameters
@@ -440,7 +440,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    generated and it MUST be ensured that the guidelines in [RFC8937] for
    random number generations are followed.
 
-7.1.  HPKE authentication
+7.1.  Authentication using an Asymmetric Key
 
    Authenticated HPKE modes MUST NOT be used for Key Encryption, as they
    do not authenticate the message.  These modes validate the sender's
