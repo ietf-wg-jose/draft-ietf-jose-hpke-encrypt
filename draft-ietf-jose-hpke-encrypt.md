@@ -359,7 +359,7 @@ Authenticated HPKE modes MUST NOT be used for Key Encryption, as they do not aut
 
 ## Key Management
 
-Reusing a single KEM key across multiple algorithm combinations MUST be avoided to maintain cryptographic security.  Each key and its
+A single KEM key MUST NOT be used with multiple algorithms.  Each key and its
 associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
 interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
 preserved.  Additionally, the same key MUST NOT be used for both key encryption and integrated encryption, as it may introduce security risks.
