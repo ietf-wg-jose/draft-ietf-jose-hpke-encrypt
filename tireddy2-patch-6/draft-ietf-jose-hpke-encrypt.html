@@ -1683,7 +1683,7 @@ In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it
         <h3 id="name-key-management">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-key-management" class="section-name selfRef">Key Management</a>
         </h3>
-<p id="section-7.2-1">Reusing a single KEM key across multiple algorithm combinations <span class="bcp14">MUST</span> be avoided to maintain cryptographic security.  Each key and its
+<p id="section-7.2-1">A single KEM key <span class="bcp14">MUST NOT</span> be used with multiple algorithms.  Each key and its
 associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
 interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
 preserved.  Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both key encryption and integrated encryption, as it may introduce security risks.
