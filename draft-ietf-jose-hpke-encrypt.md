@@ -353,7 +353,7 @@ HPKE also offers modes that offer authentication.
 HPKE relies on a source of randomness to be available on the device.
 In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it MUST be ensured that the guidelines in {{RFC8937}} for random number generations are followed.
 
-## HPKE authentication
+## Authentication using an Asymmetric Key
 
 Authenticated HPKE modes MUST NOT be used for Key Encryption, as they do not authenticate the message. These modes validate the sender's identity by ensuring that the shared secret originates from the sender's static public key, a pre-shared key, or a combination of both. However, this authentication is limited to the key exchange process and does not cover the message encrypted with the CEK. For example, a malicious recipient could decrypt the CEK, modify the decrypted message, and re-encrypt it using the same CEK. Other recipients, unaware of the tampering, might mistakenly trust the altered message as if it came from the authenticated sender.
 
