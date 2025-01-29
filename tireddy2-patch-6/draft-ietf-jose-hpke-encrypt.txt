@@ -442,16 +442,14 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
 7.1.  Authentication using an Asymmetric Key
 
-   Authenticated HPKE modes MUST NOT be used for Key Encryption, as they
-   do not authenticate the message.  These modes validate the sender's
-   identity by ensuring that the shared secret originates from the
-   sender's static public key, a pre-shared key, or a combination of
-   both.  However, this authentication is limited to the key exchange
-   process and does not cover the message encrypted with the CEK.  For
-   example, a malicious recipient could decrypt the CEK, modify the
-   decrypted message, and re-encrypt it using the same CEK.  Other
-   recipients, unaware of the tampering, might mistakenly trust the
-   altered message as if it came from the authenticated sender.
+   Implementers are cautioned to note that the use of authenticated KEMs
+   has different meaning when considering integrated encryption and key
+   encryption.  In integrated encryption the KEM operations secure the
+   message plaintext, whereas with key encryption, the KEM operations
+   secure the content encryption key.  For this reason, the use of
+   authenticated KEMs with key encryption is NOT RECOMMENDED, as it
+   gives a false sense of security.  See RFC9180 Section 5.1.3 for
+   details authentication using asymmetric keys.
 
 7.2.  Key Management
 

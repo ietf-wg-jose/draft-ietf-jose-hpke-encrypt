@@ -1675,7 +1675,10 @@ In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it
         <h3 id="name-authentication-using-an-asy">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-authentication-using-an-asy" class="section-name selfRef">Authentication using an Asymmetric Key</a>
         </h3>
-<p id="section-7.1-1">Authenticated HPKE modes <span class="bcp14">MUST NOT</span> be used for Key Encryption, as they do not authenticate the message. These modes validate the sender's identity by ensuring that the shared secret originates from the sender's static public key, a pre-shared key, or a combination of both. However, this authentication is limited to the key exchange process and does not cover the message encrypted with the CEK. For example, a malicious recipient could decrypt the CEK, modify the decrypted message, and re-encrypt it using the same CEK. Other recipients, unaware of the tampering, might mistakenly trust the altered message as if it came from the authenticated sender.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Implementers are cautioned to note that the use of authenticated KEMs has different meaning when considering integrated encryption and key encryption.
+In integrated encryption the KEM operations secure the message plaintext, whereas with key encryption, the KEM operations secure the content encryption key.
+For this reason, the use of authenticated KEMs with key encryption is <span class="bcp14">NOT RECOMMENDED</span>, as it gives a false sense of security.
+See RFC9180 Section 5.1.3 for details authentication using asymmetric keys.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-management">
