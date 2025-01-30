@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-28T01:17:00.072847+00:00",
+  "timestamp": "2025-01-30T01:16:09.282182+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -3053,13 +3053,13 @@
       "labels": [],
       "body": "The PR addresses https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/21, https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/19 and https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/18",
       "createdAt": "2025-01-21T14:01:58Z",
-      "updatedAt": "2025-01-27T07:36:33Z",
+      "updatedAt": "2025-01-29T06:30:02Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c39269f5b0a13e8d87c34ce06f0af629d91f9ae4",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-6",
-      "headRefOid": "a54eb85a87b1529576fa3e2ede3adb2ae5fdbed6",
+      "headRefOid": "75ad11140ca4e119605ba3b1d6a5b52e6cecc549",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3516,6 +3516,246 @@
               "body": "As discussed in the call, the text is reverted. ",
               "createdAt": "2025-01-27T07:28:31Z",
               "updatedAt": "2025-01-27T07:28:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Zr1ic",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:21:52Z",
+          "updatedAt": "2025-01-28T14:21:52Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "A reference would be better than repeating the text... some thing like:\r\n\r\nNote that compression is possible with both integrated encryption and key encryption, see section .... of rfc ...",
+              "createdAt": "2025-01-28T14:21:52Z",
+              "updatedAt": "2025-01-28T14:22:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Zr31v",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:24:22Z",
+          "updatedAt": "2025-01-28T14:24:22Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Probably we should add a comment that \"JWE Encrypted Key\" in step 2 is encapsulated key.\r\nit does seem like we need some connection point for integrated encryption to be well specified.",
+              "createdAt": "2025-01-28T14:24:22Z",
+              "updatedAt": "2025-01-28T14:24:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Zr7G5",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:28:23Z",
+          "updatedAt": "2025-01-28T14:28:23Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\n- The HPKE Setup info parameter SHOULD be set to an empty string. See RFC9180 Section 8.1 for details on how to provide auxiliary authenticated application information.\r\n```",
+              "createdAt": "2025-01-28T14:28:23Z",
+              "updatedAt": "2025-01-28T14:28:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6Zr9gT",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:30:33Z",
+          "updatedAt": "2025-01-28T14:30:33Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\r\n## Authentication using an Asymmetric Key\r\n```",
+              "createdAt": "2025-01-28T14:30:33Z",
+              "updatedAt": "2025-01-28T14:30:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZsD7s",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:38:40Z",
+          "updatedAt": "2025-01-28T14:38:41Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\r\nImplementers are cautioned to note that the use of authenticated KEMs has different meaning when considering integrated encryption and key encryption.\r\nIn integrated encryption the KEM operations secure the message plaintext, whereas with key encryption, the KEM operations secure the content encryption key.\r\nFor this reason, the use of authenticated KEMs with key encryption is NOT RECOMMENDED, as it gives a false sense of security.\r\nSee RFC9180 Section 5.1.3 for details authentication using asymmetric keys.\r\n```",
+              "createdAt": "2025-01-28T14:38:40Z",
+              "updatedAt": "2025-01-28T14:38:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZsF1q",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:41:04Z",
+          "updatedAt": "2025-01-28T14:41:04Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "```suggestion\r\nA single KEM key MUST NOT be used with multiple algorithms.  Each key and its\r\n```",
+              "createdAt": "2025-01-28T14:41:04Z",
+              "updatedAt": "2025-01-28T14:41:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZsGbV",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:41:55Z",
+          "updatedAt": "2025-01-28T14:41:55Z",
+          "comments": [
+            {
+              "originalPosition": 72,
+              "body": "```suggestion\r\npreserved.  Additionally, the same key MUST NOT be used for both key encryption and integrated encryption, as it may introduce security risks.\r\n```",
+              "createdAt": "2025-01-28T14:41:55Z",
+              "updatedAt": "2025-01-28T14:41:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZsIJ9",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-28T14:44:07Z",
+          "updatedAt": "2025-01-28T14:44:08Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Making this informative or and moving it to security considerations is perhaps acceptable middle ground.",
+              "createdAt": "2025-01-28T14:44:08Z",
+              "updatedAt": "2025-01-28T14:44:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZySD6",
+          "commit": {
+            "abbreviatedOid": "a54eb85"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-29T06:12:58Z",
+          "updatedAt": "2025-01-29T06:12:58Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "The COSE-HPKE draft states that the setup info is set to an empty string. We should ensure that both drafts are aligned. In the last meeting, Mike was of the opinion that a new JOSE parameter would need to be added if auxiliary authenticated application information is required to be provided to HPKE setup info.",
+              "createdAt": "2025-01-29T06:12:58Z",
+              "updatedAt": "2025-01-29T06:12:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZyScd",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-29T06:14:24Z",
+          "updatedAt": "2025-01-29T06:14:24Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "The above text is already in Security Considerations section, please check. ",
+              "createdAt": "2025-01-29T06:14:24Z",
+              "updatedAt": "2025-01-29T06:14:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZyUFc",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-29T06:19:39Z",
+          "updatedAt": "2025-01-29T06:19:39Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "I don't see a need to re-iterate that compression is possible with key encryption but I agree to avoid repeating the text. Updated text accordingly.",
+              "createdAt": "2025-01-29T06:19:39Z",
+              "updatedAt": "2025-01-29T06:31:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ZyWJt",
+          "commit": {
+            "abbreviatedOid": "aeb2d6d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-29T06:24:35Z",
+          "updatedAt": "2025-01-29T06:24:35Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Thanks, fixed. ",
+              "createdAt": "2025-01-29T06:24:35Z",
+              "updatedAt": "2025-01-29T06:24:35Z"
             }
           ]
         }
