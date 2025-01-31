@@ -413,12 +413,6 @@ A JOSE-HPKE algorithm, is composed of the following choices:
 
 The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
 
-For readability the algorithm ciphersuites labels are built according to the following scheme:
-
-~~~
-HPKE-<KEM>-<KDF>-<AEAD>
-~~~
-
 The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
 
 - "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
@@ -575,6 +569,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-05
+
+* Removed incorrect text about HPKE algorithm names.
 
 -04
 
