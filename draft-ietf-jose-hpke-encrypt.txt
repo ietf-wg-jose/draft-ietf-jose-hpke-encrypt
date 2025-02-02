@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 4 August 2025                                             H-BRS
+Expires: 6 August 2025                                             H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         31 January 2025
+                                                         2 February 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 6 August 2025.
 
 Copyright Notice
 
@@ -529,11 +529,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA
    registry [HPKE-IANA].
 
-   For readability the algorithm ciphersuites labels are built according
-   to the following scheme:
-
-   HPKE-<KEM>-<KDF>-<AEAD>
-
    The "HPKE Mode" is described in Table 1 of [RFC9180]:
 
    *  "Base" refers to "mode_base" described in Section 5.1.1 of
@@ -815,6 +810,10 @@ Acknowledgments
    Filip Skokan for their contributions to the specification.
 
 Document History
+
+   -05
+
+   *  Removed incorrect text about HPKE algorithm names.
 
    -04
 
