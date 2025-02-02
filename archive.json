@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:16:09.282182+00:00",
+  "timestamp": "2025-02-02T01:20:57.935313+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOMMuuSM6PQl5e",
       "title": "Allow hpke-info",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "From: https://mailarchive.ietf.org/arch/msg/jose/ipj36h_QVgijtAGPlKtX8yXK71Y/\r\n\r\nProposed text:\r\n\r\n> For HPKE JWE Integrated Encryption and Key Encryption hpke-info SHOULD be empty, however, if both sender and recipient agree, hpke-info can be set to any value that is consistent with section ___ of RFC9180.\r\n\r\n",
       "createdAt": "2024-07-11T15:31:21Z",
-      "updatedAt": "2024-07-12T13:23:08Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-31T10:50:38Z",
+      "closedAt": "2025-01-31T10:50:38Z",
       "comments": []
     },
     {
@@ -279,15 +279,15 @@
       "id": "I_kwDOMMuuSM6lBSmW",
       "title": "Use of apu and apv in Recipeint context",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Authenticated key agreement mechanisms, such as ECDH-SS or authenticated HPKE modes, mitigate the risk of misusing apu and apv by binding the derived key to the specific identities of the participants. This ensures that any alteration to apu or apv invalidates the derived key, preventing unintended use. However, in the base mode of HPKE, where no authentication is provided, the use of apu and apv does not offer any security guarantees and could be subject to misuse. Do we really need apu and apv in the Recipient Context and why is it not required for JWE Integrated Encryption ?",
       "createdAt": "2025-01-04T07:31:34Z",
-      "updatedAt": "2025-01-17T16:58:09Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-31T10:50:17Z",
+      "closedAt": "2025-01-31T10:50:17Z",
       "comments": [
         {
           "author": "selfissued",
@@ -303,15 +303,15 @@
       "id": "I_kwDOMMuuSM6lBTDG",
       "title": "Binding the Application Context",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/19",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "info: By default, an empty string. Application MAY specify some other value.\r\n\r\nThe existing JWE specifications do not provide a mechanism to include application context as AAD. Addressing this limitation exclusively for HPKE, while not applying similar measures to other algorithms, introduces an asymmetry in how messages are bound to their origin. This inconsistency could create potential vulnerabilities by differing security assurances across cryptographic algorithms. Why is this required just for JWE HPKE ?",
       "createdAt": "2025-01-04T07:33:20Z",
-      "updatedAt": "2025-01-04T07:33:20Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-31T10:49:46Z",
+      "closedAt": "2025-01-31T10:49:46Z",
       "comments": []
     },
     {
@@ -319,15 +319,15 @@
       "id": "I_kwDOMMuuSM6mpciH",
       "title": "Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "We should verify that we're complying with the guidance in https://csrc.nist.gov/pubs/sp/800/227/ipd.\n",
       "createdAt": "2025-01-17T16:40:56Z",
-      "updatedAt": "2025-01-17T16:40:56Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-31T10:49:58Z",
+      "closedAt": "2025-01-31T10:49:58Z",
       "comments": []
     },
     {
@@ -342,9 +342,31 @@
       "labels": [],
       "body": "please see the discussion in https://mailarchive.ietf.org/arch/msg/cose/asU1U2QWGPLY92eG7aQJXc4L6sc/",
       "createdAt": "2025-01-21T14:07:53Z",
-      "updatedAt": "2025-01-21T14:09:38Z",
+      "updatedAt": "2025-01-31T15:36:47Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The referenced discussion seems to be about hybrid scenarios?  Is that correct?  If so, I recommend that it be handled in the hybrid draft and not here.",
+          "createdAt": "2025-01-30T23:02:44Z",
+          "updatedAt": "2025-01-30T23:02:44Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The discussion was about hybrid scheme but the JOSE HPKE draft does not specify how JWK are used in the context of JOSE HPKE. ",
+          "createdAt": "2025-01-31T15:00:25Z",
+          "updatedAt": "2025-01-31T15:00:25Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this issue is resolved.\n\nLong term keys are JWKs, and \"alg\" is optional, unless the key type requires it.\n\nJOSE HPKE operations require alg and a key (but this is an api detail).\n\nencapsulated keys are not expressed as keys, and are instead expressed as message header parameters.",
+          "createdAt": "2025-01-31T15:36:45Z",
+          "updatedAt": "2025-01-31T15:36:45Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3046,24 +3068,26 @@
       "id": "PR_kwDOMMuuSM6If8ee",
       "title": "Update to draft to address issues",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The PR addresses https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/21, https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/19 and https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/18",
       "createdAt": "2025-01-21T14:01:58Z",
-      "updatedAt": "2025-01-29T06:30:02Z",
+      "updatedAt": "2025-01-31T10:49:14Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c39269f5b0a13e8d87c34ce06f0af629d91f9ae4",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-6",
       "headRefOid": "75ad11140ca4e119605ba3b1d6a5b52e6cecc549",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-01-31T10:49:14Z",
+      "mergedAt": "2025-01-31T10:49:14Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "f5c11cda19305744417347743ca41f9bd5cbd754"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3758,6 +3782,79 @@
               "updatedAt": "2025-01-29T06:24:35Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6aF5Rc",
+          "commit": {
+            "abbreviatedOid": "75ad111"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T22:58:12Z",
+          "updatedAt": "2025-01-30T22:58:12Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "I agree with making this consistent with COSE HPKE by making the parameter empty.  Let's deal with possibly relaxing this in a separate issue, if needed, but not in this PR.",
+              "createdAt": "2025-01-30T22:58:12Z",
+              "updatedAt": "2025-01-30T22:58:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6aF5Va",
+          "commit": {
+            "abbreviatedOid": "75ad111"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-30T22:58:26Z",
+          "updatedAt": "2025-01-30T22:58:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOMMuuSM6JqLLF",
+      "title": "Remove incorrect text about HPKE algorithm names",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/24",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-31T15:47:31Z",
+      "updatedAt": "2025-01-31T16:31:57Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "f5c11cda19305744417347743ca41f9bd5cbd754",
+      "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-hpke-alg-names",
+      "headRefOid": "9a4f8c5f80b9582901949fa45445b6566ea56950",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6aNj_7",
+          "commit": {
+            "abbreviatedOid": "9a4f8c5"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-31T16:31:57Z",
+          "updatedAt": "2025-01-31T16:31:57Z",
+          "comments": []
         }
       ]
     }
