@@ -573,10 +573,29 @@ for their contributions to the specification.
 -05
 
 * Removed incorrect text about HPKE algorithm names.
+* Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.
+* Fixed #19: Binding the Application Context.
+* Fixed #18: Use of apu and apv in Recipeint context.
+* Added new Section 7.1 (Authentication using an Asymmetric Key).
+* Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.
+* Updated HPKE Setup info parameter to be empty.
+* Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.
 
 -04
 
 * Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.
+
+-03
+
+* Added new section 7.1 to discuss Key Management.
+* HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.
+
+-02
+
+* Fixed #4: HPKE Integrated Encryption "enc: dir".
+* Updated text on the use of HPKE Setup info parameter.
+* Added Examples in Sections 5.1, 5.2 and 6.1.
+* Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.
 
 -01
 
