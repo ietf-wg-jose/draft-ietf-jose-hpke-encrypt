@@ -70,7 +70,6 @@ normative:
   RFC8174:
   RFC9180:
   RFC7516:
-  RFC7518:
   RFC7517:
   RFC8725:
   JOSE-IANA:
@@ -133,74 +132,184 @@ This specification uses the following abbreviations and terms:
 - Authenticated Encryption with Associated Data (AEAD), see {{RFC9180}}.
 - Additional Authenticated Data (AAD), see {{RFC9180}}.
 
-# Overview
+# JOSE-HPKE
 
-This specification describes two modes of use for HPKE in JWE:
+This document specifies two modes for JOSE-HPKE:
 
-  *  HPKE JWE Integrated Encryption, where HPKE is used to encrypt the plaintext.
-  *  HPKE JWE Key Encryption, where HPKE is used to encrypt a content encryption key (CEK) and the CEK is subsequently used to encrypt the plaintext.
+  *  HPKE JWE Integrated Encryption, where HPKE is used to directly encrypt the plaintext.
+  *  Key Encryption, where HPKE is used to encrypt a content encryption key (CEK) for encrypting the plaintext.
 
 When "alg" is a JOSE-HPKE algorithm:
 
   * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
-  * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
+  * If "enc" is an AEAD algorithm, The recipient Key Managment mode is Key Encryption.
 
-The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
+The HPKE KEM, KDF and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
-In JWE, the use of specific HPKE modes such as "mode_base" or "mode_auth_psk" is determined by the presence of the header parameters "psk_id" and "auth_kid".
+The HPKE mode used is determined by header parameters "psk_id" and "auth_kid" in the JOSE Header:
 
-JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of {{RFC7516}}, General JWE JSON Serialization as described in Section 3.2 of {{RFC7516}}.
+  * If neither is present, base mode is used.
+  * If only "psk_id" is present, PSK mode is used.
+  * If only "auth_kid" is present,  Auth mode is used.
+  * If both are present, AuthPSK mode is used.
 
-Certain JWE features are only supported in specific serializations.
+If authentication is not supported by the HPKE KEM used, the "auth_kid" header parameter MUST be absent.
 
-For example Compact JWE Serialization does not support the following:
 
-- additional authenticated data
-- multiple recipients
-- unprotected headers
+## HPKE JWE Integrated Encryption
 
-HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.
+When encrypting, the inputs to HPKE Seal operation are set as follows:
 
-Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in { Section 5 of RFC9180 }.
+- kem_id: Depends on the JOSE-HPKE algorithm used.
+- pkR: The recipient public key, converted into HPKE public key.
+- kdf_id: Depends on the JOSE-HPKE algorithm used.
+- aead_id: Depends on the JOSE-HPKE algorithm used.
+- info: By default, an empty string. Application MAY specify some other value.
+- aad: Additional Authenticated Data encryption parameter defined in {{RFC7516}} section 5.1 step 14.
+- pt: The message plaintext, compressed using the algorithm in "zip" header parameter if present.
 
-## Auxiliary Authenticated Application Information
+Additionally, if the "psk_id" header parameter is present:
 
-HPKE has two places at which applications can specify auxiliary authenticated information as described in { Section 8.1 of RFC9180 }.
+- psk: The pre-shared key.
+- psk_id: The value of the "psk_id" header parameter.
 
-HPKE algorithms are not required to process "apu" and "apv" as described in Section 4.6.1 of {{RFC7518}}, despite appearing to be similar to key agreement algorithms (such as "ECDH-ES").
+Additionally, if the "auth_kid" header parameter is present:
 
-The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
+- skS: The sender private key, converted into HPKE private key.
 
-To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and Seal().
+The resulting JWE is filled as follows:
 
-## Encapsulated Keys
+- JWE Protected Header:
+  * MUST contain "enc" with value "dir"
+  * MUST contain "alg" that is the used JOSE-HPKE algorithm.
+  * MUST contain the "apu", "apv" and "zip" header parameters, if present.
+- JWE Initialization Vector MUST be empty.
+- JWE Ciphertext MUST be the raw ciphertext (ct) output from HPKE Seal operation.
+- JWE Authentication Tag MUST be empty.
+- There MUST be exactly one recipient, with:
+  * JWE Per-Recipient Unprotected Header MUST be empty.
+  * JWE Encrypted Key MUST contain the raw enc output from HPKE Seal operation.
 
-Encapsulated keys MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
+The "ek" header parameter MUST NOT be present.
 
-In HPKE JWE Integrated Encryption, JWE Encrypted Key is the encapsulated key.
+When decrypting, the inputs to HPKE Open operation are set as follows:
 
-In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the encapsulated key (ek) is found in the recipient header.
+- kem_id: Depends on the JOSE-HPKE algorithm used.
+- skR: The recipient private key, converted into HPKE private key.
+- kdf_id: Depends on the JOSE-HPKE algorithm used.
+- aead_id: Depends on the JOSE-HPKE algorithm used.
+- info: By default, an empty string. Application MAY specify some other value.
+- add: Additional Authenticated Data encryption parameter defined in {{RFC7516}} section 5.2. step 15.
+- enc: The JWE Encrypted Key of the sole recipient.
+- ct: The JWE Ciphertext.
 
-# Integrated Encryption
+Additionally, if the "psk_id" header parameter is present:
 
-In HPKE JWE Integrated Encryption:
+- psk: The pre-shared key.
+- psk_id: The value of the "psk_id" header parameter.
 
-- The protected header MUST contain an "alg" that starts with "HPKE".
-- The protected header MUST contain an "enc" and it MUST be set to the value "dir". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "dir" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
-- The protected header parameters "psk_id" and "auth_kid" MAY be present.
-- The protected header parameter "ek" MUST NOT be present.
-- The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
-- The "iv", "tag" and "aad" members MUST NOT be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MUST be set to an empty string.
-- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
+Additionally, if the "auth_kid" header parameter is present:
 
-Note that compression is possible with integrated encryption, see Section 4.1.3 of {{RFC7516}}.
+- pkS: The sender public key, converted into HPKE public key.
 
-When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
-base64url encoded encapsulated key.
+If the "zip" header parameter is present, the resulting plaintext is uncompressed using the algorithm specified and the result is the
+raw message plaintext. Otherwise the resulting plaintext is the raw message plaintext.
+
+When decrypting, the checks in {{RFC7516}} section 5.2. steps 1 through 5 MUST be performed.
+
+## Key Encryption
+
+The Recipient Context is defined as follows:
+
+`len32(enc)||enc||len32(apu)||apu||len32(apv)||apv`
+
+Where:
+
+ - `×||y` is the concatenation of byte strings x and y.
+ - len32(x) is number of bytes in x as four-byte big-endian integer.
+ - enc is the value of "enc" header parameter in JOSE header. The integrity-protected 'enc' parameter provides protection against an
+   attacker who manipulates the encryption algorithm in the 'enc' parameter.
+ - apu is The value of "apu" header parameter if present in JOSE header, otherwise empty string.
+ - apv is The value of "apv" header parameter if present in JOSE header, otherwise empty string.
+
+The "auth_kid" header parameter MUST NOT be present in JOSE header.
+
+When encrypting, the inputs to HPKE Seal operation are set as follows:
+
+- kem_id: Depends on the JOSE-HPKE algorithm used.
+- pkR: The recipient public key, converted into HPKE public key.
+- kdf_id: Depends on the JOSE-HPKE algorithm used.
+- aead_id: Depends on the JOSE-HPKE algorithm used.
+- info: By default, an empty string. Application MAY specify some other value.
+- aad: The Recipient Context.
+- pt: The CEK.
+
+Additionally, if the "psk_id" header parameter is present:
+
+- psk: The pre-shared key.
+- psk_id: The value of the "psk_id" header parameter.
+
+The outputs are used as follows:
+
+- enc: MUST be placed base64url-encoded in "ek" header parameter in JOSE header.
+- ct: MUST be placed raw in recpient JWE Encrypted Key.
+
+When decrypting, the inputs to HPKE Open operation are set as follows:
+
+- kem_id: Depends on the JOSE-HPKE algorithm used.
+- skR: The recipient private key, converted into HPKE private key.
+- kdf_id: Depends on the JOSE-HPKE algorithm used.
+- aead_id: Depends on the JOSE-HPKE algorithm used.
+- info: By default, an empty string. Application MAY specify some other value.
+- add: The Recipient Context.
+- enc: The base64url-decoded value of the "ek" header parameter in JOSE header.
+- ct: The JWE Encrypted Key of the recipient.
+
+Additionally, if the "psk_id" header parameter is present in JOSE header:
+
+- psk: The pre-shared key.
+- psk_id: The value of the "psk_id" header parameter.
+
+The resulting plaintext is the CEK.
+
+## Keys
+
+JWKs can be used to to represent KEM private or public keys. When using JWK for JOSE-HPKE, the following checks are made:
+
+* If the "kty" field is "AKP", then the public and private keys MUST be raw HPKE public and private
+keys (respectively) for the KEM used by the algorithm.
+* Otherwise, the key MUST be suitable for the KEM used by the algorithm. In case the "kty" parameter
+is "EC" or "OKP", this means the value of "crv" parameter is suitable. For the algorithms defined in
+this document, the valid combinations of the KEM, "kty" and "crv" are shown in  {{ciphersuite-kty-crv}}.
+
+~~~
++---------------------+-----------------+
+| HPKE KEM id         | JWK             |
+|                     | kty | crv       |
++---------------------+-----+-----------+
+| 0x0010, 0x0013      | EC  | P-256     |
+| 0x0011, 0x0014      | EC  | P-384     |
+| 0x0012, 0x0015      | EC  | P-521     |
+| 0x0016              | EC  | secp256k1 |
+| 0x0020              | OKP | X25519    |
+| 0x0021              | OKP | X448      |
++---------------------+-----+-----------+
+~~~
+{: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
+
+
+## Key Usage Guidelines for JOSE-HPKE
+
+To ensure predictable key usage within JOSE-HPKE, the following restrictions and guidelines are introduced:
+
+1. **New Key Use Values**
+   The following values are registered in the "JSON Web Key Use" registry to explicitly identify the roles of keys in HPKE operations:
+   - **HPKEauth:** A key intended for use in the sender role of HPKE operations, performing encryption and key encapsulation.
+   - **HPKErecv:** A key intended for use in the receiver role of HPKE operations, performing decryption and key decapsulation.
+
+These values allow implementations to explicitly track and enforce role-specific key usage in HPKE operations and prevent key reuse with other cryptographic algorithms.
 
 ## Compact Example
 
@@ -258,25 +367,7 @@ After verification:
 }
 ~~~
 
-# Key Encryption
-
-HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
-
-In HPKE JWE Key Encryption:
-
-- The protected header MUST NOT contain an "alg".
-- The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
-- The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
-- The recipient unprotected header parameter "ek" MUST be present.
-- The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in Section 5.1 of {{RFC7516}}.
-- The recipient "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
-- The "iv", "tag" JWE members MUST be present.
-- The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
-- The HPKE Setup info parameter MUST be set to an empty string.
-
-## Multiple Recipients Example
+## Multiple Recipients example
 
 For example:
 
@@ -351,22 +442,17 @@ HPKE also offers modes that offer authentication.
 HPKE relies on a source of randomness to be available on the device.
 In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it MUST be ensured that the guidelines in {{RFC8937}} for random number generations are followed.
 
-## Authentication using an Asymmetric Key
+## HPKE authentication
 
-Implementers are cautioned to note that the use of authenticated KEMs has different meaning when considering integrated encryption and key encryption.
-In integrated encryption the KEM operations secure the message plaintext, whereas with key encryption, the KEM operations secure the content encryption key.
-For this reason, the use of authenticated KEMs with key encryption is NOT RECOMMENDED, as it gives a false sense of security.
-See RFC9180 Section 5.1.3 for details authentication using asymmetric keys.
+Authenticated HPKE modes MUST NOT be used for Key Encryption, as the message is not authenticated. Any recipient could act as a man-in-the-middle (MitM) and modify the message.
 
 ## Key Management
 
-A single KEM key MUST NOT be used with multiple algorithms.  Each key and its
-associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
-interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
-preserved.  Additionally, the same key MUST NOT be used for both key encryption and integrated encryption, as it may introduce security risks.
-It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
+A single key MUST NOT be used in both sender and recipient roles. Avoiding the use of the same key for both sender and recipient roles ensures clear cryptographic boundaries and minimizes unintended interactions.
 
-A single recipient or sender key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
+A single key MUST NOT be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.
+
+A single key MAY be used with both Integrated Encryption and Key Encryption.
 
 ## Plaintext Compression
 
@@ -400,29 +486,37 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 
 This document adds entries to {{JOSE-IANA}}.
 
+## Updates to "JSON Web Key Use" Registry
+
+The "JSON Web Key Use" registry is updated as follows:
+
+   o  Use Member Value: "HPKEauth"
+   o  Use Description: Key for HPKE sender role (authentication)
+   o  Change Controller: IESG
+   o  Specification Document(s): This document
+
+   o  Use Member Value: "HPKErecv"
+   o  Use Description: Key for HPKE receiver role (decapsulation)
+   o  Change Controller: IESG
+   o  Specification Document(s): This document
+
 ## Ciphersuite Registration
 
-This specification registers a number of ciphersuites for use with HPKE.
+This specification registers a number of JOSE-HPKE algorithms/ciphersuites.
 A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
-A JOSE-HPKE algorithm, is composed of the following choices:
+A JOSE-HPKE algorithm is composed of the following choices:
 
-- HPKE Mode
 - KEM Algorithm
 - KDF Algorithm
 - AEAD Algorithm
 
 The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
 
-The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
+For readability the algorithm ciphersuites labels are built according to the following scheme:
 
-- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
-which only enables encryption to the holder of a given KEM private key.
-- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
-which authenticates using a pre-shared key.
-- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
-which authenticates using an asymmetric key.
-- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
-which authenticates using both a PSK and an asymmetric key.
+~~~
+HPKE-<KEM>-<KDF>-<AEAD>
+~~~
 
 Implementations detect the use of modes by inspecting header parameters.
 
@@ -570,32 +664,9 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--05
-
-* Removed incorrect text about HPKE algorithm names.
-* Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.
-* Fixed #19: Binding the Application Context.
-* Fixed #18: Use of apu and apv in Recipeint context.
-* Added new Section 7.1 (Authentication using an Asymmetric Key).
-* Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.
-* Updated HPKE Setup info parameter to be empty.
-* Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.
-
 -04
 
 * Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.
-
--03
-
-* Added new section 7.1 to discuss Key Management.
-* HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.
-
--02
-
-* Fixed #4: HPKE Integrated Encryption "enc: dir".
-* Updated text on the use of HPKE Setup info parameter.
-* Added Examples in Sections 5.1, 5.2 and 6.1.
-* Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.
 
 -01
 
