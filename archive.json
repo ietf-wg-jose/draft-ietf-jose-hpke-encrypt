@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-02T01:20:57.935313+00:00",
+  "timestamp": "2025-02-04T01:17:28.784567+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -342,7 +342,7 @@
       "labels": [],
       "body": "please see the discussion in https://mailarchive.ietf.org/arch/msg/cose/asU1U2QWGPLY92eG7aQJXc4L6sc/",
       "createdAt": "2025-01-21T14:07:53Z",
-      "updatedAt": "2025-01-31T15:36:47Z",
+      "updatedAt": "2025-02-03T14:57:36Z",
       "closedAt": null,
       "comments": [
         {
@@ -365,6 +365,20 @@
           "body": "I think this issue is resolved.\n\nLong term keys are JWKs, and \"alg\" is optional, unless the key type requires it.\n\nJOSE HPKE operations require alg and a key (but this is an api detail).\n\nencapsulated keys are not expressed as keys, and are instead expressed as message header parameters.",
           "createdAt": "2025-01-31T15:36:45Z",
           "updatedAt": "2025-01-31T15:36:45Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "My understanding is we will have to list the valid combinations of the KEM, \"kty\" and \"crv\" for the algorithms defined in the draft, for instance for HPKE KEM id \"0x0010\", kty will be set to \"EC\" and \"crv\" will be \"P-256\".",
+          "createdAt": "2025-02-03T06:34:30Z",
+          "updatedAt": "2025-02-03T06:34:30Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "So an informative examples section for existing OKP and EC key types and the DH KEMs  that are registered?",
+          "createdAt": "2025-02-03T14:57:34Z",
+          "updatedAt": "2025-02-03T14:57:34Z"
         }
       ]
     }
@@ -3823,24 +3837,26 @@
       "id": "PR_kwDOMMuuSM6JqLLF",
       "title": "Remove incorrect text about HPKE algorithm names",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/24",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-31T15:47:31Z",
-      "updatedAt": "2025-01-31T16:31:57Z",
+      "updatedAt": "2025-02-02T12:02:25Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "f5c11cda19305744417347743ca41f9bd5cbd754",
       "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-hpke-alg-names",
       "headRefOid": "9a4f8c5f80b9582901949fa45445b6566ea56950",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-02T12:02:24Z",
+      "mergedAt": "2025-02-02T12:02:24Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "4968c38869e1667947c100a7e7996a23bd7f0267"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3854,6 +3870,72 @@
           "body": "",
           "createdAt": "2025-01-31T16:31:57Z",
           "updatedAt": "2025-01-31T16:31:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6aSe5E",
+          "commit": {
+            "abbreviatedOid": "9a4f8c5"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-02T12:02:17Z",
+          "updatedAt": "2025-02-02T12:02:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOMMuuSM6Jyy5m",
+      "title": "Updates to Document History",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/25",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-03T05:44:20Z",
+      "updatedAt": "2025-02-03T14:31:17Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "4968c38869e1667947c100a7e7996a23bd7f0267",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-7",
+      "headRefOid": "f9c2cc389d800d28916af7ac8070237324ec2d77",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6aUsZh",
+          "commit": {
+            "abbreviatedOid": "f9c2cc3"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for doing this. ",
+          "createdAt": "2025-02-03T07:35:32Z",
+          "updatedAt": "2025-02-03T07:35:32Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6aYZtW",
+          "commit": {
+            "abbreviatedOid": "f9c2cc3"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-03T14:31:17Z",
+          "updatedAt": "2025-02-03T14:31:17Z",
           "comments": []
         }
       ]
