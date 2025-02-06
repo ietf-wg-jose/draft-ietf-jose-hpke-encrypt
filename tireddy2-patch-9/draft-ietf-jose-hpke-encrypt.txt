@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 8 August 2025                                             H-BRS
+Expires: 10 August 2025                                            H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         4 February 2025
+                                                         6 February 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2025.
+   This Internet-Draft will expire on 10 August 2025.
 
 Copyright Notice
 
@@ -90,7 +90,8 @@ Table of Contents
      5.2.  JSON Example
    6.  Key Encryption
      6.1.  Multiple Recipients Example
-   7.  JWK for JOSE-HPKE
+   7.  Mapping HPKE Keys to JWK for JOSE
+     7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
      8.1.  Authentication using an Asymmetric Key
      8.2.  Key Management
@@ -421,7 +422,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
   "additionalAuthenticatedData": "paul atreides"
 }
 
-7.  JWK for JOSE-HPKE
+7.  Mapping HPKE Keys to JWK for JOSE
 
    JWKs can be used to represent JOSE-HPKE private or public keys.  For
    the algorithms defined in this document, the valid combinations of
@@ -440,6 +441,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    +---------------------+-----+-----------+
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites
+
+7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
    An example is illustrated below for representing a JOSE-HPKE public/
    private keys.
