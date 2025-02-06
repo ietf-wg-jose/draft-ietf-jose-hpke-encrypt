@@ -335,7 +335,7 @@ After verification:
 }
 ~~~
 
-# JWK for JOSE-HPKE
+# Mapping HPKE Keys to JWK for JOSE
 
 JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
 KEM, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
@@ -354,6 +354,8 @@ KEM, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 +---------------------+-----+-----------+
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
+
+## JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
 An example is illustrated below for representing a JOSE-HPKE public/private keys.
 
