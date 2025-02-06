@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-04T01:17:28.784567+00:00",
+  "timestamp": "2025-02-06T01:18:45.272616+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -342,7 +342,7 @@
       "labels": [],
       "body": "please see the discussion in https://mailarchive.ietf.org/arch/msg/cose/asU1U2QWGPLY92eG7aQJXc4L6sc/",
       "createdAt": "2025-01-21T14:07:53Z",
-      "updatedAt": "2025-02-03T14:57:36Z",
+      "updatedAt": "2025-02-04T12:10:33Z",
       "closedAt": null,
       "comments": [
         {
@@ -379,6 +379,13 @@
           "body": "So an informative examples section for existing OKP and EC key types and the DH KEMs  that are registered?",
           "createdAt": "2025-02-03T14:57:34Z",
           "updatedAt": "2025-02-03T14:57:34Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, I will add a new section, see https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/27",
+          "createdAt": "2025-02-04T07:49:42Z",
+          "updatedAt": "2025-02-04T12:10:32Z"
         }
       ]
     }
@@ -3892,24 +3899,26 @@
       "id": "PR_kwDOMMuuSM6Jyy5m",
       "title": "Updates to Document History",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-02-03T05:44:20Z",
-      "updatedAt": "2025-02-03T14:31:17Z",
+      "updatedAt": "2025-02-04T07:49:53Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "4968c38869e1667947c100a7e7996a23bd7f0267",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-7",
       "headRefOid": "f9c2cc389d800d28916af7ac8070237324ec2d77",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-04T07:49:52Z",
+      "mergedAt": "2025-02-04T07:49:52Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "26b97b988731495dc3d9290bc3ff76d2619b7de3"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3939,6 +3948,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOMMuuSM6J-Q4P",
+      "title": "JWK for JOSE-HPKE",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/26",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T10:59:27Z",
+      "updatedAt": "2025-02-04T11:00:21Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "26b97b988731495dc3d9290bc3ff76d2619b7de3",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-8",
+      "headRefOid": "69a72ff2f1e688b300b4b44797c9c3662e9d22aa",
+      "closedAt": "2025-02-04T11:00:21Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOMMuuSM6J-S8E",
+      "title": "JWK",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/27",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T11:02:11Z",
+      "updatedAt": "2025-02-04T11:02:12Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "26b97b988731495dc3d9290bc3ff76d2619b7de3",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-9",
+      "headRefOid": "0f282b781270aea1c2d0e4eeac67d8a57daf2d3d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
