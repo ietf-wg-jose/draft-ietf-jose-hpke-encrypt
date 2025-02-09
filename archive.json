@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T01:18:45.272616+00:00",
+  "timestamp": "2025-02-09T01:22:20.153593+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -3987,19 +3987,54 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-02-04T11:02:11Z",
-      "updatedAt": "2025-02-04T11:02:12Z",
+      "updatedAt": "2025-02-07T15:44:47Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "26b97b988731495dc3d9290bc3ff76d2619b7de3",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-9",
-      "headRefOid": "0f282b781270aea1c2d0e4eeac67d8a57daf2d3d",
+      "headRefOid": "5b78424ca11e1cb93e9f13e4290bbfd5e53cb214",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> This is weird, because the section title is about JWKs but the table beneath it is not. It's about HPKE algorithm combinations, which doesn't belong here.\r\n> \r\n> The key example is fine but the rest needs to move or be deleted.\r\n\r\nThe purpose of the section is discuss the valid combinations of HPKE KEM, JWK parameters, 'kty' (key type) and 'crv' (curve). If the section title is not appropriate, I modified the title as \"Mapping HPKE Keys to JWK for JOSE\"",
+          "createdAt": "2025-02-06T12:19:48Z",
+          "updatedAt": "2025-02-06T12:20:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6a4QZF",
+          "commit": {
+            "abbreviatedOid": "0f282b7"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "This is weird, because the section title is about JWKs but the table beneath it is not.  It's about HPKE algorithm combinations, which doesn't belong here.\r\n\r\nThe key example is fine but the rest needs to move or be deleted.",
+          "createdAt": "2025-02-06T11:45:36Z",
+          "updatedAt": "2025-02-06T11:45:36Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6bGNH2",
+          "commit": {
+            "abbreviatedOid": "5b78424"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "OK, now I see what you're trying to do.  It will be clearer if you also list the JOSE HPKE algorithm identifier in each table entry.\r\n\r\nPlease include a \"JWE alg\" column.  And for instance, in the first row, include \"HPKE-0\".",
+          "createdAt": "2025-02-07T15:44:47Z",
+          "updatedAt": "2025-02-07T15:44:47Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
