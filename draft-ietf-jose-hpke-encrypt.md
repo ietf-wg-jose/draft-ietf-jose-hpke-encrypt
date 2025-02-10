@@ -335,6 +335,41 @@ After verification:
 }
 ~~~
 
+# Mapping HPKE Keys to JWK for JOSE
+
+JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
+JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
+
+~~~
++---------------------+-----------------+
+| JWE Algorithm       | JWK |           |
+|                     | kty | crv       |
++---------------------+-----+-----------+
+| HPKE-0 	      | EC  | P-256     |
+| HPKE-1     	      | EC  | P-384     |
+| HPKE-2              | EC  | P-521     |
+| HPKE-3, HPKE-4      | OKP | X25519    |
+| HPKE-5, HPKE-6      | OKP | X448      |
++---------------------+-----+-----------+
+~~~
+{: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
+
+## JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
+
+An example is illustrated below for representing a JOSE-HPKE public/private keys.
+
+~~~
+{
+  "kty": "OKP",
+  "crv": "X25519",
+  "x": "3pPHgcHYVYpOpB6ISwHdoPRB6jNgd8mM4nRyyj4H3aE",
+  "d": "nWGxne0tAiV8Hk6kcy4rN0wMskjl9yND0N3Xeho9n6g",
+  "kid": "recipient-key-1",
+  "alg": "HPKE-3",
+  "key_ops": "encrypt"
+}
+~~~
+
 # Security Considerations
 
 This specification is based on HPKE and the security considerations of
