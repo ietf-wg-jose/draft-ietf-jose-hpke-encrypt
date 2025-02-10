@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 10 August 2025                                            H-BRS
+Expires: 14 August 2025                                            H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         6 February 2025
+                                                        10 February 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 August 2025.
+   This Internet-Draft will expire on 14 August 2025.
 
 Copyright Notice
 
@@ -426,18 +426,17 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    JWKs can be used to represent JOSE-HPKE private or public keys.  For
    the algorithms defined in this document, the valid combinations of
-   the KEM, "kty", and "crv" are shown in Figure 1.
+   the JWE Algorithm, "kty", and "crv" are shown in Figure 1.
 
    +---------------------+-----------------+
-   | HPKE KEM id         | JWK |           |
+   | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | 0x0010, 0x0013      | EC  | P-256     |
-   | 0x0011, 0x0014      | EC  | P-384     |
-   | 0x0012, 0x0015      | EC  | P-521     |
-   | 0x0016              | EC  | secp256k1 |
-   | 0x0020              | OKP | X25519    |
-   | 0x0021              | OKP | X448      |
+   | HPKE-0                    | EC  | P-256     |
+   | HPKE-1                | EC  | P-384     |
+   | HPKE-2              | EC  | P-521     |
+   | HPKE-3, HPKE-4      | OKP | X25519    |
+   | HPKE-5, HPKE-6      | OKP | X448      |
    +---------------------+-----+-----------+
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites

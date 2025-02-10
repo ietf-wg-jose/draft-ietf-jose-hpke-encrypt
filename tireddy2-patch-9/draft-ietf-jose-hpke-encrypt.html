@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 10 August 2025</td>
+<td class="center">Expires 14 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-jose-hpke-encrypt-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-06" class="published">6 February 2025</time>
+<time datetime="2025-02-10" class="published">10 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-10">10 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-14">14 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1150,7 +1150,7 @@ JOSE-native security mechanisms or by one of the authenticated variants of HPKE.
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1669,21 +1669,20 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-mapping-hpke-keys-to-jwk-fo" class="section-name selfRef">Mapping HPKE Keys to JWK for JOSE</a>
       </h2>
 <p id="section-7-1">JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
-KEM, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" class="auto internal xref">Figure 1</a>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+JWE Algorithm, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" class="auto internal xref">Figure 1</a>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-jwk-types-and-curves-for-jo"></span><div id="ciphersuite-kty-crv">
 <figure id="figure-1">
         <div class="alignLeft art-text artwork" id="section-7-2.1">
 <pre>
 +---------------------+-----------------+
-| HPKE KEM id         | JWK |           |
+| JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| 0x0010, 0x0013      | EC  | P-256     |
-| 0x0011, 0x0014      | EC  | P-384     |
-| 0x0012, 0x0015      | EC  | P-521     |
-| 0x0016              | EC  | secp256k1 |
-| 0x0020              | OKP | X25519    |
-| 0x0021              | OKP | X448      |
+| HPKE-0                    | EC  | P-256     |
+| HPKE-1                | EC  | P-384     |
+| HPKE-2              | EC  | P-521     |
+| HPKE-3, HPKE-4      | OKP | X25519    |
+| HPKE-5, HPKE-6      | OKP | X448      |
 +---------------------+-----+-----------+
 </pre>
 </div>
