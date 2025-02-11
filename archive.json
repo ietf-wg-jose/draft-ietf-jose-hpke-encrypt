@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-09T01:22:20.153593+00:00",
+  "timestamp": "2025-02-11T01:18:12.050052+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -335,15 +335,15 @@
       "id": "I_kwDOMMuuSM6nAnrS",
       "title": "how JSON Web Keys (JWKs) are used in the context of JOSE-HPKE",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "please see the discussion in https://mailarchive.ietf.org/arch/msg/cose/asU1U2QWGPLY92eG7aQJXc4L6sc/",
       "createdAt": "2025-01-21T14:07:53Z",
-      "updatedAt": "2025-02-04T12:10:33Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-10T13:54:21Z",
+      "closedAt": "2025-02-10T13:54:21Z",
       "comments": [
         {
           "author": "selfissued",
@@ -3980,24 +3980,26 @@
       "id": "PR_kwDOMMuuSM6J-S8E",
       "title": "JWK",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/27",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-02-04T11:02:11Z",
-      "updatedAt": "2025-02-07T15:44:47Z",
+      "updatedAt": "2025-02-10T13:53:55Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "26b97b988731495dc3d9290bc3ff76d2619b7de3",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-9",
-      "headRefOid": "5b78424ca11e1cb93e9f13e4290bbfd5e53cb214",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "d21bbe5f76e4aafc68915920db01186ee97d3c9f",
+      "closedAt": "2025-02-10T13:53:55Z",
+      "mergedAt": "2025-02-10T13:53:55Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "24b66dcb27fd05fbf03881f0a346fe4f8e5e66ba"
+      },
       "comments": [
         {
           "author": "tireddy2",
@@ -4005,6 +4007,13 @@
           "body": "> This is weird, because the section title is about JWKs but the table beneath it is not. It's about HPKE algorithm combinations, which doesn't belong here.\r\n> \r\n> The key example is fine but the rest needs to move or be deleted.\r\n\r\nThe purpose of the section is discuss the valid combinations of HPKE KEM, JWK parameters, 'kty' (key type) and 'crv' (curve). If the section title is not appropriate, I modified the title as \"Mapping HPKE Keys to JWK for JOSE\"",
           "createdAt": "2025-02-06T12:19:48Z",
           "updatedAt": "2025-02-06T12:20:05Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> OK, now I see what you're trying to do. It will be clearer if you also list the JOSE HPKE algorithm identifier in each table entry.\r\n> \r\n> Please include a \"JWE alg\" column. And for instance, in the first row, include \"HPKE-0\".\r\n\r\nYes, updated table accordingly. please check. ",
+          "createdAt": "2025-02-10T05:38:51Z",
+          "updatedAt": "2025-02-10T05:38:51Z"
         }
       ],
       "reviews": [
@@ -4033,6 +4042,38 @@
           "createdAt": "2025-02-07T15:44:47Z",
           "updatedAt": "2025-02-07T15:44:47Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6a5N4u",
+          "commit": {
+            "abbreviatedOid": "208102a"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-06T13:33:06Z",
+          "updatedAt": "2025-02-10T13:30:24Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Having these be alg values, like HPKE-2 would be better imo.",
+              "createdAt": "2025-02-06T13:33:06Z",
+              "updatedAt": "2025-02-10T13:30:24Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\n| HPKE-0 \t      | EC  | P-256     |\r\n```",
+              "createdAt": "2025-02-10T13:30:05Z",
+              "updatedAt": "2025-02-10T13:30:24Z"
+            },
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\r\n| HPKE-1     \t      | EC  | P-384     |\r\n```",
+              "createdAt": "2025-02-10T13:30:16Z",
+              "updatedAt": "2025-02-10T13:30:24Z"
+            }
+          ]
         }
       ]
     }
