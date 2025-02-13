@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-11T01:18:12.050052+00:00",
+  "timestamp": "2025-02-13T01:18:55.861034+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -234,7 +234,7 @@
       "labels": [],
       "body": "For various reasons, it makes sense to introduce a mechanism to support **\"detached\" JWE AAD** where the Additional Authenticated Data (AAD) for a JWE is not transmitted in-band but is instead derived by the sender and receiver from contextual information out-of-band. This approach can enhance **security**, **efficiency**, and **flexibility**.\r\n\r\n### Use Case: Mitigating the \"Lazy Verifier\" Problem\r\nOne specific use case arises from **OID4VC**, where detached JWE AAD could help mitigate the so-called \"lazy verifier\" problem. \r\n\r\nIn this scenario:\r\n- A verifier website sends a request to a wallet (typically a native mobile app).\r\n- The wallet responds with an encrypted message, including contextual information (e.g., the request's origin) as part of the AAD in the JWE response.\r\n\r\nThis contextual information is authenticated via AEAD but may not be validated by a \"lazy verifier,\" which skips verifying these fields against their expected values based on the established context. This lack of validation makes the system prone to phishing attacks. For example, the wallet might encode the origin where it received the verifier's request in the AAD, e.g., attacker.com. However, if the verifier does not verify this information, an attacker could exploit the oversight.\r\n\r\nBy requiring the verifier to derive the JWE AAD from contextual information rather than transmitting it in-band:\r\n- The AAD becomes more tightly bound to the verifier's session and context.\r\n- It eliminates the need for explicit validation of the AAD, as the verifier computes it directly from its established session context.\r\n- This reduces the attack surface, making phishing attacks harder to execute.\r\n\r\n### Need for a Generalized Solution\r\nSince **\"detached\" JWE AAD** is not currently defined in the JWE specification and applies to other encryption algorithms (e.g., ECDH-ES), a more general solution could be developed. This would be especially relevant for OID4VC, which uses JARM (JWT Secured Authorization Response Mode, using the JWE compact form) to send encrypted responses. Ensuring compatibility with the JWE compact form would be critical.\r\n\r\n### Proposed Solution\r\n#### JWE JSON Serialization (already supports dedicated `aad` parameter)\r\nFor JWE JSON serialization, the existing `aad` parameter could indicate that the AAD is detached by setting its value to `null`. \r\n\r\n#### JWE Compact Serialization (no dedicated `aad` parameter yet)\r\nFor JWE compact serialization, the format could be extended to optionally include the AAD as an additional segment:\r\n- **Extended Format**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **Behavior**:\r\n  - If the `AAD` segment is empty or omitted (e.g., `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`), it signals that the AAD is detached and must be computed or derived from contextual information by the sender and receiver.\r\n  - The computation of AAD for the AEAD algorithm would follow the same logic as for the JWE JSON form.\r\n\r\nExamples:\r\n- **JWE Compact Form without AAD** (Standard): `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>`\r\n- **JWE Compact Form with AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **JWE Compact Form with Detached AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`\r\n\r\n### Relevance to OID4VC\r\nThis approach could address challenges in **OID4VC**, particularly in ensuring robust validation of contextual information by the verifier without relying on error-prone implementations. \r\n\r\nFor example:\r\n- Issue [openid/oid4vc-haip#131](https://github.com/openid/oid4vc-haip/issues/131)\r\n- Issue [openid/OpenID4VP#347](https://github.com/openid/OpenID4VP/issues/347)\r\n- Issue [openid/OpenID4VP#65](https://github.com/openid/OpenID4VP/issues/65)",
       "createdAt": "2024-12-12T21:30:43Z",
-      "updatedAt": "2025-01-18T10:44:29Z",
+      "updatedAt": "2025-02-12T23:01:40Z",
       "closedAt": null,
       "comments": [
         {
@@ -254,9 +254,9 @@
         {
           "author": "bc-pi",
           "authorAssociation": "NONE",
-          "body": "I am of the ever humble opinion that, for a number of reasons, detached AAD and/or updates to JWE is not the right avenue to pursue for this. Rather, something that would allow for an out-of-band contribution to the KDF, maybe/likely just in the HPKE algs that are the scope of this repo, seems to me a much more tenable avenue.",
+          "body": "I am of the ever humble opinion that, for a number of reasons, detached AAD and/or updates to JWE is not the right avenue to pursue for this. Rather, something that would allow for an out-of-band contribution to the KDF, maybe/likely just in the HPKE algs that are the scope of this repo, seems to me a much more tenable avenue.\n\n[edit: that's under the presumption that the so called \"Lazy Verifier\" problem is one to be addressed at all or with JWE constructs, which I am not convinced of myself but know other valid opinions exist.] ",
           "createdAt": "2025-01-17T16:58:09Z",
-          "updatedAt": "2025-01-17T16:58:09Z"
+          "updatedAt": "2025-02-12T23:01:40Z"
         },
         {
           "author": "ilaril",
