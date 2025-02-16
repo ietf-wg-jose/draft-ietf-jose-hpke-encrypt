@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-13T01:18:55.861034+00:00",
+  "timestamp": "2025-02-16T01:24:51.152539+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -78,7 +78,7 @@
       "labels": [],
       "body": "\r\n\r\n```\r\nhpke-aad SHALL be the FixedInfo part of ECDH-ES Concat KDF input. That is,\r\nconcatenation of AlgorithmID, PartyUInfo, PartyVInfo, SuppPubInfo and\r\nSuppPrivInfo inputs, in that order, as defined in section 4.6.2 of JWA.\r\n```\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/jose/kGF-m5XJunr-M26USFyFeqYoSvw/",
       "createdAt": "2024-07-15T15:17:34Z",
-      "updatedAt": "2024-12-06T19:44:43Z",
+      "updatedAt": "2025-02-14T16:25:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -87,6 +87,20 @@
           "body": "Related, from the editor's copy:\r\n\r\n> Additionally, the same key MUST NOT be used for both key wrapping and content encryption, as it may introduce security risks.\r\n\r\nThis is problematic on several levels:\r\n- If this practice introduces possible security risks, then JOSE-HPKE is flawed (cryptographic protocols are expected to not rely on operational practices where feasible).\r\n- There are no JWK-level controls for this purpose. Integrated Encryption and Key Encryption use the same \"alg\" values on purpose. And JWK key_ops turns out to be totally busted.\r\n- Forbidding this practice can be expected to cause significant operational issues.\r\n\r\nThis issue is related, because HPKE AAD for Key Encryption is significant for preventing any issues with mixing key wrapping and content encryption.\r\n\r\nAnd some notes about fields used:\r\n- AlgorithmID is not well-defined for Key Encryption. HPKE already binds its ciphersuite, so \"alg\" is redundant. However, using \"enc\" here would protect against bad implementations that allow unsafe bulk ciphers.\r\n- SuppPubInfo contains key length, which is meaningless for HPKE.\r\n- SuppPrivInfo is always empty.\r\n\r\nUsing len32(enc) || enc || len32(PartyUInfo) || PartyUInfo || len32(PartyVInfo) || PartyVInfo as aad for Key Encryption would guarantee safety of mixing key wrapping and content encryption (as nobody is going to use 1.5GB+ enc values).",
           "createdAt": "2024-12-06T19:44:41Z",
           "updatedAt": "2024-12-06T19:44:41Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@OR13 and I talked about this on a call today.  `apu` and `apv` are defined for ECDH but not for other encryption algorithms and so aren't relevant to this specification.  We don't need to say anything about them.",
+          "createdAt": "2025-02-14T16:13:49Z",
+          "updatedAt": "2025-02-14T16:13:49Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I suggest we add some simple text of the form:\n\n\"apu\" and \"apv\" are mandatory to process when using ECDH algorithms, therefore, when processing HPKE algorithms, these parameters can be ignored.",
+          "createdAt": "2025-02-14T16:25:29Z",
+          "updatedAt": "2025-02-14T16:25:29Z"
         }
       ]
     },
@@ -234,7 +248,7 @@
       "labels": [],
       "body": "For various reasons, it makes sense to introduce a mechanism to support **\"detached\" JWE AAD** where the Additional Authenticated Data (AAD) for a JWE is not transmitted in-band but is instead derived by the sender and receiver from contextual information out-of-band. This approach can enhance **security**, **efficiency**, and **flexibility**.\r\n\r\n### Use Case: Mitigating the \"Lazy Verifier\" Problem\r\nOne specific use case arises from **OID4VC**, where detached JWE AAD could help mitigate the so-called \"lazy verifier\" problem. \r\n\r\nIn this scenario:\r\n- A verifier website sends a request to a wallet (typically a native mobile app).\r\n- The wallet responds with an encrypted message, including contextual information (e.g., the request's origin) as part of the AAD in the JWE response.\r\n\r\nThis contextual information is authenticated via AEAD but may not be validated by a \"lazy verifier,\" which skips verifying these fields against their expected values based on the established context. This lack of validation makes the system prone to phishing attacks. For example, the wallet might encode the origin where it received the verifier's request in the AAD, e.g., attacker.com. However, if the verifier does not verify this information, an attacker could exploit the oversight.\r\n\r\nBy requiring the verifier to derive the JWE AAD from contextual information rather than transmitting it in-band:\r\n- The AAD becomes more tightly bound to the verifier's session and context.\r\n- It eliminates the need for explicit validation of the AAD, as the verifier computes it directly from its established session context.\r\n- This reduces the attack surface, making phishing attacks harder to execute.\r\n\r\n### Need for a Generalized Solution\r\nSince **\"detached\" JWE AAD** is not currently defined in the JWE specification and applies to other encryption algorithms (e.g., ECDH-ES), a more general solution could be developed. This would be especially relevant for OID4VC, which uses JARM (JWT Secured Authorization Response Mode, using the JWE compact form) to send encrypted responses. Ensuring compatibility with the JWE compact form would be critical.\r\n\r\n### Proposed Solution\r\n#### JWE JSON Serialization (already supports dedicated `aad` parameter)\r\nFor JWE JSON serialization, the existing `aad` parameter could indicate that the AAD is detached by setting its value to `null`. \r\n\r\n#### JWE Compact Serialization (no dedicated `aad` parameter yet)\r\nFor JWE compact serialization, the format could be extended to optionally include the AAD as an additional segment:\r\n- **Extended Format**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **Behavior**:\r\n  - If the `AAD` segment is empty or omitted (e.g., `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`), it signals that the AAD is detached and must be computed or derived from contextual information by the sender and receiver.\r\n  - The computation of AAD for the AEAD algorithm would follow the same logic as for the JWE JSON form.\r\n\r\nExamples:\r\n- **JWE Compact Form without AAD** (Standard): `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>`\r\n- **JWE Compact Form with AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **JWE Compact Form with Detached AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`\r\n\r\n### Relevance to OID4VC\r\nThis approach could address challenges in **OID4VC**, particularly in ensuring robust validation of contextual information by the verifier without relying on error-prone implementations. \r\n\r\nFor example:\r\n- Issue [openid/oid4vc-haip#131](https://github.com/openid/oid4vc-haip/issues/131)\r\n- Issue [openid/OpenID4VP#347](https://github.com/openid/OpenID4VP/issues/347)\r\n- Issue [openid/OpenID4VP#65](https://github.com/openid/OpenID4VP/issues/65)",
       "createdAt": "2024-12-12T21:30:43Z",
-      "updatedAt": "2025-02-12T23:01:40Z",
+      "updatedAt": "2025-02-14T16:23:38Z",
       "closedAt": null,
       "comments": [
         {
@@ -271,6 +285,13 @@
           "body": "> I am of the ever humble opinion that, for a number of reasons, detached AAD and/or updates to JWE is not the right avenue to pursue for this. Rather, something that would allow for an out-of-band contribution to the KDF, maybe/likely just in the HPKE algs that are the scope of this repo, seems to me a much more tenable avenue.\n\nI believe this would be a good approach. It would be great if we could think about how this can be done without changing JWE. \n\nDo you have a suggestion @bc-pi?",
           "createdAt": "2025-01-18T10:44:28Z",
           "updatedAt": "2025-01-18T10:44:28Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Why is the presence of PSK not sufficient for this use case?\n\nWith HPKE, you can use a psk or an extra hpke info parameter.\n\npsk signals that there is extra data that is needed, and the info parameter does not signal this, but still requires it.\n\nso there are already 2 viable solutions to this use case, and adding another one is a mistake.\n\nAlso, perhaps we can move discussion of this to the mailing lists, given that:\n\nhttps://mailarchive.ietf.org/arch/msg/jose/YkPiJvsJf2oxZpCosFzkRQT5nfg/\n\nand close the issue?",
+          "createdAt": "2025-02-14T16:18:30Z",
+          "updatedAt": "2025-02-14T16:23:38Z"
         }
       ]
     },
