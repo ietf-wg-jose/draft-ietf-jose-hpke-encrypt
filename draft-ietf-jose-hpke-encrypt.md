@@ -261,20 +261,24 @@ After verification:
 # Key Encryption
 
 HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
+This protected header is formatted as BASE64URL(UTF8(JWE Protected Header)).
 
 In HPKE JWE Key Encryption:
 
-- The protected header MUST NOT contain an "alg".
-- The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
+- The JWE protected header MUST NOT contain an "alg". In HPKE, the algorithm used to encrypt the CEK is specified per-recipient in the recipient's header, making it unnecessary to include it in the JWE protected header.
+- The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry to ensure consistency across recipients (see Section 7.2.1 of {{RFC7516}}).
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in Section 5.1 of {{RFC7516}}.
-- The recipient "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
-- The "iv", "tag" JWE members MUST be present.
+- Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
+- The "encrypted_key" MUST be the base64url encoded JWE Encrypted Key as described in Step 15 in Section 5.1 of {{RFC7516}}. The recipient 
+  "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
+- If the selected AEAD algorithm requires an IV and authentication tag, the "iv" and "tag" parameters MUST be present, as specified in 
+  {{RFC7516}}.
 - The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
+- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 16 in Section 5.1 of {{RFC7516}}.
 - The HPKE Setup info parameter MUST be set to an empty string.
+- THE HPKE plaintext MUST be set to the CEK.
 
 ## Multiple Recipients Example
 
