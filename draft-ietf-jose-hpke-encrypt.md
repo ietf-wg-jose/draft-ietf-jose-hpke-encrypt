@@ -261,7 +261,6 @@ After verification:
 # Key Encryption
 
 HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
-This protected header is formatted as BASE64URL(UTF8(JWE Protected Header)).
 
 In HPKE JWE Key Encryption:
 
