@@ -265,7 +265,9 @@ This protected header is formatted as BASE64URL(UTF8(JWE Protected Header)).
 
 In HPKE JWE Key Encryption:
 
-- The JWE protected header MUST NOT contain an "alg". In HPKE, the algorithm used to encrypt the CEK is specified per-recipient in the recipient's header, making it unnecessary to include it in the JWE protected header.
+- The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
+
+- The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
 - The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry to ensure consistency across recipients (see Section 7.2.1 of {{RFC7516}}).
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
