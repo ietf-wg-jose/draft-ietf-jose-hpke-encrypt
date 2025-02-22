@@ -267,7 +267,7 @@ In HPKE JWE Key Encryption:
 - The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
 
 - The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
-- The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry to ensure consistency across recipients (see Section 7.2.1 of {{RFC7516}}).
+- The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
