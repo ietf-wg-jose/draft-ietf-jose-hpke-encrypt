@@ -261,11 +261,11 @@ After verification:
 # Key Encryption
 
 HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
+The protected header encoding remains consistent with existing JWE formatting rules.
 
 In HPKE JWE Key Encryption:
 
 - The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
-
 - The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
 - The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
