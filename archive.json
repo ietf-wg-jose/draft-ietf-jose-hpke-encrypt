@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-20T01:19:27.942216+00:00",
+  "timestamp": "2025-02-23T01:24:36.720277+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4093,6 +4093,273 @@
               "body": "```suggestion\r\n| HPKE-1     \t      | EC  | P-384     |\r\n```",
               "createdAt": "2025-02-10T13:30:16Z",
               "updatedAt": "2025-02-10T13:30:24Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOMMuuSM6MBxC2",
+      "title": "Address comments from Ilari",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/28",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/jose/vgPxysiA0I0bT88VpT2DeI61Kk4/",
+      "createdAt": "2025-02-21T10:21:10Z",
+      "updatedAt": "2025-02-22T08:07:38Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "24b66dcb27fd05fbf03881f0a346fe4f8e5e66ba",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-10",
+      "headRefOid": "d2f6608a7b22b9cdbbe605cb2bb5a31173f4d0b3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6c-Kof",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:07:30Z",
+          "updatedAt": "2025-02-21T16:07:30Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "https://datatracker.ietf.org/doc/html/rfc7516#section-7.2.1\r\n\r\nNot sure about the \"see\" reference here.\r\n\r\nIs it needed.",
+              "createdAt": "2025-02-21T16:07:30Z",
+              "updatedAt": "2025-02-21T16:07:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-Qxd",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:13:28Z",
+          "updatedAt": "2025-02-21T16:13:29Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Not sure this needs to be a MUST... it SHOULD be empty string.",
+              "createdAt": "2025-02-21T16:13:29Z",
+              "updatedAt": "2025-02-21T16:13:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-SBz",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:15:12Z",
+          "updatedAt": "2025-02-21T16:15:12Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n```\r\n\r\nThis sentence is redundant.  Please delete it.  This is already defined by JWE.",
+              "createdAt": "2025-02-21T16:15:12Z",
+              "updatedAt": "2025-02-21T16:15:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-SND",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:15:31Z",
+          "updatedAt": "2025-02-21T16:15:32Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n- The JWE Protected Header MUST include an \"enc\" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry.\r\n```",
+              "createdAt": "2025-02-21T16:15:31Z",
+              "updatedAt": "2025-02-21T16:15:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-Sgv",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:16:05Z",
+          "updatedAt": "2025-02-21T16:16:05Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Its obvious that both registries are needed, you can't understand HPKE without the first, and you can't understand JWE without the second.",
+              "createdAt": "2025-02-21T16:16:05Z",
+              "updatedAt": "2025-02-21T16:16:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-WBN",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:21:24Z",
+          "updatedAt": "2025-02-21T16:21:25Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\n- The JWE protected header MUST NOT contain the \"alg\" when recipients use different algorithms to secure the content encryption key.\r\n\r\n- The JWE protected header SHOULD contain the \"alg\" when all recipients use the same HPKE algorithm to secure the content encryption key.\r\n```",
+              "createdAt": "2025-02-21T16:21:24Z",
+              "updatedAt": "2025-02-21T16:23:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-YZj",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:25:09Z",
+          "updatedAt": "2025-02-21T16:25:09Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "https://www.rfc-editor.org/rfc/rfc7516.html#section-7.2.1 says:\r\n> Some Header Parameters, including the \"alg\" parameter, can be shared among all recipient computations.  Header Parameters in the JWE Protected Header and JWE Shared Unprotected Header values are shared among all recipients.\r\n\r\nOrie is right that we cannot prohibit \"alg\" in the protected header.",
+              "createdAt": "2025-02-21T16:25:09Z",
+              "updatedAt": "2025-02-21T16:25:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6c-ZIT",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-21T16:26:00Z",
+          "updatedAt": "2025-02-21T16:26:01Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\n- The HPKE Setup info parameter SHOULD be set to an empty string.\r\n```",
+              "createdAt": "2025-02-21T16:26:00Z",
+              "updatedAt": "2025-02-21T16:26:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dCvpJ",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-22T07:41:51Z",
+          "updatedAt": "2025-02-22T07:41:51Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I am referring to the following text Section 7.2.1 of RFC 7516:\r\n\r\n   This primarily means that the \"enc\" (encryption algorithm) Header\r\n   Parameter value in the JOSE Header for each recipient and any\r\n   parameters of that algorithm MUST be the same.",
+              "createdAt": "2025-02-22T07:41:51Z",
+              "updatedAt": "2025-02-22T07:41:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dCvzk",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-22T07:46:17Z",
+          "updatedAt": "2025-02-22T07:46:17Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "The COSE-HPKE draft specifies that the setup info is set to an empty string. We should ensure alignment between both drafts. In a meeting, Mike suggested that if auxiliary authenticated application information needs to be provided to HPKE setup info, a new JOSE parameter should be introduced.",
+              "createdAt": "2025-02-22T07:46:17Z",
+              "updatedAt": "2025-02-22T07:46:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dCwPC",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-22T07:57:47Z",
+          "updatedAt": "2025-02-22T07:57:47Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "It was to address the comment from Illari on \"How is HPKE AAD input set\"\r\nI can re-phrase the line to say \r\nThe protected header encoding remains consistent with existing JWE formatting rules.",
+              "createdAt": "2025-02-22T07:57:47Z",
+              "updatedAt": "2025-02-22T07:57:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dCwTB",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-22T07:59:26Z",
+          "updatedAt": "2025-02-22T07:59:27Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "The COSE-HPKE draft specifies that the setup info is set to an empty string. We should ensure alignment between both drafts. In a meeting, Mike suggested that if auxiliary authenticated application information needs to be provided to HPKE setup info, a new JOSE parameter should be introduced.",
+              "createdAt": "2025-02-22T07:59:26Z",
+              "updatedAt": "2025-02-22T07:59:27Z"
             }
           ]
         }
