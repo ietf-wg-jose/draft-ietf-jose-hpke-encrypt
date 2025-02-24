@@ -267,19 +267,17 @@ In HPKE JWE Key Encryption:
 
 - The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
 - The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
-- The JWE Protected Header MUST include an "enc" value registered in both the IANA HPKE AEAD Identifiers Registry and the IANA JSON Web Signature and Encryption Algorithms Registry.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The "encrypted_key" MUST be the base64url encoded JWE Encrypted Key as described in Step 15 in Section 5.1 of {{RFC7516}}. The recipient 
+- The "encrypted_key" MUST be the base64url encoded JWE Encrypted Key as described in Step 15 in Section 5.1 of {{RFC7516}}. The recipient
   "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
-- If the selected AEAD algorithm requires an IV and authentication tag, the "iv" and "tag" parameters MUST be present, as specified in 
-  {{RFC7516}}.
-- The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 16 in Section 5.1 of {{RFC7516}}.
 - The HPKE Setup info parameter MUST be set to an empty string.
 - THE HPKE plaintext MUST be set to the CEK.
+
+The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
+JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
 
 ## Multiple Recipients Example
 
