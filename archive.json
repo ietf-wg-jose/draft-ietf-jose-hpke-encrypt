@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-23T01:24:36.720277+00:00",
+  "timestamp": "2025-02-25T01:21:08.622957+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4110,13 +4110,13 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/jose/vgPxysiA0I0bT88VpT2DeI61Kk4/",
       "createdAt": "2025-02-21T10:21:10Z",
-      "updatedAt": "2025-02-22T08:07:38Z",
+      "updatedAt": "2025-02-24T14:33:14Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "24b66dcb27fd05fbf03881f0a346fe4f8e5e66ba",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-10",
-      "headRefOid": "d2f6608a7b22b9cdbbe605cb2bb5a31173f4d0b3",
+      "headRefOid": "487f213f1befc4a9d15a1897d183206860959255",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -4360,6 +4360,66 @@
               "body": "The COSE-HPKE draft specifies that the setup info is set to an empty string. We should ensure alignment between both drafts. In a meeting, Mike suggested that if auxiliary authenticated application information needs to be provided to HPKE setup info, a new JOSE parameter should be introduced.",
               "createdAt": "2025-02-22T07:59:26Z",
               "updatedAt": "2025-02-22T07:59:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dMXgZ",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-24T14:21:50Z",
+          "updatedAt": "2025-02-24T14:21:50Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "https://github.com/cose-wg/HPKE/issues/68",
+              "createdAt": "2025-02-24T14:21:50Z",
+              "updatedAt": "2025-02-24T14:21:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dMavO",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-24T14:24:35Z",
+          "updatedAt": "2025-02-24T14:24:35Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Ahh I see... its at the very end of the section... there is another MUST above it.\r\n\r\n@selfissued I know you don't want to repeat text, here is the text that is relevant to use of \"enc\" with HPKE:\r\n\r\n```\r\n   All recipients use the same JWE Protected Header, JWE Initialization\r\n   Vector, JWE Ciphertext, and JWE Authentication Tag values, when\r\n   present, resulting in potentially significant space savings if the\r\n   message is large.  Therefore, all Header Parameters that specify the\r\n   treatment of the plaintext value MUST be the same for all recipients.\r\n   This primarily means that the \"enc\" (encryption algorithm) Header\r\n   Parameter value in the JOSE Header for each recipient and any\r\n   parameters of that algorithm MUST be the same.\r\n```",
+              "createdAt": "2025-02-24T14:24:35Z",
+              "updatedAt": "2025-02-24T14:24:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dMimY",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-24T14:33:13Z",
+          "updatedAt": "2025-02-24T14:33:14Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "I think the ultimate language we want uses MUST, saying something like:\r\n> The HPKE Setup info parameter MUST be set to the empty string unless set with the YET-TO-BE-DEFINED header parameter.\r\n",
+              "createdAt": "2025-02-24T14:33:13Z",
+              "updatedAt": "2025-02-24T14:33:14Z"
             }
           ]
         }
