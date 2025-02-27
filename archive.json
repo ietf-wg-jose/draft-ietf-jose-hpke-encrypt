@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T01:21:08.622957+00:00",
+  "timestamp": "2025-02-27T01:21:00.621477+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4110,7 +4110,7 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/jose/vgPxysiA0I0bT88VpT2DeI61Kk4/",
       "createdAt": "2025-02-21T10:21:10Z",
-      "updatedAt": "2025-02-24T14:33:14Z",
+      "updatedAt": "2025-02-25T13:44:53Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "24b66dcb27fd05fbf03881f0a346fe4f8e5e66ba",
@@ -4420,6 +4420,46 @@
               "body": "I think the ultimate language we want uses MUST, saying something like:\r\n> The HPKE Setup info parameter MUST be set to the empty string unless set with the YET-TO-BE-DEFINED header parameter.\r\n",
               "createdAt": "2025-02-24T14:33:13Z",
               "updatedAt": "2025-02-24T14:33:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dXAtl",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-25T08:21:50Z",
+          "updatedAt": "2025-02-25T08:21:50Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Yes, a new YET-TO-BE-DEFINED header parameter sounds good for HPKE Setup info. We can take it up as a separate PR. ",
+              "createdAt": "2025-02-25T08:21:50Z",
+              "updatedAt": "2025-02-25T08:21:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6dbE1e",
+          "commit": {
+            "abbreviatedOid": "0fa87ab"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-25T13:44:53Z",
+          "updatedAt": "2025-02-25T13:44:53Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "I don't agree. If HPKE Setup info is set it can be any of the following:\r\n\r\n1. Context, like in concatKDF.\r\n2. private information known to both parties.\r\n2. public information included in the message (like a header parameter)\r\n\r\nI don't think we need to specify any of this, except perhaps to state that \"apu\" and \"apv\" are not required to be processed when present.\r\n\r\n\r\n",
+              "createdAt": "2025-02-25T13:44:53Z",
+              "updatedAt": "2025-02-25T13:44:53Z"
             }
           ]
         }
