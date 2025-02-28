@@ -261,20 +261,23 @@ After verification:
 # Key Encryption
 
 HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
+The protected header encoding remains consistent with existing JWE formatting rules.
 
 In HPKE JWE Key Encryption:
 
-- The protected header MUST NOT contain an "alg".
-- The protected header MUST contain an "enc" that is registered in both the IANA HPKE AEAD Identifiers Registry, and the IANA JSON Web Signature and Encryption Algorithms Registry.
+- The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
+- The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
 - The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
 - The recipient unprotected header parameter "ek" MUST be present.
 - The recipient unprotected header MUST contain a registered HPKE "alg" value.
-- The "encrypted_key" MUST be the base64url encoded content encryption key as described in Step 15 in Section 5.1 of {{RFC7516}}.
-- The recipient "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
-- The "iv", "tag" JWE members MUST be present.
-- The "aad" JWE member MAY be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as described in Step 19 in Section 5.1 of {{RFC7516}}.
+- Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
+- The "encrypted_key" MUST be the base64url encoded JWE Encrypted Key as described in Step 15 in Section 5.1 of {{RFC7516}}. The recipient
+  "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
 - The HPKE Setup info parameter MUST be set to an empty string.
+- THE HPKE plaintext MUST be set to the CEK.
+
+The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
+JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
 
 ## Multiple Recipients Example
 
