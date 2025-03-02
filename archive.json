@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T01:21:00.621477+00:00",
+  "timestamp": "2025-03-02T01:25:40.885765+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4103,24 +4103,26 @@
       "id": "PR_kwDOMMuuSM6MBxC2",
       "title": "Address comments from Ilari",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/28",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/jose/vgPxysiA0I0bT88VpT2DeI61Kk4/",
       "createdAt": "2025-02-21T10:21:10Z",
-      "updatedAt": "2025-02-25T13:44:53Z",
+      "updatedAt": "2025-02-28T16:24:28Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "24b66dcb27fd05fbf03881f0a346fe4f8e5e66ba",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-10",
       "headRefOid": "487f213f1befc4a9d15a1897d183206860959255",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-28T16:24:24Z",
+      "mergedAt": "2025-02-28T16:24:24Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "c1f7d6f71dca42a5d87171ce3cbf529e225055c1"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4462,6 +4464,52 @@
               "updatedAt": "2025-02-25T13:44:53Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6eBjIZ",
+          "commit": {
+            "abbreviatedOid": "487f213"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T16:16:51Z",
+          "updatedAt": "2025-02-28T16:16:51Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "This should be addressed in a separate PR.",
+              "createdAt": "2025-02-28T16:16:51Z",
+              "updatedAt": "2025-02-28T16:16:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6eBjct",
+          "commit": {
+            "abbreviatedOid": "487f213"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T16:17:25Z",
+          "updatedAt": "2025-02-28T16:17:25Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6eBjgy",
+          "commit": {
+            "abbreviatedOid": "487f213"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T16:17:33Z",
+          "updatedAt": "2025-02-28T16:17:33Z",
+          "comments": []
         }
       ]
     }
