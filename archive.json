@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-06T01:22:33.018878+00:00",
+  "timestamp": "2025-03-09T01:12:02.340745+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -409,6 +409,38 @@
           "updatedAt": "2025-02-04T12:10:32Z"
         }
       ]
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOMMuuSM6tBsH7",
+      "title": "HPKE Setup info",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/29",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "HPKE Setup is currently set to empty. The issue is whether HPKE Setup should be allowed to carry any additional information (same issue exists in the COSE HPKE draft).",
+      "createdAt": "2025-03-07T12:37:15Z",
+      "updatedAt": "2025-03-07T12:37:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOMMuuSM6tBuYt",
+      "title": "HPKE AAD",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/30",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In key encryption mode, the protected header used in content encryption is passed to HPKE as Additional Authenticated Data. please see the discussion in the thread, https://mailarchive.ietf.org/arch/msg/jose/1u4aHjyEZeIECmHwkpbl3kcGZ50",
+      "createdAt": "2025-03-07T12:40:37Z",
+      "updatedAt": "2025-03-07T12:40:37Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
