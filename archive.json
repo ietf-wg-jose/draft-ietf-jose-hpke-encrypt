@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-09T01:12:02.340745+00:00",
+  "timestamp": "2025-03-11T01:23:03.868655+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -248,7 +248,7 @@
       "labels": [],
       "body": "For various reasons, it makes sense to introduce a mechanism to support **\"detached\" JWE AAD** where the Additional Authenticated Data (AAD) for a JWE is not transmitted in-band but is instead derived by the sender and receiver from contextual information out-of-band. This approach can enhance **security**, **efficiency**, and **flexibility**.\r\n\r\n### Use Case: Mitigating the \"Lazy Verifier\" Problem\r\nOne specific use case arises from **OID4VC**, where detached JWE AAD could help mitigate the so-called \"lazy verifier\" problem. \r\n\r\nIn this scenario:\r\n- A verifier website sends a request to a wallet (typically a native mobile app).\r\n- The wallet responds with an encrypted message, including contextual information (e.g., the request's origin) as part of the AAD in the JWE response.\r\n\r\nThis contextual information is authenticated via AEAD but may not be validated by a \"lazy verifier,\" which skips verifying these fields against their expected values based on the established context. This lack of validation makes the system prone to phishing attacks. For example, the wallet might encode the origin where it received the verifier's request in the AAD, e.g., attacker.com. However, if the verifier does not verify this information, an attacker could exploit the oversight.\r\n\r\nBy requiring the verifier to derive the JWE AAD from contextual information rather than transmitting it in-band:\r\n- The AAD becomes more tightly bound to the verifier's session and context.\r\n- It eliminates the need for explicit validation of the AAD, as the verifier computes it directly from its established session context.\r\n- This reduces the attack surface, making phishing attacks harder to execute.\r\n\r\n### Need for a Generalized Solution\r\nSince **\"detached\" JWE AAD** is not currently defined in the JWE specification and applies to other encryption algorithms (e.g., ECDH-ES), a more general solution could be developed. This would be especially relevant for OID4VC, which uses JARM (JWT Secured Authorization Response Mode, using the JWE compact form) to send encrypted responses. Ensuring compatibility with the JWE compact form would be critical.\r\n\r\n### Proposed Solution\r\n#### JWE JSON Serialization (already supports dedicated `aad` parameter)\r\nFor JWE JSON serialization, the existing `aad` parameter could indicate that the AAD is detached by setting its value to `null`. \r\n\r\n#### JWE Compact Serialization (no dedicated `aad` parameter yet)\r\nFor JWE compact serialization, the format could be extended to optionally include the AAD as an additional segment:\r\n- **Extended Format**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **Behavior**:\r\n  - If the `AAD` segment is empty or omitted (e.g., `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`), it signals that the AAD is detached and must be computed or derived from contextual information by the sender and receiver.\r\n  - The computation of AAD for the AEAD algorithm would follow the same logic as for the JWE JSON form.\r\n\r\nExamples:\r\n- **JWE Compact Form without AAD** (Standard): `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>`\r\n- **JWE Compact Form with AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **JWE Compact Form with Detached AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`\r\n\r\n### Relevance to OID4VC\r\nThis approach could address challenges in **OID4VC**, particularly in ensuring robust validation of contextual information by the verifier without relying on error-prone implementations. \r\n\r\nFor example:\r\n- Issue [openid/oid4vc-haip#131](https://github.com/openid/oid4vc-haip/issues/131)\r\n- Issue [openid/OpenID4VP#347](https://github.com/openid/OpenID4VP/issues/347)\r\n- Issue [openid/OpenID4VP#65](https://github.com/openid/OpenID4VP/issues/65)",
       "createdAt": "2024-12-12T21:30:43Z",
-      "updatedAt": "2025-02-14T16:23:38Z",
+      "updatedAt": "2025-03-10T09:12:01Z",
       "closedAt": null,
       "comments": [
         {
@@ -292,6 +292,13 @@
           "body": "Why is the presence of PSK not sufficient for this use case?\n\nWith HPKE, you can use a psk or an extra hpke info parameter.\n\npsk signals that there is extra data that is needed, and the info parameter does not signal this, but still requires it.\n\nso there are already 2 viable solutions to this use case, and adding another one is a mistake.\n\nAlso, perhaps we can move discussion of this to the mailing lists, given that:\n\nhttps://mailarchive.ietf.org/arch/msg/jose/YkPiJvsJf2oxZpCosFzkRQT5nfg/\n\nand close the issue?",
           "createdAt": "2025-02-14T16:18:30Z",
           "updatedAt": "2025-02-14T16:23:38Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "PSK is meant for secret keys, not for binding data to message (that is what aad is for).\n\nFurthermore, there is no apparent reason this is limited to HPKE, so the same thing should be possible with all algorithms.\n\nSo yes, I think this issue should be closed given that draft-reddy-jose-detached-aad exists, which I think outlines (meaning the idea is on the right track) a proper way to do what is requested.",
+          "createdAt": "2025-03-10T09:12:00Z",
+          "updatedAt": "2025-03-10T09:12:00Z"
         }
       ]
     },
@@ -4542,6 +4549,153 @@
           "createdAt": "2025-02-28T16:17:33Z",
           "updatedAt": "2025-02-28T16:17:33Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOMMuuSM6N9CcT",
+      "title": "Some terminology fixups",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/31",
+      "state": "OPEN",
+      "author": "ilaril",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix the terminology used a bit.\r\n\r\nMostly this is about using terms from JWE to refer to things from JWE, and using JOSE-HPKE to refer to the construct as whole. There should not be technical changes.\r\n\r\nAlso defines what AKP means for JOSE-HPKE.\r\n\r\nThis also fixes some inconsistencies:\r\n* JWE AAD with Integrated Encryption was MUST NOT, but there was an example using it and it works just fine. Changed that to MAY.\r\n* auth_kid in Key Encryption was MAY, but security considerations said SHOULD NOT. Changed that to SHOULD NOT.\r\n\r\nI left some comments explaining some of the changes.\r\n\r\nThis does not fix the apparent flaws with Key Encryption.",
+      "createdAt": "2025-03-10T08:46:31Z",
+      "updatedAt": "2025-03-10T09:00:14Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "c1f7d6f71dca42a5d87171ce3cbf529e225055c1",
+      "headRepository": "ilaril/JOSE-HPKE",
+      "headRefName": "terminology-fixups",
+      "headRefOid": "364bcb5c8190e017ca5ec234fd1520fd29acf5c7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6fJ8bI",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:49:38Z",
+          "updatedAt": "2025-03-10T08:49:39Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "JWE implicitly does base64url on JWE Encrypted Key, so old version apparently specified double-base64url, which surely is not what is intended.",
+              "createdAt": "2025-03-10T08:49:38Z",
+              "updatedAt": "2025-03-10T08:49:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fJ-yx",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:53:33Z",
+          "updatedAt": "2025-03-10T08:53:33Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "JWE calls the set of headers per-recipient processing occurs as \"JOSE Header\".",
+              "createdAt": "2025-03-10T08:53:33Z",
+              "updatedAt": "2025-03-10T08:53:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fJ_ZE",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:54:32Z",
+          "updatedAt": "2025-03-10T08:54:32Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "This is just completely redundant.",
+              "createdAt": "2025-03-10T08:54:32Z",
+              "updatedAt": "2025-03-10T08:54:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fKBC0",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:56:40Z",
+          "updatedAt": "2025-03-10T08:56:41Z",
+          "comments": [
+            {
+              "originalPosition": 92,
+              "body": "This defines what AKP means for JOSE-HPKE algorithms. This avoids having various cipher suite specifications to define key formats, potentially in incompatible way that would cause headaches for implementers.",
+              "createdAt": "2025-03-10T08:56:41Z",
+              "updatedAt": "2025-03-10T08:56:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fKBfH",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:57:23Z",
+          "updatedAt": "2025-03-10T08:57:23Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "HPKE mode used to be part of JOSE-HPKE cipher suite, but is not anymore.",
+              "createdAt": "2025-03-10T08:57:23Z",
+              "updatedAt": "2025-03-10T08:57:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fKB-X",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-10T08:58:08Z",
+          "updatedAt": "2025-03-10T08:58:08Z",
+          "comments": [
+            {
+              "originalPosition": 120,
+              "body": "Mode is not part of cipher suite anymore.",
+              "createdAt": "2025-03-10T08:58:08Z",
+              "updatedAt": "2025-03-10T08:58:08Z"
+            }
+          ]
         }
       ]
     }
