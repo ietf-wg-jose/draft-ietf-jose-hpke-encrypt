@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-11T01:23:03.868655+00:00",
+  "timestamp": "2025-03-13T01:23:35.034608+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4564,7 +4564,7 @@
       "labels": [],
       "body": "Fix the terminology used a bit.\r\n\r\nMostly this is about using terms from JWE to refer to things from JWE, and using JOSE-HPKE to refer to the construct as whole. There should not be technical changes.\r\n\r\nAlso defines what AKP means for JOSE-HPKE.\r\n\r\nThis also fixes some inconsistencies:\r\n* JWE AAD with Integrated Encryption was MUST NOT, but there was an example using it and it works just fine. Changed that to MAY.\r\n* auth_kid in Key Encryption was MAY, but security considerations said SHOULD NOT. Changed that to SHOULD NOT.\r\n\r\nI left some comments explaining some of the changes.\r\n\r\nThis does not fix the apparent flaws with Key Encryption.",
       "createdAt": "2025-03-10T08:46:31Z",
-      "updatedAt": "2025-03-10T09:00:14Z",
+      "updatedAt": "2025-03-12T12:19:02Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c1f7d6f71dca42a5d87171ce3cbf529e225055c1",
@@ -4694,6 +4694,26 @@
               "body": "Mode is not part of cipher suite anymore.",
               "createdAt": "2025-03-10T08:58:08Z",
               "updatedAt": "2025-03-10T08:58:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6fovQT",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-12T12:19:01Z",
+          "updatedAt": "2025-03-12T12:19:02Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "HPKE JWE Integrated Encryption is a new mode, so the encoding of the encapsulated key needs to be specified. ",
+              "createdAt": "2025-03-12T12:19:01Z",
+              "updatedAt": "2025-03-12T12:19:02Z"
             }
           ]
         }
