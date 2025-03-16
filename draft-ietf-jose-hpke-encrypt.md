@@ -275,8 +275,8 @@ with existing JWE formatting rules.
 In HPKE JWE Key Encryption:
 
 - The Key Management Mode is Key Encryption.
-- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg". Otherwise
-JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
+- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
+Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "auth_kid" SHOULD NOT be present.
