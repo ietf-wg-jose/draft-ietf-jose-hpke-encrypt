@@ -202,7 +202,7 @@ In HPKE JWE Integrated Encryption:
 - The HPKE info parameter MUST be set to an empty string.
 - The HPKE aad parameter MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
-Otherwise plaintext is the raw message.
+Otherwise, the plaintext is the raw message.
 
 
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
