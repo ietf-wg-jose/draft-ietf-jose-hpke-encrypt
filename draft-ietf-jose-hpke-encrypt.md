@@ -149,7 +149,8 @@ The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
-In JWE, the use of specific HPKE modes such as "mode_base" or "mode_auth_psk" is determined by the presence of the header parameters "psk_id" and "auth_kid".
+In JOSE-HPKE, the HPKE mode used (e.g, "mode_base" or "mode_auth_psk") is determined
+by the presence of the JOSE Header parameters "psk_id" and "auth_kid".
 
 JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of {{RFC7516}}, General JWE JSON Serialization as described in Section 3.2 of {{RFC7516}}.
 
@@ -177,27 +178,32 @@ To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HP
 
 ## Encapsulated Keys
 
-Encapsulated keys MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
+HPKE encapsulated key is defined in Section 5.1.1 of {{RFC9180}}.
 
-In HPKE JWE Integrated Encryption, JWE Encrypted Key is the encapsulated key.
+In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.
 
-In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the encapsulated key (ek) is found in the recipient header.
+In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
+is base64url-encoded HPKE encapsulated key.
 
 # Integrated Encryption
 
 In HPKE JWE Integrated Encryption:
 
-- The protected header MUST contain an "alg" that starts with "HPKE".
-- The protected header MUST contain an "enc" and it MUST be set to the value "dir". It updates Section 4.1.2 of {{RFC7516}} to clarify that in case where HPKE JWE Integrated Encryption is used, setting "enc" set to "dir" is appropriate, as both the derivation of the CEK and the encryption of the plaintext are fully handled within the HPKE encryption.
+- The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
+- The protected header MUST contain an "enc" with value "dir". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
+"enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
 - The protected header parameters "psk_id" and "auth_kid" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
-- The "encrypted_key" MUST be the base64url encoded encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
-- The "iv", "tag" and "aad" members MUST NOT be present.
-- The "ciphertext" MUST be the base64url encoded ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE Setup info parameter MUST be set to an empty string.
-- The HPKE AEAD AAD MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
+- There MUST be exactly one recipient.
+- The JWE Encrypted Key MUST be encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
+- JWE Initialization Vector and JWE Authentication Tag MUST NOT be present.
+- JWE AAD MAY be present.
+- JWE Ciphertext is ciphertext as defined in Section 5.2 of {{RFC9180}}.
+- The HPKE info parameter MUST be set to an empty string.
+- The HPKE aad parameter MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
+- If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
+Otherwise, the plaintext is the raw message.
 
-Note that compression is possible with integrated encryption, see Section 4.1.3 of {{RFC7516}}.
 
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
 base64url encoded encapsulated key.
@@ -260,19 +266,22 @@ After verification:
 
 # Key Encryption
 
-HPKE based recipients can be added alongside existing `ECDH-ES+A128KW` or `RSA-OAEP-384` recipients because HPKE is only used to encrypt the content encryption key, and because the protected header used in content encryption is passed to HPKE as Additional Authenticated Data.
-The protected header encoding remains consistent with existing JWE formatting rules.
+Recipients using JOSE-HPKE can be added alongside other recpients (e.g., `ECDH-ES+A128KW` or `RSA-OAEP-384`), as HPKE is used to encrypt the
+Content Encryption Key, which is then processed as specified in JWE.
+
+The protected header used in content encryption is passed to HPKE as Additional Authenticated Data. The protected header encoding remains consistent
+with existing JWE formatting rules.
 
 In HPKE JWE Key Encryption:
 
-- The JWE protected header MUST NOT contain the "alg" when recipients use different algorithms to secure the content encryption key.
-- The JWE protected header SHOULD contain the "alg" when all recipients use the same HPKE algorithm to secure the content encryption key.
-- The recipient unprotected header parameters "psk_id" and "auth_kid" MAY be present.
-- The recipient unprotected header parameter "ek" MUST be present.
-- The recipient unprotected header MUST contain a registered HPKE "alg" value.
+- The Key Management Mode is Key Encryption.
+- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
+Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
+- JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
+- JOSE Header parameter "psk_id" MAY be present.
+- JOSE Header parameter "auth_kid" SHOULD NOT be present.
+- JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The "encrypted_key" MUST be the base64url encoded JWE Encrypted Key as described in Step 15 in Section 5.1 of {{RFC7516}}. The recipient
-  "encrypted_key" is as described in Section 7.2.1 of {{RFC7516}}.
 - The HPKE Setup info parameter MUST be set to an empty string.
 - THE HPKE plaintext MUST be set to the CEK.
 
@@ -356,6 +365,10 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 +---------------------+-----+-----------+
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
+
+When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
+for the KEM used by HPKE.
+
 
 ## JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
@@ -444,7 +457,6 @@ This specification registers a number of ciphersuites for use with HPKE.
 A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
 A JOSE-HPKE algorithm, is composed of the following choices:
 
-- HPKE Mode
 - KEM Algorithm
 - KDF Algorithm
 - AEAD Algorithm
@@ -462,7 +474,7 @@ which authenticates using an asymmetric key.
 - "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
 which authenticates using both a PSK and an asymmetric key.
 
-Implementations detect the use of modes by inspecting header parameters.
+The mode used is specified by presence or absence of header parameters "psk_id" and "auth_kid".
 
 ## JSON Web Signature and Encryption Algorithms
 
@@ -471,7 +483,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-0
 
 - Algorithm Name: HPKE-0
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -481,7 +493,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-1
 
 - Algorithm Name: HPKE-1
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -491,7 +503,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-2
 
 - Algorithm Name: HPKE-2
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -501,7 +513,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-3
 
 - Algorithm Name: HPKE-3
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -511,7 +523,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-4
 
 - Algorithm Name: HPKE-4
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -521,7 +533,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-5
 
 - Algorithm Name: HPKE-5
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -531,7 +543,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### HPKE-6
 
 - Algorithm Name: HPKE-6
-- Algorithm Description: Cipher suite for JOSE-HPKE in Base Mode that uses the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
