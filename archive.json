@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-16T01:35:40.121601+00:00",
+  "timestamp": "2025-03-18T01:23:16.532263+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -425,13 +425,23 @@
       "state": "OPEN",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "selfissued"
+      ],
       "labels": [],
       "body": "HPKE Setup is currently set to empty. The issue is whether HPKE Setup should be allowed to carry any additional information (same issue exists in the COSE HPKE draft).",
       "createdAt": "2025-03-07T12:37:15Z",
-      "updatedAt": "2025-03-07T12:37:15Z",
+      "updatedAt": "2025-03-16T04:24:57Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I propose to define a header parameter that can be used to set this value.",
+          "createdAt": "2025-03-16T04:24:55Z",
+          "updatedAt": "2025-03-16T04:24:55Z"
+        }
+      ]
     },
     {
       "number": 30,
@@ -445,9 +455,38 @@
       "labels": [],
       "body": "In key encryption mode, the protected header used in content encryption is passed to HPKE as Additional Authenticated Data. please see the discussion in the thread, https://mailarchive.ietf.org/arch/msg/jose/1u4aHjyEZeIECmHwkpbl3kcGZ50",
       "createdAt": "2025-03-07T12:40:37Z",
-      "updatedAt": "2025-03-07T12:40:37Z",
+      "updatedAt": "2025-03-16T15:40:10Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Speaking to @tireddy2 at IETF, this issue is about whether the new modes will cause implementation challenges.\n\nIn my view, yes, code will have to be updated.  That's intrinsic to supporting the new functionality.  I believe this issue should be closed on this basis.",
+          "createdAt": "2025-03-16T04:28:30Z",
+          "updatedAt": "2025-03-16T04:28:30Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I do not think this issue is about if there are implementation challenges (yes, there will be), but if the challenges are reasonable in magnitude. For Integrated Encryption, I think that the implementation challenges are reasonable (considering it is a whole new mode).\n\nHowever, I think that using protected header in Key Encryption causes unreasonable implementation challenges. In the mailing list post, I was quoted:\n\n> If the existing library has a conflicting assumption in external API, it\n> is NOT possible to adopt it to support this mechanism.\n\nThe second JWE library I looked at (Josekit) does exactly that. And if it took two tries to find such library, one would expect there to be plenty of others.\n\nThe issue is not with implementing new things or use of HPKE. The issue is specifically caused by use of protected header: The construction from #14 (even if flawed due to ap*) would have been implementable.\n\nAnother problem with use of protected header is that it does not cryptographically (independently of any additional checks) separate the modes (since if there is no JWE AAD, the bulk AAD is just protected header). Quoting security considerations of the draft:\n\n> Additionally, the same key MUST NOT be used for both key\n> encryption and integrated encryption, as it may introduce security\n> risks.\n\nThe way I read this is _this mechanism is flawed_.",
+          "createdAt": "2025-03-16T08:30:17Z",
+          "updatedAt": "2025-03-16T08:30:17Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Can you make the problem you're seeing more concrete, @ilari?  What does Josekit do that's incompatible with the draft versus what does the first implementation you looked at do that makes it compatible?\n\nAlso, I don't know what you mean by \"The construction from #14\".  That PR was merged, and so presumedly it's the construction in the current draft.  And it's a long PR, so I don't know what part of it you're referring to.  Thanks.",
+          "createdAt": "2025-03-16T08:58:47Z",
+          "updatedAt": "2025-03-16T08:58:47Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Josekit has public trait (interface) `jwe::JweEncrypter` that is used for recipient encryption. The library comes with some implementations of this trait (to support various algorithms), but the application can implement it in order to support more algorithms.\n\n The method the library uses for multi-recipient modes (Key Wrapping, Key Agreement with Key Wrapping, Key Encryption) is called `encrypt`.\n\nThis method:\n\n* Takes CEK as an input.\n* Takes JOSE Header so far as an input.\n* Takes per-recipient headers as an input and output. The method can mutate these.\n* On success, it can optionally return JWE Encrypted Key.\n\nThe interface does not expose if a parameter in JOSE Header is protected or unprotected, so it is not possible to construct what the protected headers are. So the current construction can not be implemented with this interface.\n\nThe construct from #14 is not in current draft, because that PR was reverted. That construction would be implementable, because the information required to construct HPKE aad would be in JOSE Header so far (enc, apu and apv).\n\nAnd turns out I did not properly investigate the first JOSE library I found because it seemed too limited (no multi-recipient for example) to support Key Encryption. Turns out it does support Key Encryption, also using a public trait for algorithm.\n\nThe relevant method does not take any headers as input, but does take algorithm-specific settings. So the method can not construct the protected headers, but one could in pinch use settings to pass it `enc`.\n\nSo of two first libraries I looked at, neither is compatible. And I expect that there are very few if any compatible libraries that allow application to define additional algorithms. There has been no need for recipient processing to know about protected headers, so interfaces are not designed to expose that information.\n\n",
+          "createdAt": "2025-03-16T15:40:08Z",
+          "updatedAt": "2025-03-16T15:40:08Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -4557,24 +4596,26 @@
       "id": "PR_kwDOMMuuSM6N9CcT",
       "title": "Some terminology fixups",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/31",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ilaril",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Fix the terminology used a bit.\r\n\r\nMostly this is about using terms from JWE to refer to things from JWE, and using JOSE-HPKE to refer to the construct as whole. There should not be technical changes.\r\n\r\nAlso defines what AKP means for JOSE-HPKE.\r\n\r\nThis also fixes some inconsistencies:\r\n* JWE AAD with Integrated Encryption was MUST NOT, but there was an example using it and it works just fine. Changed that to MAY.\r\n* auth_kid in Key Encryption was MAY, but security considerations said SHOULD NOT. Changed that to SHOULD NOT.\r\n\r\nI left some comments explaining some of the changes.\r\n\r\nThis does not fix the apparent flaws with Key Encryption.",
       "createdAt": "2025-03-10T08:46:31Z",
-      "updatedAt": "2025-03-12T12:19:02Z",
+      "updatedAt": "2025-03-16T05:11:42Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "c1f7d6f71dca42a5d87171ce3cbf529e225055c1",
       "headRepository": "ilaril/JOSE-HPKE",
       "headRefName": "terminology-fixups",
-      "headRefOid": "364bcb5c8190e017ca5ec234fd1520fd29acf5c7",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a13db4d35f66ef8bf14eecc34142088ce043a153",
+      "closedAt": "2025-03-16T05:11:42Z",
+      "mergedAt": "2025-03-16T05:11:42Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4714,6 +4755,139 @@
               "body": "HPKE JWE Integrated Encryption is a new mode, so the encoding of the encapsulated key needs to be specified. ",
               "createdAt": "2025-03-12T12:19:01Z",
               "updatedAt": "2025-03-12T12:19:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2Xh",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:38:42Z",
+          "updatedAt": "2025-03-16T04:38:42Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "```suggestion\r\n- The HPKE aad parameter MUST be set to the \"JWE Additional Authenticated Data encryption parameter\", as defined in Step 14 of Section 5.1 of {{RFC7516}}.\r\n```\r\n\r\nThe text about future updates doesn't add any value.",
+              "createdAt": "2025-03-16T04:38:42Z",
+              "updatedAt": "2025-03-16T04:38:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2d3",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:41:14Z",
+          "updatedAt": "2025-03-16T04:41:14Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\n- If protected header contains the parameter \"zip\" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.\r\n```",
+              "createdAt": "2025-03-16T04:41:14Z",
+              "updatedAt": "2025-03-16T04:41:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2e-",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:41:44Z",
+          "updatedAt": "2025-03-16T04:41:45Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\nOtherwise, the plaintext is the raw message.\r\n```",
+              "createdAt": "2025-03-16T04:41:44Z",
+              "updatedAt": "2025-03-16T04:41:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2ga",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:42:38Z",
+          "updatedAt": "2025-03-16T04:42:39Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\r\nRecipients using JOSE-HPKE can be added alongside other recpients (e.g., `ECDH-ES+A128KW` or `RSA-OAEP-384`), as HPKE is used to encrypt the\r\n```",
+              "createdAt": "2025-03-16T04:42:38Z",
+              "updatedAt": "2025-03-16T04:42:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2jL",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:44:23Z",
+          "updatedAt": "2025-03-16T04:44:23Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "```suggestion\r\n- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain \"alg\".\r\nOtherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain \"alg\".\r\n```",
+              "createdAt": "2025-03-16T04:44:23Z",
+              "updatedAt": "2025-03-16T04:44:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP2oD",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Approved with change suggestions.",
+          "createdAt": "2025-03-16T04:46:25Z",
+          "updatedAt": "2025-03-16T04:46:25Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6gP3Sa",
+          "commit": {
+            "abbreviatedOid": "364bcb5"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T05:08:17Z",
+          "updatedAt": "2025-03-16T05:08:17Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "Yes, update looks good. ",
+              "createdAt": "2025-03-16T05:08:17Z",
+              "updatedAt": "2025-03-16T05:08:18Z"
             }
           ]
         }
