@@ -603,7 +603,7 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--07
+-08
 
 * Remove auth mode and auth_kid from the specification.
 
