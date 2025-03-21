@@ -824,7 +824,7 @@ Acknowledgments
 
 Document History
 
-   -07
+   -08
 
    *  Remove auth mode and auth_kid from the specification.
 
