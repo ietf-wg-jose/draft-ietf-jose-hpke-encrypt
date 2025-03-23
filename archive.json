@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-20T01:22:44.689000+00:00",
+  "timestamp": "2025-03-23T01:36:18.788083+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4890,6 +4890,80 @@
               "updatedAt": "2025-03-16T05:08:18Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOMMuuSM6PjVXm",
+      "title": "Remove auth mode",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/32",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR removes auth mode support from this draft.\r\nThis is done based on discussions at IETF 122, to align with future work on HPKE.",
+      "createdAt": "2025-03-21T02:45:47Z",
+      "updatedAt": "2025-03-21T16:18:50Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "remove-auth-mode-2",
+      "headRefOid": "afc8f3383b5f403d04d18debc5e86b39d80db223",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "yaronf",
+          "authorAssociation": "NONE",
+          "body": "If a previous version of the document defined this mode, shouldn't we at least mention it and explain why people should avoid it? I think giving it the \"silent treatment\" is not good enough.\r\n\r\nTo start with, maybe you could add a placeholder to the Security Considerations.",
+          "createdAt": "2025-03-21T16:18:49Z",
+          "updatedAt": "2025-03-21T16:18:49Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOMMuuSM6PjWG8",
+      "title": "Update tools",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/33",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-21T02:48:44Z",
+      "updatedAt": "2025-03-21T05:18:04Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "update-tools",
+      "headRefOid": "be27d66105ade407820baab3beb5b31645e1b00b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6hN1_o",
+          "commit": {
+            "abbreviatedOid": "be27d66"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-21T05:18:04Z",
+          "updatedAt": "2025-03-21T05:18:04Z",
+          "comments": []
         }
       ]
     }
