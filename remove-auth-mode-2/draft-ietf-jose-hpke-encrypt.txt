@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 22 September 2025                                         H-BRS
+Expires: 25 September 2025                                         H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                           21 March 2025
+                                                           24 March 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 September 2025.
+   This Internet-Draft will expire on 25 September 2025.
 
 Copyright Notice
 
@@ -91,13 +91,13 @@ Table of Contents
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
-     8.1.  Authentication using an Asymmetric Key
-     8.2.  Key Management
-     8.3.  Plaintext Compression
-     8.4.  Header Parameters
-     8.5.  Ensure Cryptographic Keys Have Sufficient Entropy
-     8.6.  Validate Cryptographic Inputs
-     8.7.  Use Appropriate Algorithms
+     8.1.  Key Management
+     8.2.  Plaintext Compression
+     8.3.  Header Parameters
+     8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
+     8.5.  Validate Cryptographic Inputs
+     8.6.  Use Appropriate Algorithms
+     8.7.  Authenticated KEM
    9.  IANA Considerations
      9.1.  Ciphersuite Registration
      9.2.  JSON Web Signature and Encryption Algorithms
@@ -110,7 +110,6 @@ Table of Contents
        9.2.7.  HPKE-6
      9.3.  JSON Web Signature and Encryption Header Parameters
        9.3.1.  ek
-       9.3.2.  psk_id
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -182,8 +181,7 @@ Table of Contents
    HPKE supports several modes, which are described in Table 1 of
    [RFC9180].
 
-   In JOSE-HPKE, the HPKE mode used (e.g, "mode_base" or "mode_psk") is
-   determined by the presence of the JOSE Header parameters "psk_id".
+   In JOSE-HPKE, only the "base_mode" is used.
 
    JWE supports different serializations, including Compact JWE
    Serialization as described in Section 3.1 of [RFC7516], General JWE
@@ -245,8 +243,6 @@ Table of Contents
       is an explicit exception to requirement in Section 4.1.2 of
       [RFC7516] that "enc" must be an AEAD algorithm.  This is
       appropriate, as HPKE will perform plaintext encryption.
-
-   *  The protected header parameters "psk_id" MAY be present.
 
    *  The protected header parameter "ek" MUST NOT be present.
 
@@ -318,7 +314,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
     "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "psk_id": "our-pre-shared-key-id"
   },
   "plaintext": "🖤 this plaintext!",
   "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
@@ -345,8 +340,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       Unprotected Header) MUST NOT contain "alg".
 
    *  JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
-
-   *  JOSE Header parameter "psk_id" MAY be present.
 
    *  JOSE Header parameter "ek" MUST be present and contain base64url-
       encoded HPKE encapsulated key.
@@ -393,7 +386,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       "header": {
         "alg": "HPKE-0",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-        "psk_id": "our-pre-shared-key-id",
         "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
       }
     }
@@ -411,7 +403,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
     "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "psk_id": "our-pre-shared-key-id",
     "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
   },
   "additionalAuthenticatedData": "paul atreides"
@@ -475,18 +466,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    generated and it MUST be ensured that the guidelines in [RFC8937] for
    random number generations are followed.
 
-8.1.  Authentication using an Asymmetric Key
-
-   Implementers are cautioned to note that the use of authenticated KEMs
-   has different meaning when considering integrated encryption and key
-   encryption.  In integrated encryption the KEM operations secure the
-   message plaintext, whereas with key encryption, the KEM operations
-   secure the content encryption key.  For this reason, the use of
-   authenticated KEMs with key encryption is NOT RECOMMENDED, as it
-   gives a false sense of security.  See RFC9180 Section 5.1.3 for
-   details authentication using asymmetric keys.
-
-8.2.  Key Management
+8.1.  Key Management
 
    A single KEM key MUST NOT be used with multiple algorithms.  Each key
    and its associated algorithm suite, comprising the KEM, KDF, and
@@ -501,14 +481,14 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    A single recipient or sender key MUST NOT be used with both JOSE-HPKE
    and other algorithms as this might enable cross-protocol attacks.
 
-8.3.  Plaintext Compression
+8.2.  Plaintext Compression
 
    Implementers are advised to review Section 3.6 of [RFC8725], which
    states: Compression of data SHOULD NOT be done before encryption,
    because such compressed data often reveals information about the
    plaintext.
 
-8.4.  Header Parameters
+8.3.  Header Parameters
 
    Implementers are advised to review Section 3.10 of [RFC8725], which
    comments on application processing of JWE Protected Headers.
@@ -516,7 +496,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    which an attacker could leverage to mount denial of service, forgery
    or injection attacks.
 
-8.5.  Ensure Cryptographic Keys Have Sufficient Entropy
+8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
 
    Implementers are advised to review Section 3.5 of [RFC8725], which
    provides comments on entropy requirements for keys.  This guidance is
@@ -524,7 +504,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    and Integrated Encryption.  Additionally, this guidance is applicable
    to content encryption keys used in Key Encryption mode.
 
-8.6.  Validate Cryptographic Inputs
+8.5.  Validate Cryptographic Inputs
 
    Implementers are advised to review Section 3.4 of [RFC8725], which
    provides comments on the validation of cryptographic inputs.  This
@@ -533,7 +513,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    structure of the public and private keys.  These inputs are crucial
    for the HPKE KEM operations.
 
-8.7.  Use Appropriate Algorithms
+8.6.  Use Appropriate Algorithms
 
    Implementers are advised to review Section 3.2 of [RFC8725], which
    comments on the selection of appropriate algorithms.  This is
@@ -541,6 +521,25 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    Encryption.  When using Key Encryption, the strength of the content
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
+
+8.7.  Authenticated KEM
+
+   Authenticated KEM is not supported in JOSE HPKE for the following
+   reasons:
+
+   1.  Authenticated KEMs provide authentication at the KEM level, which
+       has different implications depending on whether they are used for
+       key encryption or integrated encryption.  In integrated
+       encryption, the KEM operations directly secure the message
+       plaintext.  In key encryption, the KEM operations secure the
+       content encryption key.  Using authenticated KEMs for key
+       encryption does not provide meaningful security benefits and will
+       create a false sense of data origin authentication.
+
+   2.  The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can
+       only be used with HPKE Base mode.  Similarly, PQ KEMs in HPKE are
+       not authenticated KEMs, making them incompatible with an
+       authenticated KEM approach.
 
 9.  IANA Considerations
 
@@ -567,12 +566,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    *  "Base" refers to "mode_base" described in Section 5.1.1 of
       [RFC9180], which only enables encryption to the holder of a given
       KEM private key.
-
-   *  "PSK" refers to "mode_psk", described in Section 5.1.2 of
-      [RFC9180], which authenticates using a pre-shared key.
-
-   The mode used is specified by presence or absence of header
-   parameters "psk_id".
 
 9.2.  JSON Web Signature and Encryption Algorithms
 
@@ -716,19 +709,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Header Parameter Description: An encapsulated key as defined in {
       Section 5.1.1 of RFC9180 }
-
-   *  Header Parameter Usage Location(s): JWE
-
-   *  Change Controller: IETF
-
-   *  Specification Document(s): RFCXXXX
-
-9.3.2.  psk_id
-
-   *  Header Parameter Name: "psk_id"
-
-   *  Header Parameter Description: A key identifier (kid) for the pre-
-      shared key as defined in { Section 5.1.2 of RFC9180 }
 
    *  Header Parameter Usage Location(s): JWE
 
