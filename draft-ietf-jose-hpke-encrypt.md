@@ -438,7 +438,8 @@ encryption or integrated encryption. In integrated encryption, the KEM operation
 the KEM operations secure the content encryption key. Using authenticated KEMs for key encryption does not provide meaningful security
 benefits and will create a false sense of data origin authentication.
 
-2. The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode. Similarly, PQ KEMs in HPKE are not authenticated KEMs, making them incompatible with an authenticated KEM approach. 
+2. The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode. Similarly, PQ KEMs in HPKE are not
+authenticated KEMs, making them incompatible with an authenticated KEM approach.
 
 #  IANA Considerations {#IANA}
 
