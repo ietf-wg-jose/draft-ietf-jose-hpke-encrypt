@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-23T01:36:18.788083+00:00",
+  "timestamp": "2025-03-25T01:25:10.135539+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4905,13 +4905,13 @@
       "labels": [],
       "body": "This PR removes auth mode support from this draft.\r\nThis is done based on discussions at IETF 122, to align with future work on HPKE.",
       "createdAt": "2025-03-21T02:45:47Z",
-      "updatedAt": "2025-03-21T16:18:50Z",
+      "updatedAt": "2025-03-24T12:05:55Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "remove-auth-mode-2",
-      "headRefOid": "afc8f3383b5f403d04d18debc5e86b39d80db223",
+      "headRefOid": "1e57c2c14ab1430ea3160e78343f32afda58609a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -4923,6 +4923,13 @@
           "body": "If a previous version of the document defined this mode, shouldn't we at least mention it and explain why people should avoid it? I think giving it the \"silent treatment\" is not good enough.\r\n\r\nTo start with, maybe you could add a placeholder to the Security Considerations.",
           "createdAt": "2025-03-21T16:18:49Z",
           "updatedAt": "2025-03-21T16:18:49Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> If a previous version of the document defined this mode, shouldn't we at least mention it and explain why people should avoid it? I think giving it the \"silent treatment\" is not good enough.\r\n> \r\n> To start with, maybe you could add a placeholder to the Security Considerations.\r\n\r\nAdded a new section \"Authenticated KEM\" in the security considerations section. ",
+          "createdAt": "2025-03-24T11:59:43Z",
+          "updatedAt": "2025-03-24T11:59:43Z"
         }
       ],
       "reviews": []
