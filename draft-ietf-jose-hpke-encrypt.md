@@ -100,8 +100,7 @@ public key encryption of arbitrary-sized plaintexts for a recipient public key.
 
 HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM),
 key derivation function (KDF), and authenticated encryption with additional data
-(AEAD) function. Authentication for HPKE in JOSE is provided by
-JOSE-native security mechanisms or by one of the authenticated variants of HPKE.
+(AEAD) function.
 
 This document defines the use of the HPKE with JOSE.
 
@@ -149,8 +148,8 @@ The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
-In JOSE-HPKE, the HPKE mode used (e.g, "mode_base" or "mode_auth_psk") is determined
-by the presence of the JOSE Header parameters "psk_id" and "auth_kid".
+In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.
+When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise the mode is "mode_base".
 
 JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of {{RFC7516}}, General JWE JSON Serialization as described in Section 3.2 of {{RFC7516}}.
 
@@ -192,7 +191,7 @@ In HPKE JWE Integrated Encryption:
 - The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
 - The protected header MUST contain an "enc" with value "dir". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
-- The protected header parameters "psk_id" and "auth_kid" MAY be present.
+- The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
 - The JWE Encrypted Key MUST be encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
@@ -256,8 +255,6 @@ After verification:
     "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "psk_id": "our-pre-shared-key-id",
-    "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s"
   },
   "plaintext": "🖤 this plaintext!",
   "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
@@ -279,7 +276,6 @@ In HPKE JWE Key Encryption:
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
 - JOSE Header parameter "psk_id" MAY be present.
-- JOSE Header parameter "auth_kid" SHOULD NOT be present.
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
 - The HPKE Setup info parameter MUST be set to an empty string.
@@ -318,8 +314,6 @@ For example:
       "header": {
         "alg": "HPKE-0",
         "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-        "psk_id": "our-pre-shared-key-id",
-        "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
         "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
       }
     }
@@ -339,8 +333,6 @@ After verification:
     "alg": "HPKE-0",
     "enc": "dir",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "psk_id": "our-pre-shared-key-id",
-    "auth_kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
   },
   "additionalAuthenticatedData": "paul atreides"
@@ -402,13 +394,6 @@ HPKE also offers modes that offer authentication.
 HPKE relies on a source of randomness to be available on the device.
 In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it MUST be ensured that the guidelines in {{RFC8937}} for random number generations are followed.
 
-## Authentication using an Asymmetric Key
-
-Implementers are cautioned to note that the use of authenticated KEMs has different meaning when considering integrated encryption and key encryption.
-In integrated encryption the KEM operations secure the message plaintext, whereas with key encryption, the KEM operations secure the content encryption key.
-For this reason, the use of authenticated KEMs with key encryption is NOT RECOMMENDED, as it gives a false sense of security.
-See RFC9180 Section 5.1.3 for details authentication using asymmetric keys.
-
 ## Key Management
 
 A single KEM key MUST NOT be used with multiple algorithms.  Each key and its
@@ -462,19 +447,6 @@ A JOSE-HPKE algorithm, is composed of the following choices:
 - AEAD Algorithm
 
 The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
-
-The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
-
-- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
-which only enables encryption to the holder of a given KEM private key.
-- "PSK" refers to "mode_psk", described in Section 5.1.2 of {{RFC9180}},
-which authenticates using a pre-shared key.
-- "Auth" refers to "mode_auth", described in Section 5.1.3 of {{RFC9180}},
-which authenticates using an asymmetric key.
-- "Auth_Psk" refers to "mode_auth_psk", described in Section 5.1.4 of {{RFC9180}},
-which authenticates using both a PSK and an asymmetric key.
-
-The mode used is specified by presence or absence of header parameters "psk_id" and "auth_kid".
 
 ## JSON Web Signature and Encryption Algorithms
 
@@ -561,7 +533,6 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
-
 ### psk_id
 
 - Header Parameter Name: "psk_id"
@@ -569,15 +540,6 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
-
-### auth_kid
-
-- Header Parameter Name: "auth_kid"
-- Header Parameter Description: A key identifier (kid) for the asymmetric key as defined in { Section 5.1.3 of RFC9180 }
-- Header Parameter Usage Location(s): JWE
-- Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-
 --- back
 
 # Keys Used in Examples
@@ -619,6 +581,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-08
+
+* Remove auth mode and auth_kid from the specification.
 
 -05
 
