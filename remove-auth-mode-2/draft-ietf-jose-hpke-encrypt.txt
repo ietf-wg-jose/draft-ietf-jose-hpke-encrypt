@@ -180,8 +180,9 @@ Table of Contents
    HPKE supports several modes, which are described in Table 1 of
    [RFC9180].
 
-   In JOSE-HPKE, the "base_mode" and "mode_psk" are determined by the
-   presence of the JOSE Header parameter "psk_id"
+   In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.  When
+   "psk_id" JOSE Header parameter is present the mode is "mode_psk",
+   otherwise the mode is "mode_base".
 
    JWE supports different serializations, including Compact JWE
    Serialization as described in Section 3.1 of [RFC7516], General JWE
