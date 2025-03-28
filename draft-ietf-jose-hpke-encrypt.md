@@ -547,7 +547,13 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s):   RFCXXXX
+### psk_id
 
+- Header Parameter Name: "psk_id"
+- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }
+- Header Parameter Usage Location(s): JWE
+- Change Controller: IETF
+- Specification Document(s):   RFCXXXX
 --- back
 
 # Keys Used in Examples
