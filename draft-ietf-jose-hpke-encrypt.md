@@ -190,6 +190,7 @@ In HPKE JWE Integrated Encryption:
 - The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
 - The protected header MUST contain an "enc" with value "dir". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
+- The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
 - The JWE Encrypted Key MUST be encapsulated key as defined in Section 5.1.1 of {{RFC9180}}.
