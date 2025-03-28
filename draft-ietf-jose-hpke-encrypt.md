@@ -450,11 +450,6 @@ A JOSE-HPKE algorithm, is composed of the following choices:
 
 The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry {{HPKE-IANA}}.
 
-The "HPKE Mode" is described in Table 1 of {{RFC9180}}:
-
-- "Base" refers to "mode_base" described in Section 5.1.1 of {{RFC9180}},
-which only enables encryption to the holder of a given KEM private key.
-
 ## JSON Web Signature and Encryption Algorithms
 
 The following entries are added to the "JSON Web Signature and Encryption Algorithms" registry:
