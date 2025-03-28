@@ -340,6 +340,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
 
+   *  JOSE Header parameter "psk_id" MAY be present.
+
    *  JOSE Header parameter "ek" MUST be present and contain base64url-
       encoded HPKE encapsulated key.
 
