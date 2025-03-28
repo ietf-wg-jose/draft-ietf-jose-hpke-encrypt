@@ -432,9 +432,6 @@ Implementers are advised to review Section 3.2 of {{RFC8725}}, which comments on
 This is guidance is relevant to both Key Encryption and Integrated Encryption.
 When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.
 
-## HPKE Mode Support
-
-TODO: Summarize that only base and psk mode are supported
 #  IANA Considerations {#IANA}
 
 This document adds entries to {{JOSE-IANA}}.
