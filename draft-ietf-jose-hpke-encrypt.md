@@ -273,6 +273,7 @@ In HPKE JWE Key Encryption:
 - When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
+- JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
 - The HPKE Setup info parameter MUST be set to an empty string.
