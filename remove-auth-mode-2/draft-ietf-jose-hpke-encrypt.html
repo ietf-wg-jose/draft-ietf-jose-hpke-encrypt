@@ -1452,32 +1452,35 @@ is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcr
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.3">
-          <p id="section-5-2.3.1">The protected header parameter "ek" <span class="bcp14">MUST NOT</span> be present.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.3.1">The protected header parameters "psk_id" <span class="bcp14">MAY</span> be present.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.4">
-          <p id="section-5-2.4.1">There <span class="bcp14">MUST</span> be exactly one recipient.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.4.1">The protected header parameter "ek" <span class="bcp14">MUST NOT</span> be present.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.5">
-          <p id="section-5-2.5.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key as defined in Section 5.1.1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.5.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.5.1">There <span class="bcp14">MUST</span> be exactly one recipient.<a href="#section-5-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.6">
-          <p id="section-5-2.6.1">JWE Initialization Vector and JWE Authentication Tag <span class="bcp14">MUST NOT</span> be present.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.6.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key as defined in Section 5.1.1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.7">
-          <p id="section-5-2.7.1">JWE AAD <span class="bcp14">MAY</span> be present.<a href="#section-5-2.7.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.7.1">JWE Initialization Vector and JWE Authentication Tag <span class="bcp14">MUST NOT</span> be present.<a href="#section-5-2.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.8">
-          <p id="section-5-2.8.1">JWE Ciphertext is ciphertext as defined in Section 5.2 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.8.1">JWE AAD <span class="bcp14">MAY</span> be present.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.9">
-          <p id="section-5-2.9.1">The HPKE info parameter <span class="bcp14">MUST</span> be set to an empty string.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.9.1">JWE Ciphertext is ciphertext as defined in Section 5.2 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.10">
-          <p id="section-5-2.10.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.10.1">The HPKE info parameter <span class="bcp14">MUST</span> be set to an empty string.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.11">
-          <p id="section-5-2.11.1">If protected header contains the parameter "zip" (Section 4.1.3 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>), the plaintext is the message compressed with the indicated algorithm.
-Otherwise, the plaintext is the raw message.<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.11.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-2.12">
+          <p id="section-5-2.12.1">If protected header contains the parameter "zip" (Section 4.1.3 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>), the plaintext is the message compressed with the indicated algorithm.
+Otherwise, the plaintext is the raw message.<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-5-3">When decrypting, the checks in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> section 5.2, steps 1 through 5 <span class="bcp14">MUST</span> be performed. The JWE Encrypted Key in step 2 is the

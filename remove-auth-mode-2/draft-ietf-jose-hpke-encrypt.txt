@@ -243,6 +243,8 @@ Table of Contents
       [RFC7516] that "enc" must be an AEAD algorithm.  This is
       appropriate, as HPKE will perform plaintext encryption.
 
+   *  The protected header parameters "psk_id" MAY be present.
+
    *  The protected header parameter "ek" MUST NOT be present.
 
    *  There MUST be exactly one recipient.
