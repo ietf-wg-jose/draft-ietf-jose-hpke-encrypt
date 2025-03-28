@@ -97,22 +97,21 @@ Table of Contents
      8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
      8.5.  Validate Cryptographic Inputs
      8.6.  Use Appropriate Algorithms
-     8.7.  Authenticated KEM
-   9.  IANA Considerations
-     9.1.  Ciphersuite Registration
-     9.2.  JSON Web Signature and Encryption Algorithms
-       9.2.1.  HPKE-0
-       9.2.2.  HPKE-1
-       9.2.3.  HPKE-2
-       9.2.4.  HPKE-3
-       9.2.5.  HPKE-4
-       9.2.6.  HPKE-5
-       9.2.7.  HPKE-6
-     9.3.  JSON Web Signature and Encryption Header Parameters
-       9.3.1.  ek
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+     8.7.  HPKE Mode Support
+     8.8.  Ciphersuite Registration
+     8.9.  JSON Web Signature and Encryption Algorithms
+       8.9.1.  HPKE-0
+       8.9.2.  HPKE-1
+       8.9.3.  HPKE-2
+       8.9.4.  HPKE-3
+       8.9.5.  HPKE-4
+       8.9.6.  HPKE-5
+       8.9.7.  HPKE-6
+     8.10. JSON Web Signature and Encryption Header Parameters
+       8.10.1.  ek
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Keys Used in Examples
    Acknowledgments
    Document History
@@ -522,30 +521,14 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
 
-8.7.  Authenticated KEM
+8.7.  HPKE Mode Support
 
-   Authenticated KEM is not supported in JOSE HPKE for the following
-   reasons:
-
-   1.  Authenticated KEMs provide authentication at the KEM level, which
-       has different implications depending on whether they are used for
-       key encryption or integrated encryption.  In integrated
-       encryption, the KEM operations directly secure the message
-       plaintext.  In key encryption, the KEM operations secure the
-       content encryption key.  Using authenticated KEMs for key
-       encryption does not provide meaningful security benefits and will
-       create a false sense of data origin authentication.
-
-   2.  The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can
-       only be used with HPKE Base mode.  Similarly, PQ KEMs in HPKE are
-       not authenticated KEMs, making them incompatible with an
-       authenticated KEM approach.
-
-9.  IANA Considerations
+   TODO: Summarize that only base and psk mode are supported # IANA
+   Considerations {#IANA}
 
    This document adds entries to [JOSE-IANA].
 
-9.1.  Ciphersuite Registration
+8.8.  Ciphersuite Registration
 
    This specification registers a number of ciphersuites for use with
    HPKE.  A ciphersuite is a group of algorithms, often sharing
@@ -567,12 +550,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       [RFC9180], which only enables encryption to the holder of a given
       KEM private key.
 
-9.2.  JSON Web Signature and Encryption Algorithms
+8.9.  JSON Web Signature and Encryption Algorithms
 
    The following entries are added to the "JSON Web Signature and
    Encryption Algorithms" registry:
 
-9.2.1.  HPKE-0
+8.9.1.  HPKE-0
 
    *  Algorithm Name: HPKE-0
 
@@ -590,7 +573,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.2.  HPKE-1
+8.9.2.  HPKE-1
 
    *  Algorithm Name: HPKE-1
 
@@ -608,7 +591,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.3.  HPKE-2
+8.9.3.  HPKE-2
 
    *  Algorithm Name: HPKE-2
 
@@ -626,7 +609,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.4.  HPKE-3
+8.9.4.  HPKE-3
 
    *  Algorithm Name: HPKE-3
 
@@ -644,7 +627,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.5.  HPKE-4
+8.9.5.  HPKE-4
 
    *  Algorithm Name: HPKE-4
 
@@ -662,7 +645,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.6.  HPKE-5
+8.9.6.  HPKE-5
 
    *  Algorithm Name: HPKE-5
 
@@ -680,7 +663,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.2.7.  HPKE-6
+8.9.7.  HPKE-6
 
    *  Algorithm Name: HPKE-6
 
@@ -698,12 +681,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-9.3.  JSON Web Signature and Encryption Header Parameters
+8.10.  JSON Web Signature and Encryption Header Parameters
 
    The following entries are added to the "JSON Web Key Parameters"
    registry:
 
-9.3.1.  ek
+8.10.1.  ek
 
    *  Header Parameter Name: "ek"
 
@@ -727,9 +710,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-10.  References
+9.  References
 
-10.1.  Normative References
+9.1.  Normative References
 
    [JOSE-IANA]
               IANA, "JSON Web Signature and Encryption Algorithms",
@@ -765,7 +748,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [HPKE-IANA]
               IANA, "Hybrid Public Key Encryption (HPKE) IANA Registry",
