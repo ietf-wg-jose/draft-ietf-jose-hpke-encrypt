@@ -429,18 +429,9 @@ Implementers are advised to review Section 3.2 of {{RFC8725}}, which comments on
 This is guidance is relevant to both Key Encryption and Integrated Encryption.
 When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.
 
-## Authenticated KEM
+## HPKE Mode Support
 
-Authenticated KEM is not supported in JOSE HPKE for the following reasons:
-
-1. Authenticated KEMs provide authentication at the KEM level, which has different implications depending on whether they are used for key
-encryption or integrated encryption. In integrated encryption, the KEM operations directly secure the message plaintext. In key encryption,
-the KEM operations secure the content encryption key. Using authenticated KEMs for key encryption does not provide meaningful security
-benefits and will create a false sense of data origin authentication.
-
-2. The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode. Similarly, PQ KEMs in HPKE are not
-authenticated KEMs, making them incompatible with an authenticated KEM approach.
-
+TODO: Summarize that only base and psk mode are supported
 #  IANA Considerations {#IANA}
 
 This document adds entries to {{JOSE-IANA}}.
