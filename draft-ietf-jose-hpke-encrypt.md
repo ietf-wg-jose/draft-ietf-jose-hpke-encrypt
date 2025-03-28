@@ -148,7 +148,7 @@ The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
 HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 
-In JOSE-HPKE, only the "base_mode" is used.
+In JOSE-HPKE, the "base_mode" and "mode_psk" are determined by the presence of the JOSE Header parameter "psk_id"
 
 JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of {{RFC7516}}, General JWE JSON Serialization as described in Section 3.2 of {{RFC7516}}.
 
