@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:42:44.827607+00:00",
+  "timestamp": "2025-04-03T01:24:50.945271+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -4950,7 +4950,7 @@
       "labels": [],
       "body": "This PR removes auth mode support from this draft.\r\nThis is done based on discussions at IETF 122, to align with future work on HPKE.",
       "createdAt": "2025-03-21T02:45:47Z",
-      "updatedAt": "2025-03-31T16:51:42Z",
+      "updatedAt": "2025-04-01T06:21:49Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
@@ -5010,6 +5010,13 @@
           "body": "@tireddy2 I asked HPKE authors (today)... they noted the only plan was to remove \"Auth and AuthPSK modes\"... this PR does just that.\r\n\r\n",
           "createdAt": "2025-03-31T16:51:41Z",
           "updatedAt": "2025-03-31T16:51:41Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> @tireddy2 I asked HPKE authors (today)... they noted the only plan was to remove \"Auth and AuthPSK modes\"... this PR does just that.\r\n\r\nDid you mean only remove Auth mode but not the AuthPSK mode ?\r\n",
+          "createdAt": "2025-04-01T06:16:11Z",
+          "updatedAt": "2025-04-01T06:21:48Z"
         }
       ],
       "reviews": [
