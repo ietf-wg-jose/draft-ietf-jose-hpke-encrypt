@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T01:24:50.945271+00:00",
+  "timestamp": "2025-04-06T01:37:25.338790+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -530,6 +530,39 @@
           "body": "There might also be a third reason not to support authenticated KEM:\n\nThe authenticated DHKEM in HPKE is vulnerable to key-compromise impersonation (KCI). While KCI implies loss of confidentiality, which is bad, depending on the application, loss of integrity might be catastrophic.",
           "createdAt": "2025-03-29T09:23:49Z",
           "updatedAt": "2025-03-29T09:23:49Z"
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "I_kwDOMMuuSM6xJBZD",
+      "title": "Use of enc with \"dir\" in Integrated Encryption",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "selfissued"
+      ],
+      "labels": [],
+      "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
+      "createdAt": "2025-04-04T10:17:34Z",
+      "updatedAt": "2025-04-04T15:46:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "You can't register a none aead algorithm in the HPKE registry though.\nI don't fully understand this comment.",
+          "createdAt": "2025-04-04T15:18:10Z",
+          "updatedAt": "2025-04-04T15:18:10Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "My take on the discussions in Bangkok on this topic is that people were saying that reusing the identifier \"dir\" in a different place (as an \"enc\" value rather than an \"alg\" value) and with a different meaning was confusing.  The solution proposed there was to use a different identifier, such as \"enc\": \"int\" - where \"int\" stands for \"integrated\".  I'll create a PR doing this.",
+          "createdAt": "2025-04-04T15:46:35Z",
+          "updatedAt": "2025-04-04T15:46:35Z"
         }
       ]
     }
@@ -4943,24 +4976,26 @@
       "id": "PR_kwDOMMuuSM6PjVXm",
       "title": "Remove auth mode",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR removes auth mode support from this draft.\r\nThis is done based on discussions at IETF 122, to align with future work on HPKE.",
       "createdAt": "2025-03-21T02:45:47Z",
-      "updatedAt": "2025-04-01T06:21:49Z",
+      "updatedAt": "2025-04-04T15:29:22Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "remove-auth-mode-2",
       "headRefOid": "7be2b5096f2cb314f4ef668d6f0da07816fa5669",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-04T15:29:22Z",
+      "mergedAt": "2025-04-04T15:29:22Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "c297193fde8d232913517f67deab5bee4e218c18"
+      },
       "comments": [
         {
           "author": "yaronf",
@@ -5017,6 +5052,13 @@
           "body": "> @tireddy2 I asked HPKE authors (today)... they noted the only plan was to remove \"Auth and AuthPSK modes\"... this PR does just that.\r\n\r\nDid you mean only remove Auth mode but not the AuthPSK mode ?\r\n",
           "createdAt": "2025-04-01T06:16:11Z",
           "updatedAt": "2025-04-01T06:21:48Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I have discussed with HPKE authors, to their knowledge there is no intention to remove psk mode support.",
+          "createdAt": "2025-04-04T15:26:40Z",
+          "updatedAt": "2025-04-04T15:28:31Z"
         }
       ],
       "reviews": [
