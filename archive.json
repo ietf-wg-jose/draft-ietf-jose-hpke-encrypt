@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-06T01:37:25.338790+00:00",
+  "timestamp": "2025-04-13T02:53:07.972118+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -462,7 +462,7 @@
       "labels": [],
       "body": "In key encryption mode, the protected header used in content encryption is passed to HPKE as Additional Authenticated Data. please see the discussion in the thread, https://mailarchive.ietf.org/arch/msg/jose/1u4aHjyEZeIECmHwkpbl3kcGZ50",
       "createdAt": "2025-03-07T12:40:37Z",
-      "updatedAt": "2025-03-29T09:12:09Z",
+      "updatedAt": "2025-04-11T07:18:31Z",
       "closedAt": null,
       "comments": [
         {
@@ -506,6 +506,13 @@
           "body": "The presently registered Key Encryption algorithms do not need to distinguish between protected and unprotected headers.\n\nFurthermore, I do not see anything in JWE that hints that Key Encryption might need protected headers (hence the API designs from two libraries I looked at):\n * In encryption procedures, Key Encryption happens in step 4. The first time protected header appears is step 12, which is after the per-recipient loop.\n * In decryption procedures, Key Encryption is using JOSE Header, which is union of headers.\n \nThen, using protected headers is incompatible with create_context, add_recipient, finalize type API (the JWE encryption procedure hints at that kind of API). Even if neither library I looked at use that pattern, there are probably many that do.\n",
           "createdAt": "2025-03-29T09:12:08Z",
           "updatedAt": "2025-03-29T09:12:08Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> The way I read this is _this mechanism is flawed_.\n\nSuppose that:\n* sender places \"enc\" in unprotected headers (which is allowed).\n* JWE AAD is not used (it is optional to use anyway).\n* recipient allows both modes (the requirement to bind key to mode is in practice unimplementable).\n* recipient does not check that \"enc:dir\" is in protected headers (seems like easy mistake to make, much easier than accidentally accepting AES-CBC or something else vulnerable to the \"LAMPS attack\").\n* recipient leaks information about malformed messages that decrypt (which seems to be required for the \"LAMPS attack\").\n\nNow, attacker can mangle message using Key Encryption to make it look like it is using Integrated Encryption. Then the recipient decrypts it as the CEK of the original message, which is presumably malformed message, and then proceed to leak information about the CEK. Which is bad.\n\nThe way to fix this is to have proper cryptographic separation between modes. So using protected headers (which does not give cryptographic separation) does not just cause implementation issues, it also causes security risks.\n\n(COSE-HPKE does have cryptographic separation of 1- and 2-layer structures, done in way that minimizes implementation issues and defends against the \"LAMPS attack\".)",
+          "createdAt": "2025-04-11T07:18:30Z",
+          "updatedAt": "2025-04-11T07:18:30Z"
         }
       ]
     },
@@ -547,7 +554,7 @@
       "labels": [],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-04T15:46:38Z",
+      "updatedAt": "2025-04-11T06:52:23Z",
       "closedAt": null,
       "comments": [
         {
@@ -563,6 +570,13 @@
           "body": "My take on the discussions in Bangkok on this topic is that people were saying that reusing the identifier \"dir\" in a different place (as an \"enc\" value rather than an \"alg\" value) and with a different meaning was confusing.  The solution proposed there was to use a different identifier, such as \"enc\": \"int\" - where \"int\" stands for \"integrated\".  I'll create a PR doing this.",
           "createdAt": "2025-04-04T15:46:35Z",
           "updatedAt": "2025-04-04T15:46:35Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "If the value can be registered to the registry, it does not really matter what it is. Implementations need to treat it in deeply magic way anyway.",
+          "createdAt": "2025-04-11T06:52:22Z",
+          "updatedAt": "2025-04-11T06:52:22Z"
         }
       ]
     }
