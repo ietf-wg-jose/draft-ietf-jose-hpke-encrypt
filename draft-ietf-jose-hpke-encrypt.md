@@ -266,8 +266,7 @@ After verification:
 Recipients using JOSE-HPKE can be added alongside other recpients (e.g., `ECDH-ES+A128KW` or `RSA-OAEP-384`), as HPKE is used to encrypt the
 Content Encryption Key, which is then processed as specified in JWE.
 
-The protected header used in content encryption is passed to HPKE as Additional Authenticated Data. The protected header encoding remains consistent
-with existing JWE formatting rules.
+The use of the content encryption protected header encoding remains consistent with existing JWE formatting rules.
 
 In HPKE JWE Key Encryption:
 
