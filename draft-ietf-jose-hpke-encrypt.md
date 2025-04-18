@@ -440,9 +440,6 @@ Authenticated KEMs based on static asymmetric key authentication are not support
   vary depending on whether they are applied to key encapsulation or integrated encryption. When used for key encapsulation,
   authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
 
-* The PQ/T hybrid KEM in HPKE is not an authenticated KEM and is only compatible with HPKE's Base mode. Likewise, post-quantum
-  KEMs in HPKE do not support authentication at the KEM level, making them unsuitable for use in contexts that require
-  authenticated KEMs.
 
 * Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
   compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.
