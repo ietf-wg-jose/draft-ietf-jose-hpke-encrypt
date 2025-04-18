@@ -496,7 +496,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 
 - Algorithm Name: HPKE-4
 - Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specificationX
