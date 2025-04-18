@@ -141,7 +141,7 @@ This specification describes two modes of use for HPKE in JWE:
 
 When "alg" is a JOSE-HPKE algorithm:
 
-  * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
+  * If "enc" is "int", HPKE JWE Integrated Encryption is used.
   * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
 
 The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
@@ -189,7 +189,7 @@ is base64url-encoded HPKE encapsulated key.
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
-- The protected header MUST contain an "enc" with value "dir". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
+- The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
 - The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
@@ -221,7 +221,7 @@ After verification:
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
   },
   "payload": {
@@ -253,7 +253,7 @@ After verification:
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
   },
   "plaintext": "🖤 this plaintext!",
@@ -331,7 +331,7 @@ After verification:
   },
   "unprotectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
   },
@@ -582,7 +582,11 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--08
+-07
+
+* Use "enc":"int" for integrated encryption.
+
+-06
 
 * Remove auth mode and auth_kid from the specification.
 
