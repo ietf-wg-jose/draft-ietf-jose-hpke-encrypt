@@ -436,16 +436,16 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 
 Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:
 
-* Authenticated KEMs provide authentication at the KEM level using static asymmetric keys, which has different
-  implications depending on whether they are used for key encryption or integrated encryption. Using
-  authenticated KEMs for key encryption does not provide meaningful security benefits and will create a false
-  sense of data origin authentication.
+* Authenticated KEMs use static asymmetric keys to provide authentication at the KEM level. The security implications
+  vary depending on whether they are applied to key encapsulation or integrated encryption. When used for key encapsulation,
+  authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
 
-* The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode.
-  Similarly, PQ KEMs in HPKE are not authenticated KEMs, making them incompatible with an authenticated KEM approach.
+* The PQ/T hybrid KEM in HPKE is not an authenticated KEM and is only compatible with HPKE's Base mode. Likewise, post-quantum
+  KEMs in HPKE do not support authentication at the KEM level, making them unsuitable for use in contexts that require
+  authenticated KEMs.
 
-* Authenticated KEMs are vulnerable to Key-Compromise Impersonation (KCI) attacks. If the sender's static private
-  key is compromised, an attacker can forge ciphertexts that the recipient will accept as authentic, leading to loss of integrity.
+* Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
+  compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.
 
 #  IANA Considerations {#IANA}
 
