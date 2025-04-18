@@ -349,8 +349,8 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0 	      | EC  | P-256     |
-| HPKE-1     	      | EC  | P-384     |
+| HPKE-0 	            | EC  | P-256     |
+| HPKE-1     	        | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -432,12 +432,14 @@ Implementers are advised to review Section 3.2 of {{RFC8725}}, which comments on
 This is guidance is relevant to both Key Encryption and Integrated Encryption.
 When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.
 
-## Authenticated KEM
+## Static Asymmetric Authentication in HPKE
 
-Authenticated KEMs are not supported in JOSE HPKE for the following reasons:
+Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:
 
-* Authenticated KEMs provide authentication at the KEM level, which has different implications depending on
-  whether they are used for key encryption or integrated encryption. Using authenticated KEMs for key encryption does not provide meaningful security benefits and will create a false sense of data origin authentication.
+* Authenticated KEMs provide authentication at the KEM level using static asymmetric keys, which has different
+  implications depending on whether they are used for key encryption or integrated encryption. Using
+  authenticated KEMs for key encryption does not provide meaningful security benefits and will create a false
+  sense of data origin authentication.
 
 * The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode.
   Similarly, PQ KEMs in HPKE are not authenticated KEMs, making them incompatible with an authenticated KEM approach.
