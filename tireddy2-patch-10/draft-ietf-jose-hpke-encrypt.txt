@@ -97,7 +97,7 @@ Table of Contents
      8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
      8.5.  Validate Cryptographic Inputs
      8.6.  Use Appropriate Algorithms
-     8.7.  Authenticated KEM
+     8.7.  Static Asymmetric Authentication in HPKE
    9.  IANA Considerations
      9.1.  Ciphersuite Registration
      9.2.  JSON Web Signature and Encryption Algorithms
@@ -424,8 +424,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0              | EC  | P-256     |
-   | HPKE-1              | EC  | P-384     |
+   | HPKE-0                    | EC  | P-256     |
+   | HPKE-1                | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
    | HPKE-5, HPKE-6      | OKP | X448      |
@@ -528,16 +528,17 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
 
-8.7.  Authenticated KEM
+8.7.  Static Asymmetric Authentication in HPKE
 
-   Authenticated KEMs are not supported in JOSE HPKE for the following
-   reasons:
+   Authenticated KEMs based on static asymmetric key authentication are
+   not supported in JOSE HPKE for the following reasons:
 
-   *  Authenticated KEMs provide authentication at the KEM level, which
-      has different implications depending on whether they are used for
-      key encryption or integrated encryption.  Using authenticated KEMs
-      for key encryption does not provide meaningful security benefits
-      and will create a false sense of data origin authentication.
+   *  Authenticated KEMs provide authentication at the KEM level using
+      static asymmetric keys, which has different implications depending
+      on whether they are used for key encryption or integrated
+      encryption.  Using authenticated KEMs for key encryption does not
+      provide meaningful security benefits and will create a false sense
+      of data origin authentication.
 
    *  The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can
       only be used with HPKE Base mode.  Similarly, PQ KEMs in HPKE are
