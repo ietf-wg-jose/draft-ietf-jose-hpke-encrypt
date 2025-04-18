@@ -27,7 +27,7 @@ key derivation function (KDF), and authenticated encryption with additional data
 <meta content="draft-ietf-jose-hpke-encrypt-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.28.1
-    Python 3.12.9
+    Python 3.12.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -1061,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 6 October 2025</td>
+<td class="center">Expires 20 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-jose-hpke-encrypt-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-04" class="published">4 April 2025</time>
+<time datetime="2025-04-18" class="published">18 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-10-06">6 October 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-20">20 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1148,7 +1148,7 @@ key derivation function (KDF), and authenticated encryption with additional data
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1244,6 +1244,9 @@ key derivation function (KDF), and authenticated encryption with additional data
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
                 <p id="section-toc.1-1.8.2.6.1"><a href="#section-8.6" class="auto internal xref">8.6</a>.  <a href="#name-use-appropriate-algorithms" class="internal xref">Use Appropriate Algorithms</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7">
+                <p id="section-toc.1-1.8.2.7.1"><a href="#section-8.7" class="auto internal xref">8.7</a>.  <a href="#name-static-asymmetric-authentic" class="internal xref">Static Asymmetric Authentication in HPKE</a></p>
 </li>
             </ul>
 </li>
@@ -1670,8 +1673,8 @@ JWE Algorithm, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" clas
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0              | EC  | P-256     |
-| HPKE-1              | EC  | P-384     |
+| HPKE-0                    | EC  | P-256     |
+| HPKE-1                | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -1781,6 +1784,23 @@ These inputs are crucial for the HPKE KEM operations.<a href="#section-8.5-1" cl
 <p id="section-8.6-1">Implementers are advised to review Section 3.2 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which comments on the selection of appropriate algorithms.
 This is guidance is relevant to both Key Encryption and Integrated Encryption.
 When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.<a href="#section-8.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="static-asymmetric-authentication-in-hpke">
+<section id="section-8.7">
+        <h3 id="name-static-asymmetric-authentic">
+<a href="#section-8.7" class="section-number selfRef">8.7. </a><a href="#name-static-asymmetric-authentic" class="section-name selfRef">Static Asymmetric Authentication in HPKE</a>
+        </h3>
+<p id="section-8.7-1">Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:<a href="#section-8.7-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.7-2.1">
+            <p id="section-8.7-2.1.1">The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.<a href="#section-8.7-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.7-2.2">
+            <p id="section-8.7-2.2.1">Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
+compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.<a href="#section-8.7-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 </section>

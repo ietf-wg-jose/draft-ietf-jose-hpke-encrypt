@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 6 October 2025                                            H-BRS
+Expires: 20 October 2025                                           H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                            4 April 2025
+                                                           18 April 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 October 2025.
+   This Internet-Draft will expire on 20 October 2025.
 
 Copyright Notice
 
@@ -97,6 +97,7 @@ Table of Contents
      8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
      8.5.  Validate Cryptographic Inputs
      8.6.  Use Appropriate Algorithms
+     8.7.  Static Asymmetric Authentication in HPKE
    9.  IANA Considerations
      9.1.  Ciphersuite Registration
      9.2.  JSON Web Signature and Encryption Algorithms
@@ -423,8 +424,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0              | EC  | P-256     |
-   | HPKE-1              | EC  | P-384     |
+   | HPKE-0                    | EC  | P-256     |
+   | HPKE-1                | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
    | HPKE-5, HPKE-6      | OKP | X448      |
@@ -526,6 +527,22 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    Encryption.  When using Key Encryption, the strength of the content
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
+
+8.7.  Static Asymmetric Authentication in HPKE
+
+   Authenticated KEMs based on static asymmetric key authentication are
+   not supported in JOSE HPKE for the following reasons:
+
+   *  The security implications vary depending on whether they are
+      applied to Key Encryption or Integrated Encryption.  When used for
+      Key Encryption, authenticated KEMs offer little meaningful
+      security benefit and may give a false impression of data origin
+      authentication.
+
+   *  Authenticated KEMs are susceptible to Key-Compromise Impersonation
+      (KCI) attacks.  If the sender's static private key is compromised,
+      an attacker can generate ciphertexts that the recipient will
+      accept as authentic, compromising message integrity.
 
 9.  IANA Considerations
 
