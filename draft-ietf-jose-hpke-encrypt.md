@@ -349,8 +349,8 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0 	      | EC  | P-256     |
-| HPKE-1     	      | EC  | P-384     |
+| HPKE-0 	            | EC  | P-256     |
+| HPKE-1     	        | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -431,6 +431,16 @@ These inputs are crucial for the HPKE KEM operations.
 Implementers are advised to review Section 3.2 of {{RFC8725}}, which comments on the selection of appropriate algorithms.
 This is guidance is relevant to both Key Encryption and Integrated Encryption.
 When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.
+
+## Static Asymmetric Authentication in HPKE
+
+Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:
+
+* The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
+
+
+* Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
+  compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.
 
 #  IANA Considerations {#IANA}
 
