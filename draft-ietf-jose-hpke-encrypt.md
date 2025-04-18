@@ -278,6 +278,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
 - The HPKE Setup info parameter MUST be set to an empty string.
+- The HPKE AAD parameter MUST be set to the empty string.
 - THE HPKE plaintext MUST be set to the CEK.
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
