@@ -132,7 +132,7 @@ This specification uses the following abbreviations and terms:
 - Authenticated Encryption with Associated Data (AEAD), see {{RFC9180}}.
 - Additional Authenticated Data (AAD), see {{RFC9180}}.
 
-# Overview
+# Overview {#overview}
 
 This specification describes two modes of use for HPKE in JWE:
 
@@ -141,7 +141,7 @@ This specification describes two modes of use for HPKE in JWE:
 
 When "alg" is a JOSE-HPKE algorithm:
 
-  * If "enc" is "dir", HPKE JWE Integrated Encryption is used.
+  * If "enc" is "int", HPKE JWE Integrated Encryption is used.
   * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
 
 The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
@@ -175,7 +175,7 @@ The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integr
 
 To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and Seal().
 
-## Encapsulated Keys
+## Encapsulated Keys {#encapsulated-keys}
 
 HPKE encapsulated key is defined in Section 5.1.1 of {{RFC9180}}.
 
@@ -189,7 +189,7 @@ is base64url-encoded HPKE encapsulated key.
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
-- The protected header MUST contain an "enc" with value "dir". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
+- The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
 - The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
@@ -221,7 +221,7 @@ After verification:
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
   },
   "payload": {
@@ -253,7 +253,7 @@ After verification:
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
   },
   "plaintext": "🖤 this plaintext!",
@@ -331,7 +331,7 @@ After verification:
   },
   "unprotectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
   },
@@ -339,7 +339,7 @@ After verification:
 }
 ~~~
 
-# Mapping HPKE Keys to JWK for JOSE
+# Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
 JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
 JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
@@ -469,8 +469,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-1
 
@@ -479,8 +479,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-2
 
@@ -489,8 +489,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-3
 
@@ -499,18 +499,18 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-4
 
 - Algorithm Name: HPKE-4
 - Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.
-- Algorithm Usage Location(s): "alg, enc"
+- Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-5
 
@@ -519,8 +519,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-6
 
@@ -529,8 +529,18 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
+
+### int
+
+- Algorithm Name: "int"
+- Algorithm Description: Indicates that Integrated Encryption is being used
+- Algorithm Usage Location(s): "enc"
+- JOSE Implementation Requirements: Required
+- Change Controller: IETF
+- Specification Document(s): {{overview}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ## JSON Web Signature and Encryption Header Parameters
 
@@ -542,14 +552,16 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Header Parameter Description: An encapsulated key as defined in { Section 5.1.1 of RFC9180 }
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
+- Specification Document(s): {{encapsulated-keys}} of this specification
+
 ### psk_id
 
 - Header Parameter Name: "psk_id"
 - Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
+- Specification Document(s): {{overview}} of this specification
+
 --- back
 
 # Keys Used in Examples
@@ -592,7 +604,12 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--08
+-07
+
+* Use "enc":"int" for integrated encryption.
+* Described reasons for excluding authenticated HPKE.
+
+-06
 
 * Remove auth mode and auth_kid from the specification.
 
