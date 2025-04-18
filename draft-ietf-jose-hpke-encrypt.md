@@ -132,7 +132,7 @@ This specification uses the following abbreviations and terms:
 - Authenticated Encryption with Associated Data (AEAD), see {{RFC9180}}.
 - Additional Authenticated Data (AAD), see {{RFC9180}}.
 
-# Overview
+# Overview {#overview}
 
 This specification describes two modes of use for HPKE in JWE:
 
@@ -175,7 +175,7 @@ The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integr
 
 To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and Seal().
 
-## Encapsulated Keys
+## Encapsulated Keys {#encapsulated-keys}
 
 HPKE encapsulated key is defined in Section 5.1.1 of {{RFC9180}}.
 
@@ -339,7 +339,7 @@ After verification:
 }
 ~~~
 
-# Mapping HPKE Keys to JWK for JOSE
+# Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
 JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
 JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
@@ -459,8 +459,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-1
 
@@ -469,8 +469,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-2
 
@@ -479,8 +479,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-3
 
@@ -489,8 +489,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-4
 
@@ -499,8 +499,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg, enc"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-5
 
@@ -509,8 +509,8 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-6
 
@@ -519,8 +519,18 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
-- Algorithm Analysis Documents(s): TODO
+- Specification Document(s): {{alg-mapping}} of this specificationX
+- Algorithm Analysis Documents(s): {{RFC9180}}
+
+### int
+
+- Algorithm Name: "int"
+- Algorithm Description: Indicates that Integrated Encryption is being used
+- Algorithm Usage Location(s): "enc"
+- JOSE Implementation Requirements: Required
+- Change Controller: IETF
+- Specification Document(s): {{overview}} of this specification
+- Algorithm Analysis Documents(s): {{RFC9180}}
 
 ## JSON Web Signature and Encryption Header Parameters
 
@@ -532,14 +542,16 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 - Header Parameter Description: An encapsulated key as defined in { Section 5.1.1 of RFC9180 }
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
+- Specification Document(s): {{encapsulated-keys}} of this specification
+
 ### psk_id
 
 - Header Parameter Name: "psk_id"
 - Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
-- Specification Document(s):   RFCXXXX
+- Specification Document(s): {{overview}} of this specification
+
 --- back
 
 # Keys Used in Examples
@@ -585,6 +597,7 @@ for their contributions to the specification.
 -07
 
 * Use "enc":"int" for integrated encryption.
+* Described reasons for excluding authenticated HPKE.
 
 -06
 
