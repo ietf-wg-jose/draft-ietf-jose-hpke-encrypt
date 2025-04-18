@@ -108,8 +108,10 @@ Table of Contents
        9.2.5.  HPKE-4
        9.2.6.  HPKE-5
        9.2.7.  HPKE-6
+       9.2.8.  int
      9.3.  JSON Web Signature and Encryption Header Parameters
        9.3.1.  ek
+       9.3.2.  psk_id
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -170,7 +172,7 @@ Table of Contents
 
    When "alg" is a JOSE-HPKE algorithm:
 
-   *  If "enc" is "dir", HPKE JWE Integrated Encryption is used.
+   *  If "enc" is "int", HPKE JWE Integrated Encryption is used.
 
    *  If "enc" is an AEAD algorithm, the recipient Key Managment mode is
       Key Encryption.
@@ -241,7 +243,7 @@ Table of Contents
    *  The protected header MUST contain an "alg" that is JOSE-HPKE
       algorithm.
 
-   *  The protected header MUST contain an "enc" with value "dir".  This
+   *  The protected header MUST contain an "enc" with value "int".  This
       is an explicit exception to requirement in Section 4.1.2 of
       [RFC7516] that "enc" must be an AEAD algorithm.  This is
       appropriate, as HPKE will perform plaintext encryption.
@@ -288,7 +290,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
   },
   "payload": {
@@ -316,7 +318,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 {
   "protectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
   },
   "plaintext": "🖤 this plaintext!",
@@ -407,7 +409,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
   },
   "unprotectedHeader": {
     "alg": "HPKE-0",
-    "enc": "dir",
+    "enc": "int",
     "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
     "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
   },
@@ -583,9 +585,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.2.  HPKE-1
 
@@ -601,9 +603,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.3.  HPKE-2
 
@@ -619,9 +621,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.4.  HPKE-3
 
@@ -637,9 +639,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.5.  HPKE-4
 
@@ -649,15 +651,15 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the
       ChaCha20Poly1305 AEAD.
 
-   *  Algorithm Usage Location(s): "alg, enc"
+   *  Algorithm Usage Location(s): "alg"
 
    *  JOSE Implementation Requirements: Optional
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.6.  HPKE-5
 
@@ -673,9 +675,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.7.  HPKE-6
 
@@ -691,9 +693,26 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
+
+9.2.8.  int
+
+   *  Algorithm Name: "int"
+
+   *  Algorithm Description: Indicates that Integrated Encryption is
+      being used
+
+   *  Algorithm Usage Location(s): "enc"
+
+   *  JOSE Implementation Requirements: Required
+
+   *  Change Controller: IETF
+
+   *  Specification Document(s): Section 4 of this specification
+
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.3.  JSON Web Signature and Encryption Header Parameters
 
@@ -711,7 +730,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX ### psk_id
+   *  Specification Document(s): Section 4.2 of this specification
+
+9.3.2.  psk_id
 
    *  Header Parameter Name: "psk_id"
 
@@ -722,7 +743,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 4 of this specification
 
 10.  References
 
@@ -812,7 +833,13 @@ Acknowledgments
 
 Document History
 
-   -08
+   -07
+
+   *  Use "enc":"int" for integrated encryption.
+
+   *  Described reasons for excluding authenticated HPKE.
+
+   -06
 
    *  Remove auth mode and auth_kid from the specification.
 
