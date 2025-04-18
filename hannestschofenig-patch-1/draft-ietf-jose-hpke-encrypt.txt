@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 29 September 2025                                         H-BRS
+Expires: 20 October 2025                                           H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                           28 March 2025
+                                                           18 April 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 September 2025.
+   This Internet-Draft will expire on 20 October 2025.
 
 Copyright Notice
 
@@ -97,21 +97,22 @@ Table of Contents
      8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
      8.5.  Validate Cryptographic Inputs
      8.6.  Use Appropriate Algorithms
-     8.7.  HPKE Mode Support
-     8.8.  Ciphersuite Registration
-     8.9.  JSON Web Signature and Encryption Algorithms
-       8.9.1.  HPKE-0
-       8.9.2.  HPKE-1
-       8.9.3.  HPKE-2
-       8.9.4.  HPKE-3
-       8.9.5.  HPKE-4
-       8.9.6.  HPKE-5
-       8.9.7.  HPKE-6
-     8.10. JSON Web Signature and Encryption Header Parameters
-       8.10.1.  ek
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+     8.7.  Static Asymmetric Authentication in HPKE
+   9.  IANA Considerations
+     9.1.  Ciphersuite Registration
+     9.2.  JSON Web Signature and Encryption Algorithms
+       9.2.1.  HPKE-0
+       9.2.2.  HPKE-1
+       9.2.3.  HPKE-2
+       9.2.4.  HPKE-3
+       9.2.5.  HPKE-4
+       9.2.6.  HPKE-5
+       9.2.7.  HPKE-6
+     9.3.  JSON Web Signature and Encryption Header Parameters
+       9.3.1.  ek
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Keys Used in Examples
    Acknowledgments
    Document History
@@ -180,8 +181,9 @@ Table of Contents
    HPKE supports several modes, which are described in Table 1 of
    [RFC9180].
 
-   In JOSE-HPKE, the "base_mode" and "mode_psk" are determined by the
-   presence of the JOSE Header parameter "psk_id"
+   In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.  When
+   "psk_id" JOSE Header parameter is present the mode is "mode_psk",
+   otherwise the mode is "mode_base".
 
    JWE supports different serializations, including Compact JWE
    Serialization as described in Section 3.1 of [RFC7516], General JWE
@@ -422,8 +424,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0              | EC  | P-256     |
-   | HPKE-1              | EC  | P-384     |
+   | HPKE-0                    | EC  | P-256     |
+   | HPKE-1                | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
    | HPKE-5, HPKE-6      | OKP | X448      |
@@ -526,14 +528,34 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    encryption algorithm should not be significantly different from the
    strengh of the Key Encryption algorithms used.
 
-8.7.  HPKE Mode Support
+8.7.  Static Asymmetric Authentication in HPKE
 
-   TODO: Summarize that only base and psk mode are supported # IANA
-   Considerations {#IANA}
+   Authenticated KEMs based on static asymmetric key authentication are
+   not supported in JOSE HPKE for the following reasons:
+
+   *  Authenticated KEMs use static asymmetric keys to provide
+      authentication at the KEM level.  The security implications vary
+      depending on whether they are applied to key encapsulation or
+      integrated encryption.  When used for key encapsulation,
+      authenticated KEMs offer little meaningful security benefit and
+      may give a false impression of data origin authentication.
+
+   *  The PQ/T hybrid KEM in HPKE is not an authenticated KEM and is
+      only compatible with HPKE's Base mode.  Likewise, post-quantum
+      KEMs in HPKE do not support authentication at the KEM level,
+      making them unsuitable for use in contexts that require
+      authenticated KEMs.
+
+   *  Authenticated KEMs are susceptible to Key-Compromise Impersonation
+      (KCI) attacks.  If the sender's static private key is compromised,
+      an attacker can generate ciphertexts that the recipient will
+      accept as authentic, compromising message integrity.
+
+9.  IANA Considerations
 
    This document adds entries to [JOSE-IANA].
 
-8.8.  Ciphersuite Registration
+9.1.  Ciphersuite Registration
 
    This specification registers a number of ciphersuites for use with
    HPKE.  A ciphersuite is a group of algorithms, often sharing
@@ -549,12 +571,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA
    registry [HPKE-IANA].
 
-8.9.  JSON Web Signature and Encryption Algorithms
+9.2.  JSON Web Signature and Encryption Algorithms
 
    The following entries are added to the "JSON Web Signature and
    Encryption Algorithms" registry:
 
-8.9.1.  HPKE-0
+9.2.1.  HPKE-0
 
    *  Algorithm Name: HPKE-0
 
@@ -572,7 +594,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.2.  HPKE-1
+9.2.2.  HPKE-1
 
    *  Algorithm Name: HPKE-1
 
@@ -590,7 +612,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.3.  HPKE-2
+9.2.3.  HPKE-2
 
    *  Algorithm Name: HPKE-2
 
@@ -608,7 +630,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.4.  HPKE-3
+9.2.4.  HPKE-3
 
    *  Algorithm Name: HPKE-3
 
@@ -626,7 +648,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.5.  HPKE-4
+9.2.5.  HPKE-4
 
    *  Algorithm Name: HPKE-4
 
@@ -644,7 +666,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.6.  HPKE-5
+9.2.6.  HPKE-5
 
    *  Algorithm Name: HPKE-5
 
@@ -662,7 +684,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.9.7.  HPKE-6
+9.2.7.  HPKE-6
 
    *  Algorithm Name: HPKE-6
 
@@ -680,12 +702,12 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Algorithm Analysis Documents(s): TODO
 
-8.10.  JSON Web Signature and Encryption Header Parameters
+9.3.  JSON Web Signature and Encryption Header Parameters
 
    The following entries are added to the "JSON Web Key Parameters"
    registry:
 
-8.10.1.  ek
+9.3.1.  ek
 
    *  Header Parameter Name: "ek"
 
@@ -709,9 +731,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Specification Document(s): RFCXXXX
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [JOSE-IANA]
               IANA, "JSON Web Signature and Encryption Algorithms",
@@ -747,7 +769,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [HPKE-IANA]
               IANA, "Hybrid Public Key Encryption (HPKE) IANA Registry",
