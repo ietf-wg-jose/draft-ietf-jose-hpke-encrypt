@@ -436,9 +436,7 @@ When using Key Encryption, the strength of the content encryption algorithm shou
 
 Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:
 
-* Authenticated KEMs use static asymmetric keys to provide authentication at the KEM level. The security implications
-  vary depending on whether they are applied to key encapsulation or integrated encryption. When used for key encapsulation,
-  authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
+* The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
 
 
 * Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
