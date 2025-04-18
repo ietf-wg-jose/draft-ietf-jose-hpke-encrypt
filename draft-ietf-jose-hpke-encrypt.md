@@ -499,7 +499,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
-- Specification Document(s): {{alg-mapping}} of this specificationX
+- Specification Document(s): {{alg-mapping}} of this specification
 - Algorithm Analysis Documents(s): {{RFC9180}}
 
 ### HPKE-5
