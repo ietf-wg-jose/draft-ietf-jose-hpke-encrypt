@@ -1590,7 +1590,10 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
           <p id="section-6-4.7.1">The HPKE Setup info parameter <span class="bcp14">MUST</span> be set to an empty string.<a href="#section-6-4.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.8">
-          <p id="section-6-4.8.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-4.8.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.8.1">The HPKE AAD parameter <span class="bcp14">MUST</span> be set to the empty string.<a href="#section-6-4.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-4.9">
+          <p id="section-6-4.9.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-4.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>. Implementations should follow the existing

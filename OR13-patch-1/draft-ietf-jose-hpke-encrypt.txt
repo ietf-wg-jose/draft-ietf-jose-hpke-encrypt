@@ -354,6 +354,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  The HPKE Setup info parameter MUST be set to an empty string.
 
+   *  The HPKE AAD parameter MUST be set to the empty string.
+
    *  THE HPKE plaintext MUST be set to the CEK.
 
    The processing of "enc", "iv", "tag", "aad", and "ciphertext" is
