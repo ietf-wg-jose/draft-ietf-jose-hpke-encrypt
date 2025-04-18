@@ -1799,13 +1799,8 @@ vary depending on whether they are applied to key encapsulation or integrated en
 authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.<a href="#section-8.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-2.2">
-            <p id="section-8.7-2.2.1">The PQ/T hybrid KEM in HPKE is not an authenticated KEM and is only compatible with HPKE's Base mode. Likewise, post-quantum
-KEMs in HPKE do not support authentication at the KEM level, making them unsuitable for use in contexts that require
-authenticated KEMs.<a href="#section-8.7-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-8.7-2.3">
-            <p id="section-8.7-2.3.1">Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
-compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.<a href="#section-8.7-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-2.2.1">Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
+compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.<a href="#section-8.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
