@@ -198,7 +198,7 @@ In HPKE JWE Integrated Encryption:
 - JWE Initialization Vector and JWE Authentication Tag MUST NOT be present.
 - JWE AAD MAY be present.
 - JWE Ciphertext is ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE info parameter MUST be set to an empty string.
+- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
 - The HPKE aad parameter MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
 Otherwise, the plaintext is the raw message.
@@ -278,7 +278,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The HPKE Setup info parameter MUST be set to an empty string.
+- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
 - THE HPKE plaintext MUST be set to the CEK.
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
@@ -608,6 +608,7 @@ for their contributions to the specification.
 
 * Use "enc":"int" for integrated encryption.
 * Described reasons for excluding authenticated HPKE.
+* Stated that mutually known private information MAY be used as the HPKE info value.
 
 -06
 
