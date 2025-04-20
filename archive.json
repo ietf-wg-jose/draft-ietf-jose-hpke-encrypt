@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-13T02:53:07.972118+00:00",
+  "timestamp": "2025-04-20T01:40:06.387146+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -47,6 +47,11 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "has-pr",
+      "description": null,
+      "color": "aaaaaa"
     }
   ],
   "issues": [
@@ -241,15 +246,15 @@
       "id": "I_kwDOMMuuSM6jIgme",
       "title": "Support for detached JWE AAD",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "awoie",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "For various reasons, it makes sense to introduce a mechanism to support **\"detached\" JWE AAD** where the Additional Authenticated Data (AAD) for a JWE is not transmitted in-band but is instead derived by the sender and receiver from contextual information out-of-band. This approach can enhance **security**, **efficiency**, and **flexibility**.\r\n\r\n### Use Case: Mitigating the \"Lazy Verifier\" Problem\r\nOne specific use case arises from **OID4VC**, where detached JWE AAD could help mitigate the so-called \"lazy verifier\" problem. \r\n\r\nIn this scenario:\r\n- A verifier website sends a request to a wallet (typically a native mobile app).\r\n- The wallet responds with an encrypted message, including contextual information (e.g., the request's origin) as part of the AAD in the JWE response.\r\n\r\nThis contextual information is authenticated via AEAD but may not be validated by a \"lazy verifier,\" which skips verifying these fields against their expected values based on the established context. This lack of validation makes the system prone to phishing attacks. For example, the wallet might encode the origin where it received the verifier's request in the AAD, e.g., attacker.com. However, if the verifier does not verify this information, an attacker could exploit the oversight.\r\n\r\nBy requiring the verifier to derive the JWE AAD from contextual information rather than transmitting it in-band:\r\n- The AAD becomes more tightly bound to the verifier's session and context.\r\n- It eliminates the need for explicit validation of the AAD, as the verifier computes it directly from its established session context.\r\n- This reduces the attack surface, making phishing attacks harder to execute.\r\n\r\n### Need for a Generalized Solution\r\nSince **\"detached\" JWE AAD** is not currently defined in the JWE specification and applies to other encryption algorithms (e.g., ECDH-ES), a more general solution could be developed. This would be especially relevant for OID4VC, which uses JARM (JWT Secured Authorization Response Mode, using the JWE compact form) to send encrypted responses. Ensuring compatibility with the JWE compact form would be critical.\r\n\r\n### Proposed Solution\r\n#### JWE JSON Serialization (already supports dedicated `aad` parameter)\r\nFor JWE JSON serialization, the existing `aad` parameter could indicate that the AAD is detached by setting its value to `null`. \r\n\r\n#### JWE Compact Serialization (no dedicated `aad` parameter yet)\r\nFor JWE compact serialization, the format could be extended to optionally include the AAD as an additional segment:\r\n- **Extended Format**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **Behavior**:\r\n  - If the `AAD` segment is empty or omitted (e.g., `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`), it signals that the AAD is detached and must be computed or derived from contextual information by the sender and receiver.\r\n  - The computation of AAD for the AEAD algorithm would follow the same logic as for the JWE JSON form.\r\n\r\nExamples:\r\n- **JWE Compact Form without AAD** (Standard): `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>`\r\n- **JWE Compact Form with AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.<AAD>`\r\n- **JWE Compact Form with Detached AAD**: `<Protected Header>.<Encrypted Key>.<Initialization Vector>.<Ciphertext>.<Authentication Tag>.`\r\n\r\n### Relevance to OID4VC\r\nThis approach could address challenges in **OID4VC**, particularly in ensuring robust validation of contextual information by the verifier without relying on error-prone implementations. \r\n\r\nFor example:\r\n- Issue [openid/oid4vc-haip#131](https://github.com/openid/oid4vc-haip/issues/131)\r\n- Issue [openid/OpenID4VP#347](https://github.com/openid/OpenID4VP/issues/347)\r\n- Issue [openid/OpenID4VP#65](https://github.com/openid/OpenID4VP/issues/65)",
       "createdAt": "2024-12-12T21:30:43Z",
-      "updatedAt": "2025-03-10T09:12:01Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-18T07:35:21Z",
+      "closedAt": "2025-04-18T07:35:21Z",
       "comments": [
         {
           "author": "ilaril",
@@ -431,7 +436,7 @@
       "labels": [],
       "body": "HPKE Setup is currently set to empty. The issue is whether HPKE Setup should be allowed to carry any additional information (same issue exists in the COSE HPKE draft).",
       "createdAt": "2025-03-07T12:37:15Z",
-      "updatedAt": "2025-03-29T09:14:51Z",
+      "updatedAt": "2025-04-18T09:52:09Z",
       "closedAt": null,
       "comments": [
         {
@@ -447,6 +452,13 @@
           "body": "Using header parameter to set this value seems to suffer from the same issue as using \"apu\" does: The value is completely unauthenticated, so an attacker can just specify whatever value causes the most damage.",
           "createdAt": "2025-03-29T09:14:50Z",
           "updatedAt": "2025-03-29T09:14:50Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let us not introduce another header. We should instead go with the info, as Tiru suggested in https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/30",
+          "createdAt": "2025-04-18T09:52:08Z",
+          "updatedAt": "2025-04-18T09:52:08Z"
         }
       ]
     },
@@ -462,7 +474,7 @@
       "labels": [],
       "body": "In key encryption mode, the protected header used in content encryption is passed to HPKE as Additional Authenticated Data. please see the discussion in the thread, https://mailarchive.ietf.org/arch/msg/jose/1u4aHjyEZeIECmHwkpbl3kcGZ50",
       "createdAt": "2025-03-07T12:40:37Z",
-      "updatedAt": "2025-04-11T07:18:31Z",
+      "updatedAt": "2025-04-19T08:24:17Z",
       "closedAt": null,
       "comments": [
         {
@@ -513,6 +525,34 @@
           "body": "> The way I read this is _this mechanism is flawed_.\n\nSuppose that:\n* sender places \"enc\" in unprotected headers (which is allowed).\n* JWE AAD is not used (it is optional to use anyway).\n* recipient allows both modes (the requirement to bind key to mode is in practice unimplementable).\n* recipient does not check that \"enc:dir\" is in protected headers (seems like easy mistake to make, much easier than accidentally accepting AES-CBC or something else vulnerable to the \"LAMPS attack\").\n* recipient leaks information about malformed messages that decrypt (which seems to be required for the \"LAMPS attack\").\n\nNow, attacker can mangle message using Key Encryption to make it look like it is using Integrated Encryption. Then the recipient decrypts it as the CEK of the original message, which is presumably malformed message, and then proceed to leak information about the CEK. Which is bad.\n\nThe way to fix this is to have proper cryptographic separation between modes. So using protected headers (which does not give cryptographic separation) does not just cause implementation issues, it also causes security risks.\n\n(COSE-HPKE does have cryptographic separation of 1- and 2-layer structures, done in way that minimizes implementation issues and defends against the \"LAMPS attack\".)",
           "createdAt": "2025-04-11T07:18:30Z",
           "updatedAt": "2025-04-11T07:18:30Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril Thanks for the detailed analysis: we can discuss the following changes to address the issues raised:\n\n1. Remove text that \"The protected header used in content encryption is passed to HPKE as Additional Authenticated Data.\"\n2. Explicitly say that \"protected header is used as AAD during the content encryption phase, when encrypting the payload using the CEK.\"\n3. HPKE-based Key Encryption and Integrated Encryption modes are cryptographically separated through the construction of the HPKE info parameter.\n\nThe info parameter is constructed by concatenating the following ASCII-encoded values in order:\n\na. A fixed context string (\"JOSE-HPKE\"),\n\nb. A mode identifier (\"keyenc\" for Key Encryption mode or \"intenc\" for Integrated Encryption mode),\n\nc. The value of the alg header parameter,\n\nd. The value of the enc header parameter.\n\nNo separators are added between the concatenated values.\n\nThis context binding ensures that ciphertexts generated for Key Encryption mode cannot be validly interpreted as ciphertexts for Integrated Encryption mode, and vice versa. Thus, even if an attacker tampers with the JOSE header fields or attempts to cause mode confusion, the derived keys will differ and decryption will fail safely without leaking sensitive information. This approach is similar to the key derivation techniques adopted in ietf-lamps-cms-cek-hkdf-sha256.",
+          "createdAt": "2025-04-18T09:03:12Z",
+          "updatedAt": "2025-04-18T09:03:12Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree with Tiru and Illari that we need to create this info parameter and put the above-mentioned information in there. We should replicate this design in the COSE-HPKE draft ",
+          "createdAt": "2025-04-18T09:27:23Z",
+          "updatedAt": "2025-04-18T09:27:23Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "* Some HPKE implementations might not like using both info and aad at the same time.\n* There is no need to include alg: HPKE will internally include it anyway.\n* There is no need to include mode: enc implies the mode.\n* No separator is a bit suspect.\n  * Trick: UTF-8 (WTF-8) strings can not contain 0xFF, so one can separate UTF-8 encoded Unicode strings with 0xFF",
+          "createdAt": "2025-04-18T15:19:59Z",
+          "updatedAt": "2025-04-18T15:19:59Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril - The authors of the draft had a meeting yesterday and it was discussed that the attack in ietf-lamps-cms-cek-hkdf-sha256 is specific to AES-CBC and it's use is prohibited in JWE (see https://www.iana.org/assignments/jose/jose.xhtml). ",
+          "createdAt": "2025-04-19T08:24:16Z",
+          "updatedAt": "2025-04-19T08:24:16Z"
         }
       ]
     },
@@ -545,17 +585,19 @@
       "id": "I_kwDOMMuuSM6xJBZD",
       "title": "Use of enc with \"dir\" in Integrated Encryption",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
         "selfissued"
       ],
-      "labels": [],
+      "labels": [
+        "has-pr"
+      ],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-11T06:52:23Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-18T20:22:17Z",
+      "closedAt": "2025-04-18T20:22:16Z",
       "comments": [
         {
           "author": "OR13",
@@ -577,6 +619,20 @@
           "body": "If the value can be registered to the registry, it does not really matter what it is. Implementations need to treat it in deeply magic way anyway.",
           "createdAt": "2025-04-11T06:52:22Z",
           "updatedAt": "2025-04-11T06:52:22Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> If the value can be registered to the registry, it does not really matter what it is. Implementations need to treat it in deeply magic way anyway.\n\nwe just need any identifier other than \"dir\", let's go with \"int\". ",
+          "createdAt": "2025-04-18T07:39:22Z",
+          "updatedAt": "2025-04-18T07:39:22Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed by #38 ",
+          "createdAt": "2025-04-18T20:22:16Z",
+          "updatedAt": "2025-04-18T20:22:16Z"
         }
       ]
     }
@@ -4997,7 +5053,7 @@
       "labels": [],
       "body": "This PR removes auth mode support from this draft.\r\nThis is done based on discussions at IETF 122, to align with future work on HPKE.",
       "createdAt": "2025-03-21T02:45:47Z",
-      "updatedAt": "2025-04-04T15:29:22Z",
+      "updatedAt": "2025-04-18T15:14:37Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0c82c26c6e12a4d35bb67b58686c443faaf02bb0",
@@ -5073,6 +5129,13 @@
           "body": "I have discussed with HPKE authors, to their knowledge there is no intention to remove psk mode support.",
           "createdAt": "2025-04-04T15:26:40Z",
           "updatedAt": "2025-04-04T15:28:31Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@yaronf We've attempted to address your feedback here: https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/37",
+          "createdAt": "2025-04-18T15:14:36Z",
+          "updatedAt": "2025-04-18T15:14:36Z"
         }
       ],
       "reviews": [
@@ -5339,6 +5402,587 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOMMuuSM6TFekU",
+      "title": "Address reason for excluding Authenticated HPKE",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/37",
+      "state": "MERGED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-18T07:33:12Z",
+      "updatedAt": "2025-04-18T15:16:20Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "c297193fde8d232913517f67deab5bee4e218c18",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-10",
+      "headRefOid": "7a1b7261a5bcba15b8da2c9bd5c94b2e10da75a1",
+      "closedAt": "2025-04-18T15:16:20Z",
+      "mergedAt": "2025-04-18T15:16:20Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "42b1158999c92289238d9652c477874d080c5f2f"
+      },
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Works for me. I might add a few sentences later in a separate PR to provide extra background.",
+          "createdAt": "2025-04-18T14:57:37Z",
+          "updatedAt": "2025-04-18T14:57:37Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@yaronf please take a look and see if this addresses your concerns.",
+          "createdAt": "2025-04-18T15:14:10Z",
+          "updatedAt": "2025-04-18T15:14:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6loQMH",
+          "commit": {
+            "abbreviatedOid": "55f0c35"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T15:08:25Z",
+          "updatedAt": "2025-04-18T15:08:25Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-04-18T15:08:25Z",
+              "updatedAt": "2025-04-18T15:08:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loSZg",
+          "commit": {
+            "abbreviatedOid": "55f0c35"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T15:12:51Z",
+          "updatedAt": "2025-04-18T15:12:51Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\n* The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.\r\n```",
+              "createdAt": "2025-04-18T15:12:51Z",
+              "updatedAt": "2025-04-18T15:12:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loTs_",
+          "commit": {
+            "abbreviatedOid": "55f0c35"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-18T15:15:22Z",
+          "updatedAt": "2025-04-18T15:15:22Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loT2P",
+          "commit": {
+            "abbreviatedOid": "7a1b726"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-18T15:15:52Z",
+          "updatedAt": "2025-04-18T15:15:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loT9l",
+          "commit": {
+            "abbreviatedOid": "7a1b726"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-18T15:16:12Z",
+          "updatedAt": "2025-04-18T15:16:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOMMuuSM6TIXGD",
+      "title": "Use \"enc\":\"int\" for integrated encryption",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/38",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Per working group feedback at IETF 122 in Bangkok",
+      "createdAt": "2025-04-18T14:49:46Z",
+      "updatedAt": "2025-04-18T16:14:00Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "c297193fde8d232913517f67deab5bee4e218c18",
+      "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-int",
+      "headRefOid": "e264c54a2299697ccd70920ea32a6ce31777f0f8",
+      "closedAt": "2025-04-18T16:14:00Z",
+      "mergedAt": "2025-04-18T16:14:00Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "729deba0f453e538f0f7d8bf0804a5a79bcf2335"
+      },
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We'll hold this until IANA considerations is updated.",
+          "createdAt": "2025-04-18T15:16:56Z",
+          "updatedAt": "2025-04-18T15:16:56Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6loOdB",
+          "commit": {
+            "abbreviatedOid": "484bedf"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Works for me",
+          "createdAt": "2025-04-18T15:05:54Z",
+          "updatedAt": "2025-04-18T15:05:54Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loOq3",
+          "commit": {
+            "abbreviatedOid": "484bedf"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-18T15:06:19Z",
+          "updatedAt": "2025-04-18T15:06:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorDk",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:08:52Z",
+          "updatedAt": "2025-04-18T16:08:53Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:08:52Z",
+              "updatedAt": "2025-04-18T16:08:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorGU",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:00Z",
+          "updatedAt": "2025-04-18T16:09:01Z",
+          "comments": [
+            {
+              "originalPosition": 100,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:09:01Z",
+              "updatedAt": "2025-04-18T16:09:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorOm",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:12Z",
+          "updatedAt": "2025-04-18T16:09:12Z",
+          "comments": [
+            {
+              "originalPosition": 111,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:09:12Z",
+              "updatedAt": "2025-04-18T16:09:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorTf",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:23Z",
+          "updatedAt": "2025-04-18T16:09:24Z",
+          "comments": [
+            {
+              "originalPosition": 122,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:09:24Z",
+              "updatedAt": "2025-04-18T16:09:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorVz",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:31Z",
+          "updatedAt": "2025-04-18T16:09:31Z",
+          "comments": [
+            {
+              "originalPosition": 117,
+              "body": "```suggestion\r\n- Algorithm Usage Location(s): \"alg\"\r\n```",
+              "createdAt": "2025-04-18T16:09:31Z",
+              "updatedAt": "2025-04-18T16:09:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lorWG",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:31Z",
+          "updatedAt": "2025-04-18T16:09:32Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:09:32Z",
+              "updatedAt": "2025-04-18T16:09:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6loreI",
+          "commit": {
+            "abbreviatedOid": "62ff5d6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-18T16:09:40Z",
+          "updatedAt": "2025-04-18T16:09:40Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "```suggestion\r\n- Specification Document(s): {{alg-mapping}} of this specification\r\n```",
+              "createdAt": "2025-04-18T16:09:40Z",
+              "updatedAt": "2025-04-18T16:09:40Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOMMuuSM6TIZOO",
+      "title": "Update draft-ietf-jose-hpke-encrypt.md",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/39",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-18T14:55:20Z",
+      "updatedAt": "2025-04-18T14:56:57Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "tireddy2-patch-10",
+      "baseRefOid": "bb9fc6aa43c6a724d2779c8160b9e40a470f5d4a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "d48d0eccaae58477112f43e77bf3dddaa94f4569",
+      "closedAt": "2025-04-18T14:56:55Z",
+      "mergedAt": "2025-04-18T14:56:55Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "55f0c35ca6e2535cf8981d1374af88bae7545cc9"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOMMuuSM6TIw40",
+      "title": "Clarify protected header",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/40",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There was confusion over what parameters are required for HPKE when using HPKE JOSE Key Encryption.\r\nThis PR clarifies that HPKE AAD is empty for key encryption.",
+      "createdAt": "2025-04-18T15:58:25Z",
+      "updatedAt": "2025-04-19T14:21:49Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "42b1158999c92289238d9652c477874d080c5f2f",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "OR13-patch-1",
+      "headRefOid": "5e2dc1846cab3be3d312dda3ef7c77d3ce2515d7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril please take a look at this : )",
+          "createdAt": "2025-04-18T16:18:13Z",
+          "updatedAt": "2025-04-18T16:18:13Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This still does not ensure that there is absolutely no way to confuse Integrated Encryption and Key Encryption.\r\n\r\nTo ensure that, one could use some fixed string containing spaces (there is no way to generate those in Integrated Encryption mode) as the aad in Key Encryption mode (at most 16 bytes to keep it as a single block).\r\n\r\nE.g. \"JOSE-HPKE KeyEnc\".\r\n",
+          "createdAt": "2025-04-19T13:35:22Z",
+          "updatedAt": "2025-04-19T13:37:03Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril why is setting a fixed AAD necessary for the security of encrypting a content encryption key with an AEAD?\n\n\n",
+          "createdAt": "2025-04-19T14:21:48Z",
+          "updatedAt": "2025-04-19T14:21:48Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6lpsLH",
+          "commit": {
+            "abbreviatedOid": "13fdc97"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Good clarification.",
+          "createdAt": "2025-04-18T18:20:44Z",
+          "updatedAt": "2025-04-18T18:20:44Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lqMQX",
+          "commit": {
+            "abbreviatedOid": "13fdc97"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Please also add a history entry to this PR.",
+          "createdAt": "2025-04-18T19:41:30Z",
+          "updatedAt": "2025-04-18T19:41:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lsgOn",
+          "commit": {
+            "abbreviatedOid": "13fdc97"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-19T08:12:20Z",
+          "updatedAt": "2025-04-19T08:12:40Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nThe encoding of the protected header used for content encryption remains consistent with existing JWE formatting rules.\r\n```",
+              "createdAt": "2025-04-19T08:12:20Z",
+              "updatedAt": "2025-04-19T08:12:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lssuH",
+          "commit": {
+            "abbreviatedOid": "13fdc97"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-19T13:00:47Z",
+          "updatedAt": "2025-04-19T13:00:47Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nThe encoding of the protected header encoding remains consistent with existing JWE formatting rules.\r\n```\r\nAn even simpler suggestion.  I deleted \"content encryption\" because the header encodes more than the content encryption information.",
+              "createdAt": "2025-04-19T13:00:47Z",
+              "updatedAt": "2025-04-19T13:00:47Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOMMuuSM6TKT5u",
+      "title": "Mutually known private information MAY be used as the HPKE info value",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #29 \r\n\r\nCc: @awoie\r\n",
+      "createdAt": "2025-04-18T20:23:30Z",
+      "updatedAt": "2025-04-19T12:51:00Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "76aa70ba0bc03cecddc03bc2ee53856ee0ee9e71",
+      "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-info",
+      "headRefOid": "9fbffecbcddb844152cd7d58399302b8d62174cb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6lsbAP",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "awoie",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "generally looks good to me. i would reword \"private\" since i believe \"contextual\" is a better fit.",
+          "createdAt": "2025-04-19T06:29:17Z",
+          "updatedAt": "2025-04-19T06:31:06Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n- The HPKE info parameter defaults to the empty string; mutually known contextual information MAY be used instead.\r\n```",
+              "createdAt": "2025-04-19T06:29:17Z",
+              "updatedAt": "2025-04-19T06:31:06Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\n* Stated that mutually known contextual information MAY be used as the HPKE info value.\r\n```",
+              "createdAt": "2025-04-19T06:30:39Z",
+              "updatedAt": "2025-04-19T06:31:06Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\n- The HPKE info parameter defaults to the empty string; mutually known contextual information MAY be used instead.\r\n```",
+              "createdAt": "2025-04-19T06:30:44Z",
+              "updatedAt": "2025-04-19T06:31:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lsgcx",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-19T08:15:55Z",
+          "updatedAt": "2025-04-19T08:15:55Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The use of \"private\" information is consistent with the contact KDF used by ECDH-ES which uses SuppPrivInfo (see https://csrc.nist.gov/csrc/media/projects/crypto-publication-review-project/documents/initial-comments/sp800-135r1-initial-public-comments-2023.pdf). \r\n\r\nSuppPrivInfo: An optional subfield, which could be null, that contains additional, mutually\r\nknown private information (e.g., a shared secret symmetric key that has been communicated\r\nthrough a separate channel).",
+              "createdAt": "2025-04-19T08:15:55Z",
+              "updatedAt": "2025-04-19T08:15:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lsgif",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-19T08:16:04Z",
+          "updatedAt": "2025-04-19T08:16:04Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lssRh",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-19T12:51:00Z",
+          "updatedAt": "2025-04-19T12:51:00Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The term \"mutually known private information\" is the one used in [NIST SP 800-56A](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf) in the definition of the Concat KDF (which it calls \"The Single-Step KDF\").  Thus, I'm prone to keep it, rather than invent a new term.",
+              "createdAt": "2025-04-19T12:51:00Z",
+              "updatedAt": "2025-04-19T12:51:00Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
