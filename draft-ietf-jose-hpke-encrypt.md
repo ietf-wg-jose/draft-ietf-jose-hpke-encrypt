@@ -595,6 +595,7 @@ for their contributions to the specification.
 -08
 
 * Remove auth mode and auth_kid from the specification.
+* HPKE AAD for JOSE HPKE Key Encryption is now empty.
 
 -05
 
