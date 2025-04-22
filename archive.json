@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-20T01:40:06.387146+00:00",
+  "timestamp": "2025-04-22T01:27:01.996511+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -596,7 +596,7 @@
       ],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-18T20:22:17Z",
+      "updatedAt": "2025-04-21T17:55:46Z",
       "closedAt": "2025-04-18T20:22:16Z",
       "comments": [
         {
@@ -633,8 +633,31 @@
           "body": "Fixed by #38 ",
           "createdAt": "2025-04-18T20:22:16Z",
           "updatedAt": "2025-04-18T20:22:16Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.  ",
+          "createdAt": "2025-04-21T17:55:45Z",
+          "updatedAt": "2025-04-21T17:55:45Z"
         }
       ]
+    },
+    {
+      "number": 42,
+      "id": "I_kwDOMMuuSM6zWUAL",
+      "title": "a null JWE content encryption algorithm is dangerous regardless of name",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/42",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "> The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.   \n\n _Originally posted by @bc-pi in [#36](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2819132145)_\n\n\n ",
+      "createdAt": "2025-04-21T18:00:04Z",
+      "updatedAt": "2025-04-21T18:00:04Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -5769,13 +5792,13 @@
       "labels": [],
       "body": "There was confusion over what parameters are required for HPKE when using HPKE JOSE Key Encryption.\r\nThis PR clarifies that HPKE AAD is empty for key encryption.",
       "createdAt": "2025-04-18T15:58:25Z",
-      "updatedAt": "2025-04-19T14:21:49Z",
+      "updatedAt": "2025-04-21T21:10:44Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "42b1158999c92289238d9652c477874d080c5f2f",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "OR13-patch-1",
-      "headRefOid": "5e2dc1846cab3be3d312dda3ef7c77d3ce2515d7",
+      "headRefOid": "c1402139ac021b5a3530e1cb076a5ef2f7bd2f3e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -5801,6 +5824,41 @@
           "body": "@ilaril why is setting a fixed AAD necessary for the security of encrypting a content encryption key with an AEAD?\n\n\n",
           "createdAt": "2025-04-19T14:21:48Z",
           "updatedAt": "2025-04-19T14:21:48Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "If Key Encryption uses empty aad, then attacker can take a Key Encryption recipient and convert it to slightly malformed (in easy to miss way) Integerated Encryption message (with no protected headers) that would successfully decrypt (since if there are no protected headers nor JWE AAD, Integrated Encryption uses empty aad). The decrypted message is junk, but some applications can badly mishandle those.\r\n\r\nThe way to prevent this is to ensure that no aad value is used by both modes. Since no information needs to put in Key Encryption aad, it can be fixed string that is impossible for Integrated Encryption. Easiest way to do this is to include characters Integrated Encryption never uses (anything outside base64url+full_stop).\r\n\r\n(There is already similar issue with `A*GCMKW`, but using those algorithms is a bad idea.)",
+          "createdAt": "2025-04-21T06:00:37Z",
+          "updatedAt": "2025-04-21T06:00:37Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> If Key Encryption uses empty aad, then attacker can take a Key Encryption recipient and convert it to slightly malformed (in easy to miss way) Integerated Encryption message (with no protected headers) that would successfully decrypt (since if there are no protected headers nor JWE AAD, Integrated Encryption uses empty aad). The decrypted message is junk, but some applications can badly mishandle those.\r\n> \r\n> The way to prevent this is to ensure that no aad value is used by both modes. Since no information needs to put in Key Encryption aad, it can be fixed string that is impossible for Integrated Encryption. Easiest way to do this is to include characters Integrated Encryption never uses (anything outside base64url+full_stop).\r\n> \r\n> (There is already similar issue with `A*GCMKW`, but using those algorithms is a bad idea.)\r\n\r\nIntegrated encryption mandates protected headers for \"alg\" and \"enc\" and it will have to be set to \"JOSE-HPKE algorithm\" and \"int\".  Even if Key Encryption uses empty AAD, a recipient operating in Integrated Encryption mode will reject any malformed or absent protected header before reaching the decryption step. ",
+          "createdAt": "2025-04-21T13:02:23Z",
+          "updatedAt": "2025-04-21T13:02:23Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "However, it seems rather easy for an implementation to have a vulnerability by accidentally omitting that check.\r\n\r\n(Compare to bulk encryption being AEAD: That is implemented not as an explicit check, but by only having AEAD ciphers wired. Good luck getting past that.)",
+          "createdAt": "2025-04-21T15:46:25Z",
+          "updatedAt": "2025-04-21T15:46:25Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> However, it seems rather easy for an implementation to have a vulnerability by accidentally omitting that check.\r\n\r\nYou're now talking about the possibility of problems when people don't implement the specification.  That's always possible, but not in scope for the specification (by definition!).\r\n\r\n> (Compare to bulk encryption being AEAD: That is implemented not as an explicit check, but by only having AEAD ciphers wired. Good luck getting past that.)\r\n\r\nIn fact, only AEAD algorithms are registered at [JSON Web Signature and Encryption Algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) as `enc` values, and non-AEAD algorithms are not permitted to be registered.  Thus, there are no algorithm identifiers for non-AEAD algorithms.\r\n\r\nAn implementation would have to knowingly violate the spec *and* create non-standard algorithm identifiers to use non-AEAD algorithms.  If an implementer is going that far out of their way to hurt themselves, there's very little we can do about it, no matter what we say in the spec.",
+          "createdAt": "2025-04-21T16:16:41Z",
+          "updatedAt": "2025-04-21T18:13:07Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril I'm not hearing a concrete attack here.\r\n\r\nIf there were one, it would apply to the base HPKE spec, which says its ok to have both info and aad be empty.\r\nIf its ok in the base spec, its ok to use it to encrypt a cek.",
+          "createdAt": "2025-04-21T21:10:43Z",
+          "updatedAt": "2025-04-21T21:10:43Z"
         }
       ],
       "reviews": [
@@ -5884,7 +5942,7 @@
       "labels": [],
       "body": "Fixes #29 \r\n\r\nCc: @awoie\r\n",
       "createdAt": "2025-04-18T20:23:30Z",
-      "updatedAt": "2025-04-19T12:51:00Z",
+      "updatedAt": "2025-04-21T21:03:56Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "76aa70ba0bc03cecddc03bc2ee53856ee0ee9e71",
@@ -5895,7 +5953,50 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "I am a bit confused, in what way is this different than \"something that would allow for an out-of-band contribution to the KDF\" mentioned in https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/13#issuecomment-2598790016 and what @tireddy2 basically told me was unacceptable at IETF 122?",
+          "createdAt": "2025-04-20T12:40:53Z",
+          "updatedAt": "2025-04-20T12:40:53Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, @bc-pi, the \"info\" input in HPKE is \"something that would allow for an out-of-band contribution to the KDF\".  See the use of the \"info\" input in https://www.rfc-editor.org/rfc/rfc9180 to understand how this works.\r\n\r\nAs for it being \"unacceptable\", that's how HPKE works, so by using HPKE, it's, by definition, acceptable.",
+          "createdAt": "2025-04-20T14:31:33Z",
+          "updatedAt": "2025-04-20T14:31:33Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I am a bit confused, in what way is this different than \"something that would allow for an out-of-band contribution to the KDF\" mentioned in [#13 (comment)](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/13#issuecomment-2598790016) and what @tireddy2 basically told me was unacceptable at IETF 122?\r\n\r\nI meant \"info\" usage is specific to HPKE and JWE currently sets SuppPrivInfo to \"empty octect sequence\". \r\n\r\n",
+          "createdAt": "2025-04-21T12:36:38Z",
+          "updatedAt": "2025-04-21T12:36:38Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "I meant that what I thought @tireddy2 said to me at IETF 122 was that he didn't want to do something like this in JOSE HPKE because it would be inconsistent with how other JWE key agreement algorithms treat the KDF inputs (which seems a reasonable perspective and one I think @ilaril shares but also one reasonable people could reasonably disagree with). I don't recall the exact wording but it was something like \"unacceptable\" or \"unwilling\" or just didn't want to and wouldn't. Maybe I misunderstood but the message seemed pretty clear to me at the time - that was that this was not something that would be done or considered for JOSE HPKE. So my confusion and question was about what seemed to me to be statements and actions that were contradictory. I guess I was just trying to understand if opinions had changed or been overruled amongst the editors or what else may have transpired or changed. Or if I've misunderstood. ",
+          "createdAt": "2025-04-21T18:56:11Z",
+          "updatedAt": "2025-04-21T18:56:11Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> JWE currently sets SuppPrivInfo to \"empty octect sequence\".\r\n\r\n*JWA* currently sets Concat KDF's SuppPrivInfo to \"the empty octect sequence\" for the ECDH-ES* JWE algorithms  - https://www.rfc-editor.org/rfc/rfc7518.html#section-4.6 and specifically in https://www.rfc-editor.org/rfc/rfc7518.html#section-4.6.2 - which is a pedantic but important distinction. ",
+          "createdAt": "2025-04-21T19:04:32Z",
+          "updatedAt": "2025-04-21T19:04:32Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@awoie 's not wrong to want to specify that that info could be public.\r\n\r\nSee: https://datatracker.ietf.org/doc/html/rfc9180#name-auxiliary-authenticated-app\r\n\r\nThough in our case, we are not specifying a full context structure here (because its not needed for security).\r\n\r\nIf people want to specify such a structure, they should do so in the protocol document that requires info to be something other than empty.",
+          "createdAt": "2025-04-21T21:03:40Z",
+          "updatedAt": "2025-04-21T21:03:55Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOMMuuSM6lsbAP",
@@ -5981,6 +6082,59 @@
               "updatedAt": "2025-04-19T12:51:00Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lt0Ot",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "awoie",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-20T13:51:26Z",
+          "updatedAt": "2025-04-20T13:51:26Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "@selfissued @tireddy2 I would assume I could use any application-specific contextual values with the `info` value, right? HPKE (RFC9180) just says it is just application-supplied data which influences the generation of keys, e.g., KDF. ",
+              "createdAt": "2025-04-20T13:51:26Z",
+              "updatedAt": "2025-04-20T13:51:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6lt0jm",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "awoie",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-20T13:57:49Z",
+          "updatedAt": "2025-04-20T13:57:49Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "@tireddy2 @selfissued is the `info` also part oft the AAD? I guess, I would like to understand if jose-hpke is going to support external contributors to the KDF (which I assume this PR is about) and external AAD?",
+              "createdAt": "2025-04-20T13:57:49Z",
+              "updatedAt": "2025-04-20T13:57:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6l1YPH",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-21T20:57:40Z",
+          "updatedAt": "2025-04-21T20:57:40Z",
+          "comments": []
         }
       ]
     }
