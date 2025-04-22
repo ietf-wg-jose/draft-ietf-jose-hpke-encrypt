@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 20 October 2025                                           H-BRS
+Expires: 24 October 2025                                           H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                           18 April 2025
+                                                           22 April 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 October 2025.
+   This Internet-Draft will expire on 24 October 2025.
 
 Copyright Notice
 
@@ -332,9 +332,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    the Content Encryption Key, which is then processed as specified in
    JWE.
 
-   The protected header used in content encryption is passed to HPKE as
-   Additional Authenticated Data.  The protected header encoding remains
-   consistent with existing JWE formatting rules.
+   The encoding of the protected header encoding remains consistent with
+   existing JWE formatting rules.
 
    In HPKE JWE Key Encryption:
 
@@ -356,6 +355,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       Encryption.
 
    *  The HPKE Setup info parameter MUST be set to an empty string.
+
+   *  The HPKE AAD parameter MUST be set to the empty string.
 
    *  THE HPKE plaintext MUST be set to the CEK.
 
@@ -842,6 +843,8 @@ Document History
    -06
 
    *  Remove auth mode and auth_kid from the specification.
+
+   *  HPKE AAD for JOSE HPKE Key Encryption is now empty.
 
    -05
 

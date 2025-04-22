@@ -1061,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 20 October 2025</td>
+<td class="center">Expires 24 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-jose-hpke-encrypt-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-18" class="published">18 April 2025</time>
+<time datetime="2025-04-22" class="published">22 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-10-20">20 October 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-24">24 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1148,7 +1148,7 @@ key derivation function (KDF), and authenticated encryption with additional data
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1570,8 +1570,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       </h2>
 <p id="section-6-1">Recipients using JOSE-HPKE can be added alongside other recpients (e.g., <code>ECDH-ES+A128KW</code> or <code>RSA-OAEP-384</code>), as HPKE is used to encrypt the
 Content Encryption Key, which is then processed as specified in JWE.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The protected header used in content encryption is passed to HPKE as Additional Authenticated Data. The protected header encoding remains consistent
-with existing JWE formatting rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">The encoding of the protected header encoding remains consistent with existing JWE formatting rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">In HPKE JWE Key Encryption:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-4.1">
@@ -1597,7 +1596,10 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
           <p id="section-6-4.7.1">The HPKE Setup info parameter <span class="bcp14">MUST</span> be set to an empty string.<a href="#section-6-4.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.8">
-          <p id="section-6-4.8.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-4.8.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.8.1">The HPKE AAD parameter <span class="bcp14">MUST</span> be set to the empty string.<a href="#section-6-4.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-4.9">
+          <p id="section-6-4.9.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-4.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>. Implementations should follow the existing
@@ -2277,6 +2279,9 @@ for their contributions to the specification.<a href="#appendix-B-1" class="pilc
 <ul class="normal">
 <li class="normal" id="appendix-C-4.1">
           <p id="appendix-C-4.1.1">Remove auth mode and auth_kid from the specification.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-4.2">
+          <p id="appendix-C-4.2.1">HPKE AAD for JOSE HPKE Key Encryption is now empty.<a href="#appendix-C-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-5">-05<a href="#appendix-C-5" class="pilcrow">¶</a></p>
