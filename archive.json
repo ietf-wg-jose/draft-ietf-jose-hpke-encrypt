@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-22T01:27:01.996511+00:00",
+  "timestamp": "2025-04-24T01:27:38.757649+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -5785,24 +5785,26 @@
       "id": "PR_kwDOMMuuSM6TIw40",
       "title": "Clarify protected header",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/40",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "There was confusion over what parameters are required for HPKE when using HPKE JOSE Key Encryption.\r\nThis PR clarifies that HPKE AAD is empty for key encryption.",
       "createdAt": "2025-04-18T15:58:25Z",
-      "updatedAt": "2025-04-21T21:10:44Z",
+      "updatedAt": "2025-04-22T06:28:05Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "42b1158999c92289238d9652c477874d080c5f2f",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "OR13-patch-1",
       "headRefOid": "c1402139ac021b5a3530e1cb076a5ef2f7bd2f3e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-22T06:28:05Z",
+      "mergedAt": "2025-04-22T06:28:05Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "56585ad50ed126e0c852537bcbb3c7fee9c5a2fc"
+      },
       "comments": [
         {
           "author": "OR13",
