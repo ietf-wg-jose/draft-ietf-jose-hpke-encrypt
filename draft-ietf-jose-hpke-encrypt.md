@@ -198,7 +198,7 @@ In HPKE JWE Integrated Encryption:
 - JWE Initialization Vector and JWE Authentication Tag MUST NOT be present.
 - JWE AAD MAY be present.
 - JWE Ciphertext is ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
+- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead. The concept of mutually known private information is defined in {{NIST.SP.800-56Ar3}} as an input to the key derivation function.
 - The HPKE aad parameter MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
 Otherwise, the plaintext is the raw message.
