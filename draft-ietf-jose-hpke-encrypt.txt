@@ -846,7 +846,7 @@ Acknowledgments
 
 Document History
 
-   -07
+   -08
 
    *  Use "enc":"int" for integrated encryption.
 
@@ -854,6 +854,10 @@ Document History
 
    *  Stated that mutually known private information MAY be used as the
       HPKE info value.
+
+   -07
+
+   *  Clarifications
 
    -06
 
