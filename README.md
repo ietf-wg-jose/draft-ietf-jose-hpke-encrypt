@@ -1,10 +1,9 @@
 # Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)
 
-This is the working area for the JOSE Working Group Internet-Draft, "Fully-Specified Algorithms for JOSE and COSE".
+This is the working area for the JOSE Working Group Internet-Draft, "Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)".
 
 * [Editor's Copy](https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/#go.draft-ietf-jose-hpke-encrypt.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-jones-jose-fully-specified-algorithms)
 * [Compare Editor's Copy to Working Group Draft](https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/#go.draft-ietf-jose-hpke-encrypt.diff)
 
 
