@@ -88,6 +88,14 @@ informative:
      title: Hybrid Public Key Encryption (HPKE) IANA Registry
      target: https://www.iana.org/assignments/hpke/hpke.xhtml
      date: October 2023
+
+  NIST.SP.800-56Ar3:
+     author:
+        org: National Institute of Standards and Technology
+     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, NIST Special Publication 800-56A Revision 3
+     target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf
+     date: April 2018
+
 ---
 
 
@@ -198,7 +206,7 @@ In HPKE JWE Integrated Encryption:
 - JWE Initialization Vector and JWE Authentication Tag MUST NOT be present.
 - JWE AAD MAY be present.
 - JWE Ciphertext is ciphertext as defined in Section 5.2 of {{RFC9180}}.
-- The HPKE info parameter MUST be set to an empty string.
+- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead. The concept of mutually known private information is defined in {{NIST.SP.800-56Ar3}} as an input to the key derivation function.
 - The HPKE aad parameter MUST be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of {{RFC7516}}.
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
 Otherwise, the plaintext is the raw message.
@@ -277,7 +285,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The HPKE Setup info parameter MUST be set to an empty string.
+- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
 - The HPKE AAD parameter MUST be set to the empty string.
 - THE HPKE plaintext MUST be set to the CEK.
 
@@ -608,6 +616,7 @@ for their contributions to the specification.
 
 * Use "enc":"int" for integrated encryption.
 * Described reasons for excluding authenticated HPKE.
+* Stated that mutually known private information MAY be used as the HPKE info value.
 
 -06
 
