@@ -88,6 +88,14 @@ informative:
      title: Hybrid Public Key Encryption (HPKE) IANA Registry
      target: https://www.iana.org/assignments/hpke/hpke.xhtml
      date: October 2023
+
+  NIST.SP.800-56Ar3:
+     author:
+        org: National Institute of Standards and Technology
+     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, NIST Special Publication 800-56A Revision 3
+     target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf
+     date: April 2018
+
 ---
 
 
@@ -266,8 +274,7 @@ After verification:
 Recipients using JOSE-HPKE can be added alongside other recpients (e.g., `ECDH-ES+A128KW` or `RSA-OAEP-384`), as HPKE is used to encrypt the
 Content Encryption Key, which is then processed as specified in JWE.
 
-The protected header used in content encryption is passed to HPKE as Additional Authenticated Data. The protected header encoding remains consistent
-with existing JWE formatting rules.
+The encoding of the protected header encoding remains consistent with existing JWE formatting rules.
 
 In HPKE JWE Key Encryption:
 
@@ -279,6 +286,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "ek" MUST be present and contain base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
 - The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
+- The HPKE AAD parameter MUST be set to the empty string.
 - THE HPKE plaintext MUST be set to the CEK.
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
@@ -613,6 +621,7 @@ for their contributions to the specification.
 -06
 
 * Remove auth mode and auth_kid from the specification.
+* HPKE AAD for JOSE HPKE Key Encryption is now empty.
 
 -05
 
