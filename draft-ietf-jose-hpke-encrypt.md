@@ -612,11 +612,15 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--07
+-08
 
 * Use "enc":"int" for integrated encryption.
 * Described reasons for excluding authenticated HPKE.
 * Stated that mutually known private information MAY be used as the HPKE info value.
+
+-07
+
+* Clarifications
 
 -06
 
