@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 24 October 2025                                           H-BRS
+Expires: 27 October 2025                                           H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                           22 April 2025
+                                                           25 April 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2025.
+   This Internet-Draft will expire on 27 October 2025.
 
 Copyright Notice
 
@@ -265,7 +265,10 @@ Table of Contents
    *  JWE Ciphertext is ciphertext as defined in Section 5.2 of
       [RFC9180].
 
-   *  The HPKE info parameter MUST be set to an empty string.
+   *  The HPKE info parameter defaults to the empty string; mutually
+      known private information MAY be used instead.  The concept of
+      mutually known private information is defined in
+      [NIST.SP.800-56Ar3] as an input to the key derivation function.
 
    *  The HPKE aad parameter MUST be set to the "JWE Additional
       Authenticated Data encryption parameter", as defined in Step 14 of
@@ -354,7 +357,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    *  Recipient JWE Encrypted Key MUST be the ciphertext from HPKE
       Encryption.
 
-   *  The HPKE Setup info parameter MUST be set to an empty string.
+   *  The HPKE info parameter defaults to the empty string; mutually
+      known private information MAY be used instead.
 
    *  The HPKE AAD parameter MUST be set to the empty string.
 
@@ -799,6 +803,14 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
               hpke-11>.
 
+   [NIST.SP.800-56Ar3]
+              National Institute of Standards and Technology,
+              "Recommendation for Pair-Wise Key-Establishment Schemes
+              Using Discrete Logarithm Cryptography, NIST Special
+              Publication 800-56A Revision 3", April 2018,
+              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
+              NIST.SP.800-56Ar3.pdf>.
+
    [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
               and C. Wood, "Randomness Improvements for Security
               Protocols", RFC 8937, DOI 10.17487/RFC8937, October 2020,
@@ -839,6 +851,9 @@ Document History
    *  Use "enc":"int" for integrated encryption.
 
    *  Described reasons for excluding authenticated HPKE.
+
+   *  Stated that mutually known private information MAY be used as the
+      HPKE info value.
 
    -06
 
