@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-24T01:27:38.757649+00:00",
+  "timestamp": "2025-04-27T01:40:22.806947+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -76,15 +76,15 @@
       "id": "I_kwDOMMuuSM6Plmyj",
       "title": "HPKE AAD for JWE Key Encryption",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\r\n\r\n```\r\nhpke-aad SHALL be the FixedInfo part of ECDH-ES Concat KDF input. That is,\r\nconcatenation of AlgorithmID, PartyUInfo, PartyVInfo, SuppPubInfo and\r\nSuppPrivInfo inputs, in that order, as defined in section 4.6.2 of JWA.\r\n```\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/jose/kGF-m5XJunr-M26USFyFeqYoSvw/",
       "createdAt": "2024-07-15T15:17:34Z",
-      "updatedAt": "2025-02-14T16:25:30Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-25T15:18:18Z",
+      "closedAt": "2025-04-25T15:18:18Z",
       "comments": [
         {
           "author": "ilaril",
@@ -427,7 +427,7 @@
       "id": "I_kwDOMMuuSM6tBsH7",
       "title": "HPKE Setup info",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/29",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -436,8 +436,8 @@
       "labels": [],
       "body": "HPKE Setup is currently set to empty. The issue is whether HPKE Setup should be allowed to carry any additional information (same issue exists in the COSE HPKE draft).",
       "createdAt": "2025-03-07T12:37:15Z",
-      "updatedAt": "2025-04-18T09:52:09Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-25T15:16:38Z",
+      "closedAt": "2025-04-25T15:16:38Z",
       "comments": [
         {
           "author": "selfissued",
@@ -467,15 +467,15 @@
       "id": "I_kwDOMMuuSM6tBuYt",
       "title": "HPKE AAD",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/30",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "In key encryption mode, the protected header used in content encryption is passed to HPKE as Additional Authenticated Data. please see the discussion in the thread, https://mailarchive.ietf.org/arch/msg/jose/1u4aHjyEZeIECmHwkpbl3kcGZ50",
       "createdAt": "2025-03-07T12:40:37Z",
-      "updatedAt": "2025-04-19T08:24:17Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-25T15:17:18Z",
+      "closedAt": "2025-04-25T15:17:18Z",
       "comments": [
         {
           "author": "selfissued",
@@ -561,15 +561,15 @@
       "id": "I_kwDOMMuuSM6wODds",
       "title": "HPKE Mode Support",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/35",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "TODO: Add section to summarize that only base and psk mode are supported\n\nMaybe add something from the following two paragraphs:\n\n## Authentication using an Asymmetric Key\n\nImplementers are cautioned to note that the use of authenticated KEMs has different meaning when considering integrated encryption and key encryption.\nIn integrated encryption the KEM operations secure the message plaintext, whereas with key encryption, the KEM operations secure the content encryption key.\nFor this reason, the use of authenticated KEMs with key encryption is NOT RECOMMENDED, as it gives a false sense of security.\nSee RFC9180 Section 5.1.3 for details authentication using asymmetric keys.\n\n## Authenticated KEM\n\nAuthenticated KEM is not supported in JOSE HPKE for the following reasons:\n\n1. Authenticated KEMs provide authentication at the KEM level, which has different implications depending on whether they are used for key\nencryption or integrated encryption. In integrated encryption, the KEM operations directly secure the message plaintext. In key encryption,\nthe KEM operations secure the content encryption key. Using authenticated KEMs for key encryption does not provide meaningful security\nbenefits and will create a false sense of data origin authentication.\n\n2. The PQ/T Hybrid KEM in HPKE is not an authenticated KEM and can only be used with HPKE Base mode. Similarly, PQ KEMs in HPKE are not authenticated KEMs, making them incompatible with an authenticated KEM approach. \n\n",
       "createdAt": "2025-03-28T15:22:12Z",
-      "updatedAt": "2025-03-29T09:23:50Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-25T15:16:50Z",
+      "closedAt": "2025-04-25T15:16:50Z",
       "comments": [
         {
           "author": "ilaril",
@@ -655,9 +655,38 @@
       "labels": [],
       "body": "> The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.   \n\n _Originally posted by @bc-pi in [#36](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2819132145)_\n\n\n ",
       "createdAt": "2025-04-21T18:00:04Z",
-      "updatedAt": "2025-04-21T18:00:04Z",
+      "updatedAt": "2025-04-25T15:25:45Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The enc:inc is the signal that HPKE is used. It is needed to make the encryption possible.",
+          "createdAt": "2025-04-25T15:11:51Z",
+          "updatedAt": "2025-04-25T15:11:51Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This functionality has been added in November last year (see https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/7/files) and the recent update did not change the fundamental concept",
+          "createdAt": "2025-04-25T15:14:27Z",
+          "updatedAt": "2025-04-25T15:14:27Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This topic was discussed mid last year, see this slide deck: https://datatracker.ietf.org/meeting/120/materials/slides-120-jose-use-of-hpke-with-jose-00\n\nWe settled with this approach a while ago.",
+          "createdAt": "2025-04-25T15:15:43Z",
+          "updatedAt": "2025-04-25T15:15:43Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, four options were discussed and the current one in the draft was selected. ",
+          "createdAt": "2025-04-25T15:22:19Z",
+          "updatedAt": "2025-04-25T15:22:19Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -5937,24 +5966,26 @@
       "id": "PR_kwDOMMuuSM6TKT5u",
       "title": "Mutually known private information MAY be used as the HPKE info value",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #29 \r\n\r\nCc: @awoie\r\n",
       "createdAt": "2025-04-18T20:23:30Z",
-      "updatedAt": "2025-04-21T21:03:56Z",
+      "updatedAt": "2025-04-25T15:27:15Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
-      "baseRefOid": "76aa70ba0bc03cecddc03bc2ee53856ee0ee9e71",
+      "baseRefOid": "56585ad50ed126e0c852537bcbb3c7fee9c5a2fc",
       "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-info",
-      "headRefOid": "9fbffecbcddb844152cd7d58399302b8d62174cb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "01800fb1a5ae129c7d4b55fac026a27b166bdda5",
+      "closedAt": "2025-04-25T15:27:15Z",
+      "mergedAt": "2025-04-25T15:27:15Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "7b804de3d24eada06f3923d05c30ce3b1706c140"
+      },
       "comments": [
         {
           "author": "bc-pi",
@@ -5997,6 +6028,13 @@
           "body": "@awoie 's not wrong to want to specify that that info could be public.\r\n\r\nSee: https://datatracker.ietf.org/doc/html/rfc9180#name-auxiliary-authenticated-app\r\n\r\nThough in our case, we are not specifying a full context structure here (because its not needed for security).\r\n\r\nIf people want to specify such a structure, they should do so in the protocol document that requires info to be something other than empty.",
           "createdAt": "2025-04-21T21:03:40Z",
           "updatedAt": "2025-04-21T21:03:55Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Here is the informational NIST reference to be added:\r\n\r\n  NIST.SP.800-56Ar3:\r\n     author:\r\n        org: National Institute of Standards and Technology\r\n     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, NIST Special Publication 800-56A Revision 3\r\n     target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf\r\n     date: April 2018",
+          "createdAt": "2025-04-25T14:00:07Z",
+          "updatedAt": "2025-04-25T14:00:07Z"
         }
       ],
       "reviews": [
@@ -6136,6 +6174,134 @@
           "body": "",
           "createdAt": "2025-04-21T20:57:40Z",
           "updatedAt": "2025-04-21T20:57:40Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6mjHNp",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-25T13:56:59Z",
+          "updatedAt": "2025-04-25T13:56:59Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead. The concept of mutually known private information is defined in {{NIST.SP.800-56Ar3}} as an input to the key derivation function.\r\n```",
+              "createdAt": "2025-04-25T13:56:59Z",
+              "updatedAt": "2025-04-25T14:29:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6mjIuy",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I'm good with the edits, but I would suggest adding one sentence about mutually known private information with a reference to the NIST specification. That way, anyone interested in the background can follow up there. I think it's important to acknowledge the foundational work NIST has done in this area.",
+          "createdAt": "2025-04-25T13:59:14Z",
+          "updatedAt": "2025-04-25T13:59:14Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6mjKDY",
+          "commit": {
+            "abbreviatedOid": "9fbffec"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-25T14:01:08Z",
+          "updatedAt": "2025-04-25T14:01:09Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Please delete \" that consists of information shared privately between the communicating parties\" from your suggestion, and then I will include it.  The reason I'm asking you to do this is that the information may be known by both parties without needing to be \"shared\".  Thanks.",
+              "createdAt": "2025-04-25T14:01:08Z",
+              "updatedAt": "2025-04-25T14:01:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6mkL_V",
+          "commit": {
+            "abbreviatedOid": "553ae36"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-25T15:24:20Z",
+          "updatedAt": "2025-04-25T15:24:21Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "As far as I can tell, the phrase \"mutually known private information\" appears only once in the 141 page NIST https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf document as part of the definition of a sub-field of a field in recommendation for KDF input that isn't clear that is actually related to HPKE or this document at all. I don't see how this sentence is accurate or helpful. ",
+              "createdAt": "2025-04-25T15:24:20Z",
+              "updatedAt": "2025-04-26T16:04:31Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOMMuuSM6T7scT",
+      "title": "Fix -08 history entries",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/43",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-25T15:38:29Z",
+      "updatedAt": "2025-04-25T15:39:39Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "7b804de3d24eada06f3923d05c30ce3b1706c140",
+      "headRepository": "selfissued/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-08-history",
+      "headRefOid": "d82755f77bfa86bc19b75d135906884ec0b40574",
+      "closedAt": "2025-04-25T15:39:39Z",
+      "mergedAt": "2025-04-25T15:39:39Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "dfaf9f2e8a96d95a2cc9bbe4aebc3b168d790a62"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6mkV_m",
+          "commit": {
+            "abbreviatedOid": "d82755f"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-25T15:38:58Z",
+          "updatedAt": "2025-04-25T15:38:58Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6mkWUO",
+          "commit": {
+            "abbreviatedOid": "d82755f"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-25T15:39:33Z",
+          "updatedAt": "2025-04-25T15:39:33Z",
           "comments": []
         }
       ]
