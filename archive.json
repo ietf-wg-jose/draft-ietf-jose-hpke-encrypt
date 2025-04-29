@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-27T01:40:22.806947+00:00",
+  "timestamp": "2025-04-29T01:37:03.231760+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -596,7 +596,7 @@
       ],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-21T17:55:46Z",
+      "updatedAt": "2025-04-28T23:21:53Z",
       "closedAt": "2025-04-18T20:22:16Z",
       "comments": [
         {
@@ -640,6 +640,34 @@
           "body": "The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.  ",
           "createdAt": "2025-04-21T17:55:45Z",
           "updatedAt": "2025-04-21T17:55:45Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> You can't register a none aead algorithm in the HPKE registry though. I don't fully understand this comment.\n\nSimilarly, and for good reason, the JOSE registry doesn't allow a none/null aead algorithm for JWE content encryption. That was the real genesis of the feedback in Bangkok (and prior, honestly). As I've tried to here and in #42 and elsewhere, it's a bad idea with potentially dangerous implications regardless of if you name it \"int\", \"dir\", \"none\", \"null\", \"hopefully-hpke-was-done-via-alg\", \"treat-it_in-deeply+magic_way-anyway\", or whatever. \n\nI understand that it sort of makes sense in the context of trying to fit HPKE into JWE. But JWE is more than that and, in my view anyway, it would be irresponsible for the JOSE WG to introduce a new \"alg\":\"none\" style problem into the larger ecosystem. \n\n@OR13, I know you have a more than a few things on your plate being an AD with a few WG I-Ds on top of regular responsibilities, but I have to ask - is this actually something you are supportive of?\n\n\n",
+          "createdAt": "2025-04-28T21:22:25Z",
+          "updatedAt": "2025-04-28T21:22:25Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Integrated encryption is the simplest use of HPKE, I think its especially well suited to JWE for JWT.\n\nKey Encryption takes HPKE and basically uses it to encrypt content encryption keys.... having a way to do that, which is PQ resilient is a good thing.\n\nBut either way, if you don't trust HPKE to encrypt directly (or as HPKE JOSE Integrated encryption), you should not use it to encrypt a content encryption key.",
+          "createdAt": "2025-04-28T21:38:43Z",
+          "updatedAt": "2025-04-28T21:38:43Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "My concern isn't about trusting HPKE or not. It's about introducing a null content encryption algorithm into the JWE/JWT ecosystem and all the potential pitfalls that come with it. ",
+          "createdAt": "2025-04-28T22:20:19Z",
+          "updatedAt": "2025-04-28T22:20:19Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It's not null though... With enc values today, you still need to recognize the alg value, and be able to obtain the content encryption key.\n\nIt's like that, but with assurance that the content encryption key is secured with HPKE as opposed to RSA, or ECDH... HPKE has a bunch of security thresholds which provide a common bar for kems, kdf and aead.\n\nStill, I get your point.\n\nI don't see anyway around it though, any new enc value, we chose would also need to be aligned with alg... You have to trust both values to trust the encryption.",
+          "createdAt": "2025-04-28T23:20:25Z",
+          "updatedAt": "2025-04-28T23:21:52Z"
         }
       ]
     },
