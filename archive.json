@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-29T01:37:03.231760+00:00",
+  "timestamp": "2025-05-01T01:44:32.306130+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -596,7 +596,7 @@
       ],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-28T23:21:53Z",
+      "updatedAt": "2025-04-30T23:10:24Z",
       "closedAt": "2025-04-18T20:22:16Z",
       "comments": [
         {
@@ -665,9 +665,58 @@
         {
           "author": "OR13",
           "authorAssociation": "COLLABORATOR",
-          "body": "It's not null though... With enc values today, you still need to recognize the alg value, and be able to obtain the content encryption key.\n\nIt's like that, but with assurance that the content encryption key is secured with HPKE as opposed to RSA, or ECDH... HPKE has a bunch of security thresholds which provide a common bar for kems, kdf and aead.\n\nStill, I get your point.\n\nI don't see anyway around it though, any new enc value, we chose would also need to be aligned with alg... You have to trust both values to trust the encryption.",
+          "body": "It's not null though... With enc values today, you still need to recognize the alg value, and be able to obtain the content encryption key.\n\nIt's like that, but with assurance that the content encryption key is secured with HPKE as opposed to RSA, or ECDH... HPKE has a bunch of security thresholds which provide a common bar for kems, kdf and aead.\n\nStill, I get your point.\n\nI don't see anyway around it though, any new enc value we chose would also need to be aligned with alg... You have to trust both values to trust the encryption.",
           "createdAt": "2025-04-28T23:20:25Z",
-          "updatedAt": "2025-04-28T23:21:52Z"
+          "updatedAt": "2025-04-29T12:15:18Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Could you outline how to implement \"enc:int\" as null encryption or something that can act in dangerous ways? Seems like trying to use actual null encryption in JWE would result in something extremely broken that does not work like Integrated Encryption.\n\nThe obvious strategy of handling every other enc value does not work with Integrated Encryption. The obvious strategy for handling \"enc:int\" is to have explicit special case code for it that calls into optional methods of the alg. Such architecture inherently rejects nonsense like \"enc:int\", \"alg:RSA-OAEP-256\" (severely buggy software could crash trying to call NULL method).\n",
+          "createdAt": "2025-04-29T06:32:47Z",
+          "updatedAt": "2025-04-29T06:32:47Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "Yeah @ilaril, it is certainly possible that \"Integrated Encryption\" is a significant enough a violation of the JWE architecture that it will need special case treatment that is so special it avoids the kind of inadvertent misuse or exploitation that I'm thinking of. That doesn't exactly feel like a great thing to me either. Honestly, my heart of my concern is how blas\u00e9 the group has been in disregarding the existing architecture and requirements of JWE. \n\n",
+          "createdAt": "2025-04-29T20:53:11Z",
+          "updatedAt": "2025-04-29T20:53:11Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> It's not null though... With enc values today, you still need to recognize the alg value, and be able to obtain the content encryption key.\n\nWith JWE today, the alg needs to know the size of the needed content encryption key. That's the only alg-enc coupling/knowledge in JWE. \n\n> \n> It's like that, but with assurance that the content encryption key is secured with HPKE as opposed to RSA, or ECDH... HPKE has a bunch of security thresholds which provide a common bar for kems, kdf and aead.\n\nAs I said when we were having the parts of the same conversation in slack yesterday - I do appreciate your responses but I think we are talking past each other. \n\n> \n> Still, I get your point.\n> \n> I don't see anyway around it though, any new enc value we chose would also need to be aligned with alg... You have to trust both values to trust the encryption.\n\nIt seems to me there's a fundamental mismatch with trying to plug HPKE (which does effectively alg and enc together in one operation) into JWE that treats them as distinct operations. There are different ways to approach that problem and even in how the problem is defined. \n",
+          "createdAt": "2025-04-29T21:15:35Z",
+          "updatedAt": "2025-04-29T21:15:35Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Integrated Encryption definitely needs very special treatment. Even if the HPKE implementation has non-standard key export, one can not use standard JWE bulk encryption, because the way iv/tag is handled is not quite compatible.\n\nAnd with regards to architecture, I think the way it is currently done is close to the least bad way (I have seen some really horrible ideas).",
+          "createdAt": "2025-04-30T08:31:45Z",
+          "updatedAt": "2025-04-30T08:31:45Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> It seems to me there's a fundamental mismatch with trying to plug HPKE (which does effectively alg and enc together in one operation) into JWE that treats them as distinct operations.\n\nECDH-ES+A128KW ~= HPKE-0 for Key Encryption.\n\nalg: ECDH-ES, enc: A128GCM ~= HPKE-0 for Integrated Encryption.\n\nhttps://datatracker.ietf.org/doc/html/rfc7518#appendix-C\n\n```json\n{\"alg\":\"ECDH-ES\",\n      \"enc\":\"A128GCM\",\n      \"apu\":\"QWxpY2U\",\n      \"apv\":\"Qm9i\",\n      \"epk\":\n       {\"kty\":\"EC\",\n        \"crv\":\"P-256\",\n        \"x\":\"gI0GAILBdu7T53akrFmMyGcsF3n5dO7MmwNBHKW5SV0\",\n        \"y\":\"SLW_xSffzlPWrHEVI30DHM_4egVwt3NQqeUD7nMFpps\"\n       }\n     }\n```\n\nNotice that in this example, you need to understand \"ECDH-ES\" and \"A128GCM\" (and a bunch of other headers, are MUST understand).\n\nThis is very similar to HPKE-0 for integrated encryption except more complicated.\n\nJWE does not treat \"alg\" and \"enc\" as distinct operations... the key size connects them... so does the use of concat kdf.\n\nAnother example:\n\nhttps://datatracker.ietf.org/doc/html/rfc7520#section-5.6.3\n\n```json\n   {\n     \"alg\": \"dir\",\n     \"kid\": \"77c7e2b8-6e13-45cf-8672-617b5b45243a\",\n     \"enc\": \"A128GCM\"\n   }\n```\n\nIn the above example, alg and dir are still connected... if I deference that kid to a key that is not large enough or too large... problems.\n\nalg dir, and enc int are signalling similar things, without colliding (because thats what the working group wanted).\n\nPersonally, I think its extra syntax, and the makes JWE more complicated, but its mostly an aesthetic preference not to introduce more parameters than are needed.\n\nIf we agree that you have to understand and trust both \"alg\" and \"enc\" and that they are related, I don't see how we could disagree that using both alg and enc in HPKE is somehow different than how we have done HPKE so far.\n\n ",
+          "createdAt": "2025-04-30T12:46:23Z",
+          "updatedAt": "2025-04-30T12:46:23Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> JWE does not treat \"alg\" and \"enc\" as distinct operations... the key size connects them... so does the use of concat kdf.\n\nWith the exception of CEK size and and one case with alg:ECDH-ES's treatment of the AlgorithmID KDF input being the literal value of the enc header parameter, JWE absolutely treats them as distinct operations.  Even alg:dir only needs to know the key size. The alg, \"the cryptographic algorithm used to encrypt or determine the value of the CEK\" - [JWE \u00a74.4.1](https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.1) , never operates on the content itself.  The content is encrypted with the CEK by the enc, \"content encryption algorithm used to perform authenticated encryption on the plaintext to produce the ciphertext and the Authentication Tag\" - [JWE \u00a74.4.2](https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.2). \n\nThe current incarnation (-08) of alg:HPKE-<0-6> and enc:int is not comparable in terms of the required coupling and layering violations. ",
+          "createdAt": "2025-04-30T18:18:48Z",
+          "updatedAt": "2025-04-30T23:10:24Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@bc-pi are I think we probably agree on facts, but not on the degree to which coupling / layering is violated from an aesthetics perspective.\n\nJust out of curiosity, would it have mattered to you if we had made \"alg: int\", and \"enc: HPKE-0\" ?",
+          "createdAt": "2025-04-30T19:18:56Z",
+          "updatedAt": "2025-04-30T19:18:56Z"
         }
       ]
     },
@@ -683,7 +732,7 @@
       "labels": [],
       "body": "> The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.   \n\n _Originally posted by @bc-pi in [#36](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2819132145)_\n\n\n ",
       "createdAt": "2025-04-21T18:00:04Z",
-      "updatedAt": "2025-04-25T15:25:45Z",
+      "updatedAt": "2025-04-30T08:46:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -713,6 +762,27 @@
           "body": "Yes, four options were discussed and the current one in the draft was selected. ",
           "createdAt": "2025-04-25T15:22:19Z",
           "updatedAt": "2025-04-25T15:22:19Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> The enc:inc is the signal that HPKE is used. It is needed to make the encryption possible.\n\nI know there's ample opportunity for miscommunication and misunderstanding in all this stuff. But they way I read those two statements, they are not correct. alg:HPKE-<0-6> is the signal that HPKE is used and encryption is certainly possible without it. ",
+          "createdAt": "2025-04-29T21:19:10Z",
+          "updatedAt": "2025-04-29T21:19:10Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "There's some more sort-of related discussion in #36 after it was merged and I am certainly aware that some discussion has taken place regarding the impedance mismatch but I am not convinced that the approach settled on a while ago is a good one nor is it reliably reflected in the content of the draft. ",
+          "createdAt": "2025-04-29T21:39:36Z",
+          "updatedAt": "2025-04-29T21:39:36Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "At https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2841222106 @ilaril wrote:\n> Integrated Encryption definitely needs very special treatment. Even if the HPKE implementation has non-standard key export, one can not use standard JWE bulk encryption, because the way iv/tag is handled is not quite compatible.\n\n> And with regards to architecture, I think the way it is currently done is close to the least bad way (I have seen some really horrible ideas).\n\n\"Close to the last bad way\", to me, is a strong endorsement of the current approach. :-)",
+          "createdAt": "2025-04-30T08:46:13Z",
+          "updatedAt": "2025-04-30T08:46:13Z"
         }
       ]
     }
