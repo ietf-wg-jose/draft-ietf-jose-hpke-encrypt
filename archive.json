@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-01T01:44:32.306130+00:00",
+  "timestamp": "2025-05-04T01:44:58.358378+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -596,7 +596,7 @@
       ],
       "body": "We received feedback during the presentation at IETF-122 that there is no consensus for using an \"enc\" value that is not an AEAD algorithm and that base specifications would need to be updated.",
       "createdAt": "2025-04-04T10:17:34Z",
-      "updatedAt": "2025-04-30T23:10:24Z",
+      "updatedAt": "2025-05-01T21:11:57Z",
       "closedAt": "2025-04-18T20:22:16Z",
       "comments": [
         {
@@ -679,9 +679,9 @@
         {
           "author": "bc-pi",
           "authorAssociation": "NONE",
-          "body": "Yeah @ilaril, it is certainly possible that \"Integrated Encryption\" is a significant enough a violation of the JWE architecture that it will need special case treatment that is so special it avoids the kind of inadvertent misuse or exploitation that I'm thinking of. That doesn't exactly feel like a great thing to me either. Honestly, my heart of my concern is how blas\u00e9 the group has been in disregarding the existing architecture and requirements of JWE. \n\n",
+          "body": "Yeah @ilaril, it is certainly possible that \"Integrated Encryption\" is a significant enough a violation of the JWE architecture that it will need special case treatment that is so special it avoids the kind of inadvertent misuse or exploitation that I'm thinking of. That doesn't exactly feel like a great thing to me either. Honestly, the heart of my concern is how blas\u00e9 the group has been in disregarding the existing architecture and requirements of JWE. \n\n",
           "createdAt": "2025-04-29T20:53:11Z",
-          "updatedAt": "2025-04-29T20:53:11Z"
+          "updatedAt": "2025-05-01T19:58:58Z"
         },
         {
           "author": "bc-pi",
@@ -717,6 +717,20 @@
           "body": "@bc-pi are I think we probably agree on facts, but not on the degree to which coupling / layering is violated from an aesthetics perspective.\n\nJust out of curiosity, would it have mattered to you if we had made \"alg: int\", and \"enc: HPKE-0\" ?",
           "createdAt": "2025-04-30T19:18:56Z",
           "updatedAt": "2025-04-30T19:18:56Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> [@bc-pi](https://github.com/bc-pi) are I think we probably agree on facts, but not on the degree to which coupling / layering is violated from an aesthetics perspective.\n\nIt seems to me that we disagree about the degree to which the facts are violated. And that's a difficult kind of conversation to engage in, at least for me. \n\n> Just out of curiosity, would it have mattered to you if we had made \"alg: int\", and \"enc: HPKE-0\" ?\n\nYeah, that was more or less proposed on-list IIRC and I expressed my dislike of that too. I've pleaded for this work to not outright violate JWE. Or, resigned and barring that, at least be forthright about it in the document itself.  ",
+          "createdAt": "2025-05-01T20:51:18Z",
+          "updatedAt": "2025-05-01T21:10:21Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Yeah, that was more or less proposed in on-list IIRC and I expressed my dislike of that too. I've pleaded for this work to not outright violate JWE. Or, resigned and barring that, at least be forthright about it in the document itself.\n\nIt's my sense that the authors and many working group members understood your request to not differ from the way JWE works today, but the problem is that HPKE integrated encryption works differently than any of the algorithms used with JWE today.  It has one integrated algorithm - not two distinct ones for key establishment and content encryption.  I believe that supporting integrated encryption is a core goal of the work, and therefore the representation will necessarily differ from existing JWE representations in some respects.  I've come to believe, even as a JWE author, that this is OK.\n\nI'll note that any implementations that don't understand the \"HPKE-n\" algorithms or \"int\" will already do what you're supposed to do when you don't understand an algorithm.  They will return an error.\n\nWhereas implementations that do understand the \"HPKE-n\" algorithms and \"int\" will add new capabilities to their JWE implementations without breaking the existing capabilities.  I see that as a win.\n\nI believe the spec is already forthright about the fact that \"int\" is not an authenticated encryption algorithm and why it's being added to JWE.  If you'd like to suggest further language to be even clearer about this, have at it.",
+          "createdAt": "2025-05-01T21:11:56Z",
+          "updatedAt": "2025-05-01T21:11:56Z"
         }
       ]
     },
