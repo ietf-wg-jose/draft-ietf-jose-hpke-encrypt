@@ -217,29 +217,10 @@ base64url encoded encapsulated key.
 
 ## Compact Example
 
-A Compact JWE or JSON Web Token:
+A Compact JWE:
 
 ~~~
-eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1Njp2b2RIQ3FjVVdFbV83NUpWcXlhTjhaS1FVMjF3VEFSYzhkRzhuVU1jZlBVIn0.BCsvYxTHM4CO_OwQxL3lkJDdlw3UDjx2xN9MIXnbVzfTgFJmo_Es2xdH-fYs9EXfH_V53JgMWfUm7rBD_oE5efU..7_va6cnwClMsw7h7lqpm2tCrH9NkciM-g9UabdPWcOeIRmAf01NLYG7Wn8fFoohHlcGgd0nh7Jmo9nvHFi7sH6kOX7pplBnvLUoPrqeyW4TdXo_X8YThNKf9BFyWGyF6fjelbic5jSYClFaenMkTnjpHxFW1sWuiuZVmO1EOzrlNttWy.
-~~~
-
-After verification:
-
-~~~
-{
-  "protectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "int",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
-  },
-  "payload": {
-    "urn:example:claim": true,
-    "iss": "urn:example:issuer",
-    "aud": "urn:example:audience",
-    "iat": 1729785491,
-    "exp": 1729792691
-  }
-}
+eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 ~~~
 
 ## JSON Example
@@ -248,26 +229,23 @@ A JSON Encoded JWE:
 
 ~~~
 {
-  "protected": "eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIiwicHNrX2lkIjoib3VyLXByZS1zaGFyZWQta2V5LWlkIiwiYXV0aF9raWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIn0",
-  "encrypted_key": "BD7QVodtG-FwYASgb36zuTzUCc80aiYwS6JOOE-6_heUGyAZt-cU0818e4oYqP7ebBuW3KTM9EQA0vM5fWp6hj0",
-  "ciphertext": "ZxqtYoomgVQGctnv1I_EBVI1NIeJ7qJw2iVtqwUw3fXa8FK-",
-  "aad": "8J-PtOKAjeKYoO-4jyBiZXdhcmUgdGhlIGFhZCE"
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9", 
+  "ciphertext": "9AxOd65ROJY1cQ", 
+  "iv": "2u3NRi3CSr-x7Wuj", 
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q", 
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI", 
+      "header": {
+        "alg": "HPKE-0", 
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o", 
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
 }
 ~~~
 
-After verification:
-
-~~~
-{
-  "protectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "int",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  },
-  "plaintext": "🖤 this plaintext!",
-  "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
-}
-~~~
 
 # Key Encryption
 
@@ -292,61 +270,6 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
 
-## Multiple Recipients Example
-
-For example:
-
-~~~
-{
-  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "iv": "ZL0HDvZJizA6vyTV",
-  "ciphertext": "Oq26x9vppULrGNzCn2jaB_Sl-Swjv7e0AcgnhUR5AtrjEf2v6jee09WN-Ne-HIGXBgQpgJPchg0eWNmgv4Ozi5I",
-  "tag": "ULnlOiJRYfCzM_r5j9sLEQ",
-  "aad": "cGF1bCBhdHJlaWRlcw",
-  "recipients": [
-    {
-      "encrypted_key": "G3HmlpOgA4H1i_RQhT44Nw7svDwUqvNR",
-      "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:cxQC_lWt22BIjH5AWSLHCZk_f-mU3-W4Ztcu5-ZbwTk",
-        "alg": "ECDH-ES+A128KW",
-        "epk": {
-          "kty": "EC",
-          "crv": "P-256",
-          "x": "JnGWSQ90hlt0H7bfcgfaw2DZE-qqv_cwA4_Dn_CkLzE",
-          "y": "6jw1AC5q9-qewwBh9DK5YzUHLOogToGDSpoYAJdNo-E"
-        }
-      }
-    },
-    {
-      "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-        "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
-      }
-    }
-  ]
-}
-~~~
-
-After verification:
-
-~~~
-{
-  "plaintext": "🎵 My lungs taste the air of Time Blown past falling sands 🎵",
-  "protectedHeader": {
-    "enc": "A128GCM"
-  },
-  "unprotectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "int",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
-  },
-  "additionalAuthenticatedData": "paul atreides"
-}
-~~~
-
 # Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
 JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
@@ -357,8 +280,8 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0 	      | EC  | P-256     |
-| HPKE-1     	      | EC  | P-384     |
+| HPKE-0 	            | EC  | P-256     |
+| HPKE-1     	        | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -578,23 +501,14 @@ This private key and its implied public key are used the examples:
 
 ~~~ text
 {
-  "kid": "S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  "alg": "HPKE-0",
-  "kty": "EC",
-  "crv": "P-256",
-  "x": "wt36K06T4T4APWfGtioqDBXCvRN9evqkZjNydib9MaM",
-  "y": "eupgedeE_HAmVJ62kpSt2_EOoXb6e0y2YF1JPlfr1-I",
-  "d": "O3KznUTAxw-ov-9ZokwNaJ289RgP9VxQc7GJthaXzWY"
-}
-~~~
-
-This pre-shared key is used in the examples:
-
-~~~ text
-{
-  "kty": "oct",
-  "kid": "our-pre-shared-key-id",
-  "k": "anVnZW11anVnZW11Z29rb3Vub3N1cmlraXJla2FpamE"
+  "kty": "EC", 
+  "use": "enc", 
+  "alg": "HPKE-0", 
+  "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o", 
+  "crv": "P-256", 
+  "x": "gixQJ0qg4Ag-6HSMaIEDL_zbDhoXavMyKlmdn__AQVE", 
+  "y": "ZxTgRLWaKONCL_GbZKLNPsW9EW6nBsN4AwQGEFAFFbM", 
+  "d": "g2DXtKapi2oN2zL_RCWX8D4bWURHCKN2-ZNGC05ZaR8"
 }
 ~~~
 
