@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 23 October 2025                                           H-BRS
+Expires: 13 December 2025                                          H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                                Transmute
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                           21 April 2025
+                                                            11 June 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 October 2025.
+   This Internet-Draft will expire on 13 December 2025.
 
 Copyright Notice
 
@@ -87,7 +87,6 @@ Table of Contents
      5.1.  Compact Example
      5.2.  JSON Example
    6.  Key Encryption
-     6.1.  Multiple Recipients Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
@@ -108,8 +107,10 @@ Table of Contents
        9.2.5.  HPKE-4
        9.2.6.  HPKE-5
        9.2.7.  HPKE-6
+       9.2.8.  int
      9.3.  JSON Web Signature and Encryption Header Parameters
        9.3.1.  ek
+       9.3.2.  psk_id
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -170,7 +171,7 @@ Table of Contents
 
    When "alg" is a JOSE-HPKE algorithm:
 
-   *  If "enc" is "dir", HPKE JWE Integrated Encryption is used.
+   *  If "enc" is "int", HPKE JWE Integrated Encryption is used.
 
    *  If "enc" is an AEAD algorithm, the recipient Key Managment mode is
       Key Encryption.
@@ -241,7 +242,7 @@ Table of Contents
    *  The protected header MUST contain an "alg" that is JOSE-HPKE
       algorithm.
 
-   *  The protected header MUST contain an "enc" with value "dir".  This
+   *  The protected header MUST contain an "enc" with value "int".  This
       is an explicit exception to requirement in Section 4.1.2 of
       [RFC7516] that "enc" must be an AEAD algorithm.  This is
       appropriate, as HPKE will perform plaintext encryption.
@@ -263,7 +264,10 @@ Table of Contents
    *  JWE Ciphertext is ciphertext as defined in Section 5.2 of
       [RFC9180].
 
-   *  The HPKE info parameter MUST be set to an empty string.
+   *  The HPKE info parameter defaults to the empty string; mutually
+      known private information MAY be used instead.  The concept of
+      mutually known private information is defined in
+      [NIST.SP.800-56Ar3] as an input to the key derivation function.
 
    *  The HPKE aad parameter MUST be set to the "JWE Additional
       Authenticated Data encryption parameter", as defined in Step 14 of
@@ -279,48 +283,29 @@ Table of Contents
 
 5.1.  Compact Example
 
-   A Compact JWE or JSON Web Token:
+   A Compact JWE:
 
-eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1Njp2b2RIQ3FjVVdFbV83NUpWcXlhTjhaS1FVMjF3VEFSYzhkRzhuVU1jZlBVIn0.BCsvYxTHM4CO_OwQxL3lkJDdlw3UDjx2xN9MIXnbVzfTgFJmo_Es2xdH-fYs9EXfH_V53JgMWfUm7rBD_oE5efU..7_va6cnwClMsw7h7lqpm2tCrH9NkciM-g9UabdPWcOeIRmAf01NLYG7Wn8fFoohHlcGgd0nh7Jmo9nvHFi7sH6kOX7pplBnvLUoPrqeyW4TdXo_X8YThNKf9BFyWGyF6fjelbic5jSYClFaenMkTnjpHxFW1sWuiuZVmO1EOzrlNttWy.
-
-   After verification:
-
-{
-  "protectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "dir",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:vodHCqcUWEm_75JVqyaN8ZKQU21wTARc8dG8nUMcfPU"
-  },
-  "payload": {
-    "urn:example:claim": true,
-    "iss": "urn:example:issuer",
-    "aud": "urn:example:audience",
-    "iat": 1729785491,
-    "exp": 1729792691
-  }
-}
+eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 
 5.2.  JSON Example
 
    A JSON Encoded JWE:
 
 {
-  "protected": "eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIiwicHNrX2lkIjoib3VyLXByZS1zaGFyZWQta2V5LWlkIiwiYXV0aF9raWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpTNkFYZmRVXzZZZnp2dTBLRERKYjBzRnV3bklXUGs2TE1URXJZaFBiMzJzIn0",
-  "encrypted_key": "BD7QVodtG-FwYASgb36zuTzUCc80aiYwS6JOOE-6_heUGyAZt-cU0818e4oYqP7ebBuW3KTM9EQA0vM5fWp6hj0",
-  "ciphertext": "ZxqtYoomgVQGctnv1I_EBVI1NIeJ7qJw2iVtqwUw3fXa8FK-",
-  "aad": "8J-PtOKAjeKYoO-4jyBiZXdhcmUgdGhlIGFhZCE"
-}
-
-   After verification:
-
-{
-  "protectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "dir",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-  },
-  "plaintext": "🖤 this plaintext!",
-  "additionalAuthenticatedData": "🏴‍☠️ beware the aad!"
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
 }
 
 6.  Key Encryption
@@ -352,7 +337,8 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    *  Recipient JWE Encrypted Key MUST be the ciphertext from HPKE
       Encryption.
 
-   *  The HPKE Setup info parameter MUST be set to an empty string.
+   *  The HPKE info parameter defaults to the empty string; mutually
+      known private information MAY be used instead.
 
    *  The HPKE AAD parameter MUST be set to the empty string.
 
@@ -363,57 +349,6 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
    existing JWE specifications for handling these parameters, and no
    additional processing requirements are introduced by HPKE-based key
    encryption.
-
-6.1.  Multiple Recipients Example
-
-   For example:
-
-{
-  "protected": "eyJlbmMiOiJBMTI4R0NNIn0",
-  "iv": "ZL0HDvZJizA6vyTV",
-  "ciphertext": "Oq26x9vppULrGNzCn2jaB_Sl-Swjv7e0AcgnhUR5AtrjEf2v6jee09WN-Ne-HIGXBgQpgJPchg0eWNmgv4Ozi5I",
-  "tag": "ULnlOiJRYfCzM_r5j9sLEQ",
-  "aad": "cGF1bCBhdHJlaWRlcw",
-  "recipients": [
-    {
-      "encrypted_key": "G3HmlpOgA4H1i_RQhT44Nw7svDwUqvNR",
-      "header": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:cxQC_lWt22BIjH5AWSLHCZk_f-mU3-W4Ztcu5-ZbwTk",
-        "alg": "ECDH-ES+A128KW",
-        "epk": {
-          "kty": "EC",
-          "crv": "P-256",
-          "x": "JnGWSQ90hlt0H7bfcgfaw2DZE-qqv_cwA4_Dn_CkLzE",
-          "y": "6jw1AC5q9-qewwBh9DK5YzUHLOogToGDSpoYAJdNo-E"
-        }
-      }
-    },
-    {
-      "encrypted_key": "pn6ED0ijngCiWF8Hd_PzTyayd2OmRF7QarTVfuWj6dw",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-        "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
-      }
-    }
-  ]
-}
-
-   After verification:
-
-{
-  "plaintext": "🎵 My lungs taste the air of Time Blown past falling sands 🎵",
-  "protectedHeader": {
-    "enc": "A128GCM"
-  },
-  "unprotectedHeader": {
-    "alg": "HPKE-0",
-    "enc": "dir",
-    "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-    "ek": "BI41YDnhTTI6jSd7T62rLwzCCt_tBqN5LFooiZ7eXJsh01O0-h-BQ6JToKX9UXDw_3ylbXTiYWmPXl2fNmr4BeQ"
-  },
-  "additionalAuthenticatedData": "paul atreides"
-}
 
 7.  Mapping HPKE Keys to JWK for JOSE
 
@@ -584,9 +519,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.2.  HPKE-1
 
@@ -602,9 +537,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.3.  HPKE-2
 
@@ -620,9 +555,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.4.  HPKE-3
 
@@ -638,9 +573,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.5.  HPKE-4
 
@@ -650,15 +585,15 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
       DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the
       ChaCha20Poly1305 AEAD.
 
-   *  Algorithm Usage Location(s): "alg, enc"
+   *  Algorithm Usage Location(s): "alg"
 
    *  JOSE Implementation Requirements: Optional
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.6.  HPKE-5
 
@@ -674,9 +609,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.2.7.  HPKE-6
 
@@ -692,9 +627,26 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): TODO
+   *  Algorithm Analysis Documents(s): [RFC9180]
+
+9.2.8.  int
+
+   *  Algorithm Name: "int"
+
+   *  Algorithm Description: Indicates that Integrated Encryption is
+      being used
+
+   *  Algorithm Usage Location(s): "enc"
+
+   *  JOSE Implementation Requirements: Required
+
+   *  Change Controller: IETF
+
+   *  Specification Document(s): Section 4 of this specification
+
+   *  Algorithm Analysis Documents(s): [RFC9180]
 
 9.3.  JSON Web Signature and Encryption Header Parameters
 
@@ -712,7 +664,9 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX ### psk_id
+   *  Specification Document(s): Section 4.2 of this specification
+
+9.3.2.  psk_id
 
    *  Header Parameter Name: "psk_id"
 
@@ -723,7 +677,7 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): RFCXXXX
+   *  Specification Document(s): Section 4 of this specification
 
 10.  References
 
@@ -774,9 +728,17 @@ eyJhbGciOiJIUEtFLVAyNTYtU0hBMjU2LUExMjhHQ00iLCJlbmMiOiJkaXIiLCJraWQiOiJ1cm46aWV0
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-11, 2 March 2025,
+              Internet-Draft, draft-ietf-cose-hpke-13, 4 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-11>.
+              hpke-13>.
+
+   [NIST.SP.800-56Ar3]
+              National Institute of Standards and Technology,
+              "Recommendation for Pair-Wise Key-Establishment Schemes
+              Using Discrete Logarithm Cryptography, NIST Special
+              Publication 800-56A Revision 3", April 2018,
+              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
+              NIST.SP.800-56Ar3.pdf>.
 
    [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
               and C. Wood, "Randomness Improvements for Security
@@ -788,21 +750,14 @@ Appendix A.  Keys Used in Examples
    This private key and its implied public key are used the examples:
 
    {
-     "kid": "S6AXfdU_6Yfzvu0KDDJb0sFuwnIWPk6LMTErYhPb32s",
-     "alg": "HPKE-0",
      "kty": "EC",
+     "use": "enc",
+     "alg": "HPKE-0",
+     "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
      "crv": "P-256",
-     "x": "wt36K06T4T4APWfGtioqDBXCvRN9evqkZjNydib9MaM",
-     "y": "eupgedeE_HAmVJ62kpSt2_EOoXb6e0y2YF1JPlfr1-I",
-     "d": "O3KznUTAxw-ov-9ZokwNaJ289RgP9VxQc7GJthaXzWY"
-   }
-
-   This pre-shared key is used in the examples:
-
-   {
-     "kty": "oct",
-     "kid": "our-pre-shared-key-id",
-     "k": "anVnZW11anVnZW11Z29rb3Vub3N1cmlraXJla2FpamE"
+     "x": "gixQJ0qg4Ag-6HSMaIEDL_zbDhoXavMyKlmdn__AQVE",
+     "y": "ZxTgRLWaKONCL_GbZKLNPsW9EW6nBsN4AwQGEFAFFbM",
+     "d": "g2DXtKapi2oN2zL_RCWX8D4bWURHCKN2-ZNGC05ZaR8"
    }
 
 Acknowledgments
@@ -814,6 +769,19 @@ Acknowledgments
 Document History
 
    -08
+
+   *  Use "enc":"int" for integrated encryption.
+
+   *  Described reasons for excluding authenticated HPKE.
+
+   *  Stated that mutually known private information MAY be used as the
+      HPKE info value.
+
+   -07
+
+   *  Clarifications
+
+   -06
 
    *  Remove auth mode and auth_kid from the specification.
 
