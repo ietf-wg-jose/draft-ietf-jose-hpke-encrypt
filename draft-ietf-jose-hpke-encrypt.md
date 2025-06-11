@@ -53,8 +53,8 @@ author:
  -
     ins: O. Steele
     name: Orie Steele
-    organization: Transmute
-    email: orie@transmute.industries
+    organization: Tradeverifyd
+    email: orie@or13.io
     country: United States
 
  -
