@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-08T01:48:48.689128+00:00",
+  "timestamp": "2025-06-12T01:41:18.261962+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -814,9 +814,17 @@
       "labels": [],
       "body": "The encoded examples in [5.1. ](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#section-5.1)[Compact Example](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#name-compact-example) and [5.2. ](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#section-5.2)[JSON Example](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#name-json-example) need to be updated to match the specification.\n\nThey both encode:\n> \"alg\": \"HPKE-P256-SHA256-A128GCM\",\n> \"enc\": \"dir\",\n",
       "createdAt": "2025-06-06T16:16:05Z",
-      "updatedAt": "2025-06-06T16:16:05Z",
+      "updatedAt": "2025-06-11T16:51:31Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed by #45",
+          "createdAt": "2025-06-11T16:51:31Z",
+          "updatedAt": "2025-06-11T16:51:31Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -6432,6 +6440,46 @@
           "body": "",
           "createdAt": "2025-04-25T15:39:33Z",
           "updatedAt": "2025-04-25T15:39:33Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOMMuuSM6aERa4",
+      "title": "Update examples",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/45",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR removes some example, and provides simpler ones",
+      "createdAt": "2025-06-11T16:26:50Z",
+      "updatedAt": "2025-06-11T16:34:36Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "cd744339ad3f8951058df60957dda92b3af92ed6",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "update-examples",
+      "headRefOid": "c32db37a611cb9d5808a54c9d4bfc0dcdc778a53",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6t7GiU",
+          "commit": {
+            "abbreviatedOid": "c32db37"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for giving us correct examples.",
+          "createdAt": "2025-06-11T16:34:36Z",
+          "updatedAt": "2025-06-11T16:34:36Z",
           "comments": []
         }
       ]
