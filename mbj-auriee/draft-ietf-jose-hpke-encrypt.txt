@@ -761,8 +761,9 @@ Appendix A.  Keys Used in Examples
 Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
-   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki, and
-   Filip Skokan for their contributions to the specification.
+   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki,
+   Filip Skokan, and Sebastian Stenzel for their contributions to the
+   specification.
 
 Document History
 
