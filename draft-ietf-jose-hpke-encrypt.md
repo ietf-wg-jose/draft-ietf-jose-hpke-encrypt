@@ -74,6 +74,7 @@ normative:
 
 informative:
   RFC8937:
+  I-D.ietf-cose-dilithium:
 
   HPKE-IANA:
      author:
@@ -99,9 +100,9 @@ This specification defines Hybrid Public Key Encryption (HPKE) for use with
 JSON Object Signing and Encryption (JOSE). HPKE offers a variant of
 public key encryption of arbitrary-sized plaintexts for a recipient public key.
 
-HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM),
-key derivation function (KDF), and authenticated encryption with additional data
-(AEAD) function.
+HPKE is a general encryption framework utilizing
+an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
+and an authenticated encryption with additional data (AEAD) algorithm.
 
 This document defines the use of the HPKE with JOSE.
 
@@ -164,13 +165,13 @@ For example Compact JWE Serialization does not support the following:
 
 HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.
 
-Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in { Section 5 of RFC9180 }.
+Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{Section 5 of RFC9180}}.
 
 ## Auxiliary Authenticated Application Information
 
-HPKE has two places at which applications can specify auxiliary authenticated information as described in { Section 8.1 of RFC9180 }.
+HPKE has two places at which applications can specify auxiliary authenticated information as described in {{Section 8.1 of RFC9180}}.
 
-HPKE algorithms are not required to process "apu" and "apv" as described in Section 4.6.1 of {{RFC7518}}, despite appearing to be similar to key agreement algorithms (such as "ECDH-ES").
+Despite similarities to ECDH-ES, HPKE does not use the `apu` and `apv` header parameters, which are described in Section 4.6.1 of {{RFC7518}}.
 
 The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 
@@ -204,41 +205,14 @@ In HPKE JWE Integrated Encryption:
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
 Otherwise, the plaintext is the raw message.
 
-
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
 base64url encoded encapsulated key.
 
-## Compact Example
-
-A Compact JWE:
+Below is an example of a Compact JWE:
 
 ~~~
 eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 ~~~
-
-## JSON Example
-
-A JSON Encoded JWE:
-
-~~~
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
-~~~
-
 
 # Key Encryption
 
@@ -263,6 +237,29 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
 
+## JSON Example
+
+Below is an example of a JWE using the JSON Serialization:
+
+~~~
+{
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
+}
+~~~
+
 # Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
 JWKs can be used to represent JOSE-HPKE private or public keys. For the algorithms defined in this document, the valid combinations of the
@@ -273,8 +270,8 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0 	            | EC  | P-256     |
-| HPKE-1     	        | EC  | P-384     |
+| HPKE-0              | EC  | P-256     |
+| HPKE-1              | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -282,7 +279,7 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
 
-When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
+When the "kty" field is "AKP" (Algorithm Key Pair {{I-D.ietf-cose-dilithium}}) and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
 for the KEM used by HPKE.
 
 
@@ -459,7 +456,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### int
 
 - Algorithm Name: "int"
-- Algorithm Description: Indicates that Integrated Encryption is being used
+- Algorithm Description: Indicates that Integrated Encryption is being used for HPKE
 - Algorithm Usage Location(s): "enc"
 - JOSE Implementation Requirements: Required
 - Change Controller: IETF
@@ -473,7 +470,7 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 ### ek
 
 - Header Parameter Name: "ek"
-- Header Parameter Description: An encapsulated key as defined in { Section 5.1.1 of RFC9180 }
+- Header Parameter Description: An encapsulated key as defined in {{Section 5.1.1 of RFC9180}}
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{encapsulated-keys}} of this specification
@@ -481,7 +478,7 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 ### psk_id
 
 - Header Parameter Name: "psk_id"
-- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }
+- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in {{Section 5.1.2 of RFC9180}}.
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{overview}} of this specification
@@ -513,6 +510,7 @@ We would like to thank
 Aritra Banerjee,
 Matt Chanda,
 Ilari Liusvaara,
+Neil Madden,
 Aaron Parecki,
 Filip Skokan,
 and
