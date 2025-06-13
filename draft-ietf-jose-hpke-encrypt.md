@@ -211,41 +211,14 @@ In HPKE JWE Integrated Encryption:
 - If protected header contains the parameter "zip" (Section 4.1.3 of {{RFC7516}}), the plaintext is the message compressed with the indicated algorithm.
 Otherwise, the plaintext is the raw message.
 
-
 When decrypting, the checks in {{RFC7516}} section 5.2, steps 1 through 5 MUST be performed. The JWE Encrypted Key in step 2 is the
 base64url encoded encapsulated key.
 
-## Compact Example
-
-A Compact JWE:
+Below is an example of a Compact JWE:
 
 ~~~
 eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 ~~~
-
-## JSON Example
-
-A JSON Encoded JWE:
-
-~~~
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
-~~~
-
 
 # Key Encryption
 
@@ -269,6 +242,27 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
+
+Below is an example of a JSON Encoded JWE:
+
+~~~
+{
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
+}
+~~~
 
 # Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
