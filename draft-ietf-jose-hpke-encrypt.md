@@ -106,9 +106,9 @@ This specification defines Hybrid Public Key Encryption (HPKE) for use with
 JSON Object Signing and Encryption (JOSE). HPKE offers a variant of
 public key encryption of arbitrary-sized plaintexts for a recipient public key.
 
-HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM),
-key derivation function (KDF), and authenticated encryption with additional data
-(AEAD) function.
+HPKE is a general framework that supports several algorithms consisting of
+an asymmetric key encapsulation mechanism (KEM), key derivation function (KDF),
+and authenticated encryption with additional data (AEAD) function.
 
 This document defines the use of the HPKE with JOSE.
 
@@ -520,6 +520,7 @@ We would like to thank
 Matt Chanda,
 Ilari Liusvaara,
 Aaron Parecki,
+Neil Madden,
 and Filip Skokan
 for their contributions to the specification.
 
