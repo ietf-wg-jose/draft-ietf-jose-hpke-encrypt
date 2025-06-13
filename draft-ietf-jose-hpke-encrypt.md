@@ -81,6 +81,7 @@ normative:
 
 informative:
   RFC8937:
+  I-D.ietf-cose-dilithium:
 
   HPKE-IANA:
      author:
@@ -289,7 +290,7 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JOSE-HPKE Ciphersuites"}
 
-When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
+When the "kty" field is "AKP" (Algorithm Key Pair {{I-D.ietf-cose-dilithium}}) and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
 for the KEM used by HPKE.
 
 
