@@ -1202,6 +1202,11 @@ key derivation function (KDF), and authenticated encryption with additional data
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-key-encryption" class="internal xref">Key Encryption</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-json-example" class="internal xref">JSON Example</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-mapping-hpke-keys-to-jwk-fo" class="internal xref">Mapping HPKE Keys to JWK for JOSE</a></p>
@@ -1533,8 +1538,13 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
       </ul>
 <p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">Below is an example of a JSON Encoded JWE:<a href="#section-6-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6-7">
+<div id="json-example">
+<section id="section-6.1">
+        <h3 id="name-json-example">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
+        </h3>
+<p id="section-6.1-1">Below is an example of a JWE using the JSON Serialization:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-2">
 <pre>
 {
   "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
@@ -1552,7 +1562,9 @@ JWE specifications for handling these parameters, and no additional processing r
     }
   ]
 }
-</pre><a href="#section-6-7" class="pilcrow">¶</a>
+</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</div>
+</section>
 </div>
 </section>
 </div>

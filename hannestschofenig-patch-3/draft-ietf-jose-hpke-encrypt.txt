@@ -85,6 +85,7 @@ Table of Contents
      4.2.  Encapsulated Keys
    5.  Integrated Encryption
    6.  Key Encryption
+     6.1.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
@@ -325,7 +326,9 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    additional processing requirements are introduced by HPKE-based key
    encryption.
 
-   Below is an example of a JSON Encoded JWE:
+6.1.  JSON Example
+
+   Below is an example of a JWE using the JSON Serialization:
 
 {
   "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
