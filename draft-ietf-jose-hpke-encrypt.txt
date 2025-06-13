@@ -205,13 +205,13 @@ Table of Contents
 
    Single recipient HPKE JWE Key Encryption with no "aad" can be
    expressed in Compact JWE Serialization, so long as the recipient and
-   sender use the same HPKE Setup process as described in { Section 5 of
-   RFC9180 }.
+   sender use the same HPKE Setup process as described in Section 5 of
+   [RFC9180].
 
 4.1.  Auxiliary Authenticated Application Information
 
    HPKE has two places at which applications can specify auxiliary
-   authenticated information as described in { Section 8.1 of RFC9180 }.
+   authenticated information as described in Section 8.1 of [RFC9180].
 
    HPKE algorithms are not required to process "apu" and "apv" as
    described in Section 4.6.1 of [RFC7518], despite appearing to be
@@ -658,8 +658,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Header Parameter Name: "ek"
 
-   *  Header Parameter Description: An encapsulated key as defined in {
-      Section 5.1.1 of RFC9180 }
+   *  Header Parameter Description: An encapsulated key as defined in
+      Section 5.1.1 of [RFC9180]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -672,7 +672,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    *  Header Parameter Name: "psk_id"
 
    *  Header Parameter Description: A key identifier (kid) for the pre-
-      shared key as defined in { Section 5.1.2 of RFC9180 }
+      shared key as defined in Section 5.1.2 of [RFC9180].
 
    *  Header Parameter Usage Location(s): JWE
 
