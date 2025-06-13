@@ -1605,7 +1605,7 @@ JWE Algorithm, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" clas
 <a href="#name-jwk-types-and-curves-for-jo" class="selfRef">JWK Types and Curves for JOSE-HPKE Ciphersuites</a>
         </figcaption></figure>
 </div>
-<p id="section-7-3">When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the public and private keys <span class="bcp14">MUST</span> be raw HPKE public and private keys (respectively)
+<p id="section-7-3">When the "kty" field is "AKP" (Algorithm Key Pair <span>[<a href="#I-D.ietf-cose-dilithium" class="cite xref">I-D.ietf-cose-dilithium</a>]</span>) and "alg" is a JOSE-HPKE algorithm, the public and private keys <span class="bcp14">MUST</span> be raw HPKE public and private keys (respectively)
 for the KEM used by HPKE.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <div id="jwk-representation-of-a-jose-hpke-key-with-hpke-ciphersuite">
 <section id="section-7.1">
@@ -2114,6 +2114,10 @@ A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.
 <dt id="HPKE-IANA">[HPKE-IANA]</dt>
         <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"Hybrid Public Key Encryption (HPKE) IANA Registry"</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.iana.org/assignments/hpke/hpke.xhtml">https://www.iana.org/assignments/hpke/hpke.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-cose-dilithium">[I-D.ietf-cose-dilithium]</dt>
+        <dd>
+<span class="refAuthor">Prorock, M.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Misoczki, R.</span>, <span class="refAuthor">Osborne, M.</span>, and <span class="refAuthor">C. Cloostermans</span>, <span class="refTitle">"ML-DSA for JOSE and COSE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-dilithium-07</span>, <time datetime="2025-06-12" class="refDate">12 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-07">https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-hpke">[I-D.ietf-cose-hpke]</dt>
         <dd>

@@ -369,7 +369,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites
 
-   When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the
+   When the "kty" field is "AKP" (Algorithm Key Pair
+   [I-D.ietf-cose-dilithium]) and "alg" is a JOSE-HPKE algorithm, the
    public and private keys MUST be raw HPKE public and private keys
    (respectively) for the KEM used by HPKE.
 
@@ -723,6 +724,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               IANA, "Hybrid Public Key Encryption (HPKE) IANA Registry",
               October 2023,
               <https://www.iana.org/assignments/hpke/hpke.xhtml>.
+
+   [I-D.ietf-cose-dilithium]
+              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
+              Cloostermans, "ML-DSA for JOSE and COSE", Work in
+              Progress, Internet-Draft, draft-ietf-cose-dilithium-07, 12
+              June 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-cose-dilithium-07>.
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
