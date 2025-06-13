@@ -513,7 +513,9 @@ We would like to thank
 Matt Chanda,
 Ilari Liusvaara,
 Aaron Parecki,
-and Filip Skokan
+Filip Skokan,
+and
+Sebastian Stenzel
 for their contributions to the specification.
 
 # Document History
