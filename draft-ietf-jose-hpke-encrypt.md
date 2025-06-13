@@ -510,6 +510,7 @@ This private key and its implied public key are used the examples:
 
 This specification leverages text from {{?I-D.ietf-cose-hpke}}.
 We would like to thank
+Aritra Banerjee,
 Matt Chanda,
 Ilari Liusvaara,
 Aaron Parecki,
@@ -524,7 +525,7 @@ for their contributions to the specification.
 -10
 
 * Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.
-* Removed non-participating editor Aritra Banerjee.
+* Moved non-participating editor Aritra Banerjee to Acknowledgments.
 
 -09
 
