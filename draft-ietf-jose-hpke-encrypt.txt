@@ -637,7 +637,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    *  Algorithm Name: "int"
 
    *  Algorithm Description: Indicates that Integrated Encryption is
-      being used
+      being used for HPKE
 
    *  Algorithm Usage Location(s): "enc"
 
