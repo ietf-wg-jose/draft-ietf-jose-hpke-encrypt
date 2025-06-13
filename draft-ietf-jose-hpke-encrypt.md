@@ -177,7 +177,7 @@ Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compa
 
 HPKE has two places at which applications can specify auxiliary authenticated information as described in { Section 8.1 of RFC9180 }.
 
-HPKE algorithms are not required to process "apu" and "apv" as described in Section 4.6.1 of {{RFC7518}}, despite appearing to be similar to key agreement algorithms (such as "ECDH-ES").
+Despite appearing similar to ECDH-ES, JOSE-HPKE does not use the "apu" and "apv" headers, described in Section 4.6.1 of {{RFC7518}}.
 
 The "aad parameter" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 
