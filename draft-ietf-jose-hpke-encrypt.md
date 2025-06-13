@@ -243,7 +243,9 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in {{RFC7516}}. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.
 
-Below is an example of a JSON Encoded JWE:
+## JSON Example
+
+Below is an example of a JWE using the JSON Serialization:
 
 ~~~
 {
