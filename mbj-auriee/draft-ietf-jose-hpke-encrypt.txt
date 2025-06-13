@@ -24,9 +24,9 @@ Abstract
    variant of public key encryption of arbitrary-sized plaintexts for a
    recipient public key.
 
-   HPKE works for any combination of an asymmetric key encapsulation
-   mechanism (KEM), key derivation function (KDF), and authenticated
-   encryption with additional data (AEAD) function.
+   HPKE is a general encryption framework utilizing an asymmetric key
+   encapsulation mechanism (KEM), a key derivation function (KDF), and
+   an authenticated encryption with additional data (AEAD) algorithm.
 
    This document defines the use of the HPKE with JOSE.
 
@@ -82,9 +82,8 @@ Table of Contents
      4.1.  Auxiliary Authenticated Application Information
      4.2.  Encapsulated Keys
    5.  Integrated Encryption
-     5.1.  Compact Example
-     5.2.  JSON Example
    6.  Key Encryption
+     6.1.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
@@ -203,17 +202,16 @@ Table of Contents
 
    Single recipient HPKE JWE Key Encryption with no "aad" can be
    expressed in Compact JWE Serialization, so long as the recipient and
-   sender use the same HPKE Setup process as described in { Section 5 of
-   RFC9180 }.
+   sender use the same HPKE Setup process as described in Section 5 of
+   [RFC9180].
 
 4.1.  Auxiliary Authenticated Application Information
 
    HPKE has two places at which applications can specify auxiliary
-   authenticated information as described in { Section 8.1 of RFC9180 }.
+   authenticated information as described in Section 8.1 of [RFC9180].
 
-   HPKE algorithms are not required to process "apu" and "apv" as
-   described in Section 4.6.1 of [RFC7518], despite appearing to be
-   similar to key agreement algorithms (such as "ECDH-ES").
+   Despite similarities to ECDH-ES, HPKE does not use the apu and apv
+   header parameters, which are described in Section 4.6.1 of [RFC7518].
 
    The "aad parameter" for Open() and Seal() MUST be used with both HPKE
    JWE Integrated Encryption and HPKE JWE Key Encryption.
@@ -279,32 +277,9 @@ Table of Contents
    5 MUST be performed.  The JWE Encrypted Key in step 2 is the
    base64url encoded encapsulated key.
 
-5.1.  Compact Example
-
-   A Compact JWE:
+   Below is an example of a Compact JWE:
 
 eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
-
-5.2.  JSON Example
-
-   A JSON Encoded JWE:
-
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
 
 6.  Key Encryption
 
@@ -348,6 +323,27 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    additional processing requirements are introduced by HPKE-based key
    encryption.
 
+6.1.  JSON Example
+
+   Below is an example of a JWE using the JSON Serialization:
+
+{
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
+}
+
 7.  Mapping HPKE Keys to JWK for JOSE
 
    JWKs can be used to represent JOSE-HPKE private or public keys.  For
@@ -358,8 +354,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0                    | EC  | P-256     |
-   | HPKE-1                | EC  | P-384     |
+   | HPKE-0              | EC  | P-256     |
+   | HPKE-1              | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
    | HPKE-5, HPKE-6      | OKP | X448      |
@@ -367,7 +363,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites
 
-   When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the
+   When the "kty" field is "AKP" (Algorithm Key Pair
+   [I-D.ietf-cose-dilithium]) and "alg" is a JOSE-HPKE algorithm, the
    public and private keys MUST be raw HPKE public and private keys
    (respectively) for the KEM used by HPKE.
 
@@ -634,7 +631,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    *  Algorithm Name: "int"
 
    *  Algorithm Description: Indicates that Integrated Encryption is
-      being used
+      being used for HPKE
 
    *  Algorithm Usage Location(s): "enc"
 
@@ -655,8 +652,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Header Parameter Name: "ek"
 
-   *  Header Parameter Description: An encapsulated key as defined in {
-      Section 5.1.1 of RFC9180 }
+   *  Header Parameter Description: An encapsulated key as defined in
+      Section 5.1.1 of [RFC9180]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -669,7 +666,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    *  Header Parameter Name: "psk_id"
 
    *  Header Parameter Description: A key identifier (kid) for the pre-
-      shared key as defined in { Section 5.1.2 of RFC9180 }
+      shared key as defined in Section 5.1.2 of [RFC9180].
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -722,6 +719,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               October 2023,
               <https://www.iana.org/assignments/hpke/hpke.xhtml>.
 
+   [I-D.ietf-cose-dilithium]
+              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
+              Cloostermans, "ML-DSA for JOSE and COSE", Work in
+              Progress, Internet-Draft, draft-ietf-cose-dilithium-07, 12
+              June 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-cose-dilithium-07>.
+
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
@@ -762,8 +766,8 @@ Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
    would like to thank Aritra Banerjee, Matt Chanda, Ilari Liusvaara,
-   Aaron Parecki, Filip Skokan, and Sebastian Stenzel for their
-   contributions to the specification.
+   Neil Madden, Aaron Parecki, Filip Skokan, and Sebastian Stenzel for
+   their contributions to the specification.
 
 Document History
 
