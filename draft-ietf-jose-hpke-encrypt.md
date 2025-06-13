@@ -171,11 +171,11 @@ For example Compact JWE Serialization does not support the following:
 
 HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.
 
-Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{ Section 5 of RFC9180 }}.
+Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{Section 5 of RFC9180}}.
 
 ## Auxiliary Authenticated Application Information
 
-HPKE has two places at which applications can specify auxiliary authenticated information as described in {{ Section 8.1 of RFC9180 }}.
+HPKE has two places at which applications can specify auxiliary authenticated information as described in {{Section 8.1 of RFC9180}}.
 
 HPKE algorithms are not required to process "apu" and "apv" as described in Section 4.6.1 of {{RFC7518}}, despite appearing to be similar to key agreement algorithms (such as "ECDH-ES").
 
@@ -480,7 +480,7 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 ### ek
 
 - Header Parameter Name: "ek"
-- Header Parameter Description: An encapsulated key as defined in {{ Section 5.1.1 of RFC9180 }}
+- Header Parameter Description: An encapsulated key as defined in {{Section 5.1.1 of RFC9180}}
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{encapsulated-keys}} of this specification
@@ -488,7 +488,7 @@ The following entries are added to the "JSON Web Key Parameters" registry:
 ### psk_id
 
 - Header Parameter Name: "psk_id"
-- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in {{ Section 5.1.2 of RFC9180 }}.
+- Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in {{Section 5.1.2 of RFC9180}}.
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{overview}} of this specification
