@@ -44,13 +44,6 @@ author:
     email: "hannes.tschofenig@gmx.net"
 
  -
-    fullname: Aritra Banerjee
-    organization: Nokia
-    city: Munich
-    country: Germany
-    email: "aritra.banerjee@nokia.com"
-
- -
     ins: O. Steele
     name: Orie Steele
     organization: Tradeverifyd
@@ -514,15 +507,23 @@ This private key and its implied public key are used the examples:
 
 This specification leverages text from {{?I-D.ietf-cose-hpke}}.
 We would like to thank
+Aritra Banerjee,
 Matt Chanda,
 Ilari Liusvaara,
-Aaron Parecki,
 Neil Madden,
-and Filip Skokan
+Aaron Parecki,
+Filip Skokan,
+and
+Sebastian Stenzel
 for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-10
+
+* Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.
+* Moved non-participating editor Aritra Banerjee to Acknowledgments.
 
 -09
 
