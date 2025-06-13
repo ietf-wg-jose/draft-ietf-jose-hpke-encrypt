@@ -44,13 +44,6 @@ author:
     email: "hannes.tschofenig@gmx.net"
 
  -
-    fullname: Aritra Banerjee
-    organization: Nokia
-    city: Munich
-    country: Germany
-    email: "aritra.banerjee@nokia.com"
-
- -
     ins: O. Steele
     name: Orie Steele
     organization: Tradeverifyd
@@ -525,6 +518,11 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-10
+
+* Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.
+* Removed non-participating editor Aritra Banerjee.
 
 -09
 
