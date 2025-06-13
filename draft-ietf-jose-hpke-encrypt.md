@@ -526,6 +526,10 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
+-09
+
+* Corrected examples.
+
 -08
 
 * Use "enc":"int" for integrated encryption.
