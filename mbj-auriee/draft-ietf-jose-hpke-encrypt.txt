@@ -761,9 +761,9 @@ Appendix A.  Keys Used in Examples
 Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
-   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki,
-   Filip Skokan, and Sebastian Stenzel for their contributions to the
-   specification.
+   would like to thank Aritra Banerjee, Matt Chanda, Ilari Liusvaara,
+   Aaron Parecki, Filip Skokan, and Sebastian Stenzel for their
+   contributions to the specification.
 
 Document History
 
@@ -772,7 +772,7 @@ Document History
    *  Addressed WGLC review comments by Neil Madden and Sebastian
       Stenzel.
 
-   *  Removed non-participating editor Aritra Banerjee.
+   *  Moved non-participating editor Aritra Banerjee to Acknowledgments.
 
    -09
 
