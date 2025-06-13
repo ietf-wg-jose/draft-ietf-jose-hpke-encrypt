@@ -1199,17 +1199,14 @@ and an authenticated encryption with additional data (AEAD) algorithm.<a href="#
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-integrated-encryption" class="internal xref">Integrated Encryption</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-compact-example" class="internal xref">Compact Example</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-json-example" class="internal xref">JSON Example</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-key-encryption" class="internal xref">Key Encryption</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-json-example" class="internal xref">JSON Example</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-mapping-hpke-keys-to-jwk-fo" class="internal xref">Mapping HPKE Keys to JWK for JOSE</a></p>
@@ -1492,46 +1489,11 @@ Otherwise, the plaintext is the raw message.<a href="#section-5-2.12.1" class="p
       </ul>
 <p id="section-5-3">When decrypting, the checks in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> section 5.2, steps 1 through 5 <span class="bcp14">MUST</span> be performed. The JWE Encrypted Key in step 2 is the
 base64url encoded encapsulated key.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<div id="compact-example">
-<section id="section-5.1">
-        <h3 id="name-compact-example">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-compact-example" class="section-name selfRef">Compact Example</a>
-        </h3>
-<p id="section-5.1-1">A Compact JWE:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-2">
+<p id="section-5-4">Below is an example of a Compact JWE:<a href="#section-5-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5-5">
 <pre>
 eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
-</pre><a href="#section-5.1-2" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="json-example">
-<section id="section-5.2">
-        <h3 id="name-json-example">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
-        </h3>
-<p id="section-5.2-1">A JSON Encoded JWE:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-2">
-<pre>
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
-</pre><a href="#section-5.2-2" class="pilcrow">¶</a>
-</div>
-</section>
+</pre><a href="#section-5-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1576,6 +1538,34 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
       </ul>
 <p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>. Implementations should follow the existing
 JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<div id="json-example">
+<section id="section-6.1">
+        <h3 id="name-json-example">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
+        </h3>
+<p id="section-6.1-1">Below is an example of a JWE using the JSON Serialization:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-2">
+<pre>
+{
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
+}
+</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="alg-mapping">
