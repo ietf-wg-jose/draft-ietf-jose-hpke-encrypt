@@ -467,7 +467,7 @@ The following entries are added to the "JSON Web Signature and Encryption Algori
 ### int
 
 - Algorithm Name: "int"
-- Algorithm Description: Indicates that Integrated Encryption is being used
+- Algorithm Description: Indicates that Integrated Encryption is being used for HPKE
 - Algorithm Usage Location(s): "enc"
 - JOSE Implementation Requirements: Required
 - Change Controller: IETF
