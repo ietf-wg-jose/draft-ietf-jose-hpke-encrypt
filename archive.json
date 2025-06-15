@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-12T01:41:18.261962+00:00",
+  "timestamp": "2025-06-15T01:50:42.012316+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -805,7 +805,7 @@
       "id": "I_kwDOMMuuSM66R0pI",
       "title": "Examples need to be updated",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/44",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -814,8 +814,8 @@
       "labels": [],
       "body": "The encoded examples in [5.1. ](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#section-5.1)[Compact Example](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#name-compact-example) and [5.2. ](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#section-5.2)[JSON Example](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-08.html#name-json-example) need to be updated to match the specification.\n\nThey both encode:\n> \"alg\": \"HPKE-P256-SHA256-A128GCM\",\n> \"enc\": \"dir\",\n",
       "createdAt": "2025-06-06T16:16:05Z",
-      "updatedAt": "2025-06-11T16:51:31Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-13T00:01:34Z",
+      "closedAt": "2025-06-13T00:01:34Z",
       "comments": [
         {
           "author": "selfissued",
@@ -823,8 +823,31 @@
           "body": "Fixed by #45",
           "createdAt": "2025-06-11T16:51:31Z",
           "updatedAt": "2025-06-11T16:51:31Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "#45 merged",
+          "createdAt": "2025-06-13T00:01:34Z",
+          "updatedAt": "2025-06-13T00:01:34Z"
         }
       ]
+    },
+    {
+      "number": 47,
+      "id": "I_kwDOMMuuSM67Xa3-",
+      "title": "draft-ietf-jose-hpke-encrypt-09 WGLC review from Neil Madden",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/47",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/jose/FLRcVbiMPd2NIV32Vlh8avE-gk4/\n...\n\nI have reviewed the -09 version and have many comments:\n\nIn the abstract:\n\n\"HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM), key derivation function (KDF), and authenticated encryption with additional data (AEAD) function.\"\n\nI don\u2019t think this is true - there is an IANA registry of the specific combinations it works with. Even if we take it as \u201cin principle, it could\u201d I don\u2019t think that is true either - there are specific requirements on the components (eg IND-CCA2). I\u2019m not sure what the purpose is of this sentence, so I\u2019m not sure what alternative text would look like. Maybe \u201cHPKE is a general framework that supports several algorithms\u201d?\n\nThe abstract should probably also mention that only unauthenticated HPKE KEMs are supported.\n\nSection 4:\n\n\"When \"alg\" is a JOSE-HPKE algorithm\u201d - how do implementors determine if x is a JOSE-HPKE algorithm? Do they need to keep a list of these? Will they always start \u201cHPKE-\u201c?\n\nI find \u201cenc\u201d: \u201cinc\u201d to be problematic. It\u2019s not an AEAD, so violates the requirement in section 4.1.2 of RFC 7516:\n\n  \"This algorithm MUST be an AEAD algorithm with a specified key length.\u201d\n\nNeither of these requirements are satisfied by \u201cinc\u201d. \n\nOn a related note, what does {\u201calg\u201d: \u201cRSA-OAEP\u201d, \u201cenc\u201d: \u201cint\u201d} mean? If it is not allowed, then how is it prevented? Resolving these issues with the current design will need at least an update of 7516, but it really takes such a sledgehammer to the existing JWE specifications that I\u2019m not sure an update is enough.\n\nI\u2019m more and more convinced that Brian\u2019s suggestion to define a new JWHPKE would be a better solution than trying to crowbar this into JWE. (https://mailarchive.ietf.org/arch/msg/jose/ssmlqF2lUGXwqnhD8SU7l2E1Aqg/)\n\n\"If \"enc\" is an AEAD algorithm [\u2026]\u201d - all \u201cenc\u201d values are supposed to be AEADs. Maybe this should say \u201cis not \u201cinc\u201d\u201d?\n\nThere seems to be a broken reference to RFC 9180 in the last sentence of this section.\n\nSection 4.1:\n\n\"HPKE algorithms are not required to process \"apu\" and \"apv\" as described in Section 4.6.1 of [RFC7518], despite appearing to be similar to key agreement algorithms (such as \"ECDH-ES\u201d).\u201d\n\nDoes \u201care not required to\u201d here actually mean \u201ccannot\u201d? I think this sentence needs rewording to more clearly say what is meant here. Maybe something like \u201cDespite appearing similar to ECDH-ES, JOSE-HPKE does not use the \u201capu\u201d and \u201capv\u201d headers.\u201d?\n\nI find the discussion of \u201caad\u201d in this section and the previous one extremely confusing. Section 4 says that compact serialization cannot use aad, but 4.1 says:\n\n\"The \"aad parameter\" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.\u201d\n\nwhich is it?\n\nThe next sentence about terminology should be moved to section 3 and then used consistently throughout the document, as it isn\u2019t currently.\n\nSection 5:\n\n\"JWE Initialization Vector and JWE Authentication Tag MUST NOT be present\u201d\n\nThese are mandatory fields, so perhaps this means to say \u201cMUST be an empty octet sequence\u201d?\n\nHow do the encryption steps in section 5.1 of RFC 7516 relate to HPKE encryption? I think quite a lot need to be skipped or changed?\n\nFor decryption, the draft says \"When decrypting, the checks in [RFC7516] section 5.2, steps 1 through 5 MUST be performed.\u201d - what about the steps 6\u201318? All of these steps are mandatory in JWE, how can you say this is a JOSE algorithm and then drive a coach and horses through most of the processing rules?\n\nSection 5.1:\n\nThis example is not a valid JWE Compact Serialization - it\u2019s missing a \u201c.\u201d somewhere.\n\nSection 5.2:\n\nThis example appears to be of the Key Encryption mode not the Integrated mode?\n\nIt would be extremely helpful to link to Appendix A in these examples, and to also consider a step-by-step description of how the examples were generated, as I think a lot is being left to implementors to figure out on their own.\n\nSection 6:\n\nThere is no \"RSA-OAEP-384\u201d algorithm - presumably \u201cRSA-OAEP-256\u201d is intended?\n\n\"The encoding of the protected header encoding remains consistent with existing JWE formatting rules.\u201d - one too many \u201cencoding\u201ds in this sentence, I think?\n\n\"The HPKE AAD parameter MUST be set to the empty string.\u201d - now I\u2019m completely confused about the AAD handling!\n\nSection 7:\n\nWhat is \u201cAKP\u201d key type - does it need a reference?\n\nSection 7.1:\n\nI find the use of \u201cencrypt\u201d for the \u201ckey_ops\u201d to be interesting. I would have expected maybe \u201cwrapKey\u201d? I don\u2019t think HPKE public keys are ever used to directly encrypt content? The draft should maybe clarify how key_ops relate to JOSE-HPKE operations?\n\nSection 8:\n\n\"In this case JOSE constructs like JWS and JSON Web Tokens (JWTs) can be used to add authentication.\u201d \n\nJWT is not a JOSE construct but rather an application of JOSE. I suggest removing the \u201cand JSON Web Tokens (JWTs)\u201d part completely.\n\nIt seems a bit strong that the approach of the Informational RFC 8937 is a \u201cMUST\u201d here. Are we really saying that CEKs MUST be generated as a pseudorandom function over a signature signed with the *recipient\u2019s private key*??? I don\u2019t see how this is even possible, let alone a hard requirement. Did you mean to link to eg RFC 4086 here instead (as JOSE already does)? (If it\u2019s really a MUST then it also needs to be a Normative Reference).\n\nSection 8.1:\n\n\"Additionally, the same key MUST NOT be used for both key encryption and integrated encryption, as it may introduce security risks. It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.\u201d\n\nAre we sure all these risks are real? I\u2019m not really sure how using the same key for both key wrapping and integrated encryption leads to most of these things? Also, I\u2019m not really sure how you can prevent it - does this place a requirement on recipients to somehow communicate to all senders which mode to use? Should there be a new JWK field to communicate this?\n\nSections 8.2-8.6 seem like they could be replaced with a general recommendation to review RFC 8725.\n\nSection 9.2.8 - presumably the quotes are not needed around \u201cint\u201d? Can we also mention \u201cHPKE\u201d somewhere in the description?\n\nFor all of these registrations do we need a note to the RFC Editor to replace \u201cthis specification\u201d with the actual RFC when it\u2019s published?\n\nSection 9.3.1 - I\u2019m still not really clear why the existing JWE Encrypted Key is not sufficient here, but nevermind. This registration should mention that it is base64url-encoded.\n\n9.3.2 - a HPKE psk_id is an arbitrary byte string, so presumably this header is also base64url-encoded?\n\nOverall, I\u2019d say this draft still needs a lot of work to be ready for publication.\n\n\u2014 Neil",
+      "createdAt": "2025-06-13T12:50:13Z",
+      "updatedAt": "2025-06-13T12:52:28Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -6449,24 +6472,26 @@
       "id": "PR_kwDOMMuuSM6aERa4",
       "title": "Update examples",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/45",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR removes some example, and provides simpler ones",
       "createdAt": "2025-06-11T16:26:50Z",
-      "updatedAt": "2025-06-11T16:34:36Z",
+      "updatedAt": "2025-06-12T23:53:20Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "cd744339ad3f8951058df60957dda92b3af92ed6",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "update-examples",
       "headRefOid": "c32db37a611cb9d5808a54c9d4bfc0dcdc778a53",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-12T23:53:20Z",
+      "mergedAt": "2025-06-12T23:53:20Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "97da0f2dded7cdeab98931f31a8921727c9c8ad9"
+      },
       "comments": [],
       "reviews": [
         {
@@ -6480,6 +6505,494 @@
           "body": "Thanks for giving us correct examples.",
           "createdAt": "2025-06-11T16:34:36Z",
           "updatedAt": "2025-06-11T16:34:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOMMuuSM6aTVgb",
+      "title": "Add -09 history entry",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/46",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T00:20:49Z",
+      "updatedAt": "2025-06-13T00:21:36Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "97da0f2dded7cdeab98931f31a8921727c9c8ad9",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-09",
+      "headRefOid": "8ed2bc7844998fa90c32a890988d8ecab0cf175e",
+      "closedAt": "2025-06-13T00:21:36Z",
+      "mergedAt": "2025-06-13T00:21:36Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "e851ad043769499837303a8ffc43a82555c3097a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6uOd81",
+          "commit": {
+            "abbreviatedOid": "8ed2bc7"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T00:21:31Z",
+          "updatedAt": "2025-06-13T00:21:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOMMuuSM6aadTb",
+      "title": "HPKE Statement in Abstract",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/48",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T15:39:31Z",
+      "updatedAt": "2025-06-13T21:26:14Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "96d255d4ab3f52257b756aa6b01d704ad68d8686",
+      "closedAt": "2025-06-13T21:26:14Z",
+      "mergedAt": "2025-06-13T21:26:14Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "ad6fc38da1eba11c3cc19ed89075680575aa21d9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6uazkg",
+          "commit": {
+            "abbreviatedOid": "f2fb389"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-13T20:14:43Z",
+          "updatedAt": "2025-06-13T20:14:43Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nHPKE is a general encryption framework utilizing\r\nan asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),\r\nand an authenticated encryption with additional data (AEAD) algorithm.\r\n```",
+              "createdAt": "2025-06-13T20:14:43Z",
+              "updatedAt": "2025-06-13T20:14:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRhH",
+          "commit": {
+            "abbreviatedOid": "f2fb389"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:54:05Z",
+          "updatedAt": "2025-06-13T20:54:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOMMuuSM6aagbq",
+      "title": "Clarifications regarding \"apu\" and \"apv\"",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/49",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T15:43:56Z",
+      "updatedAt": "2025-06-13T21:26:36Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "54b61de72054aaa6e5e3a39e79d78f63cb6eb396",
+      "closedAt": "2025-06-13T21:26:35Z",
+      "mergedAt": "2025-06-13T21:26:35Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "6bb7f5525571e2e782426975bf4f097f5f946cc8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua0ag",
+          "commit": {
+            "abbreviatedOid": "82fe76b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-13T20:16:44Z",
+          "updatedAt": "2025-06-13T20:16:44Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nDespite similarities to ECDH-ES, HPKE does not use the `apu` and `apv` header parameters, which are described in Section 4.6.1 of {{RFC7518}}.\r\n```",
+              "createdAt": "2025-06-13T20:16:44Z",
+              "updatedAt": "2025-06-13T20:16:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRW0",
+          "commit": {
+            "abbreviatedOid": "82fe76b"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:53:38Z",
+          "updatedAt": "2025-06-13T20:53:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOMMuuSM6aakFl",
+      "title": "Moved Example",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/50",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Moving this example was suggested by @overheadhunter.",
+      "createdAt": "2025-06-13T15:50:35Z",
+      "updatedAt": "2025-06-13T21:26:52Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "9006c14feb56c87b1bf40396781dcae25e290ab7",
+      "closedAt": "2025-06-13T21:26:52Z",
+      "mergedAt": "2025-06-13T21:26:52Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "5cd89de6581a8df6dd55a59b5a85bcb5cd2501fc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua1bl",
+          "commit": {
+            "abbreviatedOid": "4e2d294"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-13T20:18:06Z",
+          "updatedAt": "2025-06-13T20:18:07Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\n## JSON Example\r\n\r\nBelow is an example of a JWE using the JSON Serialization:\r\n```",
+              "createdAt": "2025-06-13T20:18:06Z",
+              "updatedAt": "2025-06-13T20:18:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRTs",
+          "commit": {
+            "abbreviatedOid": "4e2d294"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:53:29Z",
+          "updatedAt": "2025-06-13T20:53:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOMMuuSM6aalFB",
+      "title": "Fixed Table Formatting Glitch",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/51",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T15:52:41Z",
+      "updatedAt": "2025-06-13T21:00:39Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "b50d28913344fd9a6e93af2cd6fa83e98b55ffd5",
+      "closedAt": "2025-06-13T21:00:39Z",
+      "mergedAt": "2025-06-13T21:00:39Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "113d5e90005bb80b007e937979aeb7e9305568f6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua3Rd",
+          "commit": {
+            "abbreviatedOid": "b50d289"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:22:07Z",
+          "updatedAt": "2025-06-13T20:22:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRNy",
+          "commit": {
+            "abbreviatedOid": "b50d289"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:53:14Z",
+          "updatedAt": "2025-06-13T20:53:14Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDOMMuuSM6aanQV",
+      "title": "Expanded AKP",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/52",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T15:55:32Z",
+      "updatedAt": "2025-06-13T21:01:05Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-5",
+      "headRefOid": "9a76a7495fc4d61a1a5d355788fdc32bb327ba15",
+      "closedAt": "2025-06-13T21:01:05Z",
+      "mergedAt": "2025-06-13T21:01:05Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "8ba02b6faff21c3474656043063927c91bac37de"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua4A4",
+          "commit": {
+            "abbreviatedOid": "9a76a74"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:23:07Z",
+          "updatedAt": "2025-06-13T20:23:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRJi",
+          "commit": {
+            "abbreviatedOid": "9a76a74"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:53:02Z",
+          "updatedAt": "2025-06-13T20:53:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOMMuuSM6aapmO",
+      "title": "Update to IANA registry for \"int\"",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/53",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T15:59:23Z",
+      "updatedAt": "2025-06-13T21:01:25Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-6",
+      "headRefOid": "70cf560ff3c7b7aa8f80f55ea255d5ba4b9f0ce6",
+      "closedAt": "2025-06-13T21:01:25Z",
+      "mergedAt": "2025-06-13T21:01:25Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "9a40be08fae322ef90e51aff9b9dbeafa1ccbde0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua5Hd",
+          "commit": {
+            "abbreviatedOid": "70cf560"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:24:05Z",
+          "updatedAt": "2025-06-13T20:24:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubRFn",
+          "commit": {
+            "abbreviatedOid": "70cf560"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:52:52Z",
+          "updatedAt": "2025-06-13T20:52:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDOMMuuSM6aarU-",
+      "title": "Reference-Glitches",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/54",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-13T16:02:11Z",
+      "updatedAt": "2025-06-13T21:01:44Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "e851ad043769499837303a8ffc43a82555c3097a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-7",
+      "headRefOid": "d39d33b5f2eec598471bfd36a495568df2752a10",
+      "closedAt": "2025-06-13T21:01:44Z",
+      "mergedAt": "2025-06-13T21:01:44Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "6a6c369a748e1cec957350a380a2d879f2d446d6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ua6Hd",
+          "commit": {
+            "abbreviatedOid": "d39d33b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:24:56Z",
+          "updatedAt": "2025-06-13T20:24:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6ubQ_v",
+          "commit": {
+            "abbreviatedOid": "d39d33b"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:52:40Z",
+          "updatedAt": "2025-06-13T20:52:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "id": "PR_kwDOMMuuSM6ac_yn",
+      "title": "Move non-participating editor Aritra Banerjee to Acknowledgments",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/55",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Aritra Banarjee hasn't been attending editors' calls or responding to e-mails about the spec.  He's effectively stopped participating as an editor.\r\n\r\nCc: @auriee",
+      "createdAt": "2025-06-13T20:36:39Z",
+      "updatedAt": "2025-06-13T21:35:12Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "5cd89de6581a8df6dd55a59b5a85bcb5cd2501fc",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-auriee",
+      "headRefOid": "367ed2701fd728cd074e7bc02e327ccc095e6e5c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6ubQ7k",
+          "commit": {
+            "abbreviatedOid": "a238bac"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-13T20:52:29Z",
+          "updatedAt": "2025-06-13T20:52:29Z",
           "comments": []
         }
       ]
