@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 15 December 2025                                          H-BRS
+Expires: 18 December 2025                                          H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                            13 June 2025
+                                                            16 June 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -30,19 +30,26 @@ Abstract
    encapsulation mechanism (KEM), a key derivation function (KDF), and
    an authenticated encryption with additional data (AEAD) algorithm.
 
-   This document defines the use of the HPKE with JOSE.
+   This document defines the use of the HPKE with JOSE.  The
+   specification chooses a specific subset of the HPKE features to use
+   with JOSE.
 
 About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   Status information for this document may be found at
+   The latest revision of this draft can be found at https://ietf-wg-
+   jose.github.io/draft-ietf-jose-hpke-encrypt/draft-ietf-jose-hpke-
+   encrypt.html.  Status information for this document may be found at
    https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/.
 
    Discussion of this document takes place on the jose Working Group
    mailing list (mailto:jose@ietf.org), which is archived at
    https://mailarchive.ietf.org/arch/browse/jose/.  Subscribe at
    https://www.ietf.org/mailman/listinfo/jose/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt.
 
 Status of This Memo
 
@@ -59,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 December 2025.
+   This Internet-Draft will expire on 18 December 2025.
 
 Copyright Notice
 
@@ -84,35 +91,32 @@ Table of Contents
      4.1.  Auxiliary Authenticated Application Information
      4.2.  Encapsulated Keys
    5.  Integrated Encryption
+     5.1.  Compact Example
    6.  Key Encryption
      6.1.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
      8.1.  Key Management
-     8.2.  Plaintext Compression
-     8.3.  Header Parameters
-     8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
-     8.5.  Validate Cryptographic Inputs
-     8.6.  Use Appropriate Algorithms
-     8.7.  Static Asymmetric Authentication in HPKE
-   9.  IANA Considerations
-     9.1.  Ciphersuite Registration
-     9.2.  JSON Web Signature and Encryption Algorithms
-       9.2.1.  HPKE-0
-       9.2.2.  HPKE-1
-       9.2.3.  HPKE-2
-       9.2.4.  HPKE-3
-       9.2.5.  HPKE-4
-       9.2.6.  HPKE-5
-       9.2.7.  HPKE-6
-       9.2.8.  int
-     9.3.  JSON Web Signature and Encryption Header Parameters
-       9.3.1.  ek
-       9.3.2.  psk_id
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+     8.2.  Static Asymmetric Authentication in HPKE
+     8.3.  Review JWT Best Current Practices
+   9.  Ciphersuite Registration
+   10. IANA Considerations
+     10.1.  JSON Web Signature and Encryption Algorithms
+       10.1.1.  HPKE-0
+       10.1.2.  HPKE-1
+       10.1.3.  HPKE-2
+       10.1.4.  HPKE-3
+       10.1.5.  HPKE-4
+       10.1.6.  HPKE-5
+       10.1.7.  HPKE-6
+       10.1.8.  int
+     10.2.  JSON Web Signature and Encryption Header Parameters
+       10.2.1.  ek
+       10.2.2.  psk_id
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
    Appendix A.  Keys Used in Examples
    Acknowledgments
    Document History
@@ -159,7 +163,7 @@ Table of Contents
 
 4.  Overview
 
-   This specification describes two modes of use for HPKE in JWE:
+   This specification defines two modes of use for HPKE in JWE:
 
    *  HPKE JWE Integrated Encryption, where HPKE is used to encrypt the
       plaintext.
@@ -207,20 +211,22 @@ Table of Contents
    sender use the same HPKE Setup process as described in Section 5 of
    [RFC9180].
 
+   This specification updates the "enc" definition in Section 4.1.2 of
+   [RFC7516] by allowing the "enc" value "int" when the "alg" value is a
+   JOSE-HPKE algorithm.  When "alg" is not a JOSE-HPKE algorithm and the
+   "enc" value is "int", the input MUST be rejected.
+
 4.1.  Auxiliary Authenticated Application Information
 
-   HPKE has two places at which applications can specify auxiliary
-   authenticated information as described in Section 8.1 of [RFC9180].
+   The HPKE "aad parameter" for Open() and Seal() specified in
+   Section 8.1 of [RFC9180] is used with both HPKE JWE Integrated
+   Encryption and HPKE JWE Key Encryption.  Its value is the Additional
+   Authenticated Data encryption parameter value computed in Step 14 of
+   Section 5.1 of [RFC7518] (Message Encryption).
 
-   Despite similarities to ECDH-ES, HPKE does not use the apu and apv
-   header parameters, which are described in Section 4.6.1 of [RFC7518].
-
-   The "aad parameter" for Open() and Seal() MUST be used with both HPKE
-   JWE Integrated Encryption and HPKE JWE Key Encryption.
-
-   To avoid confusion between JWE AAD and HPKE AAD, this document uses
-   the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and
-   Seal().
+   Despite similarities to ECDH-ES, this specification does not use the
+   apu and apv header parameters, which are described in Section 4.6.1
+   of [RFC7518].
 
 4.2.  Encapsulated Keys
 
@@ -251,15 +257,15 @@ Table of Contents
 
    *  There MUST be exactly one recipient.
 
-   *  The JWE Encrypted Key MUST be encapsulated key as defined in
+   *  The JWE Encrypted Key MUST be encapsulated key, as defined in
       Section 5.1.1 of [RFC9180].
 
-   *  JWE Initialization Vector and JWE Authentication Tag MUST NOT be
-      present.
+   *  The JWE Initialization Vector and JWE Authentication Tag MUST be
+      the empty octet sequence.
 
-   *  JWE AAD MAY be present.
+   *  The JWE AAD MAY be present when using the JWE JSON Serialization.
 
-   *  JWE Ciphertext is ciphertext as defined in Section 5.2 of
+   *  The JWE Ciphertext is the ciphertext defined in Section 5.2 of
       [RFC9180].
 
    *  The HPKE info parameter defaults to the empty string; mutually
@@ -267,31 +273,35 @@ Table of Contents
       mutually known private information is defined in
       [NIST.SP.800-56Ar3] as an input to the key derivation function.
 
-   *  The HPKE aad parameter MUST be set to the "JWE Additional
-      Authenticated Data encryption parameter", as defined in Step 14 of
-      Section 5.1 of [RFC7516].
+   *  The HPKE aad parameter MUST be set to the "Additional
+      Authenticated Data encryption parameter", as specified in Step 14
+      of Section 5.1 of [RFC7516].
 
-   *  If protected header contains the parameter "zip" (Section 4.1.3 of
-      [RFC7516]), the plaintext is the message compressed with the
-      indicated algorithm.  Otherwise, the plaintext is the raw message.
+   *  Then follow Steps 11-19 of Section 5.1 of [RFC7516] (Message
+      Encryption).
 
-   When decrypting, the checks in [RFC7516] section 5.2, steps 1 through
-   5 MUST be performed.  The JWE Encrypted Key in step 2 is the
-   base64url encoded encapsulated key.
+   When decrypting, the checks in Section 5.2 of [RFC7516], Steps 1
+   through 5 MUST be performed.  The JWE Encrypted Key in Step 2 is the
+   base64url-encoded encapsulated key.
 
-   Below is an example of a Compact JWE:
+5.1.  Compact Example
+
+   Below is an example of a Compact JWE using HPKE integrated
+   encryption:
 
 eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 
+   The keys used for this example are in Appendix A.
+
 6.  Key Encryption
 
-   Recipients using JOSE-HPKE can be added alongside other recpients
-   (e.g., ECDH-ES+A128KW or RSA-OAEP-384), as HPKE is used to encrypt
-   the Content Encryption Key, which is then processed as specified in
-   JWE.
+   When using the JWE JSON Serialization, recipients using JOSE-HPKE can
+   be added alongside other recpients (e.g., those using ECDH-ES+A128KW
+   or RSA-OAEP-256), since HPKE is used to encrypt the Content
+   Encryption Key, which is then processed as specified in JWE.
 
-   The encoding of the protected header encoding remains consistent with
-   existing JWE formatting rules.
+   The encoding of the protected header remains consistent with existing
+   JWE rules.
 
    In HPKE JWE Key Encryption:
 
@@ -306,8 +316,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  JOSE Header parameter "psk_id" MAY be present.
 
-   *  JOSE Header parameter "ek" MUST be present and contain base64url-
-      encoded HPKE encapsulated key.
+   *  JOSE Header parameter "ek" MUST be present and contain the
+      base64url-encoded HPKE encapsulated key.
 
    *  Recipient JWE Encrypted Key MUST be the ciphertext from HPKE
       Encryption.
@@ -319,15 +329,15 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  THE HPKE plaintext MUST be set to the CEK.
 
-   The processing of "enc", "iv", "tag", "aad", and "ciphertext" is
-   already defined in [RFC7516].  Implementations should follow the
-   existing JWE specifications for handling these parameters, and no
-   additional processing requirements are introduced by HPKE-based key
-   encryption.
+   The processing of "enc", "iv", "tag", "aad", and "ciphertext" is as
+   already defined in [RFC7516].  Implementations process these
+   parameters as defined in [RFC7516]; no additional processing
+   requirements are introduced by HPKE-based key encryption.
 
 6.1.  JSON Example
 
-   Below is an example of a JWE using the JSON Serialization:
+   Below is an example of a JWE using the JSON Serialization and HPKE
+   key encryption:
 
 {
   "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
@@ -345,6 +355,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
     }
   ]
 }
+
+   The keys used for this example are in Appendix A.
 
 7.  Mapping HPKE Keys to JWK for JOSE
 
@@ -372,8 +384,8 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
 7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
-   An example is illustrated below for representing a JOSE-HPKE public/
-   private keys.
+   The example below is a JWK represention of a JOSE-HPKE public and
+   private key:
 
    {
      "kty": "OKP",
@@ -384,6 +396,9 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
      "alg": "HPKE-3",
      "key_ops": "encrypt"
    }
+
+   It uses the "key_ops" value of "encrypt", which is approriate when
+   using integrated encryption.
 
 8.  Security Considerations
 
@@ -396,72 +411,26 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    the scope of this document.
 
    HPKE in Base mode does not offer authentication as part of the HPKE
-   KEM.  In this case JOSE constructs like JWS and JSON Web Tokens
-   (JWTs) can be used to add authentication.  HPKE also offers modes
-   that offer authentication.
+   KEM.
 
-   HPKE relies on a source of randomness to be available on the device.
-   In Key Agreement with Key Wrapping mode, CEK has to be randomly
-   generated and it MUST be ensured that the guidelines in [RFC8937] for
-   random number generations are followed.
+   HPKE relies on a source of randomness being available on the device.
+   In Key Agreement with Key Wrapping mode, the CEK has to be randomly
+   generated.  The guidance on randomness in [RFC4086] applies.
 
 8.1.  Key Management
 
-   A single KEM key MUST NOT be used with multiple algorithms.  Each key
-   and its associated algorithm suite, comprising the KEM, KDF, and
+   A single KEM key should not be used with multiple algorithms.  Each
+   key and its associated algorithm suite, comprising the KEM, KDF, and
    AEAD, should be managed independently.  This separation prevents
-   unintended interactions or vulnerabilities between suites, ensuring
-   the integrity and security guarantees of each algorithm suite are
-   preserved.  Additionally, the same key MUST NOT be used for both key
-   encryption and integrated encryption, as it may introduce security
-   risks.  It creates algorithm confusion, increases the potential for
-   key leakage, cross-suite attacks, and improper handling of the key.
+   unintended interactions or vulnerabilities between algorithms,
+   ensuring the integrity and security guarantees of each algorithm are
+   preserved.  Additionally, the same key should not be used for both
+   key encryption and integrated encryption, as it may introduce
+   security risks.  It creates algorithm confusion, increases the
+   potential for key leakage, cross-suite attacks, and improper handling
+   of the key.
 
-   A single recipient or sender key MUST NOT be used with both JOSE-HPKE
-   and other algorithms as this might enable cross-protocol attacks.
-
-8.2.  Plaintext Compression
-
-   Implementers are advised to review Section 3.6 of [RFC8725], which
-   states: Compression of data SHOULD NOT be done before encryption,
-   because such compressed data often reveals information about the
-   plaintext.
-
-8.3.  Header Parameters
-
-   Implementers are advised to review Section 3.10 of [RFC8725], which
-   comments on application processing of JWE Protected Headers.
-   Additionally, Unprotected Headers can contain similar information
-   which an attacker could leverage to mount denial of service, forgery
-   or injection attacks.
-
-8.4.  Ensure Cryptographic Keys Have Sufficient Entropy
-
-   Implementers are advised to review Section 3.5 of [RFC8725], which
-   provides comments on entropy requirements for keys.  This guidance is
-   relevant to both public and private keys used in both Key Encryption
-   and Integrated Encryption.  Additionally, this guidance is applicable
-   to content encryption keys used in Key Encryption mode.
-
-8.5.  Validate Cryptographic Inputs
-
-   Implementers are advised to review Section 3.4 of [RFC8725], which
-   provides comments on the validation of cryptographic inputs.  This
-   guidance is relevant to both public and private keys used in both Key
-   Encryption and Integrated Encryption, specifically focusing on the
-   structure of the public and private keys.  These inputs are crucial
-   for the HPKE KEM operations.
-
-8.6.  Use Appropriate Algorithms
-
-   Implementers are advised to review Section 3.2 of [RFC8725], which
-   comments on the selection of appropriate algorithms.  This is
-   guidance is relevant to both Key Encryption and Integrated
-   Encryption.  When using Key Encryption, the strength of the content
-   encryption algorithm should not be significantly different from the
-   strengh of the Key Encryption algorithms used.
-
-8.7.  Static Asymmetric Authentication in HPKE
+8.2.  Static Asymmetric Authentication in HPKE
 
    Authenticated KEMs based on static asymmetric key authentication are
    not supported in JOSE HPKE for the following reasons:
@@ -477,16 +446,18 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
       an attacker can generate ciphertexts that the recipient will
       accept as authentic, compromising message integrity.
 
-9.  IANA Considerations
+8.3.  Review JWT Best Current Practices
 
-   This document adds entries to [JOSE-IANA].
+   The guidance in [RFC8725] about encryption is also pertinent to this
+   specification.
 
-9.1.  Ciphersuite Registration
+9.  Ciphersuite Registration
 
    This specification registers a number of ciphersuites for use with
    HPKE.  A ciphersuite is a group of algorithms, often sharing
    component algorithms such as hash functions, targeting a security
-   level.  A JOSE-HPKE algorithm, is composed of the following choices:
+   level.  A JOSE-HPKE algorithm makes choices for the following HPKE
+   parameters:
 
    *  KEM Algorithm
 
@@ -494,21 +465,27 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  AEAD Algorithm
 
-   The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA
-   registry [HPKE-IANA].
+   The "KEM", "KDF", and "AEAD" values are chosen from the IANA HPKE
+   registry [IANA.HPKE].
 
-9.2.  JSON Web Signature and Encryption Algorithms
+   All JOSE-HPKE algorithm identifiers registered by this specification
+   begin with the string "HPKE-".  Future JOSE-HPKE ciphersuite names
+   registered MUST also follow this convention.
 
-   The following entries are added to the "JSON Web Signature and
-   Encryption Algorithms" registry:
+10.  IANA Considerations
 
-9.2.1.  HPKE-0
+10.1.  JSON Web Signature and Encryption Algorithms
+
+   The following entries are added to the IANA "JSON Web Signature and
+   Encryption Algorithms" registry [IANA.JOSE]:
+
+10.1.1.  HPKE-0
 
    *  Algorithm Name: HPKE-0
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-
-      128-GCM AEAD.
+      128-GCM AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -520,13 +497,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.2.  HPKE-1
+10.1.2.  HPKE-1
 
    *  Algorithm Name: HPKE-1
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-
-      256-GCM AEAD.
+      256-GCM AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -538,13 +515,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.3.  HPKE-2
+10.1.3.  HPKE-2
 
    *  Algorithm Name: HPKE-2
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-
-      256-GCM AEAD.
+      256-GCM AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -556,13 +533,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.4.  HPKE-3
+10.1.4.  HPKE-3
 
    *  Algorithm Name: HPKE-3
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-
-      128-GCM AEAD.
+      128-GCM AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -574,13 +551,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.5.  HPKE-4
+10.1.5.  HPKE-4
 
    *  Algorithm Name: HPKE-4
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the
-      ChaCha20Poly1305 AEAD.
+      ChaCha20Poly1305 AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -592,13 +569,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.6.  HPKE-5
+10.1.6.  HPKE-5
 
    *  Algorithm Name: HPKE-5
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-
-      256-GCM AEAD.
+      256-GCM AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -610,13 +587,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.7.  HPKE-6
+10.1.7.  HPKE-6
 
    *  Algorithm Name: HPKE-6
 
    *  Algorithm Description: Cipher suite for JOSE-HPKE using the
       DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the
-      ChaCha20Poly1305 AEAD.
+      ChaCha20Poly1305 AEAD
 
    *  Algorithm Usage Location(s): "alg"
 
@@ -628,12 +605,12 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.2.8.  int
+10.1.8.  int
 
-   *  Algorithm Name: "int"
+   *  Algorithm Name: int
 
-   *  Algorithm Description: Indicates that Integrated Encryption is
-      being used for HPKE
+   *  Algorithm Description: Indicates that HPKE Integrated Encryption
+      is being used
 
    *  Algorithm Usage Location(s): "enc"
 
@@ -645,17 +622,17 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Algorithm Analysis Documents(s): [RFC9180]
 
-9.3.  JSON Web Signature and Encryption Header Parameters
+10.2.  JSON Web Signature and Encryption Header Parameters
 
-   The following entries are added to the "JSON Web Key Parameters"
-   registry:
+   The following entries are added to the IANA "JSON Web Key Parameters"
+   registry [IANA.JOSE]:
 
-9.3.1.  ek
+10.2.1.  ek
 
    *  Header Parameter Name: "ek"
 
-   *  Header Parameter Description: An encapsulated key as defined in
-      Section 5.1.1 of [RFC9180]
+   *  Header Parameter Description: A base64url-encoded encapsulated
+      key, as defined in Section 5.1.1 of [RFC9180]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -663,12 +640,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Specification Document(s): Section 4.2 of this specification
 
-9.3.2.  psk_id
+10.2.2.  psk_id
 
    *  Header Parameter Name: "psk_id"
 
-   *  Header Parameter Description: A key identifier (kid) for the pre-
-      shared key as defined in Section 5.1.2 of [RFC9180].
+   *  Header Parameter Description: A base64url-encoded key identifier
+      (kid) for the pre-shared key, as defined in Section 5.1.2 of
+      [RFC9180]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -676,13 +654,13 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    *  Specification Document(s): Section 4 of this specification
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
-   [JOSE-IANA]
+   [IANA.JOSE]
               IANA, "JSON Web Signature and Encryption Algorithms",
-              n.d., <https://www.iana.org/assignments/jose/jose.xhtml>.
+              n.d., <https://www.iana.org/assignments/jose>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -714,12 +692,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-10.2.  Informative References
-
-   [HPKE-IANA]
-              IANA, "Hybrid Public Key Encryption (HPKE) IANA Registry",
-              October 2023,
-              <https://www.iana.org/assignments/hpke/hpke.xhtml>.
+11.2.  Informative References
 
    [I-D.ietf-cose-dilithium]
               Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
@@ -736,6 +709,10 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
               hpke-13>.
 
+   [IANA.HPKE]
+              IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
+              <https://www.iana.org/assignments/hpke>.
+
    [NIST.SP.800-56Ar3]
               National Institute of Standards and Technology,
               "Recommendation for Pair-Wise Key-Establishment Schemes
@@ -744,10 +721,10 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-56Ar3.pdf>.
 
-   [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
-              and C. Wood, "Randomness Improvements for Security
-              Protocols", RFC 8937, DOI 10.17487/RFC8937, October 2020,
-              <https://www.rfc-editor.org/rfc/rfc8937>.
+   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
+              "Randomness Requirements for Security", BCP 106, RFC 4086,
+              DOI 10.17487/RFC4086, June 2005,
+              <https://www.rfc-editor.org/rfc/rfc4086>.
 
 Appendix A.  Keys Used in Examples
 
@@ -767,11 +744,16 @@ Appendix A.  Keys Used in Examples
 Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
-   would like to thank Matt Chanda, Ilari Liusvaara, Aaron Parecki, Neil
-   Madden, and Filip Skokan for their contributions to the
-   specification.
+   would like to thank Matt Chanda, Ilari Liusvaara, Neil Madden, Aaron
+   Parecki, Filip Skokan, and Sebastian Stenzel for their contributions
+   to the specification.
 
 Document History
+
+   -10
+
+   *  Addressed WGLC review comments by Neil Madden and Sebastian
+      Stenzel.
 
    -09
 
