@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-15T01:50:42.012316+00:00",
+  "timestamp": "2025-06-17T01:42:32.219269+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -838,15 +838,15 @@
       "id": "I_kwDOMMuuSM67Xa3-",
       "title": "draft-ietf-jose-hpke-encrypt-09 WGLC review from Neil Madden",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/47",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/jose/FLRcVbiMPd2NIV32Vlh8avE-gk4/\n...\n\nI have reviewed the -09 version and have many comments:\n\nIn the abstract:\n\n\"HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM), key derivation function (KDF), and authenticated encryption with additional data (AEAD) function.\"\n\nI don\u2019t think this is true - there is an IANA registry of the specific combinations it works with. Even if we take it as \u201cin principle, it could\u201d I don\u2019t think that is true either - there are specific requirements on the components (eg IND-CCA2). I\u2019m not sure what the purpose is of this sentence, so I\u2019m not sure what alternative text would look like. Maybe \u201cHPKE is a general framework that supports several algorithms\u201d?\n\nThe abstract should probably also mention that only unauthenticated HPKE KEMs are supported.\n\nSection 4:\n\n\"When \"alg\" is a JOSE-HPKE algorithm\u201d - how do implementors determine if x is a JOSE-HPKE algorithm? Do they need to keep a list of these? Will they always start \u201cHPKE-\u201c?\n\nI find \u201cenc\u201d: \u201cinc\u201d to be problematic. It\u2019s not an AEAD, so violates the requirement in section 4.1.2 of RFC 7516:\n\n  \"This algorithm MUST be an AEAD algorithm with a specified key length.\u201d\n\nNeither of these requirements are satisfied by \u201cinc\u201d. \n\nOn a related note, what does {\u201calg\u201d: \u201cRSA-OAEP\u201d, \u201cenc\u201d: \u201cint\u201d} mean? If it is not allowed, then how is it prevented? Resolving these issues with the current design will need at least an update of 7516, but it really takes such a sledgehammer to the existing JWE specifications that I\u2019m not sure an update is enough.\n\nI\u2019m more and more convinced that Brian\u2019s suggestion to define a new JWHPKE would be a better solution than trying to crowbar this into JWE. (https://mailarchive.ietf.org/arch/msg/jose/ssmlqF2lUGXwqnhD8SU7l2E1Aqg/)\n\n\"If \"enc\" is an AEAD algorithm [\u2026]\u201d - all \u201cenc\u201d values are supposed to be AEADs. Maybe this should say \u201cis not \u201cinc\u201d\u201d?\n\nThere seems to be a broken reference to RFC 9180 in the last sentence of this section.\n\nSection 4.1:\n\n\"HPKE algorithms are not required to process \"apu\" and \"apv\" as described in Section 4.6.1 of [RFC7518], despite appearing to be similar to key agreement algorithms (such as \"ECDH-ES\u201d).\u201d\n\nDoes \u201care not required to\u201d here actually mean \u201ccannot\u201d? I think this sentence needs rewording to more clearly say what is meant here. Maybe something like \u201cDespite appearing similar to ECDH-ES, JOSE-HPKE does not use the \u201capu\u201d and \u201capv\u201d headers.\u201d?\n\nI find the discussion of \u201caad\u201d in this section and the previous one extremely confusing. Section 4 says that compact serialization cannot use aad, but 4.1 says:\n\n\"The \"aad parameter\" for Open() and Seal() MUST be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.\u201d\n\nwhich is it?\n\nThe next sentence about terminology should be moved to section 3 and then used consistently throughout the document, as it isn\u2019t currently.\n\nSection 5:\n\n\"JWE Initialization Vector and JWE Authentication Tag MUST NOT be present\u201d\n\nThese are mandatory fields, so perhaps this means to say \u201cMUST be an empty octet sequence\u201d?\n\nHow do the encryption steps in section 5.1 of RFC 7516 relate to HPKE encryption? I think quite a lot need to be skipped or changed?\n\nFor decryption, the draft says \"When decrypting, the checks in [RFC7516] section 5.2, steps 1 through 5 MUST be performed.\u201d - what about the steps 6\u201318? All of these steps are mandatory in JWE, how can you say this is a JOSE algorithm and then drive a coach and horses through most of the processing rules?\n\nSection 5.1:\n\nThis example is not a valid JWE Compact Serialization - it\u2019s missing a \u201c.\u201d somewhere.\n\nSection 5.2:\n\nThis example appears to be of the Key Encryption mode not the Integrated mode?\n\nIt would be extremely helpful to link to Appendix A in these examples, and to also consider a step-by-step description of how the examples were generated, as I think a lot is being left to implementors to figure out on their own.\n\nSection 6:\n\nThere is no \"RSA-OAEP-384\u201d algorithm - presumably \u201cRSA-OAEP-256\u201d is intended?\n\n\"The encoding of the protected header encoding remains consistent with existing JWE formatting rules.\u201d - one too many \u201cencoding\u201ds in this sentence, I think?\n\n\"The HPKE AAD parameter MUST be set to the empty string.\u201d - now I\u2019m completely confused about the AAD handling!\n\nSection 7:\n\nWhat is \u201cAKP\u201d key type - does it need a reference?\n\nSection 7.1:\n\nI find the use of \u201cencrypt\u201d for the \u201ckey_ops\u201d to be interesting. I would have expected maybe \u201cwrapKey\u201d? I don\u2019t think HPKE public keys are ever used to directly encrypt content? The draft should maybe clarify how key_ops relate to JOSE-HPKE operations?\n\nSection 8:\n\n\"In this case JOSE constructs like JWS and JSON Web Tokens (JWTs) can be used to add authentication.\u201d \n\nJWT is not a JOSE construct but rather an application of JOSE. I suggest removing the \u201cand JSON Web Tokens (JWTs)\u201d part completely.\n\nIt seems a bit strong that the approach of the Informational RFC 8937 is a \u201cMUST\u201d here. Are we really saying that CEKs MUST be generated as a pseudorandom function over a signature signed with the *recipient\u2019s private key*??? I don\u2019t see how this is even possible, let alone a hard requirement. Did you mean to link to eg RFC 4086 here instead (as JOSE already does)? (If it\u2019s really a MUST then it also needs to be a Normative Reference).\n\nSection 8.1:\n\n\"Additionally, the same key MUST NOT be used for both key encryption and integrated encryption, as it may introduce security risks. It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.\u201d\n\nAre we sure all these risks are real? I\u2019m not really sure how using the same key for both key wrapping and integrated encryption leads to most of these things? Also, I\u2019m not really sure how you can prevent it - does this place a requirement on recipients to somehow communicate to all senders which mode to use? Should there be a new JWK field to communicate this?\n\nSections 8.2-8.6 seem like they could be replaced with a general recommendation to review RFC 8725.\n\nSection 9.2.8 - presumably the quotes are not needed around \u201cint\u201d? Can we also mention \u201cHPKE\u201d somewhere in the description?\n\nFor all of these registrations do we need a note to the RFC Editor to replace \u201cthis specification\u201d with the actual RFC when it\u2019s published?\n\nSection 9.3.1 - I\u2019m still not really clear why the existing JWE Encrypted Key is not sufficient here, but nevermind. This registration should mention that it is base64url-encoded.\n\n9.3.2 - a HPKE psk_id is an arbitrary byte string, so presumably this header is also base64url-encoded?\n\nOverall, I\u2019d say this draft still needs a lot of work to be ready for publication.\n\n\u2014 Neil",
       "createdAt": "2025-06-13T12:50:13Z",
-      "updatedAt": "2025-06-13T12:52:28Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-16T07:46:19Z",
+      "closedAt": "2025-06-16T07:46:19Z",
       "comments": []
     }
   ],
@@ -6962,21 +6962,21 @@
       "id": "PR_kwDOMMuuSM6ac_yn",
       "title": "Move non-participating editor Aritra Banerjee to Acknowledgments",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/55",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Aritra Banarjee hasn't been attending editors' calls or responding to e-mails about the spec.  He's effectively stopped participating as an editor.\r\n\r\nCc: @auriee",
       "createdAt": "2025-06-13T20:36:39Z",
-      "updatedAt": "2025-06-13T21:35:12Z",
+      "updatedAt": "2025-06-16T18:37:17Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "5cd89de6581a8df6dd55a59b5a85bcb5cd2501fc",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-auriee",
       "headRefOid": "367ed2701fd728cd074e7bc02e327ccc095e6e5c",
-      "closedAt": null,
+      "closedAt": "2025-06-16T18:37:17Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -6993,6 +6993,74 @@
           "body": "",
           "createdAt": "2025-06-13T20:52:29Z",
           "updatedAt": "2025-06-13T20:52:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "PR_kwDOMMuuSM6aoOLs",
+      "title": "Address WGLC review comments by Neil Madden",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/56",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #47 ",
+      "createdAt": "2025-06-16T02:03:11Z",
+      "updatedAt": "2025-06-16T07:46:18Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "5cd89de6581a8df6dd55a59b5a85bcb5cd2501fc",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-madden",
+      "headRefOid": "29c5039e2cfbc4f2f76b2f1b2f8f35690a02fa4e",
+      "closedAt": "2025-06-16T07:46:18Z",
+      "mergedAt": "2025-06-16T07:46:18Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "1ac57ba8982beb4003e0b749fd9389b251e3f81b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6uq8YU",
+          "commit": {
+            "abbreviatedOid": "29c5039"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-16T02:34:30Z",
+          "updatedAt": "2025-06-16T02:34:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6uswWE",
+          "commit": {
+            "abbreviatedOid": "29c5039"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-16T07:43:01Z",
+          "updatedAt": "2025-06-16T07:43:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6usx6Z",
+          "commit": {
+            "abbreviatedOid": "29c5039"
+          },
+          "author": "auriee",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-16T07:45:21Z",
+          "updatedAt": "2025-06-16T07:45:21Z",
           "comments": []
         }
       ]
