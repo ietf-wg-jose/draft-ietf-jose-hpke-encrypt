@@ -111,7 +111,7 @@ HPKE is a general encryption framework utilizing
 an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
 and an authenticated encryption with additional data (AEAD) algorithm.
 
-This document defines the use of the HPKE with JOSE.
+This document defines the use of HPKE with JOSE.
 The specification chooses a specific subset of the HPKE features to use with JOSE.
 
 
@@ -153,7 +153,7 @@ This specification defines two modes of use for HPKE in JWE:
 When "alg" is a JOSE-HPKE algorithm:
 
   * If "enc" is "int", HPKE JWE Integrated Encryption is used.
-  * If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.
+  * If "enc" is an AEAD algorithm, the recipient Key Management mode is Key Encryption.
 
 The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
 
@@ -237,7 +237,7 @@ The keys used for this example are in {{keys-used}}.
 # Key Encryption
 
 When using the JWE JSON Serialization,
-recipients using JOSE-HPKE can be added alongside other recpients
+recipients using JOSE-HPKE can be added alongside other recipients
 (e.g., those using `ECDH-ES+A128KW` or `RSA-OAEP-256`),
 since HPKE is used to encrypt the Content Encryption Key,
 which is then processed as specified in JWE.
@@ -311,7 +311,7 @@ for the KEM used by HPKE.
 
 ## JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
-The example below is a JWK represention of a JOSE-HPKE public and private key:
+The example below is a JWK representation of a JOSE-HPKE public and private key:
 
 ~~~
 {
@@ -326,7 +326,7 @@ The example below is a JWK represention of a JOSE-HPKE public and private key:
 ~~~
 
 It uses the "key_ops" value of "encrypt",
-which is approriate when using integrated encryption.
+which is appropriate when using integrated encryption.
 
 # Security Considerations
 
@@ -551,7 +551,7 @@ for their contributions to the specification.
 * Removed incorrect text about HPKE algorithm names.
 * Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.
 * Fixed #19: Binding the Application Context.
-* Fixed #18: Use of apu and apv in Recipeint context.
+* Fixed #18: Use of apu and apv in Recipient context.
 * Added new Section 7.1 (Authentication using an Asymmetric Key).
 * Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.
 * Updated HPKE Setup info parameter to be empty.
