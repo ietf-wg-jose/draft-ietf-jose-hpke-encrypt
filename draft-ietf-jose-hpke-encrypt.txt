@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 18 December 2025                                          H-BRS
+Expires: 22 December 2025                                          H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                            16 June 2025
+                                                            20 June 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -30,9 +30,8 @@ Abstract
    encapsulation mechanism (KEM), a key derivation function (KDF), and
    an authenticated encryption with additional data (AEAD) algorithm.
 
-   This document defines the use of the HPKE with JOSE.  The
-   specification chooses a specific subset of the HPKE features to use
-   with JOSE.
+   This document defines the use of HPKE with JOSE.  The specification
+   chooses a specific subset of the HPKE features to use with JOSE.
 
 About This Document
 
@@ -66,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 December 2025.
+   This Internet-Draft will expire on 22 December 2025.
 
 Copyright Notice
 
@@ -176,8 +175,8 @@ Table of Contents
 
    *  If "enc" is "int", HPKE JWE Integrated Encryption is used.
 
-   *  If "enc" is an AEAD algorithm, the recipient Key Managment mode is
-      Key Encryption.
+   *  If "enc" is an AEAD algorithm, the recipient Key Management mode
+      is Key Encryption.
 
    The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm
    used.
@@ -296,7 +295,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 6.  Key Encryption
 
    When using the JWE JSON Serialization, recipients using JOSE-HPKE can
-   be added alongside other recpients (e.g., those using ECDH-ES+A128KW
+   be added alongside other recipients (e.g., those using ECDH-ES+A128KW
    or RSA-OAEP-256), since HPKE is used to encrypt the Content
    Encryption Key, which is then processed as specified in JWE.
 
@@ -384,7 +383,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
 7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
-   The example below is a JWK represention of a JOSE-HPKE public and
+   The example below is a JWK representation of a JOSE-HPKE public and
    private key:
 
    {
@@ -397,7 +396,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
      "key_ops": "encrypt"
    }
 
-   It uses the "key_ops" value of "encrypt", which is approriate when
+   It uses the "key_ops" value of "encrypt", which is appropriate when
    using integrated encryption.
 
 8.  Security Considerations
@@ -787,7 +786,7 @@ Document History
 
    *  Fixed #19: Binding the Application Context.
 
-   *  Fixed #18: Use of apu and apv in Recipeint context.
+   *  Fixed #18: Use of apu and apv in Recipient context.
 
    *  Added new Section 7.1 (Authentication using an Asymmetric Key).
 
