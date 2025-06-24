@@ -109,7 +109,7 @@ public key encryption of arbitrary-sized plaintexts for a recipient public key.
 
 HPKE is a general encryption framework utilizing
 an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
-and an authenticated encryption with additional data (AEAD) algorithm.
+and an Authenticated Encryption with Associated data (AEAD) algorithm.
 
 This document defines the use of HPKE with JOSE.
 The specification chooses a specific subset of the HPKE features to use with JOSE.
