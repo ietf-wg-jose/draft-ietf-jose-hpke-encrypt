@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-22T01:49:55.837533+00:00",
+  "timestamp": "2025-06-26T01:42:08.634744+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -7103,6 +7103,46 @@
           "body": "",
           "createdAt": "2025-06-20T19:36:33Z",
           "updatedAt": "2025-06-20T19:36:33Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "id": "PR_kwDOMMuuSM6bzmAf",
+      "title": "AEAD - Authenticated Encryption with Associated Data",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/58",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Just a small fix.",
+      "createdAt": "2025-06-24T07:55:06Z",
+      "updatedAt": "2025-06-24T08:08:30Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "2f8897d48b1b2e592c36f8553fc16285deb88131",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "ec824b1d566355d8039e358a83d21f1e819d9974",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM6v_Xb0",
+          "commit": {
+            "abbreviatedOid": "ec824b1"
+          },
+          "author": "auriee",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-24T08:08:30Z",
+          "updatedAt": "2025-06-24T08:08:30Z",
           "comments": []
         }
       ]
