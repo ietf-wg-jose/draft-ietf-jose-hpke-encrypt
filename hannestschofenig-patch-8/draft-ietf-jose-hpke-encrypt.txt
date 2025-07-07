@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 26 December 2025                                          H-BRS
+Expires: 8 January 2026                                            H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                            24 June 2025
+                                                             7 July 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -28,7 +28,7 @@ Abstract
 
    HPKE is a general encryption framework utilizing an asymmetric key
    encapsulation mechanism (KEM), a key derivation function (KDF), and
-   an Authenticated Encryption with Associated data (AEAD) algorithm.
+   an Authenticated Encryption with Associated Data (AEAD) algorithm.
 
    This document defines the use of HPKE with JOSE.  The specification
    chooses a specific subset of the HPKE features to use with JOSE.
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 December 2025.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -694,19 +694,19 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 11.2.  Informative References
 
    [I-D.ietf-cose-dilithium]
-              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
-              Cloostermans, "ML-DSA for JOSE and COSE", Work in
-              Progress, Internet-Draft, draft-ietf-cose-dilithium-07, 12
-              June 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-cose-dilithium-07>.
+              Prorock, M. and O. Steele, "ML-DSA for JOSE and COSE",
+              Work in Progress, Internet-Draft, draft-ietf-cose-
+              dilithium-08, 7 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              dilithium-08>.
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-13, 4 June 2025,
+              Internet-Draft, draft-ietf-cose-hpke-14, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-13>.
+              hpke-14>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
