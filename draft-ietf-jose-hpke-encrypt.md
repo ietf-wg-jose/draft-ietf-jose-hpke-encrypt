@@ -229,7 +229,7 @@ base64url-encoded encapsulated key.
 Below is an example of a Compact JWE using HPKE integrated encryption:
 
 ~~~
-eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
+{::include-fold examples/compact_example.txt}
 ~~~
 
 The keys used for this example are in {{keys-used}}.
@@ -266,22 +266,7 @@ no additional processing requirements are introduced by HPKE-based key encryptio
 Below is an example of a JWE using the JSON Serialization and HPKE key encryption:
 
 ~~~
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
+{::include-fold examples/json_example.txt}
 ~~~
 
 The keys used for this example are in {{keys-used}}.
@@ -522,6 +507,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-11
+
+* Fix too long lines
 
 -10
 
