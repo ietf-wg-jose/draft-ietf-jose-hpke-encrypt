@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-26T01:42:08.634744+00:00",
+  "timestamp": "2025-07-08T01:43:51.681343+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -7112,24 +7112,26 @@
       "id": "PR_kwDOMMuuSM6bzmAf",
       "title": "AEAD - Authenticated Encryption with Associated Data",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/58",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Just a small fix.",
       "createdAt": "2025-06-24T07:55:06Z",
-      "updatedAt": "2025-06-24T08:08:30Z",
+      "updatedAt": "2025-07-07T19:43:40Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "2f8897d48b1b2e592c36f8553fc16285deb88131",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "hannestschofenig-patch-8",
-      "headRefOid": "ec824b1d566355d8039e358a83d21f1e819d9974",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "67ef5bb58d79570ba955d7c3bd367752375e995d",
+      "closedAt": "2025-07-07T19:43:37Z",
+      "mergedAt": "2025-07-07T19:43:37Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "b5d031b233e403e8318121e474e80041e7126b32"
+      },
       "comments": [],
       "reviews": [
         {
@@ -7144,6 +7146,26 @@
           "createdAt": "2025-06-24T08:08:30Z",
           "updatedAt": "2025-06-24T08:08:30Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM6yhWAi",
+          "commit": {
+            "abbreviatedOid": "ec824b1"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-07T19:42:44Z",
+          "updatedAt": "2025-07-07T19:42:45Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nand an Authenticated Encryption with Associated Data (AEAD) algorithm.\r\n```",
+              "createdAt": "2025-07-07T19:42:45Z",
+              "updatedAt": "2025-07-07T19:42:45Z"
+            }
+          ]
         }
       ]
     }
