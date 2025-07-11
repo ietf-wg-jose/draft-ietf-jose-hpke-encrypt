@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 8 January 2026                                            H-BRS
+Expires: 12 January 2026                                           H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                             7 July 2025
+                                                            11 July 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 12 January 2026.
 
 Copyright Notice
 
@@ -288,7 +288,13 @@ Table of Contents
    Below is an example of a Compact JWE using HPKE integrated
    encryption:
 
-eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9r\
+   SkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-\
+   UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-\
+   1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-\
+                                       llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 
    The keys used for this example are in Appendix A.
 
@@ -338,22 +344,25 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
    Below is an example of a JWE using the JSON Serialization and HPKE
    key encryption:
 
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+     "ciphertext": "9AxOd65ROJY1cQ",
+     "iv": "2u3NRi3CSr-x7Wuj",
+     "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+     "recipients": [
+       {
+         "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+         "header": {
+           "alg": "HPKE-0",
+           "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+           "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-\
+                ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+         }
+       }
+     ]
+   }
 
    The keys used for this example are in Appendix A.
 
@@ -704,9 +713,9 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-14, 7 July 2025,
+              Internet-Draft, draft-ietf-cose-hpke-15, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-14>.
+              hpke-15>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
@@ -748,6 +757,10 @@ Acknowledgments
    to the specification.
 
 Document History
+
+   -11
+
+   *  Fix too long lines
 
    -10
 
