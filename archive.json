@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-08T01:43:51.681343+00:00",
+  "timestamp": "2025-07-13T01:55:23.786200+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -847,6 +847,22 @@
       "createdAt": "2025-06-13T12:50:13Z",
       "updatedAt": "2025-06-16T07:46:19Z",
       "closedAt": "2025-06-16T07:46:19Z",
+      "comments": []
+    },
+    {
+      "number": 59,
+      "id": "I_kwDOMMuuSM7AIA7l",
+      "title": "Update Clause to Draft",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add an update clause to the boilerplate of the draft.",
+      "createdAt": "2025-07-11T15:31:40Z",
+      "updatedAt": "2025-07-11T15:31:40Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -7168,6 +7184,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDOMMuuSM6ehQ_u",
+      "title": "Update Clause",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/60",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-11T15:34:09Z",
+      "updatedAt": "2025-07-11T15:34:09Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "6cc50184391f6580db9c3815d8259f14671f2998",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "a472df4151fcf936756009e11035918c65821b92",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
