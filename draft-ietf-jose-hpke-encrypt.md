@@ -253,15 +253,33 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
-- The HPKE AAD parameter MUST be set to the empty string.
+- The HPKE info parameter contains the encoding of the Recipient_structure, which is described in {{recipient_structure}}.
+- The HPKE AAD parameter defaults to the empty string; externally provided information MAY be used instead.
 - THE HPKE plaintext MUST be set to the CEK.
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is as already defined in {{RFC7516}}.
 Implementations process these parameters as defined in {{RFC7516}};
 no additional processing requirements are introduced by HPKE-based key encryption.
 
-## JSON Example
+## Recipient_structure {#recipient_structure}
+
+The JSON object has the following members:
+
+- context: This member MUST contain the constant string value "JOSE HPKE Recipient".
+
+- next_layer_alg: This member identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the next lower JOSE layer.
+
+- recipient_protected_header: This member contains the protected header parameters from the recipient structure.
+
+- recipient_extra_info: This member contains additional context information that the application includes in the key derivation via the HPKE info parameter. If no additional context is provided, this value MUST be the empty string ("").
+
+Below is an example of a Recipient_structure where no additional context information is provided by the application based on the example shown in {{json-example}}.
+
+~~~
+{::include-fold examples/recipient_structure_example.txt}
+~~~
+
+## JSON Example {#json-example}
 
 Below is an example of a JWE using the JSON Serialization and HPKE key encryption:
 
@@ -507,6 +525,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-12
+
+* Added the recipient_structure
 
 -11
 
