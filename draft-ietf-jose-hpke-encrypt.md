@@ -269,7 +269,7 @@ The JSON object has the following members:
 
 - next_layer_alg: This member identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the next lower JOSE layer.
 
-- recipient_protected_header: This member contains the protected header parameters from the recipient structure.
+- recipient_protected_header: This member contains the header parameters from the recipient structure, excluding the 'ek' member.
 
 - recipient_extra_info: This member contains additional context information that the application includes in the key derivation via the HPKE info parameter. If no additional context is provided, this value MUST be the empty string ("").
 
