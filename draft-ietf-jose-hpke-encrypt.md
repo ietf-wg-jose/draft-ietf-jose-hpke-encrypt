@@ -163,7 +163,7 @@ HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
 In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.
 When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise the mode is "mode_base".
 
-JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of {{RFC7516}}, General JWE JSON Serialization as described in Section 3.2 of {{RFC7516}}.
+JWE supports different serializations, including Compact JWE Serialization as described in {{Section 3.1 of RFC7516}}, General JWE JSON Serialization as described in {{Section 3.2 of RFC7516}}.
 
 Certain JWE features are only supported in specific serializations.
 
@@ -177,7 +177,7 @@ HPKE JWE Key Encryption can be used with "aad" but only when not expressed with 
 
 Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{Section 5 of RFC9180}}.
 
-This specification updates the "enc" definition in Section 4.1.2 of {{RFC7516}}
+This specification updates the "enc" definition in {{Section 4.1.2 of RFC7516}}
 by allowing the "enc" value "int" when the "alg" value is a JOSE-HPKE algorithm.
 When "alg" is not a JOSE-HPKE algorithm and the "enc" value is "int",
 the input MUST be rejected.
@@ -192,11 +192,11 @@ computed in Step 14 of {{Section 5.1 of RFC7518}} (Message Encryption).
 
 Despite similarities to ECDH-ES,
 this specification does not use the `apu` and `apv` header parameters,
-which are described in Section 4.6.1 of {{RFC7518}}.
+which are described in {{Section 4.6.1 of RFC7518}}.
 
 ## Encapsulated Keys {#encapsulated-keys}
 
-HPKE encapsulated key is defined in Section 5.1.1 of {{RFC9180}}.
+HPKE encapsulated key is defined in {{Section 5.1.1 of RFC9180}}.
 
 In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.
 
@@ -208,12 +208,12 @@ is base64url-encoded HPKE encapsulated key.
 In HPKE JWE Integrated Encryption:
 
 - The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
-- The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in Section 4.1.2 of {{RFC7516}} that
+- The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in {{Section 4.1.2 of RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
 - The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
-- The JWE Encrypted Key MUST be encapsulated key, as defined in Section 5.1.1 of {{RFC9180}}.
+- The JWE Encrypted Key MUST be encapsulated key, as defined in {{Section 5.1.1 of RFC9180}}.
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
 - The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of RFC9180}}.
