@@ -293,9 +293,6 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 When the "kty" field is "AKP" (Algorithm Key Pair {{I-D.ietf-cose-dilithium}}) and "alg" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively)
 for the KEM used by HPKE.
 
-
-## JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
-
 The example below is a JWK representation of a JOSE-HPKE public and private key:
 
 ~~~
