@@ -14,20 +14,21 @@
        This specification defines Hybrid Public Key Encryption (HPKE) for use with
 JSON Object Signing and Encryption (JOSE). HPKE offers a variant of
 public key encryption of arbitrary-sized plaintexts for a recipient public key. 
-       HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM),
-key derivation function (KDF), and authenticated encryption with additional data
-(AEAD) function. 
-       This document defines the use of the HPKE with JOSE. 
+       HPKE is a general encryption framework utilizing
+an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
+and an Authenticated Encryption with Associated Data (AEAD) algorithm. 
+       This document defines the use of HPKE with JOSE.
+The specification chooses a specific subset of the HPKE features to use with JOSE. 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.30.0" name="generator">
 <meta content="HPKE" name="keyword">
 <meta content="JOSE" name="keyword">
-<meta content="PQC" name="keyword">
+<meta content="JWE" name="keyword">
 <meta content="Hybrid" name="keyword">
 <meta content="draft-ietf-jose-hpke-encrypt-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.30.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -36,7 +37,7 @@ key derivation function (KDF), and authenticated encryption with additional data
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
+    requests 2.32.4
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1057,11 +1058,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Use of HPKE in JOSE</td>
-<td class="right">June 2025</td>
+<td class="right">August 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 15 December 2025</td>
+<td class="center">Expires 23 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-jose-hpke-encrypt-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-13" class="published">13 June 2025</time>
+<time datetime="2025-08-22" class="published">22 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-15">15 December 2025</time></dd>
+<dd class="expires"><time datetime="2026-02-23">23 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,10 +1112,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-abstract-1">This specification defines Hybrid Public Key Encryption (HPKE) for use with
 JSON Object Signing and Encryption (JOSE). HPKE offers a variant of
 public key encryption of arbitrary-sized plaintexts for a recipient public key.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">HPKE works for any combination of an asymmetric key encapsulation mechanism (KEM),
-key derivation function (KDF), and authenticated encryption with additional data
-(AEAD) function.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">This document defines the use of the HPKE with JOSE.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">HPKE is a general encryption framework utilizing
+an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
+and an Authenticated Encryption with Associated Data (AEAD) algorithm.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">This document defines the use of HPKE with JOSE.
+The specification chooses a specific subset of the HPKE features to use with JOSE.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1122,12 +1124,15 @@ key derivation function (KDF), and authenticated encryption with additional data
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/draft-ietf-jose-hpke-encrypt.html">https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/draft-ietf-jose-hpke-encrypt.html</a></span>.
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/">https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
         jose Working Group mailing list (<span><a href="mailto:jose@ietf.org">mailto:jose@ietf.org</a></span>),
         which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/jose/">https://mailarchive.ietf.org/arch/browse/jose/</a></span>.
         Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/jose/">https://www.ietf.org/mailman/listinfo/jose/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt">https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1148,7 +1153,7 @@ key derivation function (KDF), and authenticated encryption with additional data
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1203,13 +1208,15 @@ key derivation function (KDF), and authenticated encryption with additional data
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-compact-example" class="internal xref">Compact Example</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-json-example" class="internal xref">JSON Example</a></p>
-</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-key-encryption" class="internal xref">Key Encryption</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-json-example" class="internal xref">JSON Example</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-mapping-hpke-keys-to-jwk-fo" class="internal xref">Mapping HPKE Keys to JWK for JOSE</a></p>
@@ -1226,95 +1233,83 @@ key derivation function (KDF), and authenticated encryption with additional data
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-key-management" class="internal xref">Key Management</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-plaintext-compression" class="internal xref">Plaintext Compression</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-static-asymmetric-authentic" class="internal xref">Static Asymmetric Authentication in HPKE</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-header-parameters" class="internal xref">Header Parameters</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
-                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-ensure-cryptographic-keys-h" class="internal xref">Ensure Cryptographic Keys Have Sufficient Entropy</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
-                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-validate-cryptographic-inpu" class="internal xref">Validate Cryptographic Inputs</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
-                <p id="section-toc.1-1.8.2.6.1"><a href="#section-8.6" class="auto internal xref">8.6</a>.  <a href="#name-use-appropriate-algorithms" class="internal xref">Use Appropriate Algorithms</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7">
-                <p id="section-toc.1-1.8.2.7.1"><a href="#section-8.7" class="auto internal xref">8.7</a>.  <a href="#name-static-asymmetric-authentic" class="internal xref">Static Asymmetric Authentication in HPKE</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-review-jwt-best-current-pra" class="internal xref">Review JWT Best Current Practices</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-ciphersuite-registration" class="internal xref">Ciphersuite Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-json-web-signature-and-encr" class="internal xref">JSON Web Signature and Encryption Algorithms</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.1">
-                    <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-9.2.1" class="auto internal xref">9.2.1</a>.  <a href="#name-hpke-0" class="internal xref">HPKE-0</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.2">
-                    <p id="section-toc.1-1.9.2.2.2.2.1"><a href="#section-9.2.2" class="auto internal xref">9.2.2</a>.  <a href="#name-hpke-1" class="internal xref">HPKE-1</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.3">
-                    <p id="section-toc.1-1.9.2.2.2.3.1"><a href="#section-9.2.3" class="auto internal xref">9.2.3</a>.  <a href="#name-hpke-2" class="internal xref">HPKE-2</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.4">
-                    <p id="section-toc.1-1.9.2.2.2.4.1"><a href="#section-9.2.4" class="auto internal xref">9.2.4</a>.  <a href="#name-hpke-3" class="internal xref">HPKE-3</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.5">
-                    <p id="section-toc.1-1.9.2.2.2.5.1"><a href="#section-9.2.5" class="auto internal xref">9.2.5</a>.  <a href="#name-hpke-4" class="internal xref">HPKE-4</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.6">
-                    <p id="section-toc.1-1.9.2.2.2.6.1"><a href="#section-9.2.6" class="auto internal xref">9.2.6</a>.  <a href="#name-hpke-5" class="internal xref">HPKE-5</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.7">
-                    <p id="section-toc.1-1.9.2.2.2.7.1"><a href="#section-9.2.7" class="auto internal xref">9.2.7</a>.  <a href="#name-hpke-6" class="internal xref">HPKE-6</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.8">
-                    <p id="section-toc.1-1.9.2.2.2.8.1"><a href="#section-9.2.8" class="auto internal xref">9.2.8</a>.  <a href="#name-int" class="internal xref">int</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-json-web-signature-and-encry" class="internal xref">JSON Web Signature and Encryption Header Parameters</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
-                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="auto internal xref">9.3.1</a>.  <a href="#name-ek" class="internal xref">ek</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.2">
-                    <p id="section-toc.1-1.9.2.3.2.2.1"><a href="#section-9.3.2" class="auto internal xref">9.3.2</a>.  <a href="#name-psk_id" class="internal xref">psk_id</a></p>
-</li>
-                </ul>
-</li>
-            </ul>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-ciphersuite-registration" class="internal xref">Ciphersuite Registration</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-json-web-signature-and-encr" class="internal xref">JSON Web Signature and Encryption Algorithms</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.1">
+                    <p id="section-toc.1-1.10.2.1.2.1.1"><a href="#section-10.1.1" class="auto internal xref">10.1.1</a>.  <a href="#name-hpke-0" class="internal xref">HPKE-0</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.2">
+                    <p id="section-toc.1-1.10.2.1.2.2.1"><a href="#section-10.1.2" class="auto internal xref">10.1.2</a>.  <a href="#name-hpke-1" class="internal xref">HPKE-1</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.3">
+                    <p id="section-toc.1-1.10.2.1.2.3.1"><a href="#section-10.1.3" class="auto internal xref">10.1.3</a>.  <a href="#name-hpke-2" class="internal xref">HPKE-2</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.4">
+                    <p id="section-toc.1-1.10.2.1.2.4.1"><a href="#section-10.1.4" class="auto internal xref">10.1.4</a>.  <a href="#name-hpke-3" class="internal xref">HPKE-3</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.5">
+                    <p id="section-toc.1-1.10.2.1.2.5.1"><a href="#section-10.1.5" class="auto internal xref">10.1.5</a>.  <a href="#name-hpke-4" class="internal xref">HPKE-4</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.6">
+                    <p id="section-toc.1-1.10.2.1.2.6.1"><a href="#section-10.1.6" class="auto internal xref">10.1.6</a>.  <a href="#name-hpke-5" class="internal xref">HPKE-5</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.7">
+                    <p id="section-toc.1-1.10.2.1.2.7.1"><a href="#section-10.1.7" class="auto internal xref">10.1.7</a>.  <a href="#name-hpke-6" class="internal xref">HPKE-6</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.8">
+                    <p id="section-toc.1-1.10.2.1.2.8.1"><a href="#section-10.1.8" class="auto internal xref">10.1.8</a>.  <a href="#name-int" class="internal xref">int</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-json-web-signature-and-encry" class="internal xref">JSON Web Signature and Encryption Header Parameters</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.1">
+                    <p id="section-toc.1-1.10.2.2.2.1.1"><a href="#section-10.2.1" class="auto internal xref">10.2.1</a>.  <a href="#name-ek" class="internal xref">ek</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.2">
+                    <p id="section-toc.1-1.10.2.2.2.2.1"><a href="#section-10.2.2" class="auto internal xref">10.2.2</a>.  <a href="#name-psk_id" class="internal xref">psk_id</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-keys-used-in-examples" class="internal xref">Keys Used in Examples</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-keys-used-in-examples" class="internal xref">Keys Used in Examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-document-history" class="internal xref">Document History</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-document-history" class="internal xref">Document History</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1382,7 +1377,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-overview">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
       </h2>
-<p id="section-4-1">This specification describes two modes of use for HPKE in JWE:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This specification defines two modes of use for HPKE in JWE:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-2.1">
           <p id="section-4-2.1.1">HPKE JWE Integrated Encryption, where HPKE is used to encrypt the plaintext.<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
@@ -1397,14 +1392,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-4-4.1.1">If "enc" is "int", HPKE JWE Integrated Encryption is used.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-4.2">
-          <p id="section-4-4.2.1">If "enc" is an AEAD algorithm, the recipient Key Managment mode is Key Encryption.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.2.1">If "enc" is an AEAD algorithm, the recipient Key Management mode is Key Encryption.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-4-5">The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">HPKE supports several modes, which are described in Table 1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.
 When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise the mode is "mode_base".<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">JWE supports different serializations, including Compact JWE Serialization as described in Section 3.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>, General JWE JSON Serialization as described in Section 3.2 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-8">JWE supports different serializations, including Compact JWE Serialization as described in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>, General JWE JSON Serialization as described in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
 <p id="section-4-9">Certain JWE features are only supported in specific serializations.<a href="#section-4-9" class="pilcrow">¶</a></p>
 <p id="section-4-10">For example Compact JWE Serialization does not support the following:<a href="#section-4-10" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1419,16 +1414,24 @@ When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise
 </li>
       </ul>
 <p id="section-4-12">HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.<a href="#section-4-12" class="pilcrow">¶</a></p>
-<p id="section-4-13">Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in { Section 5 of RFC9180 }.<a href="#section-4-13" class="pilcrow">¶</a></p>
+<p id="section-4-13">Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5" class="relref">Section 5</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-4-13" class="pilcrow">¶</a></p>
+<p id="section-4-14">This specification updates the "enc" definition in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>
+by allowing the "enc" value "int" when the "alg" value is a JOSE-HPKE algorithm.
+When "alg" is not a JOSE-HPKE algorithm and the "enc" value is "int",
+the input <span class="bcp14">MUST</span> be rejected.<a href="#section-4-14" class="pilcrow">¶</a></p>
 <div id="auxiliary-authenticated-application-information">
 <section id="section-4.1">
         <h3 id="name-auxiliary-authenticated-app">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-auxiliary-authenticated-app" class="section-name selfRef">Auxiliary Authenticated Application Information</a>
         </h3>
-<p id="section-4.1-1">HPKE has two places at which applications can specify auxiliary authenticated information as described in { Section 8.1 of RFC9180 }.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">Despite similarities to ECDH-ES, HPKE does not use the <code>apu</code> and <code>apv</code> header parameters, which are described in Section 4.6.1 of <span>[<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">The "aad parameter" for Open() and Seal() <span class="bcp14">MUST</span> be used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.1-4">To avoid confusion between JWE AAD and HPKE AAD, this document uses the term "HPKE AEAD AAD" to refer the "aad parameter" for Open() and Seal().<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The HPKE "aad parameter" for Open() and Seal()
+specified in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-8.1" class="relref">Section 8.1</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>
+is used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
+Its value is the Additional Authenticated Data encryption parameter value
+computed in Step 14 of <span><a href="https://rfc-editor.org/rfc/rfc7518#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7518" class="cite xref">RFC7518</a>]</span> (Message Encryption).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">Despite similarities to ECDH-ES,
+this specification does not use the <code>apu</code> and <code>apv</code> header parameters,
+which are described in <span><a href="https://rfc-editor.org/rfc/rfc7518#section-4.6.1" class="relref">Section 4.6.1</a> of [<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="encapsulated-keys">
@@ -1436,7 +1439,7 @@ When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise
         <h3 id="name-encapsulated-keys">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-encapsulated-keys" class="section-name selfRef">Encapsulated Keys</a>
         </h3>
-<p id="section-4.2-1">HPKE encapsulated key is defined in Section 5.1.1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">HPKE encapsulated key is defined in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.1" class="relref">Section 5.1.1</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
 is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
@@ -1455,7 +1458,7 @@ is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcr
           <p id="section-5-2.1.1">The protected header <span class="bcp14">MUST</span> contain an "alg" that is JOSE-HPKE algorithm.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.2">
-          <p id="section-5-2.2.1">The protected header <span class="bcp14">MUST</span> contain an "enc" with value "int". This is an explicit exception to requirement in Section 4.1.2 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> that
+          <p id="section-5-2.2.1">The protected header <span class="bcp14">MUST</span> contain an "enc" with value "int". This is an explicit exception to requirement in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.3">
@@ -1468,69 +1471,48 @@ is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcr
           <p id="section-5-2.5.1">There <span class="bcp14">MUST</span> be exactly one recipient.<a href="#section-5-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.6">
-          <p id="section-5-2.6.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key as defined in Section 5.1.1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.6.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key, as defined in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.1" class="relref">Section 5.1.1</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.7">
-          <p id="section-5-2.7.1">JWE Initialization Vector and JWE Authentication Tag <span class="bcp14">MUST NOT</span> be present.<a href="#section-5-2.7.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.7.1">The JWE Initialization Vector and JWE Authentication Tag <span class="bcp14">MUST</span> be the empty octet sequence.<a href="#section-5-2.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.8">
-          <p id="section-5-2.8.1">JWE AAD <span class="bcp14">MAY</span> be present.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.8.1">The JWE AAD <span class="bcp14">MAY</span> be present when using the JWE JSON Serialization.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.9">
-          <p id="section-5-2.9.1">JWE Ciphertext is ciphertext as defined in Section 5.2 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.9.1">The JWE Ciphertext is the ciphertext defined in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5.2" class="relref">Section 5.2</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.10">
           <p id="section-5-2.10.1">The HPKE info parameter defaults to the empty string; mutually known private information <span class="bcp14">MAY</span> be used instead. The concept of mutually known private information is defined in <span>[<a href="#NIST.SP.800-56Ar3" class="cite xref">NIST.SP.800-56Ar3</a>]</span> as an input to the key derivation function.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.11">
-          <p id="section-5-2.11.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "JWE Additional Authenticated Data encryption parameter", as defined in Step 14 of Section 5.1 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.11.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of <span><a href="https://rfc-editor.org/rfc/rfc7516#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.12">
-          <p id="section-5-2.12.1">If protected header contains the parameter "zip" (Section 4.1.3 of <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>), the plaintext is the message compressed with the indicated algorithm.
-Otherwise, the plaintext is the raw message.<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.12.1">Then follow Steps 11-19 of <span><a href="https://rfc-editor.org/rfc/rfc7516#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> (Message Encryption).<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-3">When decrypting, the checks in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> section 5.2, steps 1 through 5 <span class="bcp14">MUST</span> be performed. The JWE Encrypted Key in step 2 is the
-base64url encoded encapsulated key.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-3">When decrypting, the checks in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-5.2" class="relref">Section 5.2</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>,
+Steps 1 through 5 <span class="bcp14">MUST</span> be performed. The JWE Encrypted Key in Step 2 is the
+base64url-encoded encapsulated key.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <div id="compact-example">
 <section id="section-5.1">
         <h3 id="name-compact-example">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-compact-example" class="section-name selfRef">Compact Example</a>
         </h3>
-<p id="section-5.1-1">A Compact JWE:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Below is an example of a Compact JWE using HPKE integrated encryption:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-2">
 <pre>
-eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9r\
+SkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-\
+UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-\
+1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-\
+                                    llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
-</section>
-</div>
-<div id="json-example">
-<section id="section-5.2">
-        <h3 id="name-json-example">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
-        </h3>
-<p id="section-5.2-1">A JSON Encoded JWE:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-2">
-<pre>
-{
-  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
-  "ciphertext": "9AxOd65ROJY1cQ",
-  "iv": "2u3NRi3CSr-x7Wuj",
-  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
-  "recipients": [
-    {
-      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
-      "header": {
-        "alg": "HPKE-0",
-        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
-        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
-      }
-    }
-  ]
-}
-</pre><a href="#section-5.2-2" class="pilcrow">¶</a>
-</div>
+<p id="section-5.1-3">The keys used for this example are in <a href="#keys-used" class="auto internal xref">Appendix A</a>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1540,9 +1522,12 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
       <h2 id="name-key-encryption">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-key-encryption" class="section-name selfRef">Key Encryption</a>
       </h2>
-<p id="section-6-1">Recipients using JOSE-HPKE can be added alongside other recpients (e.g., <code>ECDH-ES+A128KW</code> or <code>RSA-OAEP-384</code>), as HPKE is used to encrypt the
-Content Encryption Key, which is then processed as specified in JWE.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The encoding of the protected header encoding remains consistent with existing JWE formatting rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">When using the JWE JSON Serialization,
+recipients using JOSE-HPKE can be added alongside other recipients
+(e.g., those using <code>ECDH-ES+A128KW</code> or <code>RSA-OAEP-256</code>),
+since HPKE is used to encrypt the Content Encryption Key,
+which is then processed as specified in JWE.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The encoding of the protected header remains consistent with existing JWE rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">In HPKE JWE Key Encryption:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-4.1">
@@ -1559,7 +1544,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
           <p id="section-6-4.4.1">JOSE Header parameter "psk_id" <span class="bcp14">MAY</span> be present.<a href="#section-6-4.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.5">
-          <p id="section-6-4.5.1">JOSE Header parameter "ek" <span class="bcp14">MUST</span> be present and contain base64url-encoded HPKE encapsulated key.<a href="#section-6-4.5.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.5.1">JOSE Header parameter "ek" <span class="bcp14">MUST</span> be present and contain the base64url-encoded HPKE encapsulated key.<a href="#section-6-4.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.6">
           <p id="section-6-4.6.1">Recipient JWE Encrypted Key <span class="bcp14">MUST</span> be the ciphertext from HPKE Encryption.<a href="#section-6-4.6.1" class="pilcrow">¶</a></p>
@@ -1574,8 +1559,41 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
           <p id="section-6-4.9.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-4.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>. Implementations should follow the existing
-JWE specifications for handling these parameters, and no additional processing requirements are introduced by HPKE-based key encryption.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-5">The processing of "enc", "iv", "tag", "aad", and "ciphertext" is as already defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>.
+Implementations process these parameters as defined in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>;
+no additional processing requirements are introduced by HPKE-based key encryption.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<div id="json-example">
+<section id="section-6.1">
+        <h3 id="name-json-example">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
+        </h3>
+<p id="section-6.1-1">Below is an example of a JWE using the JSON Serialization and HPKE key encryption:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-2">
+<pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+{
+  "protected": "eyJlbmMiOiAiQTEyOEdDTSJ9",
+  "ciphertext": "9AxOd65ROJY1cQ",
+  "iv": "2u3NRi3CSr-x7Wuj",
+  "tag": "1NKYSWVV4pw5thsq7t6m6Q",
+  "recipients": [
+    {
+      "encrypted_key": "l9VRW1K5CA037fY2ZqVF4bDej413TaAtfjoe3k89-eI",
+      "header": {
+        "alg": "HPKE-0",
+        "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+        "ek": "BJl0V6KLl3HOAZbzFwiAL9eaYbFQPg7-\
+             ROmIJpluIQjNS5zultZsC4rGhGzmW1GUWG8bzJUWLQtxFF9oze0AKhU"
+      }
+    }
+  ]
+}
+</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-3">The keys used for this example are in <a href="#keys-used" class="auto internal xref">Appendix A</a>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="alg-mapping">
@@ -1593,8 +1611,8 @@ JWE Algorithm, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" clas
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0                    | EC  | P-256     |
-| HPKE-1                | EC  | P-384     |
+| HPKE-0              | EC  | P-256     |
+| HPKE-1              | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
 | HPKE-5, HPKE-6      | OKP | X448      |
@@ -1605,14 +1623,14 @@ JWE Algorithm, "kty", and "crv" are shown in <a href="#ciphersuite-kty-crv" clas
 <a href="#name-jwk-types-and-curves-for-jo" class="selfRef">JWK Types and Curves for JOSE-HPKE Ciphersuites</a>
         </figcaption></figure>
 </div>
-<p id="section-7-3">When the "kty" field is "AKP" and "alg" is a JOSE-HPKE algorithm, the public and private keys <span class="bcp14">MUST</span> be raw HPKE public and private keys (respectively)
+<p id="section-7-3">When the "kty" field is "AKP" (Algorithm Key Pair <span>[<a href="#I-D.ietf-cose-dilithium" class="cite xref">I-D.ietf-cose-dilithium</a>]</span>) and "alg" is a JOSE-HPKE algorithm, the public and private keys <span class="bcp14">MUST</span> be raw HPKE public and private keys (respectively)
 for the KEM used by HPKE.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <div id="jwk-representation-of-a-jose-hpke-key-with-hpke-ciphersuite">
 <section id="section-7.1">
         <h3 id="name-jwk-representation-of-a-jos">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-jwk-representation-of-a-jos" class="section-name selfRef">JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite</a>
         </h3>
-<p id="section-7.1-1">An example is illustrated below for representing a JOSE-HPKE public/private keys.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">The example below is a JWK representation of a JOSE-HPKE public and private key:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7.1-2">
 <pre>
 {
@@ -1626,6 +1644,8 @@ for the KEM used by HPKE.<a href="#section-7-3" class="pilcrow">¶</a></p>
 }
 </pre><a href="#section-7.1-2" class="pilcrow">¶</a>
 </div>
+<p id="section-7.1-3">It uses the "key_ops" value of "encrypt",
+which is appropriate when using integrated encryption.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1640,361 +1660,322 @@ for the KEM used by HPKE.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <p id="section-8-2">HPKE assumes the sender is in possession of the public key of the recipient and
 HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
 mechanism is assumed to exist but outside the scope of this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">HPKE in Base mode does not offer authentication as part of the HPKE KEM.
-In this case JOSE constructs like JWS and JSON Web Tokens (JWTs) can be used to add authentication.
-HPKE also offers modes that offer authentication.<a href="#section-8-3" class="pilcrow">¶</a></p>
-<p id="section-8-4">HPKE relies on a source of randomness to be available on the device.
-In Key Agreement with Key Wrapping mode, CEK has to be randomly generated and it <span class="bcp14">MUST</span> be ensured that the guidelines in <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span> for random number generations are followed.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-3">HPKE in Base mode does not offer authentication as part of the HPKE KEM.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">HPKE relies on a source of randomness being available on the device.
+In Key Agreement with Key Wrapping mode, the CEK has to be randomly generated.
+The guidance on randomness in <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span> applies.<a href="#section-8-4" class="pilcrow">¶</a></p>
 <div id="key-management">
 <section id="section-8.1">
         <h3 id="name-key-management">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-key-management" class="section-name selfRef">Key Management</a>
         </h3>
-<p id="section-8.1-1">A single KEM key <span class="bcp14">MUST NOT</span> be used with multiple algorithms.  Each key and its
-associated algorithm suite, comprising the KEM, KDF, and AEAD, should be managed independently.  This separation prevents unintended
-interactions or vulnerabilities between suites, ensuring the integrity and security guarantees of each algorithm suite are
-preserved.  Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both key encryption and integrated encryption, as it may introduce security risks.
+<p id="section-8.1-1">A single KEM key should not be used with multiple algorithms.
+Each key and its associated algorithm suite, comprising the KEM, KDF, and AEAD,
+should be managed independently.
+This separation prevents unintended interactions or vulnerabilities between algorithms,
+ensuring the integrity and security guarantees of each algorithm are preserved.
+Additionally, the same key should not be used for both key encryption and integrated encryption, as it may introduce security risks.
 It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1-2">A single recipient or sender key <span class="bcp14">MUST NOT</span> be used with both JOSE-HPKE and other algorithms as this might enable cross-protocol attacks.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="plaintext-compression">
-<section id="section-8.2">
-        <h3 id="name-plaintext-compression">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-plaintext-compression" class="section-name selfRef">Plaintext Compression</a>
-        </h3>
-<p id="section-8.2-1">Implementers are advised to review Section 3.6 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which states:
-Compression of data <span class="bcp14">SHOULD NOT</span> be done before encryption, because such compressed data often reveals information about the plaintext.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="header-parameters">
-<section id="section-8.3">
-        <h3 id="name-header-parameters">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-header-parameters" class="section-name selfRef">Header Parameters</a>
-        </h3>
-<p id="section-8.3-1">Implementers are advised to review Section 3.10 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which comments on application processing of JWE Protected Headers.
-Additionally, Unprotected Headers can contain similar information which an attacker could leverage to mount denial of service, forgery or injection attacks.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="ensure-cryptographic-keys-have-sufficient-entropy">
-<section id="section-8.4">
-        <h3 id="name-ensure-cryptographic-keys-h">
-<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-ensure-cryptographic-keys-h" class="section-name selfRef">Ensure Cryptographic Keys Have Sufficient Entropy</a>
-        </h3>
-<p id="section-8.4-1">Implementers are advised to review Section 3.5 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which provides comments on entropy requirements for keys.
-This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption.
-Additionally, this guidance is applicable to content encryption keys used in Key Encryption mode.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="validate-cryptographic-inputs">
-<section id="section-8.5">
-        <h3 id="name-validate-cryptographic-inpu">
-<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-validate-cryptographic-inpu" class="section-name selfRef">Validate Cryptographic Inputs</a>
-        </h3>
-<p id="section-8.5-1">Implementers are advised to review Section 3.4 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which provides comments on the validation of cryptographic inputs.
-This guidance is relevant to both public and private keys used in both Key Encryption and Integrated Encryption, specifically focusing on the structure of the public and private keys.
-These inputs are crucial for the HPKE KEM operations.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="use-appropriate-algorithms">
-<section id="section-8.6">
-        <h3 id="name-use-appropriate-algorithms">
-<a href="#section-8.6" class="section-number selfRef">8.6. </a><a href="#name-use-appropriate-algorithms" class="section-name selfRef">Use Appropriate Algorithms</a>
-        </h3>
-<p id="section-8.6-1">Implementers are advised to review Section 3.2 of <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>, which comments on the selection of appropriate algorithms.
-This is guidance is relevant to both Key Encryption and Integrated Encryption.
-When using Key Encryption, the strength of the content encryption algorithm should not be significantly different from the strengh of the Key Encryption algorithms used.<a href="#section-8.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="static-asymmetric-authentication-in-hpke">
-<section id="section-8.7">
+<section id="section-8.2">
         <h3 id="name-static-asymmetric-authentic">
-<a href="#section-8.7" class="section-number selfRef">8.7. </a><a href="#name-static-asymmetric-authentic" class="section-name selfRef">Static Asymmetric Authentication in HPKE</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-static-asymmetric-authentic" class="section-name selfRef">Static Asymmetric Authentication in HPKE</a>
         </h3>
-<p id="section-8.7-1">Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:<a href="#section-8.7-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.7-2.1">
-            <p id="section-8.7-2.1.1">The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.<a href="#section-8.7-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.2-2.1">
+            <p id="section-8.2-2.1.1">The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.<a href="#section-8.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.7-2.2">
-            <p id="section-8.7-2.2.1">Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
-compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.<a href="#section-8.7-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.2">
+            <p id="section-8.2-2.2.1">Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
+compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.<a href="#section-8.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
+<div id="review-jwt-best-current-practices">
+<section id="section-8.3">
+        <h3 id="name-review-jwt-best-current-pra">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-review-jwt-best-current-pra" class="section-name selfRef">Review JWT Best Current Practices</a>
+        </h3>
+<p id="section-8.3-1">The guidance in <span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span> about encryption is also pertinent to this specification.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="ciphersuite-registration">
+<section id="section-9">
+      <h2 id="name-ciphersuite-registration">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-ciphersuite-registration" class="section-name selfRef">Ciphersuite Registration</a>
+      </h2>
+<p id="section-9-1">This specification registers a number of ciphersuites for use with HPKE.
+A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
+A JOSE-HPKE algorithm makes choices for the following HPKE parameters:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9-2.1">
+          <p id="section-9-2.1.1">KEM Algorithm<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.2">
+          <p id="section-9-2.2.1">KDF Algorithm<a href="#section-9-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-2.3">
+          <p id="section-9-2.3.1">AEAD Algorithm<a href="#section-9-2.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-9-3">The "KEM", "KDF", and "AEAD" values are chosen from the IANA HPKE registry <span>[<a href="#IANA.HPKE" class="cite xref">IANA.HPKE</a>]</span>.<a href="#section-9-3" class="pilcrow">¶</a></p>
+<p id="section-9-4">All JOSE-HPKE algorithm identifiers registered by this specification begin with the string "HPKE-".
+Future JOSE-HPKE ciphersuite names registered <span class="bcp14">MUST</span> also follow this convention.<a href="#section-9-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="IANA">
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-iana-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-9-1">This document adds entries to <span>[<a href="#JOSE-IANA" class="cite xref">JOSE-IANA</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<div id="ciphersuite-registration">
-<section id="section-9.1">
-        <h3 id="name-ciphersuite-registration">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-ciphersuite-registration" class="section-name selfRef">Ciphersuite Registration</a>
-        </h3>
-<p id="section-9.1-1">This specification registers a number of ciphersuites for use with HPKE.
-A ciphersuite is a group of algorithms, often sharing component algorithms such as hash functions, targeting a security level.
-A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-9.1-2.1">
-            <p id="section-9.1-2.1.1">KEM Algorithm<a href="#section-9.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.2">
-            <p id="section-9.1-2.2.1">KDF Algorithm<a href="#section-9.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.3">
-            <p id="section-9.1-2.3.1">AEAD Algorithm<a href="#section-9.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-9.1-3">The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry <span>[<a href="#HPKE-IANA" class="cite xref">HPKE-IANA</a>]</span>.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="json-web-signature-and-encryption-algorithms">
-<section id="section-9.2">
+<section id="section-10.1">
         <h3 id="name-json-web-signature-and-encr">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-json-web-signature-and-encr" class="section-name selfRef">JSON Web Signature and Encryption Algorithms</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-json-web-signature-and-encr" class="section-name selfRef">JSON Web Signature and Encryption Algorithms</a>
         </h3>
-<p id="section-9.2-1">The following entries are added to the "JSON Web Signature and Encryption Algorithms" registry:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-1">The following entries are added to the IANA "JSON Web Signature and Encryption Algorithms" registry <span>[<a href="#IANA.JOSE" class="cite xref">IANA.JOSE</a>]</span>:<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 <div id="hpke-0">
-<section id="section-9.2.1">
+<section id="section-10.1.1">
           <h4 id="name-hpke-0">
-<a href="#section-9.2.1" class="section-number selfRef">9.2.1. </a><a href="#name-hpke-0" class="section-name selfRef">HPKE-0</a>
+<a href="#section-10.1.1" class="section-number selfRef">10.1.1. </a><a href="#name-hpke-0" class="section-name selfRef">HPKE-0</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.1-1.1">
-              <p id="section-9.2.1-1.1.1">Algorithm Name: HPKE-0<a href="#section-9.2.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.1-1.1">
+              <p id="section-10.1.1-1.1.1">Algorithm Name: HPKE-0<a href="#section-10.1.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.2">
-              <p id="section-9.2.1-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD.<a href="#section-9.2.1-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.2">
+              <p id="section-10.1.1-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the AES-128-GCM AEAD<a href="#section-10.1.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.3">
-              <p id="section-9.2.1-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.1-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.3">
+              <p id="section-10.1.1-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.4">
-              <p id="section-9.2.1-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.1-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.4">
+              <p id="section-10.1.1-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.5">
-              <p id="section-9.2.1-1.5.1">Change Controller: IETF<a href="#section-9.2.1-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.5">
+              <p id="section-10.1.1-1.5.1">Change Controller: IETF<a href="#section-10.1.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.6">
-              <p id="section-9.2.1-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.1-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.6">
+              <p id="section-10.1.1-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.1-1.7">
-              <p id="section-9.2.1-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.1-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.1-1.7">
+              <p id="section-10.1.1-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-1">
-<section id="section-9.2.2">
+<section id="section-10.1.2">
           <h4 id="name-hpke-1">
-<a href="#section-9.2.2" class="section-number selfRef">9.2.2. </a><a href="#name-hpke-1" class="section-name selfRef">HPKE-1</a>
+<a href="#section-10.1.2" class="section-number selfRef">10.1.2. </a><a href="#name-hpke-1" class="section-name selfRef">HPKE-1</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.2-1.1">
-              <p id="section-9.2.2-1.1.1">Algorithm Name: HPKE-1<a href="#section-9.2.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.2-1.1">
+              <p id="section-10.1.2-1.1.1">Algorithm Name: HPKE-1<a href="#section-10.1.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.2">
-              <p id="section-9.2.2-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD.<a href="#section-9.2.2-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.2">
+              <p id="section-10.1.2-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-384, HKDF-SHA384) KEM, the HKDF-SHA384 KDF, and the AES-256-GCM AEAD<a href="#section-10.1.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.3">
-              <p id="section-9.2.2-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.2-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.3">
+              <p id="section-10.1.2-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.4">
-              <p id="section-9.2.2-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.2-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.4">
+              <p id="section-10.1.2-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.5">
-              <p id="section-9.2.2-1.5.1">Change Controller: IETF<a href="#section-9.2.2-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.5">
+              <p id="section-10.1.2-1.5.1">Change Controller: IETF<a href="#section-10.1.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.6">
-              <p id="section-9.2.2-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.2-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.6">
+              <p id="section-10.1.2-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.2-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.2-1.7">
-              <p id="section-9.2.2-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.2-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.2-1.7">
+              <p id="section-10.1.2-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.2-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-2">
-<section id="section-9.2.3">
+<section id="section-10.1.3">
           <h4 id="name-hpke-2">
-<a href="#section-9.2.3" class="section-number selfRef">9.2.3. </a><a href="#name-hpke-2" class="section-name selfRef">HPKE-2</a>
+<a href="#section-10.1.3" class="section-number selfRef">10.1.3. </a><a href="#name-hpke-2" class="section-name selfRef">HPKE-2</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.3-1.1">
-              <p id="section-9.2.3-1.1.1">Algorithm Name: HPKE-2<a href="#section-9.2.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.3-1.1">
+              <p id="section-10.1.3-1.1.1">Algorithm Name: HPKE-2<a href="#section-10.1.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.2">
-              <p id="section-9.2.3-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.<a href="#section-9.2.3-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.2">
+              <p id="section-10.1.3-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-521, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD<a href="#section-10.1.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.3">
-              <p id="section-9.2.3-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.3-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.3">
+              <p id="section-10.1.3-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.4">
-              <p id="section-9.2.3-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.3-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.4">
+              <p id="section-10.1.3-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.5">
-              <p id="section-9.2.3-1.5.1">Change Controller: IETF<a href="#section-9.2.3-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.5">
+              <p id="section-10.1.3-1.5.1">Change Controller: IETF<a href="#section-10.1.3-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.6">
-              <p id="section-9.2.3-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.3-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.6">
+              <p id="section-10.1.3-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.3-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.3-1.7">
-              <p id="section-9.2.3-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.3-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.3-1.7">
+              <p id="section-10.1.3-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.3-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-3">
-<section id="section-9.2.4">
+<section id="section-10.1.4">
           <h4 id="name-hpke-3">
-<a href="#section-9.2.4" class="section-number selfRef">9.2.4. </a><a href="#name-hpke-3" class="section-name selfRef">HPKE-3</a>
+<a href="#section-10.1.4" class="section-number selfRef">10.1.4. </a><a href="#name-hpke-3" class="section-name selfRef">HPKE-3</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.4-1.1">
-              <p id="section-9.2.4-1.1.1">Algorithm Name: HPKE-3<a href="#section-9.2.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.4-1.1">
+              <p id="section-10.1.4-1.1.1">Algorithm Name: HPKE-3<a href="#section-10.1.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.2">
-              <p id="section-9.2.4-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD.<a href="#section-9.2.4-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.2">
+              <p id="section-10.1.4-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the AES-128-GCM AEAD<a href="#section-10.1.4-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.3">
-              <p id="section-9.2.4-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.4-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.3">
+              <p id="section-10.1.4-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.4-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.4">
-              <p id="section-9.2.4-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.4-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.4">
+              <p id="section-10.1.4-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.5">
-              <p id="section-9.2.4-1.5.1">Change Controller: IETF<a href="#section-9.2.4-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.5">
+              <p id="section-10.1.4-1.5.1">Change Controller: IETF<a href="#section-10.1.4-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.6">
-              <p id="section-9.2.4-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.4-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.6">
+              <p id="section-10.1.4-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.4-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.4-1.7">
-              <p id="section-9.2.4-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.4-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.4-1.7">
+              <p id="section-10.1.4-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.4-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-4">
-<section id="section-9.2.5">
+<section id="section-10.1.5">
           <h4 id="name-hpke-4">
-<a href="#section-9.2.5" class="section-number selfRef">9.2.5. </a><a href="#name-hpke-4" class="section-name selfRef">HPKE-4</a>
+<a href="#section-10.1.5" class="section-number selfRef">10.1.5. </a><a href="#name-hpke-4" class="section-name selfRef">HPKE-4</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.5-1.1">
-              <p id="section-9.2.5-1.1.1">Algorithm Name: HPKE-4<a href="#section-9.2.5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.5-1.1">
+              <p id="section-10.1.5-1.1.1">Algorithm Name: HPKE-4<a href="#section-10.1.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.2">
-              <p id="section-9.2.5-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD.<a href="#section-9.2.5-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.2">
+              <p id="section-10.1.5-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X25519, HKDF-SHA256) KEM, the HKDF-SHA256 KDF, and the ChaCha20Poly1305 AEAD<a href="#section-10.1.5-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.3">
-              <p id="section-9.2.5-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.5-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.3">
+              <p id="section-10.1.5-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.5-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.4">
-              <p id="section-9.2.5-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.5-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.4">
+              <p id="section-10.1.5-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.5-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.5">
-              <p id="section-9.2.5-1.5.1">Change Controller: IETF<a href="#section-9.2.5-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.5">
+              <p id="section-10.1.5-1.5.1">Change Controller: IETF<a href="#section-10.1.5-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.6">
-              <p id="section-9.2.5-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.5-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.6">
+              <p id="section-10.1.5-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.5-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.5-1.7">
-              <p id="section-9.2.5-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.5-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.5-1.7">
+              <p id="section-10.1.5-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.5-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-5">
-<section id="section-9.2.6">
+<section id="section-10.1.6">
           <h4 id="name-hpke-5">
-<a href="#section-9.2.6" class="section-number selfRef">9.2.6. </a><a href="#name-hpke-5" class="section-name selfRef">HPKE-5</a>
+<a href="#section-10.1.6" class="section-number selfRef">10.1.6. </a><a href="#name-hpke-5" class="section-name selfRef">HPKE-5</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.6-1.1">
-              <p id="section-9.2.6-1.1.1">Algorithm Name: HPKE-5<a href="#section-9.2.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.6-1.1">
+              <p id="section-10.1.6-1.1.1">Algorithm Name: HPKE-5<a href="#section-10.1.6-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.2">
-              <p id="section-9.2.6-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD.<a href="#section-9.2.6-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.2">
+              <p id="section-10.1.6-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the AES-256-GCM AEAD<a href="#section-10.1.6-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.3">
-              <p id="section-9.2.6-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.6-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.3">
+              <p id="section-10.1.6-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.4">
-              <p id="section-9.2.6-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.6-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.4">
+              <p id="section-10.1.6-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.6-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.5">
-              <p id="section-9.2.6-1.5.1">Change Controller: IETF<a href="#section-9.2.6-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.5">
+              <p id="section-10.1.6-1.5.1">Change Controller: IETF<a href="#section-10.1.6-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.6">
-              <p id="section-9.2.6-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.6-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.6">
+              <p id="section-10.1.6-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.6-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.6-1.7">
-              <p id="section-9.2.6-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.6-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.6-1.7">
+              <p id="section-10.1.6-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.6-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="hpke-6">
-<section id="section-9.2.7">
+<section id="section-10.1.7">
           <h4 id="name-hpke-6">
-<a href="#section-9.2.7" class="section-number selfRef">9.2.7. </a><a href="#name-hpke-6" class="section-name selfRef">HPKE-6</a>
+<a href="#section-10.1.7" class="section-number selfRef">10.1.7. </a><a href="#name-hpke-6" class="section-name selfRef">HPKE-6</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.7-1.1">
-              <p id="section-9.2.7-1.1.1">Algorithm Name: HPKE-6<a href="#section-9.2.7-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.7-1.1">
+              <p id="section-10.1.7-1.1.1">Algorithm Name: HPKE-6<a href="#section-10.1.7-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.2">
-              <p id="section-9.2.7-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD.<a href="#section-9.2.7-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.2">
+              <p id="section-10.1.7-1.2.1">Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(X448, HKDF-SHA512) KEM, the HKDF-SHA512 KDF, and the ChaCha20Poly1305 AEAD<a href="#section-10.1.7-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.3">
-              <p id="section-9.2.7-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-9.2.7-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.3">
+              <p id="section-10.1.7-1.3.1">Algorithm Usage Location(s): "alg"<a href="#section-10.1.7-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.4">
-              <p id="section-9.2.7-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-9.2.7-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.4">
+              <p id="section-10.1.7-1.4.1">JOSE Implementation Requirements: Optional<a href="#section-10.1.7-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.5">
-              <p id="section-9.2.7-1.5.1">Change Controller: IETF<a href="#section-9.2.7-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.5">
+              <p id="section-10.1.7-1.5.1">Change Controller: IETF<a href="#section-10.1.7-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.6">
-              <p id="section-9.2.7-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-9.2.7-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.6">
+              <p id="section-10.1.7-1.6.1">Specification Document(s): <a href="#alg-mapping" class="auto internal xref">Section 7</a> of this specification<a href="#section-10.1.7-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.7-1.7">
-              <p id="section-9.2.7-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.7-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.7-1.7">
+              <p id="section-10.1.7-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.7-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="int">
-<section id="section-9.2.8">
+<section id="section-10.1.8">
           <h4 id="name-int">
-<a href="#section-9.2.8" class="section-number selfRef">9.2.8. </a><a href="#name-int" class="section-name selfRef">int</a>
+<a href="#section-10.1.8" class="section-number selfRef">10.1.8. </a><a href="#name-int" class="section-name selfRef">int</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.2.8-1.1">
-              <p id="section-9.2.8-1.1.1">Algorithm Name: "int"<a href="#section-9.2.8-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.1.8-1.1">
+              <p id="section-10.1.8-1.1.1">Algorithm Name: int<a href="#section-10.1.8-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.2">
-              <p id="section-9.2.8-1.2.1">Algorithm Description: Indicates that Integrated Encryption is being used<a href="#section-9.2.8-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.2">
+              <p id="section-10.1.8-1.2.1">Algorithm Description: Indicates that HPKE Integrated Encryption is being used<a href="#section-10.1.8-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.3">
-              <p id="section-9.2.8-1.3.1">Algorithm Usage Location(s): "enc"<a href="#section-9.2.8-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.3">
+              <p id="section-10.1.8-1.3.1">Algorithm Usage Location(s): "enc"<a href="#section-10.1.8-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.4">
-              <p id="section-9.2.8-1.4.1">JOSE Implementation Requirements: Required<a href="#section-9.2.8-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.4">
+              <p id="section-10.1.8-1.4.1">JOSE Implementation Requirements: Required<a href="#section-10.1.8-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.5">
-              <p id="section-9.2.8-1.5.1">Change Controller: IETF<a href="#section-9.2.8-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.5">
+              <p id="section-10.1.8-1.5.1">Change Controller: IETF<a href="#section-10.1.8-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.6">
-              <p id="section-9.2.8-1.6.1">Specification Document(s): <a href="#overview" class="auto internal xref">Section 4</a> of this specification<a href="#section-9.2.8-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.6">
+              <p id="section-10.1.8-1.6.1">Specification Document(s): <a href="#overview" class="auto internal xref">Section 4</a> of this specification<a href="#section-10.1.8-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.2.8-1.7">
-              <p id="section-9.2.8-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-9.2.8-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.1.8-1.7">
+              <p id="section-10.1.8-1.7.1">Algorithm Analysis Documents(s): <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.1.8-1.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2002,55 +1983,55 @@ A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.
 </section>
 </div>
 <div id="json-web-signature-and-encryption-header-parameters">
-<section id="section-9.3">
+<section id="section-10.2">
         <h3 id="name-json-web-signature-and-encry">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-json-web-signature-and-encry" class="section-name selfRef">JSON Web Signature and Encryption Header Parameters</a>
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-json-web-signature-and-encry" class="section-name selfRef">JSON Web Signature and Encryption Header Parameters</a>
         </h3>
-<p id="section-9.3-1">The following entries are added to the "JSON Web Key Parameters" registry:<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-10.2-1">The following entries are added to the IANA "JSON Web Key Parameters" registry <span>[<a href="#IANA.JOSE" class="cite xref">IANA.JOSE</a>]</span>:<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 <div id="ek">
-<section id="section-9.3.1">
+<section id="section-10.2.1">
           <h4 id="name-ek">
-<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-ek" class="section-name selfRef">ek</a>
+<a href="#section-10.2.1" class="section-number selfRef">10.2.1. </a><a href="#name-ek" class="section-name selfRef">ek</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.3.1-1.1">
-              <p id="section-9.3.1-1.1.1">Header Parameter Name: "ek"<a href="#section-9.3.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.2.1-1.1">
+              <p id="section-10.2.1-1.1.1">Header Parameter Name: "ek"<a href="#section-10.2.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.1-1.2">
-              <p id="section-9.3.1-1.2.1">Header Parameter Description: An encapsulated key as defined in { Section 5.1.1 of RFC9180 }<a href="#section-9.3.1-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.1-1.2">
+              <p id="section-10.2.1-1.2.1">Header Parameter Description: A base64url-encoded encapsulated key, as defined in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.1" class="relref">Section 5.1.1</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.2.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.1-1.3">
-              <p id="section-9.3.1-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-9.3.1-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.1-1.3">
+              <p id="section-10.2.1-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-10.2.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.1-1.4">
-              <p id="section-9.3.1-1.4.1">Change Controller: IETF<a href="#section-9.3.1-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.1-1.4">
+              <p id="section-10.2.1-1.4.1">Change Controller: IETF<a href="#section-10.2.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.1-1.5">
-              <p id="section-9.3.1-1.5.1">Specification Document(s): <a href="#encapsulated-keys" class="auto internal xref">Section 4.2</a> of this specification<a href="#section-9.3.1-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.1-1.5">
+              <p id="section-10.2.1-1.5.1">Specification Document(s): <a href="#encapsulated-keys" class="auto internal xref">Section 4.2</a> of this specification<a href="#section-10.2.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="pskid">
-<section id="section-9.3.2">
+<section id="section-10.2.2">
           <h4 id="name-psk_id">
-<a href="#section-9.3.2" class="section-number selfRef">9.3.2. </a><a href="#name-psk_id" class="section-name selfRef">psk_id</a>
+<a href="#section-10.2.2" class="section-number selfRef">10.2.2. </a><a href="#name-psk_id" class="section-name selfRef">psk_id</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-9.3.2-1.1">
-              <p id="section-9.3.2-1.1.1">Header Parameter Name: "psk_id"<a href="#section-9.3.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-10.2.2-1.1">
+              <p id="section-10.2.2-1.1.1">Header Parameter Name: "psk_id"<a href="#section-10.2.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.2-1.2">
-              <p id="section-9.3.2-1.2.1">Header Parameter Description: A key identifier (kid) for the pre-shared key as defined in { Section 5.1.2 of RFC9180 }<a href="#section-9.3.2-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.2-1.2">
+              <p id="section-10.2.2-1.2.1">Header Parameter Description: A base64url-encoded key identifier (kid) for the pre-shared key, as defined in <span><a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.2" class="relref">Section 5.1.2</a> of [<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#section-10.2.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.2-1.3">
-              <p id="section-9.3.2-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-9.3.2-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.2-1.3">
+              <p id="section-10.2.2-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-10.2.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.2-1.4">
-              <p id="section-9.3.2-1.4.1">Change Controller: IETF<a href="#section-9.3.2-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.2-1.4">
+              <p id="section-10.2.2-1.4.1">Change Controller: IETF<a href="#section-10.2.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-9.3.2-1.5">
-              <p id="section-9.3.2-1.5.1">Specification Document(s): <a href="#overview" class="auto internal xref">Section 4</a> of this specification<a href="#section-9.3.2-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-10.2.2-1.5">
+              <p id="section-10.2.2-1.5.1">Specification Document(s): <a href="#overview" class="auto internal xref">Section 4</a> of this specification<a href="#section-10.2.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2060,19 +2041,19 @@ A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-normative-references">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="JOSE-IANA">[JOSE-IANA]</dt>
+<dt id="IANA.JOSE">[IANA.JOSE]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"JSON Web Signature and Encryption Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/jose/jose.xhtml">https://www.iana.org/assignments/jose/jose.xhtml</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"JSON Web Signature and Encryption Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/jose">https://www.iana.org/assignments/jose</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2106,33 +2087,37 @@ A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-informative-references">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="HPKE-IANA">[HPKE-IANA]</dt>
+<dt id="I-D.ietf-cose-dilithium">[I-D.ietf-cose-dilithium]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"Hybrid Public Key Encryption (HPKE) IANA Registry"</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.iana.org/assignments/hpke/hpke.xhtml">https://www.iana.org/assignments/hpke/hpke.xhtml</a>&gt;</span>. </dd>
+<span class="refAuthor">Prorock, M.</span> and <span class="refAuthor">O. Steele</span>, <span class="refTitle">"ML-DSA for JOSE and COSE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-dilithium-08</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-08">https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-hpke">[I-D.ietf-cose-hpke]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Daisuke, A.</span>, and <span class="refAuthor">L. Lundblade</span>, <span class="refTitle">"Use of Hybrid Public-Key Encryption (HPKE) with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hpke-13</span>, <time datetime="2025-06-04" class="refDate">4 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-13">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-13</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Daisuke, A.</span>, and <span class="refAuthor">L. Lundblade</span>, <span class="refTitle">"Use of Hybrid Public-Key Encryption (HPKE) with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hpke-15</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-15">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-15</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA.HPKE">[IANA.HPKE]</dt>
+        <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Hybrid Public Key Encryption (HPKE)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/hpke">https://www.iana.org/assignments/hpke</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST.SP.800-56Ar3">[NIST.SP.800-56Ar3]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, NIST Special Publication 800-56A Revision 3"</span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8937">[RFC8937]</dt>
+<dt id="RFC4086">[RFC4086]</dt>
       <dd>
-<span class="refAuthor">Cremers, C.</span>, <span class="refAuthor">Garratt, L.</span>, <span class="refAuthor">Smyshlyaev, S.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Randomness Improvements for Security Protocols"</span>, <span class="seriesInfo">RFC 8937</span>, <span class="seriesInfo">DOI 10.17487/RFC8937</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8937">https://www.rfc-editor.org/rfc/rfc8937</a>&gt;</span>. </dd>
+<span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refAuthor">Schiller, J.</span>, and <span class="refAuthor">S. Crocker</span>, <span class="refTitle">"Randomness Requirements for Security"</span>, <span class="seriesInfo">BCP 106</span>, <span class="seriesInfo">RFC 4086</span>, <span class="seriesInfo">DOI 10.17487/RFC4086</span>, <time datetime="2005-06" class="refDate">June 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4086">https://www.rfc-editor.org/rfc/rfc4086</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
 </section>
 </div>
-<div id="keys-used-in-examples">
+<div id="keys-used">
 <section id="appendix-A">
       <h2 id="name-keys-used-in-examples">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-keys-used-in-examples" class="section-name selfRef">Keys Used in Examples</a>
@@ -2163,8 +2148,11 @@ A JOSE-HPKE algorithm, is composed of the following choices:<a href="#section-9.
 We would like to thank
 Matt Chanda,
 Ilari Liusvaara,
+Neil Madden,
 Aaron Parecki,
-and Filip Skokan
+Filip Skokan,
+and
+Sebastian Stenzel
 for their contributions to the specification.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2173,121 +2161,133 @@ for their contributions to the specification.<a href="#appendix-B-1" class="pilc
       <h2 id="name-document-history">
 <a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-C-1">-09<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">-11<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-2.1">
-          <p id="appendix-C-2.1.1">Corrected examples.<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-2.1.1">Fix too long lines<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-3">-08<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">-10<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-4.1">
-          <p id="appendix-C-4.1.1">Use "enc":"int" for integrated encryption.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-4.2">
-          <p id="appendix-C-4.2.1">Described reasons for excluding authenticated HPKE.<a href="#appendix-C-4.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-4.3">
-          <p id="appendix-C-4.3.1">Stated that mutually known private information <span class="bcp14">MAY</span> be used as the HPKE info value.<a href="#appendix-C-4.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-4.1.1">Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-5">-07<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-C-5">-09<a href="#appendix-C-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-6.1">
-          <p id="appendix-C-6.1.1">Clarifications<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-6.1.1">Corrected examples.<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-7">-06<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<p id="appendix-C-7">-08<a href="#appendix-C-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-8.1">
-          <p id="appendix-C-8.1.1">Remove auth mode and auth_kid from the specification.<a href="#appendix-C-8.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-8.1.1">Use "enc":"int" for integrated encryption.<a href="#appendix-C-8.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-8.2">
-          <p id="appendix-C-8.2.1">HPKE AAD for JOSE HPKE Key Encryption is now empty.<a href="#appendix-C-8.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-8.2.1">Described reasons for excluding authenticated HPKE.<a href="#appendix-C-8.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-8.3">
+          <p id="appendix-C-8.3.1">Stated that mutually known private information <span class="bcp14">MAY</span> be used as the HPKE info value.<a href="#appendix-C-8.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-9">-05<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<p id="appendix-C-9">-07<a href="#appendix-C-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-10.1">
-          <p id="appendix-C-10.1.1">Removed incorrect text about HPKE algorithm names.<a href="#appendix-C-10.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.2">
-          <p id="appendix-C-10.2.1">Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.<a href="#appendix-C-10.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.3">
-          <p id="appendix-C-10.3.1">Fixed #19: Binding the Application Context.<a href="#appendix-C-10.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.4">
-          <p id="appendix-C-10.4.1">Fixed #18: Use of apu and apv in Recipeint context.<a href="#appendix-C-10.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.5">
-          <p id="appendix-C-10.5.1">Added new Section 7.1 (Authentication using an Asymmetric Key).<a href="#appendix-C-10.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.6">
-          <p id="appendix-C-10.6.1">Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.<a href="#appendix-C-10.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.7">
-          <p id="appendix-C-10.7.1">Updated HPKE Setup info parameter to be empty.<a href="#appendix-C-10.7.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-10.8">
-          <p id="appendix-C-10.8.1">Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.<a href="#appendix-C-10.8.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-10.1.1">Clarifications<a href="#appendix-C-10.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-11">-04<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<p id="appendix-C-11">-06<a href="#appendix-C-11" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-12.1">
-          <p id="appendix-C-12.1.1">Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.<a href="#appendix-C-12.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-12.1.1">Remove auth mode and auth_kid from the specification.<a href="#appendix-C-12.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-12.2">
+          <p id="appendix-C-12.2.1">HPKE AAD for JOSE HPKE Key Encryption is now empty.<a href="#appendix-C-12.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-13">-03<a href="#appendix-C-13" class="pilcrow">¶</a></p>
+<p id="appendix-C-13">-05<a href="#appendix-C-13" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-14.1">
-          <p id="appendix-C-14.1.1">Added new section 7.1 to discuss Key Management.<a href="#appendix-C-14.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-14.1.1">Removed incorrect text about HPKE algorithm names.<a href="#appendix-C-14.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-14.2">
-          <p id="appendix-C-14.2.1">HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.<a href="#appendix-C-14.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-14.2.1">Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.<a href="#appendix-C-14.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.3">
+          <p id="appendix-C-14.3.1">Fixed #19: Binding the Application Context.<a href="#appendix-C-14.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.4">
+          <p id="appendix-C-14.4.1">Fixed #18: Use of apu and apv in Recipient context.<a href="#appendix-C-14.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.5">
+          <p id="appendix-C-14.5.1">Added new Section 7.1 (Authentication using an Asymmetric Key).<a href="#appendix-C-14.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.6">
+          <p id="appendix-C-14.6.1">Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.<a href="#appendix-C-14.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.7">
+          <p id="appendix-C-14.7.1">Updated HPKE Setup info parameter to be empty.<a href="#appendix-C-14.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-14.8">
+          <p id="appendix-C-14.8.1">Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.<a href="#appendix-C-14.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-15">-02<a href="#appendix-C-15" class="pilcrow">¶</a></p>
+<p id="appendix-C-15">-04<a href="#appendix-C-15" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-16.1">
-          <p id="appendix-C-16.1.1">Fixed #4: HPKE Integrated Encryption "enc: dir".<a href="#appendix-C-16.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-16.2">
-          <p id="appendix-C-16.2.1">Updated text on the use of HPKE Setup info parameter.<a href="#appendix-C-16.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-16.3">
-          <p id="appendix-C-16.3.1">Added Examples in Sections 5.1, 5.2 and 6.1.<a href="#appendix-C-16.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-16.4">
-          <p id="appendix-C-16.4.1">Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.<a href="#appendix-C-16.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-16.1.1">Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.<a href="#appendix-C-16.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-17">-01<a href="#appendix-C-17" class="pilcrow">¶</a></p>
+<p id="appendix-C-17">-03<a href="#appendix-C-17" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-18.1">
-          <p id="appendix-C-18.1.1">Apply feedback from call for adoption.<a href="#appendix-C-18.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-18.1.1">Added new section 7.1 to discuss Key Management.<a href="#appendix-C-18.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-18.2">
-          <p id="appendix-C-18.2.1">Provide examples of auth and psk modes for JSON and Compact Serializations<a href="#appendix-C-18.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-18.3">
-          <p id="appendix-C-18.3.1">Simplify description of HPKE modes<a href="#appendix-C-18.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-18.4">
-          <p id="appendix-C-18.4.1">Adjust IANA registration requests<a href="#appendix-C-18.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-18.5">
-          <p id="appendix-C-18.5.1">Remove HPKE Mode from named algorithms<a href="#appendix-C-18.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-18.6">
-          <p id="appendix-C-18.6.1">Fix AEAD named algorithms<a href="#appendix-C-18.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-18.2.1">HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.<a href="#appendix-C-18.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-19">-00<a href="#appendix-C-19" class="pilcrow">¶</a></p>
+<p id="appendix-C-19">-02<a href="#appendix-C-19" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-20.1">
-          <p id="appendix-C-20.1.1">Created initial working group version from draft-rha-jose-hpke-encrypt-07<a href="#appendix-C-20.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-20.1.1">Fixed #4: HPKE Integrated Encryption "enc: dir".<a href="#appendix-C-20.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-20.2">
+          <p id="appendix-C-20.2.1">Updated text on the use of HPKE Setup info parameter.<a href="#appendix-C-20.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-20.3">
+          <p id="appendix-C-20.3.1">Added Examples in Sections 5.1, 5.2 and 6.1.<a href="#appendix-C-20.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-20.4">
+          <p id="appendix-C-20.4.1">Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.<a href="#appendix-C-20.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-21">-01<a href="#appendix-C-21" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-22.1">
+          <p id="appendix-C-22.1.1">Apply feedback from call for adoption.<a href="#appendix-C-22.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-22.2">
+          <p id="appendix-C-22.2.1">Provide examples of auth and psk modes for JSON and Compact Serializations<a href="#appendix-C-22.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-22.3">
+          <p id="appendix-C-22.3.1">Simplify description of HPKE modes<a href="#appendix-C-22.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-22.4">
+          <p id="appendix-C-22.4.1">Adjust IANA registration requests<a href="#appendix-C-22.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-22.5">
+          <p id="appendix-C-22.5.1">Remove HPKE Mode from named algorithms<a href="#appendix-C-22.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-22.6">
+          <p id="appendix-C-22.6.1">Fix AEAD named algorithms<a href="#appendix-C-22.6.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-23">-00<a href="#appendix-C-23" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-24.1">
+          <p id="appendix-C-24.1.1">Created initial working group version from draft-rha-jose-hpke-encrypt-07<a href="#appendix-C-24.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
