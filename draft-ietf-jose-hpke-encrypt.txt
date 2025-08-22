@@ -4,7 +4,7 @@
 
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
-Updates: [7516] (if approved)                              H. Tschofenig
+Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
 Expires: 23 February 2026                                    A. Banerjee
                                                                    Nokia
