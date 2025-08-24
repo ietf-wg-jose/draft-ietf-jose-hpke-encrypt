@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-13T01:55:23.786200+00:00",
+  "timestamp": "2025-08-24T01:45:53.350392+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -854,16 +854,24 @@
       "id": "I_kwDOMMuuSM7AIA7l",
       "title": "Update Clause to Draft",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add an update clause to the boilerplate of the draft.",
       "createdAt": "2025-07-11T15:31:40Z",
-      "updatedAt": "2025-07-11T15:31:40Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-08-22T15:34:49Z",
+      "closedAt": "2025-08-22T15:34:49Z",
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed here: https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/64",
+          "createdAt": "2025-08-22T15:34:49Z",
+          "updatedAt": "2025-08-22T15:34:49Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -7190,26 +7198,219 @@
       "id": "PR_kwDOMMuuSM6ehQ_u",
       "title": "Update Clause",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/60",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-07-11T15:34:09Z",
-      "updatedAt": "2025-07-11T15:34:09Z",
+      "updatedAt": "2025-08-22T14:49:53Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "6cc50184391f6580db9c3815d8259f14671f2998",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "hannestschofenig-patch-8",
-      "headRefOid": "a472df4151fcf936756009e11035918c65821b92",
-      "closedAt": null,
+      "headRefOid": "b361c6328cdc568223bb35ac11854dc7d1d4873e",
+      "closedAt": "2025-08-22T14:49:49Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 61,
+      "id": "PR_kwDOMMuuSM6k5GH6",
+      "title": "Uniform Reference Style",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/61",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-22T14:03:38Z",
+      "updatedAt": "2025-08-22T15:35:09Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-9",
+      "headRefOid": "9796cbf48d14e9aad1d234d0c619c4c8bbcc40ba",
+      "closedAt": "2025-08-22T15:35:05Z",
+      "mergedAt": "2025-08-22T15:35:05Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "59a295051e4d91632d8347966427b285d1167d96"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM67dCn3",
+          "commit": {
+            "abbreviatedOid": "9796cbf"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for doing this, Hannes!",
+          "createdAt": "2025-08-22T15:29:17Z",
+          "updatedAt": "2025-08-22T15:29:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "PR_kwDOMMuuSM6k5HA7",
+      "title": "Removed Single Sub-Section Heading",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/62",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-22T14:05:06Z",
+      "updatedAt": "2025-08-22T15:32:50Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-10",
+      "headRefOid": "c0618a100c3ad1655c479186881fca7989315952",
+      "closedAt": "2025-08-22T15:32:50Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We discussed this on today's editors' call.  Having headings provides a useful way of navigating the document.  Closing.",
+          "createdAt": "2025-08-22T15:32:50Z",
+          "updatedAt": "2025-08-22T15:32:50Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 63,
+      "id": "PR_kwDOMMuuSM6k5dXc",
+      "title": "Recipient_structure",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/63",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-22T14:39:40Z",
+      "updatedAt": "2025-08-22T15:30:14Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-11",
+      "headRefOid": "e10130551ffd941875516b77db24bb693b9620a4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "This is not a sufficient definition that would ensure the recipient uses the same info structure. JSON encodings can have extra whitespace, JSON object keys do not have a guaranteed order, JSON serializers in different libraries have different defaults.",
+          "createdAt": "2025-08-22T14:50:45Z",
+          "updatedAt": "2025-08-22T15:30:14Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM67c_Qw",
+          "commit": {
+            "abbreviatedOid": "c638470"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-22T15:25:38Z",
+          "updatedAt": "2025-08-22T15:25:38Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n- recipient_protected_header: This member contains the header parameters from the recipient structure, excluding the 'ek' member.\r\n```",
+              "createdAt": "2025-08-22T15:25:38Z",
+              "updatedAt": "2025-08-22T15:25:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM67c_wY",
+          "commit": {
+            "abbreviatedOid": "9e67096"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-22T15:26:11Z",
+          "updatedAt": "2025-08-22T15:26:11Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n- recipient_protected_header: This member contains the protected header parameters from the recipient structure, excluding the 'ek' member.\r\n```",
+              "createdAt": "2025-08-22T15:26:11Z",
+              "updatedAt": "2025-08-22T15:26:11Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "id": "PR_kwDOMMuuSM6k5jm4",
+      "title": "Draft updates RFC 7516",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/64",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-08-22T14:47:24Z",
+      "updatedAt": "2025-08-22T15:34:18Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-12",
+      "headRefOid": "a451a4f0c8f084f531a88f774e1f9879d7f84ee1",
+      "closedAt": "2025-08-22T15:34:18Z",
+      "mergedAt": "2025-08-22T15:34:18Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "bfad7c492e1a96a8c9074d7f37fb1015cc44a43a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM67dF74",
+          "commit": {
+            "abbreviatedOid": "a451a4f"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for doing this, Hannes.",
+          "createdAt": "2025-08-22T15:34:01Z",
+          "updatedAt": "2025-08-22T15:34:01Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
