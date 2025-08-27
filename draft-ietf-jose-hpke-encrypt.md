@@ -276,7 +276,7 @@ The `Recipient_structure` is a JSON object with the following members:
 
 ### Deterministic Serialization for HPKE `info`
 
-JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement. 
+JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement.
 
 To produce the HPKE `info` byte string from a `Recipient_structure`, implementations MUST use a deterministic JSON serialization to ensure both parties derive identical bytes regardless of JSON library differences (e.g., member order, whitespace, numeric formatting):
 
