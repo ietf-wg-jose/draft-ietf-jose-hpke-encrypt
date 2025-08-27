@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 23 February 2026                                          H-BRS
+Expires: 28 February 2026                                          H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                          22 August 2025
+                                                          27 August 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 February 2026.
+   This Internet-Draft will expire on 28 February 2026.
 
 Copyright Notice
 
@@ -93,6 +93,7 @@ Table of Contents
      5.1.  Compact Example
    6.  Key Encryption
      6.1.  Recipient_structure
+       6.1.1.  Deterministic Serialization for HPKE info
      6.2.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
@@ -343,38 +344,73 @@ Table of Contents
 
 6.1.  Recipient_structure
 
-   The JSON object has the following members:
+   The Recipient_structure is a JSON object with the following members:
 
-   *  context: This member MUST contain the constant string value "JOSE
-      HPKE Recipient".
+   *  context (string): This member MUST contain the constant string
+      value "JOSE HPKE Recipient".
 
-   *  next_layer_alg: This member identifies the algorithm with which
-      the HPKE-encrypted key MUST be used.  Its value MUST match the
-      "enc" (encryption algorithm) header parameter in the next lower
-      JOSE layer.
+   *  next_layer_alg (string): Identifies the algorithm with which the
+      HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
+      (encryption algorithm) header parameter in the next lower JOSE
+      layer.
 
-   *  recipient_protected_header: This member contains the protected
-      header parameters from the recipient structure, excluding the 'ek'
+   *  recipient_protected_header (object): Contains the protected header
+      parameters from the recipient structure, excluding the "ek"
       member.
 
-   *  recipient_extra_info: This member contains additional context
+   *  recipient_extra_info (string): Contains additional context
       information that the application includes in the key derivation
       via the HPKE info parameter.  If no additional context is
-      provided, this value MUST be the empty string ("").
+      provided, this value MUST be the empty string "".
 
-   Below is an example of a Recipient_structure where no additional
-   context information is provided by the application based on the
-   example shown in Section 6.2.
+6.1.1.  Deterministic Serialization for HPKE info
 
-   {
-     "context": "JOSE HPKE Recipient",
-     "next_layer_alg": "A128GCM",
-     "recipient_protected_header": {
-       "alg": "HPKE-0",
-       "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
-     },
-     "recipient_extra_info": ""
-   }
+   JSON texts that are semantically identical can serialize differently
+   (e.g., member order, whitespace), which would lead to divergent info
+   values and failed key agreement.
+
+   To produce the HPKE info byte string from a Recipient_structure,
+   implementations MUST use a deterministic JSON serialization to ensure
+   both parties derive identical bytes regardless of JSON library
+   differences (e.g., member order, whitespace, numeric formatting):
+
+   1.  Construct the Recipient_structure JSON object exactly as defined
+       above.
+
+   2.  Serialize the object using the JSON Canonicalization Scheme (JCS)
+       specified in [RFC8785].  Canonicalization fixes member ordering
+       (lexicographic by Unicode code point), whitespace (none beyond
+       JSON syntax), and value formatting.
+
+   3.  Encode the resulting canonical JSON text as UTF-8 without the
+       Byte Order Mark (BOM).
+
+   4.  The resulting UTF-8 byte sequence MUST be used as the HPKE info
+       value by both sender and recipient.
+
+   Implementations MUST NOT use any non-canonical JSON encoding
+   (including different member orders, additional insignificant
+   whitespace, or library-specific defaults) when deriving info.
+
+6.1.1.1.  Example
+
+   The example below shows a pretty-printed JSON object with an empty
+   recipient_extra_info member.
+
+   ```json { "context": "JOSE HPKE Recipient", "next_layer_alg":
+   "A128GCM", "recipient_protected_header": { "alg": "HPKE-0", "kid":
+   "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o" },
+   "recipient_extra_info": "" }
+
+   ```
+
+   Canonical JSON serialization per [RFC8785] (single line, members
+   sorted, no extra whitespace) leads to:
+
+   json {{::include-fold examples/serialization_example1.txt
+
+   The UTF-8 encoding of the canonical JSON above is used as the HPKE
+   info bytes.
 
 6.2.  JSON Example
 
@@ -732,6 +768,11 @@ Table of Contents
               Current Practices", BCP 225, RFC 8725,
               DOI 10.17487/RFC8725, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8725>.
+
+   [RFC8785]  Rundgren, A., Jordan, B., and S. Erdtman, "JSON
+              Canonicalization Scheme (JCS)", RFC 8785,
+              DOI 10.17487/RFC8785, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8785>.
 
    [RFC9180]  Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
