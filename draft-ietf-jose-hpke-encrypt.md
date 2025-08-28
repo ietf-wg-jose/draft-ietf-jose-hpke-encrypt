@@ -292,7 +292,7 @@ Implementations MUST NOT use any non-canonical JSON encoding (including differen
 The example below shows a pretty-printed JSON object with an empty `recipient_extra_info` member.
 
 ```json
-{::include-fold examples/recipient_structure_example.txt}
+{{::include-fold examples/recipient_structure_example.txt}}
 ```
 
 Canonical JSON serialization per {{RFC8785}} (single line, members sorted, no extra whitespace) leads to:
