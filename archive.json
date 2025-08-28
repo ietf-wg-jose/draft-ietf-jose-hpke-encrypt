@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-24T01:45:53.350392+00:00",
+  "timestamp": "2025-08-28T01:25:59.181423+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -7307,13 +7307,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-08-22T14:39:40Z",
-      "updatedAt": "2025-08-22T15:30:14Z",
+      "updatedAt": "2025-08-27T16:28:14Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "hannestschofenig-patch-11",
-      "headRefOid": "e10130551ffd941875516b77db24bb693b9620a4",
+      "headRefOid": "507ea6376e959461a06c91661d64a7ab3baf3693",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -7325,6 +7325,13 @@
           "body": "This is not a sufficient definition that would ensure the recipient uses the same info structure. JSON encodings can have extra whitespace, JSON object keys do not have a guaranteed order, JSON serializers in different libraries have different defaults.",
           "createdAt": "2025-08-22T14:50:45Z",
           "updatedAt": "2025-08-22T15:30:14Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "<img width=\"633\" height=\"374\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5adafa80-3ec4-4fba-996b-60c3d4e1cbbc\" />\r\n\r\nSomething went awry with the include syntax Hannes.",
+          "createdAt": "2025-08-27T16:28:14Z",
+          "updatedAt": "2025-08-27T16:28:14Z"
         }
       ],
       "reviews": [
