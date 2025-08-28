@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 28 February 2026                                          H-BRS
+Expires: 1 March 2026                                              H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                          27 August 2025
+                                                          28 August 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 February 2026.
+   This Internet-Draft will expire on 1 March 2026.
 
 Copyright Notice
 
@@ -397,12 +397,7 @@ Table of Contents
    The example below shows a pretty-printed JSON object with an empty
    recipient_extra_info member.
 
-   ```json { "context": "JOSE HPKE Recipient", "next_layer_alg":
-   "A128GCM", "recipient_protected_header": { "alg": "HPKE-0", "kid":
-   "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o" },
-   "recipient_extra_info": "" }
-
-   ```
+   json {{::include-fold examples/recipient_structure_example.txt}}
 
    Canonical JSON serialization per [RFC8785] (single line, members
    sorted, no extra whitespace) leads to:
