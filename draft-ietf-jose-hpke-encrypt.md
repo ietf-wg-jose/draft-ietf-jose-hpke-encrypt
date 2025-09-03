@@ -74,7 +74,7 @@ normative:
   RFC7518:
   RFC7517:
   RFC8725:
-  RFC8785:
+  RFC7638:
   IANA.JOSE:
      author:
         org: IANA
@@ -266,11 +266,11 @@ no additional processing requirements are introduced by HPKE-based key encryptio
 
 The `Recipient_structure` is a JSON object with the following members:
 
-- context (string): This member MUST contain the constant string value "JOSE HPKE Recipient".
+- context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
 
 - next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the next lower JOSE layer.
-
-- recipient_protected_header (object): Contains the protected header parameters from the recipient structure, excluding the "ek" member.
+  
+- recipient_protected_header (object): This member contains the base64url-encoded header of the recipient structure. To serialize the header the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from the recpient header are included except for the "ek" member.
 
 - recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. If no additional context is provided, this value MUST be the empty string "".
 
@@ -278,14 +278,11 @@ The `Recipient_structure` is a JSON object with the following members:
 
 JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement.
 
-To produce the HPKE `info` byte string from a `Recipient_structure`, implementations MUST use a deterministic JSON serialization to ensure both parties derive identical bytes regardless of JSON library differences (e.g., member order, whitespace, numeric formatting):
+To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST produce the deterministic JSON representation using the JSON Web Key (JWK) Thumbprint serialization rules {{RFC7638}}:
 
-1. Construct the `Recipient_structure` JSON object exactly as defined above.
-2. Serialize the object using the JSON Canonicalization Scheme (JCS) specified in {{RFC8785}}. Canonicalization fixes member ordering (lexicographic by Unicode code point), whitespace (none beyond JSON syntax), and value formatting.
-3. Encode the resulting canonical JSON text as UTF-8 without the Byte Order Mark (BOM).
-4. The resulting UTF-8 byte sequence MUST be used as the HPKE `info` value by both sender and recipient.
-
-Implementations MUST NOT use any non-canonical JSON encoding (including different member orders, additional insignificant whitespace, or library-specific defaults) when deriving `info`.
+1. Construct the `Recipient_structure` JSON object exactly as defined {{recipient_structure}}.
+2. Prepare the JSON structure based on Section 3.3 of RFC 7638.
+3. Use the resulting JSON structure, base64url-encode it and use the octets as the HPKE `info` value.
 
 #### Example
 
@@ -295,13 +292,13 @@ The example below shows a pretty-printed JSON object with an empty `recipient_ex
 {{::include-fold examples/recipient_structure_example.txt}}
 ~~~
 
-Canonical JSON serialization per {{RFC8785}} (single line, members sorted, no extra whitespace) leads to:
+The serialized JSON leads to:
 
 ~~~
 {{::include-fold examples/serialization_example1.txt}}
 ~~~
 
-The UTF-8 encoding of the canonical JSON above is used as the HPKE `info` bytes.
+The base64url-encoded JSON structure above is used as the HPKE `info` bytes.
 
 ## JSON Example {#json-example}
 
