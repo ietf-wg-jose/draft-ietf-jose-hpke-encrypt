@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-31T01:38:50.942472+00:00",
+  "timestamp": "2025-09-04T01:21:59.382904+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -7307,13 +7307,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-08-22T14:39:40Z",
-      "updatedAt": "2025-08-28T13:07:32Z",
+      "updatedAt": "2025-09-03T12:10:48Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "hannestschofenig-patch-11",
-      "headRefOid": "c7e65775e2887e423f31d41c2372f24288de10f2",
+      "headRefOid": "64b93487f497310f9878ac7409f85041662cede0",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -7541,6 +7541,106 @@
           "createdAt": "2025-08-28T12:50:03Z",
           "updatedAt": "2025-08-28T12:50:03Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM69ZwKW",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-02T18:17:00Z",
+          "updatedAt": "2025-09-02T18:17:00Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "The wording is probably misleading but what I wanted to say that this header inside the recipients structure is used in the recipient_protected_header. I am not talking about the othermost header. ",
+              "createdAt": "2025-09-02T18:17:00Z",
+              "updatedAt": "2025-09-02T18:17:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM69ZwbE",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-02T18:17:25Z",
+          "updatedAt": "2025-09-02T18:17:26Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "That seems a possible solution. I will have a look",
+              "createdAt": "2025-09-02T18:17:25Z",
+              "updatedAt": "2025-09-02T18:17:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM69ZwxX",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-02T18:18:02Z",
+          "updatedAt": "2025-09-02T18:18:02Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "This sentence was meant to describe the requirements from above.\r\n",
+              "createdAt": "2025-09-02T18:18:02Z",
+              "updatedAt": "2025-09-02T18:18:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM69ZxGi",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-02T18:18:32Z",
+          "updatedAt": "2025-09-02T18:18:32Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "The latter. MUST include / contain. ",
+              "createdAt": "2025-09-02T18:18:32Z",
+              "updatedAt": "2025-09-02T18:18:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM69ZxP0",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-02T18:18:47Z",
+          "updatedAt": "2025-09-02T18:18:48Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\n- context (string): This member MUST include the constant string value \"JOSE HPKE Recipient\".\r\n```",
+              "createdAt": "2025-09-02T18:18:47Z",
+              "updatedAt": "2025-09-02T18:18:48Z"
+            }
+          ]
         }
       ]
     },
