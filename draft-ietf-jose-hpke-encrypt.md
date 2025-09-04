@@ -269,7 +269,7 @@ The `Recipient_structure` is a JSON object with the following members:
 - context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
 
 - next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the next lower JOSE layer.
-  
+
 - recipient_protected_header (object): This member contains the base64url-encoded header of the recipient structure. To serialize the header the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from the recpient header are included except for the "ek" member.
 
 - recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. If no additional context is provided, this value MUST be the empty string "".
