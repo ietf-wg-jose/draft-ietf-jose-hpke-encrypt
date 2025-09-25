@@ -273,7 +273,7 @@ The `Recipient_structure` is a JSON object with the following members:
 
 - recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
 
-- recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. If no additional context is provided, this value MUST be the empty string "".
+- recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
 
 ### Deterministic Serialization for HPKE `info`
 
