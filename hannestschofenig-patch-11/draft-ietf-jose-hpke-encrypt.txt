@@ -5,14 +5,14 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                           H. Tschofenig
-Expires: 8 March 2026                                              H-BRS
+Expires: 29 March 2026                                             H-BRS
                                                              A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                        4 September 2025
+                                                       25 September 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2026.
+   This Internet-Draft will expire on 29 March 2026.
 
 Copyright Notice
 
@@ -351,8 +351,8 @@ Table of Contents
 
    *  next_layer_alg (string): Identifies the algorithm with which the
       HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
-      (encryption algorithm) header parameter in the next lower JOSE
-      layer.
+      (encryption algorithm) header parameter in the JWE protected
+      header.
 
    *  recipient_protected_header (object): This member contains the
       base64url-encoded header of the recipient structure.  To serialize
@@ -767,17 +767,17 @@ Table of Contents
    [I-D.ietf-cose-dilithium]
               Prorock, M. and O. Steele, "ML-DSA for JOSE and COSE",
               Work in Progress, Internet-Draft, draft-ietf-cose-
-              dilithium-08, 7 July 2025,
+              dilithium-09, 12 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              dilithium-08>.
+              dilithium-09>.
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-15, 7 July 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-15>.
+              Internet-Draft, draft-ietf-cose-hpke-16, 19 September
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              cose-hpke-16>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
