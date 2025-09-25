@@ -367,8 +367,10 @@ Table of Contents
 
    *  recipient_extra_info (string): Contains additional context
       information that the application includes in the key derivation
-      via the HPKE info parameter.  If no additional context is
-      provided, this value MUST be the empty string "".
+      via the HPKE info parameter.  Mutually known private information,
+      which is defined in [NIST.SP.800-56Ar3], MAY be used in this input
+      parameter.  If no additional context is provided, this value MUST
+      be the empty string "".
 
 6.1.1.  Deterministic Serialization for HPKE info
 
