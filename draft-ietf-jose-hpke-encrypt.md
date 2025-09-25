@@ -85,6 +85,7 @@ normative:
 informative:
   RFC4086:
   I-D.ietf-cose-dilithium:
+  I-D.ietf-cose-hpke:
 
   IANA.HPKE:
      author:
@@ -269,7 +270,7 @@ The `Recipient_structure` is a JSON object with the following members:
 
 - context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
 
-- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
+- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE {{I-D.ietf-cose-hpke}} specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
 
 - recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
 
