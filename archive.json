@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-07T01:36:56.870162+00:00",
+  "timestamp": "2025-09-25T01:24:50.433993+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -861,7 +861,7 @@
       "labels": [],
       "body": "Add an update clause to the boilerplate of the draft.",
       "createdAt": "2025-07-11T15:31:40Z",
-      "updatedAt": "2025-08-22T15:34:49Z",
+      "updatedAt": "2025-09-24T21:10:39Z",
       "closedAt": "2025-08-22T15:34:49Z",
       "comments": [
         {
@@ -870,6 +870,13 @@
           "body": "Addressed here: https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/64",
           "createdAt": "2025-08-22T15:34:49Z",
           "updatedAt": "2025-08-22T15:34:49Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "This might have been good to tell the draft author team about prior to the Madrid meeting where the erroneous assertion that the draft \"Updates RFC 7516\" was repeatedly made. Not having a shared factual basis makes it difficult to have productive discussions. \n\nRegardless, and as I said at that meeting and elsewhere, just doing this is not sufficient. It would be 'unfortunate for numerous reasons (reputation, later stage reviews, DEs, etc., and more)' if this is all there is that is done.\n\nMadrid 123 meeting proceedings (or whatever the right term is): https://datatracker.ietf.org/meeting/123/session/jose ",
+          "createdAt": "2025-09-24T20:56:43Z",
+          "updatedAt": "2025-09-24T21:10:39Z"
         }
       ]
     }
