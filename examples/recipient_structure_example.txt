@@ -1,0 +1,10 @@
+{
+  "context": "JOSE HPKE Recipient",
+  "next_layer_alg": "A128GCM",
+  "recipient_protected_header": {
+    "alg": "HPKE-0",
+    "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
+  },
+  "recipient_extra_info": ""
+}
+

@@ -1,0 +1,8 @@
+RFC7638-serialized recipient_protected_header (JSON string):
+{"alg":"HPKE-0","kid":"G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"}
+
+RFC7638-serialized Recipient_structure (JSON string):
+{"context":"JOSE HPKE Recipient","next_layer_alg":"A128GCM","recipient_extra_info":"","recipient_protected_header":"eyJhbGciOiJIUEtFLTAiLCJraWQiOiJHNU5fX0NxTXZfa0pHaWVHU0Z1QXVndmwwanJRSkNaM3lLd1ZLNnNVTTRvIn0"}
+
+HPKE info (base64url):
+eyJjb250ZXh0IjoiSk9TRSBIUEtFIFJlY2lwaWVudCIsIm5leHRfbGF5ZXJfYWxnIjoiQTEyOEdDTSIsInJlY2lwaWVudF9leHRyYV9pbmZvIjoiIiwicmVjaXBpZW50X3Byb3RlY3RlZF9oZWFkZXIiOiJleUpoYkdjaU9pSklVRXRGTFRBaUxDSnJhV1FpT2lKSE5VNWZYME54VFhaZmEwcEhhV1ZIVTBaMVFYVm5kbXd3YW5KUlNrTmFNM2xMZDFaTE5uTlZUVFJ2SW4wIn0

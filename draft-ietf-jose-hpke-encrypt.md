@@ -74,7 +74,9 @@ normative:
   RFC7516:
   RFC7518:
   RFC7517:
+  RFC7156:
   RFC8725:
+  RFC7638:
   IANA.JOSE:
      author:
         org: IANA
@@ -84,6 +86,7 @@ normative:
 informative:
   RFC4086:
   I-D.ietf-cose-dilithium:
+  I-D.ietf-cose-hpke:
 
   IANA.HPKE:
      author:
@@ -254,15 +257,53 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
-- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead.
-- The HPKE AAD parameter MUST be set to the empty string.
+- The HPKE info parameter contains the encoding of the Recipient_structure, which is described in {{recipient_structure}}.
+- The HPKE AAD parameter defaults to the empty string; externally provided information MAY be used instead.
 - THE HPKE plaintext MUST be set to the CEK.
 
 The processing of "enc", "iv", "tag", "aad", and "ciphertext" is as already defined in {{RFC7516}}.
 Implementations process these parameters as defined in {{RFC7516}};
 no additional processing requirements are introduced by HPKE-based key encryption.
 
-## JSON Example
+## Recipient_structure {#recipient_structure}
+
+The `Recipient_structure` is a JSON object with the following members:
+
+- context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
+
+- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE {{I-D.ietf-cose-hpke}} specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
+
+- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
+
+- recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
+
+### Deterministic Serialization for HPKE `info`
+
+JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement.
+
+To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST produce the deterministic JSON representation using the JSON Web Key (JWK) Thumbprint serialization rules {{RFC7638}}:
+
+1. Construct the `Recipient_structure` JSON object exactly as defined {{recipient_structure}}.
+2. Prepare the JSON structure based on Section 3.3 of RFC 7638.
+3. Use the resulting JSON structure, base64url-encode it and use the octets as the HPKE `info` value.
+
+#### Example
+
+The example below shows a pretty-printed JSON object with an empty `recipient_extra_info` member.
+
+~~~
+{{::include-fold examples/recipient_structure_example.txt}}
+~~~
+
+The serialized JSON leads to:
+
+~~~
+{{::include-fold examples/serialization_example1.txt}}
+~~~
+
+The base64url-encoded JSON structure above is used as the HPKE `info` bytes.
+
+## JSON Example {#json-example}
 
 Below is an example of a JWE using the JSON Serialization and HPKE key encryption:
 
@@ -508,6 +549,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-12
+
+* Added the recipient_structure
 
 -11
 
