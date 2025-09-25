@@ -353,8 +353,9 @@ Table of Contents
       HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
       (encryption algorithm) header parameter in the JWE protected
       header.  This field is included for alignment with the COSE HPKE
-      specification.  Currently, there are no known attacks that allow a
-      downgrade attack of the content encryption algorithm.
+      [I-D.ietf-cose-hpke] specification.  Currently, there are no known
+      attacks that allow a downgrade attack of the content encryption
+      algorithm.
 
    *  recipient_protected_header (object): This member contains the
       base64url-encoded JWE Per-Recipient Unprotected Header (see JWE
