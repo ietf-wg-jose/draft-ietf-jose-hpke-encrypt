@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 23 February 2026                                    A. Banerjee
+Expires: 29 March 2026                                       A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                          22 August 2025
+                                                       25 September 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 February 2026.
+   This Internet-Draft will expire on 29 March 2026.
 
 Copyright Notice
 
@@ -92,7 +92,9 @@ Table of Contents
    5.  Integrated Encryption
      5.1.  Compact Example
    6.  Key Encryption
-     6.1.  JSON Example
+     6.1.  Recipient_structure
+       6.1.1.  Deterministic Serialization for HPKE info
+     6.2.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
@@ -327,10 +329,11 @@ Table of Contents
    *  Recipient JWE Encrypted Key MUST be the ciphertext from HPKE
       Encryption.
 
-   *  The HPKE info parameter defaults to the empty string; mutually
-      known private information MAY be used instead.
+   *  The HPKE info parameter contains the encoding of the
+      Recipient_structure, which is described in Section 6.1.
 
-   *  The HPKE AAD parameter MUST be set to the empty string.
+   *  The HPKE AAD parameter defaults to the empty string; externally
+      provided information MAY be used instead.
 
    *  THE HPKE plaintext MUST be set to the CEK.
 
@@ -339,7 +342,70 @@ Table of Contents
    parameters as defined in [RFC7516]; no additional processing
    requirements are introduced by HPKE-based key encryption.
 
-6.1.  JSON Example
+6.1.  Recipient_structure
+
+   The Recipient_structure is a JSON object with the following members:
+
+   *  context (string): This member MUST include the constant string
+      value "JOSE HPKE Recipient".
+
+   *  next_layer_alg (string): Identifies the algorithm with which the
+      HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
+      (encryption algorithm) header parameter in the JWE protected
+      header.  This field is included for alignment with the COSE HPKE
+      [I-D.ietf-cose-hpke] specification.  Currently, there are no known
+      attacks that allow a downgrade attack of the content encryption
+      algorithm.
+
+   *  recipient_protected_header (object): This member contains the
+      base64url-encoded JWE Per-Recipient Unprotected Header (see JWE
+      JSON Serialization in Section 7.1 of [RFC7156] of the recipients
+      member.  To serialize this header member the procedure from
+      Section 3.3 of RFC 7638 MUST be used.  Unlike with RFC 7638, all
+      members from this member are included except for the "ek" member.
+      The inclusion of this data in the Recipient_structure allows
+      context information to be included in the key derivation.
+
+   *  recipient_extra_info (string): Contains additional context
+      information that the application includes in the key derivation
+      via the HPKE info parameter.  Mutually known private information,
+      which is defined in [NIST.SP.800-56Ar3], MAY be used in this input
+      parameter.  If no additional context is provided, this value MUST
+      be the empty string "".
+
+6.1.1.  Deterministic Serialization for HPKE info
+
+   JSON texts that are semantically identical can serialize differently
+   (e.g., member order, whitespace), which would lead to divergent info
+   values and failed key agreement.
+
+   To produce the HPKE info byte string from a Recipient_structure, both
+   sides MUST produce the deterministic JSON representation using the
+   JSON Web Key (JWK) Thumbprint serialization rules [RFC7638]:
+
+   1.  Construct the Recipient_structure JSON object exactly as defined
+       Section 6.1.
+
+   2.  Prepare the JSON structure based on Section 3.3 of RFC 7638.
+
+   3.  Use the resulting JSON structure, base64url-encode it and use the
+       octets as the HPKE info value.
+
+6.1.1.1.  Example
+
+   The example below shows a pretty-printed JSON object with an empty
+   recipient_extra_info member.
+
+   {{::include-fold examples/recipient_structure_example.txt}}
+
+   The serialized JSON leads to:
+
+   {{::include-fold examples/serialization_example1.txt}}
+
+   The base64url-encoded JSON structure above is used as the HPKE info
+   bytes.
+
+6.2.  JSON Example
 
    Below is an example of a JWE using the JSON Serialization and HPKE
    key encryption:
@@ -675,6 +741,11 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC7156]  Zorn, G., Wu, Q., and J. Korhonen, "Diameter Support for
+              Proxy Mobile IPv6 Localized Routing", RFC 7156,
+              DOI 10.17487/RFC7156, April 2014,
+              <https://www.rfc-editor.org/rfc/rfc7156>.
+
    [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
               RFC 7516, DOI 10.17487/RFC7516, May 2015,
               <https://www.rfc-editor.org/rfc/rfc7516>.
@@ -686,6 +757,10 @@ Table of Contents
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
               <https://www.rfc-editor.org/rfc/rfc7518>.
+
+   [RFC7638]  Jones, M. and N. Sakimura, "JSON Web Key (JWK)
+              Thumbprint", RFC 7638, DOI 10.17487/RFC7638, September
+              2015, <https://www.rfc-editor.org/rfc/rfc7638>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -705,17 +780,17 @@ Table of Contents
    [I-D.ietf-cose-dilithium]
               Prorock, M. and O. Steele, "ML-DSA for JOSE and COSE",
               Work in Progress, Internet-Draft, draft-ietf-cose-
-              dilithium-08, 7 July 2025,
+              dilithium-09, 12 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              dilithium-08>.
+              dilithium-09>.
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-15, 7 July 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-15>.
+              Internet-Draft, draft-ietf-cose-hpke-16, 19 September
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              cose-hpke-16>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
@@ -757,6 +832,10 @@ Acknowledgments
    to the specification.
 
 Document History
+
+   -12
+
+   *  Added the recipient_structure
 
    -11
 
