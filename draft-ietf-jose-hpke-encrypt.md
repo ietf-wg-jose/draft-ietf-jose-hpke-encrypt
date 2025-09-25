@@ -73,6 +73,7 @@ normative:
   RFC7516:
   RFC7518:
   RFC7517:
+  RFC7156:
   RFC8725:
   RFC7638:
   IANA.JOSE:
