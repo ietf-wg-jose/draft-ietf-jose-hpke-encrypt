@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-25T01:24:50.433993+00:00",
+  "timestamp": "2025-09-28T01:39:44.369433+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -7307,24 +7307,26 @@
       "id": "PR_kwDOMMuuSM6k5dXc",
       "title": "Recipient_structure",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/63",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-08-22T14:39:40Z",
-      "updatedAt": "2025-09-06T14:10:40Z",
+      "updatedAt": "2025-09-25T18:53:36Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "0a0dca721917c3393da4e99de21e5a82f1f91594",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "hannestschofenig-patch-11",
-      "headRefOid": "0d92b054b20b6e55872f397f0a35d3f29e93171c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "333d4d3b55c301ed271d42bcf4a48caf342a415a",
+      "closedAt": "2025-09-25T18:53:36Z",
+      "mergedAt": "2025-09-25T18:53:36Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "57b90f91aefbb3ad528f4540918817a85fb17142"
+      },
       "comments": [
         {
           "author": "panva",
@@ -7908,6 +7910,238 @@
               "updatedAt": "2025-09-06T14:10:53Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Cru-J",
+          "commit": {
+            "abbreviatedOid": "0d92b05"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:45:13Z",
+          "updatedAt": "2025-09-25T07:45:13Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Change made.",
+              "createdAt": "2025-09-25T07:45:13Z",
+              "updatedAt": "2025-09-25T07:45:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Cvjw0",
+          "commit": {
+            "abbreviatedOid": "c87b67d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T11:41:03Z",
+          "updatedAt": "2025-09-25T11:41:03Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "what is the \"recipient header\" in JOSE (I don't see any definition of it in RFC 7368 and other JOSE specifications) ?\r\n\r\n",
+              "createdAt": "2025-09-25T11:41:03Z",
+              "updatedAt": "2025-09-25T11:41:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7CvkSi",
+          "commit": {
+            "abbreviatedOid": "c87b67d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Thanks for addressing all of the comments, I only have one comment. ",
+          "createdAt": "2025-09-25T11:41:36Z",
+          "updatedAt": "2025-09-25T11:41:36Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7CxTiz",
+          "commit": {
+            "abbreviatedOid": "c87b67d"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T13:33:53Z",
+          "updatedAt": "2025-09-25T13:33:53Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\n- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the \"ek\" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.\r\n```",
+              "createdAt": "2025-09-25T13:33:53Z",
+              "updatedAt": "2025-09-25T13:37:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7CxebF",
+          "commit": {
+            "abbreviatedOid": "747a90f"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T13:40:34Z",
+          "updatedAt": "2025-09-25T13:40:34Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n- recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string \"\".\r\n```",
+              "createdAt": "2025-09-25T13:40:34Z",
+              "updatedAt": "2025-09-25T13:40:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7CxiHW",
+          "commit": {
+            "abbreviatedOid": "c87b67d"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T13:42:43Z",
+          "updatedAt": "2025-09-25T13:42:43Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "I now used the terminology from JWE. I hope the text is now better.",
+              "createdAt": "2025-09-25T13:42:43Z",
+              "updatedAt": "2025-09-25T13:42:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Cxisv",
+          "commit": {
+            "abbreviatedOid": "0d92b05"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T13:43:01Z",
+          "updatedAt": "2025-09-25T13:43:01Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "I updated the text and I hope it is better now.",
+              "createdAt": "2025-09-25T13:43:01Z",
+              "updatedAt": "2025-09-25T13:43:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Cxj_w",
+          "commit": {
+            "abbreviatedOid": "0d92b05"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T13:43:39Z",
+          "updatedAt": "2025-09-25T13:43:40Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "I added text here about the mutually known private information.",
+              "createdAt": "2025-09-25T13:43:39Z",
+              "updatedAt": "2025-09-25T13:43:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7CyKnk",
+          "commit": {
+            "abbreviatedOid": "333d4d3"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-25T14:07:10Z",
+          "updatedAt": "2025-09-25T14:07:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7C1Vda",
+          "commit": {
+            "abbreviatedOid": "c7e6577"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T17:19:00Z",
+          "updatedAt": "2025-09-25T17:19:00Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "I have made several updates to the text and I hope it is now easier to understand",
+              "createdAt": "2025-09-25T17:19:00Z",
+              "updatedAt": "2025-09-25T17:19:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7C1Vxr",
+          "commit": {
+            "abbreviatedOid": "0d92b05"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T17:19:27Z",
+          "updatedAt": "2025-09-25T17:19:27Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Done. I have added this sentence.",
+              "createdAt": "2025-09-25T17:19:27Z",
+              "updatedAt": "2025-09-25T17:19:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7C11YI",
+          "commit": {
+            "abbreviatedOid": "333d4d3"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-25T17:59:43Z",
+          "updatedAt": "2025-09-25T17:59:43Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7C2drh",
+          "commit": {
+            "abbreviatedOid": "333d4d3"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-25T18:47:34Z",
+          "updatedAt": "2025-09-25T18:47:34Z",
+          "comments": []
         }
       ]
     },
