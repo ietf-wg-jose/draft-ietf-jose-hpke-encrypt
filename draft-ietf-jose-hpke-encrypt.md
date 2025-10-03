@@ -70,7 +70,7 @@ author:
 normative:
   RFC2119:
   RFC8174:
-  RFC9180:
+  I-D.ietf-hpke-hpke:
   RFC7516:
   RFC7518:
   RFC7517:
@@ -108,8 +108,9 @@ informative:
 
 
 This specification defines Hybrid Public Key Encryption (HPKE) for use with
-JSON Object Signing and Encryption (JOSE). HPKE offers a variant of
-public key encryption of arbitrary-sized plaintexts for a recipient public key.
+JSON Object Signing and Encryption (JOSE). HPKE offers a variant of public key encryption
+of arbitrary-sized plaintexts for a recipient public key, and provides security
+against adaptive chosen ciphertext attacks (IND-CCA2-secure).
 
 HPKE is a general encryption framework utilizing
 an asymmetric key encapsulation mechanism (KEM), a key derivation function (KDF),
@@ -123,12 +124,12 @@ The specification chooses a specific subset of the HPKE features to use with JOS
 
 # Introduction
 
-Hybrid Public Key Encryption (HPKE) {{RFC9180}} is a scheme that
-provides public key encryption of arbitrary-sized plaintexts given a
+Hybrid Public Key Encryption (HPKE) {{I-D.ietf-hpke-hpke}} is a public key encryption
+(PKE) scheme that provides encryption of arbitrary-sized plaintexts given a
 recipient's public key.
 
 This specification enables JSON Web Encryption (JWE) to leverage HPKE,
-bringing support for KEMs and the possibility of Post Quantum or Hybrid KEMs to JWE.
+bringing support for KEMs and the possibility of Hybrid KEMs to JWE.
 
 # Conventions and Definitions
 
@@ -139,13 +140,13 @@ bringing support for KEMs and the possibility of Post Quantum or Hybrid KEMs to 
 This specification uses the following abbreviations and terms:
 
 - Content Encryption Key (CEK), is defined in {{RFC7517}}.
-- Hybrid Public Key Encryption (HPKE) is defined in {{RFC9180}}.
-- pkR is the public key of the recipient, as defined in {{RFC9180}}.
-- skR is the private key of the recipient, as defined in {{RFC9180}}.
-- Key Encapsulation Mechanism (KEM), see {{RFC9180}}.
-- Key Derivation Function (KDF), see {{RFC9180}}.
-- Authenticated Encryption with Associated Data (AEAD), see {{RFC9180}}.
-- Additional Authenticated Data (AAD), see {{RFC9180}}.
+- Hybrid Public Key Encryption (HPKE) is defined in {{I-D.ietf-hpke-hpke}}.
+- pkR is the public key of the recipient, as defined in {{I-D.ietf-hpke-hpke}}.
+- skR is the private key of the recipient, as defined in {{I-D.ietf-hpke-hpke}}.
+- Key Encapsulation Mechanism (KEM), see {{I-D.ietf-hpke-hpke}}.
+- Key Derivation Function (KDF), see {{I-D.ietf-hpke-hpke}}.
+- Authenticated Encryption with Associated Data (AEAD), see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
+- Additional Authenticated Data (AAD), see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
 
 # Overview {#overview}
 
@@ -159,11 +160,11 @@ When "alg" is a JOSE-HPKE algorithm:
   * If "enc" is "int", HPKE JWE Integrated Encryption is used.
   * If "enc" is an AEAD algorithm, the recipient Key Management mode is Key Encryption.
 
-The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used.
+The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used. This HPKE AEAD is used internally by HPKE and is distinct from the AEAD algorithm specified in "enc".
 
-HPKE supports several modes, which are described in Table 1 of {{RFC9180}}.
+HPKE supports two modes, which are described in Table 1 of {{I-D.ietf-hpke-hpke}}.
 
-In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.
+In JOSE-HPKE, both "mode_base" and "mode_psk" are supported.
 When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise the mode is "mode_base".
 
 JWE supports different serializations, including Compact JWE Serialization as described in {{Section 3.1 of RFC7516}}, General JWE JSON Serialization as described in {{Section 3.2 of RFC7516}}.
@@ -178,17 +179,17 @@ For example Compact JWE Serialization does not support the following:
 
 HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.
 
-Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{Section 5 of RFC9180}}.
+Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in {{Section 5 of I-D.ietf-hpke-hpke}}.
 
 This specification updates the "enc" definition in {{Section 4.1.2 of RFC7516}}
 by allowing the "enc" value "int" when the "alg" value is a JOSE-HPKE algorithm.
 When "alg" is not a JOSE-HPKE algorithm and the "enc" value is "int",
-the input MUST be rejected.
+the input MUST NOT be used and MUST be rejected.
 
 ## Auxiliary Authenticated Application Information
 
 The HPKE "aad parameter" for Open() and Seal()
-specified in {{Section 8.1 of RFC9180}}
+specified in {{Section 8.1 of I-D.ietf-hpke-hpke}}
 is used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 Its value is the Additional Authenticated Data encryption parameter value
 computed in Step 14 of {{Section 5.1 of RFC7518}} (Message Encryption).
@@ -199,7 +200,7 @@ which are described in {{Section 4.6.1 of RFC7518}}.
 
 ## Encapsulated Keys {#encapsulated-keys}
 
-HPKE encapsulated key is defined in {{Section 5.1.1 of RFC9180}}.
+HPKE encapsulated key is defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
 
 In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.
 
@@ -216,10 +217,10 @@ In HPKE JWE Integrated Encryption:
 - The protected header parameters "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
-- The JWE Encrypted Key MUST be encapsulated key, as defined in {{Section 5.1.1 of RFC9180}}.
+- The JWE Encrypted Key MUST be encapsulated key, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
-- The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of RFC9180}}.
+- The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 - The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead. The concept of mutually known private information is defined in {{NIST.SP.800-56Ar3}} as an input to the key derivation function.
 - The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{Section 5.1 of RFC7516}}.
 - Then follow Steps 11-19 of {{Section 5.1 of RFC7516}} (Message Encryption).
@@ -358,7 +359,7 @@ which is appropriate when using integrated encryption.
 # Security Considerations
 
 This specification is based on HPKE and the security considerations of
-{{RFC9180}} are therefore applicable also to this specification.
+{{I-D.ietf-hpke-hpke}} are therefore applicable also to this specification.
 
 HPKE assumes the sender is in possession of the public key of the recipient and
 HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
@@ -372,22 +373,13 @@ The guidance on randomness in {{RFC4086}} applies.
 
 ## Key Management
 
-A single KEM key should not be used with multiple algorithms.
+A single KEM key MUST NOT be used with multiple KEM algorithms.
 Each key and its associated algorithm suite, comprising the KEM, KDF, and AEAD,
 should be managed independently.
 This separation prevents unintended interactions or vulnerabilities between algorithms,
 ensuring the integrity and security guarantees of each algorithm are preserved.
 Additionally, the same key should not be used for both key encryption and integrated encryption, as it may introduce security risks.
 It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
-
-## Static Asymmetric Authentication in HPKE
-
-Authenticated KEMs based on static asymmetric key authentication are not supported in JOSE HPKE for the following reasons:
-
-* The security implications vary depending on whether they are applied to Key Encryption or Integrated Encryption. When used for Key Encryption, authenticated KEMs offer little meaningful security benefit and may give a false impression of data origin authentication.
-
-* Authenticated KEMs are susceptible to Key-Compromise Impersonation (KCI) attacks. If the sender's static private key is
-  compromised, an attacker can generate ciphertexts that the recipient will accept as authentic, compromising message integrity.
 
 ## Review JWT Best Current Practices
 
@@ -422,7 +414,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-1
 
@@ -432,7 +424,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-2
 
@@ -442,7 +434,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-3
 
@@ -452,7 +444,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-4
 
@@ -462,7 +454,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-5
 
@@ -472,7 +464,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### HPKE-6
 
@@ -482,7 +474,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ### int
 
@@ -492,7 +484,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Required
 - Change Controller: IETF
 - Specification Document(s): {{overview}} of this specification
-- Algorithm Analysis Documents(s): {{RFC9180}}
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
 ## JSON Web Signature and Encryption Header Parameters
 
@@ -501,7 +493,7 @@ The following entries are added to the IANA "JSON Web Key Parameters" registry {
 ### ek
 
 - Header Parameter Name: "ek"
-- Header Parameter Description: A base64url-encoded encapsulated key, as defined in {{Section 5.1.1 of RFC9180}}
+- Header Parameter Description: A base64url-encoded encapsulated key, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{encapsulated-keys}} of this specification
@@ -509,7 +501,7 @@ The following entries are added to the IANA "JSON Web Key Parameters" registry {
 ### psk_id
 
 - Header Parameter Name: "psk_id"
-- Header Parameter Description: A base64url-encoded key identifier (kid) for the pre-shared key, as defined in {{Section 5.1.2 of RFC9180}}
+- Header Parameter Description: A base64url-encoded key identifier (kid) for the pre-shared key, as defined in {{Section 5.1.2 of I-D.ietf-hpke-hpke}}
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{overview}} of this specification
