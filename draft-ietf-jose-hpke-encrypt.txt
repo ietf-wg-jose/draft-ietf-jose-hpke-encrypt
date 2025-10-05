@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 29 March 2026                                       A. Banerjee
+Expires: 8 April 2026                                        A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                       25 September 2025
+                                                          5 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -24,11 +24,13 @@ Abstract
    This specification defines Hybrid Public Key Encryption (HPKE) for
    use with JSON Object Signing and Encryption (JOSE).  HPKE offers a
    variant of public key encryption of arbitrary-sized plaintexts for a
-   recipient public key.
+   recipient public key, and provides security against adaptive chosen
+   ciphertext attacks (IND-CCA2-secure).
 
-   HPKE is a general encryption framework utilizing an asymmetric key
-   encapsulation mechanism (KEM), a key derivation function (KDF), and
-   an Authenticated Encryption with Associated Data (AEAD) algorithm.
+   HPKE also includes a variant that authenticates possession of a pre-
+   shared key.  HPKE works for any combination of an asymmetric KEM, key
+   derivation function (KDF), and authenticated encryption with
+   additional data (AEAD) encryption function.
 
    This document defines the use of HPKE with JOSE.  The specification
    chooses a specific subset of the HPKE features to use with JOSE.
@@ -65,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 March 2026.
+   This Internet-Draft will expire on 8 April 2026.
 
 Copyright Notice
 
@@ -99,8 +101,7 @@ Table of Contents
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
    8.  Security Considerations
      8.1.  Key Management
-     8.2.  Static Asymmetric Authentication in HPKE
-     8.3.  Review JWT Best Current Practices
+     8.2.  Review JWT Best Current Practices
    9.  Ciphersuite Registration
    10. IANA Considerations
      10.1.  JSON Web Signature and Encryption Algorithms
@@ -125,13 +126,13 @@ Table of Contents
 
 1.  Introduction
 
-   Hybrid Public Key Encryption (HPKE) [RFC9180] is a scheme that
-   provides public key encryption of arbitrary-sized plaintexts given a
-   recipient's public key.
+   Hybrid Public Key Encryption (HPKE) [I-D.ietf-hpke-hpke] is a public
+   key encryption (PKE) scheme that provides encryption of arbitrary-
+   sized plaintexts given a recipient's public key.
 
    This specification enables JSON Web Encryption (JWE) to leverage
-   HPKE, bringing support for KEMs and the possibility of Post Quantum
-   or Hybrid KEMs to JWE.
+   HPKE, bringing support for KEMs and the possibility of Hybrid KEMs to
+   JWE.
 
 2.  Conventions and Definitions
 
@@ -147,20 +148,24 @@ Table of Contents
 
    *  Content Encryption Key (CEK), is defined in [RFC7517].
 
-   *  Hybrid Public Key Encryption (HPKE) is defined in [RFC9180].
+   *  Hybrid Public Key Encryption (HPKE) is defined in
+      [I-D.ietf-hpke-hpke].
 
-   *  pkR is the public key of the recipient, as defined in [RFC9180].
+   *  pkR is the public key of the recipient, as defined in
+      [I-D.ietf-hpke-hpke].
 
-   *  skR is the private key of the recipient, as defined in [RFC9180].
+   *  skR is the private key of the recipient, as defined in
+      [I-D.ietf-hpke-hpke].
 
-   *  Key Encapsulation Mechanism (KEM), see [RFC9180].
+   *  Key Encapsulation Mechanism (KEM), see [I-D.ietf-hpke-hpke].
 
-   *  Key Derivation Function (KDF), see [RFC9180].
+   *  Key Derivation Function (KDF), see [I-D.ietf-hpke-hpke].
 
    *  Authenticated Encryption with Associated Data (AEAD), see
-      [RFC9180].
+      [I-D.ietf-hpke-hpke] and [RFC7516].
 
-   *  Additional Authenticated Data (AAD), see [RFC9180].
+   *  Additional Authenticated Data (AAD), see [I-D.ietf-hpke-hpke] and
+      [RFC7516].
 
 4.  Overview
 
@@ -181,12 +186,13 @@ Table of Contents
       is Key Encryption.
 
    The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm
-   used.
+   used.  This HPKE AEAD is used internally by HPKE and is distinct from
+   the AEAD algorithm specified in "enc".
 
-   HPKE supports several modes, which are described in Table 1 of
-   [RFC9180].
+   HPKE supports two modes, which are described in Table 1 of
+   [I-D.ietf-hpke-hpke].
 
-   In JOSE-HPKE, only "mode_base" and "mode_psk" are supported.  When
+   In JOSE-HPKE, both "mode_base" and "mode_psk" are supported.  When
    "psk_id" JOSE Header parameter is present the mode is "mode_psk",
    otherwise the mode is "mode_base".
 
@@ -210,20 +216,21 @@ Table of Contents
    Single recipient HPKE JWE Key Encryption with no "aad" can be
    expressed in Compact JWE Serialization, so long as the recipient and
    sender use the same HPKE Setup process as described in Section 5 of
-   [RFC9180].
+   [I-D.ietf-hpke-hpke].
 
    This specification updates the "enc" definition in Section 4.1.2 of
    [RFC7516] by allowing the "enc" value "int" when the "alg" value is a
    JOSE-HPKE algorithm.  When "alg" is not a JOSE-HPKE algorithm and the
-   "enc" value is "int", the input MUST be rejected.
+   "enc" value is "int", the input MUST NOT be used and MUST be
+   rejected.
 
 4.1.  Auxiliary Authenticated Application Information
 
    The HPKE "aad parameter" for Open() and Seal() specified in
-   Section 8.1 of [RFC9180] is used with both HPKE JWE Integrated
-   Encryption and HPKE JWE Key Encryption.  Its value is the Additional
-   Authenticated Data encryption parameter value computed in Step 14 of
-   Section 5.1 of [RFC7518] (Message Encryption).
+   Section 8.1 of [I-D.ietf-hpke-hpke] is used with both HPKE JWE
+   Integrated Encryption and HPKE JWE Key Encryption.  Its value is the
+   Additional Authenticated Data encryption parameter value computed in
+   Step 14 of Section 5.1 of [RFC7518] (Message Encryption).
 
    Despite similarities to ECDH-ES, this specification does not use the
    apu and apv header parameters, which are described in Section 4.6.1
@@ -231,7 +238,8 @@ Table of Contents
 
 4.2.  Encapsulated Keys
 
-   HPKE encapsulated key is defined in Section 5.1.1 of [RFC9180].
+   HPKE encapsulated key is defined in Section 5 of
+   [I-D.ietf-hpke-hpke].
 
    In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole
    recipient is the HPKE encapsulated key.
@@ -259,7 +267,7 @@ Table of Contents
    *  There MUST be exactly one recipient.
 
    *  The JWE Encrypted Key MUST be encapsulated key, as defined in
-      Section 5.1.1 of [RFC9180].
+      Section 5 of [I-D.ietf-hpke-hpke].
 
    *  The JWE Initialization Vector and JWE Authentication Tag MUST be
       the empty octet sequence.
@@ -267,7 +275,7 @@ Table of Contents
    *  The JWE AAD MAY be present when using the JWE JSON Serialization.
 
    *  The JWE Ciphertext is the ciphertext defined in Section 5.2 of
-      [RFC9180].
+      [I-D.ietf-hpke-hpke].
 
    *  The HPKE info parameter defaults to the empty string; mutually
       known private information MAY be used instead.  The concept of
@@ -477,7 +485,8 @@ Table of Contents
 8.  Security Considerations
 
    This specification is based on HPKE and the security considerations
-   of [RFC9180] are therefore applicable also to this specification.
+   of [I-D.ietf-hpke-hpke] are therefore applicable also to this
+   specification.
 
    HPKE assumes the sender is in possession of the public key of the
    recipient and HPKE JOSE makes the same assumptions.  Hence, some form
@@ -493,7 +502,7 @@ Table of Contents
 
 8.1.  Key Management
 
-   A single KEM key should not be used with multiple algorithms.  Each
+   A single KEM key MUST NOT be used with multiple KEM algorithms.  Each
    key and its associated algorithm suite, comprising the KEM, KDF, and
    AEAD, should be managed independently.  This separation prevents
    unintended interactions or vulnerabilities between algorithms,
@@ -504,23 +513,7 @@ Table of Contents
    potential for key leakage, cross-suite attacks, and improper handling
    of the key.
 
-8.2.  Static Asymmetric Authentication in HPKE
-
-   Authenticated KEMs based on static asymmetric key authentication are
-   not supported in JOSE HPKE for the following reasons:
-
-   *  The security implications vary depending on whether they are
-      applied to Key Encryption or Integrated Encryption.  When used for
-      Key Encryption, authenticated KEMs offer little meaningful
-      security benefit and may give a false impression of data origin
-      authentication.
-
-   *  Authenticated KEMs are susceptible to Key-Compromise Impersonation
-      (KCI) attacks.  If the sender's static private key is compromised,
-      an attacker can generate ciphertexts that the recipient will
-      accept as authentic, compromising message integrity.
-
-8.3.  Review JWT Best Current Practices
+8.2.  Review JWT Best Current Practices
 
    The guidance in [RFC8725] about encryption is also pertinent to this
    specification.
@@ -569,7 +562,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.2.  HPKE-1
 
@@ -587,7 +580,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.3.  HPKE-2
 
@@ -605,7 +598,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.4.  HPKE-3
 
@@ -623,7 +616,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.5.  HPKE-4
 
@@ -641,7 +634,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.6.  HPKE-5
 
@@ -659,7 +652,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.7.  HPKE-6
 
@@ -677,7 +670,7 @@ Table of Contents
 
    *  Specification Document(s): Section 7 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.1.8.  int
 
@@ -694,7 +687,7 @@ Table of Contents
 
    *  Specification Document(s): Section 4 of this specification
 
-   *  Algorithm Analysis Documents(s): [RFC9180]
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
 10.2.  JSON Web Signature and Encryption Header Parameters
 
@@ -706,7 +699,7 @@ Table of Contents
    *  Header Parameter Name: "ek"
 
    *  Header Parameter Description: A base64url-encoded encapsulated
-      key, as defined in Section 5.1.1 of [RFC9180]
+      key, as defined in Section 5 of [I-D.ietf-hpke-hpke]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -720,7 +713,7 @@ Table of Contents
 
    *  Header Parameter Description: A base64url-encoded key identifier
       (kid) for the pre-shared key, as defined in Section 5.1.2 of
-      [RFC9180]
+      [I-D.ietf-hpke-hpke]
 
    *  Header Parameter Usage Location(s): JWE
 
@@ -731,6 +724,13 @@ Table of Contents
 11.  References
 
 11.1.  Normative References
+
+   [I-D.ietf-hpke-hpke]
+              Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
+              "Hybrid Public Key Encryption", Work in Progress,
+              Internet-Draft, draft-ietf-hpke-hpke-01, 24 June 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-hpke-
+              hpke-01>.
 
    [IANA.JOSE]
               IANA, "JSON Web Signature and Encryption Algorithms",
@@ -770,10 +770,6 @@ Table of Contents
               Current Practices", BCP 225, RFC 8725,
               DOI 10.17487/RFC8725, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8725>.
-
-   [RFC9180]  Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
-              Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
-              February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
 11.2.  Informative References
 
