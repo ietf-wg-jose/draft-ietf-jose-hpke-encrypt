@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:39:44.369433+00:00",
+  "timestamp": "2025-10-05T01:38:50.030165+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -879,6 +879,64 @@
           "updatedAt": "2025-09-24T21:10:39Z"
         }
       ]
+    },
+    {
+      "number": 65,
+      "id": "I_kwDOMMuuSM7PS1sB",
+      "title": "Reflect Madrid Discussion about  key type",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/65",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/jose/E2wD5eE1Gh6B6srVskWsoYhS4IA/",
+      "createdAt": "2025-10-02T14:49:20Z",
+      "updatedAt": "2025-10-03T12:24:09Z",
+      "closedAt": "2025-10-03T12:24:09Z",
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It is not related to this draft and addressed in draft-ietf-jose-pqc-kem-04",
+          "createdAt": "2025-10-03T12:24:09Z",
+          "updatedAt": "2025-10-03T12:24:09Z"
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "id": "I_kwDOMMuuSM7PeKUw",
+      "title": "WGLC comments from Niel",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/66",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We will have to go through https://mailarchive.ietf.org/arch/msg/jose/FLRcVbiMPd2NIV32Vlh8avE-gk4/, respond to the comments and update the draft. ",
+      "createdAt": "2025-10-03T11:40:28Z",
+      "updatedAt": "2025-10-03T11:41:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 67,
+      "id": "I_kwDOMMuuSM7PeK6G",
+      "title": "Address comments from John",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/67",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "tireddy2"
+      ],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/jose/TZD8XVA7a3I30GuzjI8CaCgkQA0/ ",
+      "createdAt": "2025-10-03T11:41:34Z",
+      "updatedAt": "2025-10-03T12:38:06Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -8183,6 +8241,46 @@
           "body": "Thanks for doing this, Hannes.",
           "createdAt": "2025-08-22T15:34:01Z",
           "updatedAt": "2025-08-22T15:34:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOMMuuSM6r9RW2",
+      "title": "Address comments from John",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/68",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-03T13:25:35Z",
+      "updatedAt": "2025-10-03T17:01:03Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "57b90f91aefbb3ad528f4540918817a85fb17142",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-11",
+      "headRefOid": "e1faef2f0563df68bdd337bbb693020d690e3745",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7Esawd",
+          "commit": {
+            "abbreviatedOid": "e1faef2"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I made a minor addition to the abstract otherwise this PR is great. Thanks, Tiru!",
+          "createdAt": "2025-10-03T17:01:03Z",
+          "updatedAt": "2025-10-03T17:01:03Z",
           "comments": []
         }
       ]
