@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-05T01:38:50.030165+00:00",
+  "timestamp": "2025-10-07T01:23:40.292032+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -925,7 +925,7 @@
       "id": "I_kwDOMMuuSM7PeK6G",
       "title": "Address comments from John",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/67",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -934,8 +934,8 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/jose/TZD8XVA7a3I30GuzjI8CaCgkQA0/ ",
       "createdAt": "2025-10-03T11:41:34Z",
-      "updatedAt": "2025-10-03T12:38:06Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-05T11:02:10Z",
+      "closedAt": "2025-10-05T11:02:10Z",
       "comments": []
     }
   ],
@@ -8250,24 +8250,26 @@
       "id": "PR_kwDOMMuuSM6r9RW2",
       "title": "Address comments from John",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/68",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-10-03T13:25:35Z",
-      "updatedAt": "2025-10-03T17:01:03Z",
+      "updatedAt": "2025-10-05T11:01:52Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "57b90f91aefbb3ad528f4540918817a85fb17142",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-11",
       "headRefOid": "e1faef2f0563df68bdd337bbb693020d690e3745",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-10-05T11:01:52Z",
+      "mergedAt": "2025-10-05T11:01:52Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "23a46ca92879a58f03661243789ca641fc3650c5"
+      },
       "comments": [],
       "reviews": [
         {
