@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-07T01:23:40.292032+00:00",
+  "timestamp": "2025-10-09T01:24:29.100567+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -916,9 +916,17 @@
       "labels": [],
       "body": "We will have to go through https://mailarchive.ietf.org/arch/msg/jose/FLRcVbiMPd2NIV32Vlh8avE-gk4/, respond to the comments and update the draft. ",
       "createdAt": "2025-10-03T11:40:28Z",
-      "updatedAt": "2025-10-03T11:41:49Z",
+      "updatedAt": "2025-10-08T14:52:34Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "auriee",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed in #56 ",
+          "createdAt": "2025-10-08T14:52:34Z",
+          "updatedAt": "2025-10-08T14:52:34Z"
+        }
+      ]
     },
     {
       "number": 67,
