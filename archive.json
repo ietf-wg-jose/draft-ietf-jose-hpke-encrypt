@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-09T01:24:29.100567+00:00",
+  "timestamp": "2025-10-12T01:35:24.326634+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -892,7 +892,7 @@
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/jose/E2wD5eE1Gh6B6srVskWsoYhS4IA/",
       "createdAt": "2025-10-02T14:49:20Z",
-      "updatedAt": "2025-10-03T12:24:09Z",
+      "updatedAt": "2025-10-11T12:54:44Z",
       "closedAt": "2025-10-03T12:24:09Z",
       "comments": [
         {
@@ -901,6 +901,13 @@
           "body": "It is not related to this draft and addressed in draft-ietf-jose-pqc-kem-04",
           "createdAt": "2025-10-03T12:24:09Z",
           "updatedAt": "2025-10-03T12:24:09Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> It is not related to this draft and addressed in draft-ietf-jose-pqc-kem-04\n\nThat was my thought as well. But wondering if I was missing something, did a search for \"AKP\" in this draft and found the following, which I'm not sure I understand but seems out of place. \n\n> When the \"kty\" field is \"AKP\" (Algorithm Key Pair [[I-D.ietf-cose-dilithium](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-12.html#I-D.ietf-cose-dilithium)]) and \"alg\" is a JOSE-HPKE algorithm, the public and private keys MUST be raw HPKE public and private keys (respectively) for the KEM used by HPKE. ",
+          "createdAt": "2025-10-11T12:54:44Z",
+          "updatedAt": "2025-10-11T12:54:44Z"
         }
       ]
     },
@@ -909,15 +916,15 @@
       "id": "I_kwDOMMuuSM7PeKUw",
       "title": "WGLC comments from Niel",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/66",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "We will have to go through https://mailarchive.ietf.org/arch/msg/jose/FLRcVbiMPd2NIV32Vlh8avE-gk4/, respond to the comments and update the draft. ",
       "createdAt": "2025-10-03T11:40:28Z",
-      "updatedAt": "2025-10-08T14:52:34Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-09T13:53:18Z",
+      "closedAt": "2025-10-09T13:53:18Z",
       "comments": [
         {
           "author": "auriee",
@@ -944,6 +951,24 @@
       "createdAt": "2025-10-03T11:41:34Z",
       "updatedAt": "2025-10-05T11:02:10Z",
       "closedAt": "2025-10-05T11:02:10Z",
+      "comments": []
+    },
+    {
+      "number": 69,
+      "id": "I_kwDOMMuuSM7Q0R2s",
+      "title": "Reference HPKE as RFC 9180 until draft-ietf-hpke-hpke becomes an RFC",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/69",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "tireddy2"
+      ],
+      "labels": [],
+      "body": "#68 changed the HPKE reference from RFC 9180 to draft-ietf-hpke-hpke.  This is inappropriate until the latter becomes an RFC, since the downward reference would prevent us from finishing.  We're also not using any functionality that is specific to draft-ietf-hpke-hpke.  Therefore, we need to change the reference back for now.\n\nAlso, #68 failed to include the history entry describing the change in draft -13.  When this fix is made, please also add the history entry.\n\n@tireddy2, I'm assigning this to you since you created the PR that we need to revert part of.",
+      "createdAt": "2025-10-10T15:15:17Z",
+      "updatedAt": "2025-10-10T15:15:17Z",
+      "closedAt": null,
       "comments": []
     }
   ],
