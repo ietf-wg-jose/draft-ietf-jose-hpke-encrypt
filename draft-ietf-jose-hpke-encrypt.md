@@ -294,13 +294,13 @@ To produce the HPKE `info` byte string from a `Recipient_structure`, both sides 
 The example below shows a pretty-printed JSON object with an empty `recipient_extra_info` member.
 
 ~~~
-{{::include-fold examples/recipient_structure_example.txt}}
+{::include-fold examples/recipient_structure_example.txt}
 ~~~
 
 The serialized JSON leads to:
 
 ~~~
-{{::include-fold examples/serialization_example1.txt}}
+{::include-fold examples/serialization_example1.txt}
 ~~~
 
 The base64url-encoded JSON structure above is used as the HPKE `info` bytes.
