@@ -22,25 +22,24 @@ function (KDF), and authenticated encryption with additional data
        This document defines the use of HPKE with JOSE.
 The specification chooses a specific subset of the HPKE features to use with JOSE. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="HPKE" name="keyword">
 <meta content="JOSE" name="keyword">
 <meta content="JWE" name="keyword">
 <meta content="Hybrid" name="keyword">
 <meta content="draft-ietf-jose-hpke-encrypt-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.4.0
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
-    setuptools 80.9.0
     wcwidth 0.2.14
 -->
 <link href="draft-ietf-jose-hpke-encrypt.xml" rel="alternate" type="application/rfc+xml">
@@ -1620,13 +1619,38 @@ no additional processing requirements are introduced by HPKE-based key encryptio
 <p id="section-6.1.1.1-1">The example below shows a pretty-printed JSON object with an empty <code>recipient_extra_info</code> member.<a href="#section-6.1.1.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1.1.1-2">
 <pre>
-{{::include-fold examples/recipient_structure_example.txt}}
+{
+  "context": "JOSE HPKE Recipient",
+  "next_layer_alg": "A128GCM",
+  "recipient_protected_header": {
+    "alg": "HPKE-0",
+    "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
+  },
+  "recipient_extra_info": ""
+}
+
 </pre><a href="#section-6.1.1.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.1.1.1-3">The serialized JSON leads to:<a href="#section-6.1.1.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1.1.1-4">
 <pre>
-{{::include-fold examples/serialization_example1.txt}}
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+RFC7638-serialized recipient_protected_header (JSON string):
+{"alg":"HPKE-0","kid":"G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"}
+
+RFC7638-serialized Recipient_structure (JSON string):
+{"context":"JOSE HPKE Recipient","next_layer_alg":"A128GCM","\
+recipient_extra_info":"","recipient_protected_header":"\
+eyJhbGciOiJIUEtFLTAiLCJraWQiOiJHNU5fX0NxTXZfa0pHaWVHU0Z1QXVndmwwanJR\
+                                            SkNaM3lLd1ZLNnNVTTRvIn0"}
+
+HPKE info (base64url):
+eyJjb250ZXh0IjoiSk9TRSBIUEtFIFJlY2lwaWVudCIsIm5leHRfbGF5ZXJfYWxnIjoi\
+QTEyOEdDTSIsInJlY2lwaWVudF9leHRyYV9pbmZvIjoiIiwicmVjaXBpZW50X3Byb3Rl\
+Y3RlZF9oZWFkZXIiOiJleUpoYkdjaU9pSklVRXRGTFRBaUxDSnJhV1FpT2lKSE5VNWZY\
+ME54VFhaZmEwcEhhV1ZIVTBaMVFYVm5kbXd3YW5KUlNrTmFNM2xMZDFaTE5uTlZUVFJ2\
+                                                              SW4wIn0
 </pre><a href="#section-6.1.1.1-4" class="pilcrow">¶</a>
 </div>
 <p id="section-6.1.1.1-5">The base64url-encoded JSON structure above is used as the HPKE <code>info</code> bytes.<a href="#section-6.1.1.1-5" class="pilcrow">¶</a></p>
