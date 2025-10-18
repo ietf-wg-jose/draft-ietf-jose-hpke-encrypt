@@ -854,6 +854,12 @@ Document History
 
    *  Fixed bug in "include-fold" syntax
 
+   *  Switched reference from RFC 9180 to draft-ietf-hpke-hpke
+
+   *  Editorial improvements to abstract and introduction.
+
+   *  Removed Section 8.2 "Static Asymmetric Authentication in HPKE"
+
    -12
 
    *  Added the recipient_structure
