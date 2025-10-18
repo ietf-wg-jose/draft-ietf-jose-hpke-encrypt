@@ -539,6 +539,11 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
+-13
+
+* Removed orphan text about AKP kty field
+* Fixed bug in "include-fold" syntax
+
 -12
 
 * Added the recipient_structure
