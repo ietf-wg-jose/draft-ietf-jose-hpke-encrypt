@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 8 April 2026                                        A. Banerjee
+Expires: 21 April 2026                                       A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                          5 October 2025
+                                                         18 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 April 2026.
+   This Internet-Draft will expire on 21 April 2026.
 
 Copyright Notice
 
@@ -459,11 +459,6 @@ Table of Contents
 
          Figure 1: JWK Types and Curves for JOSE-HPKE Ciphersuites
 
-   When the "kty" field is "AKP" (Algorithm Key Pair
-   [I-D.ietf-cose-dilithium]) and "alg" is a JOSE-HPKE algorithm, the
-   public and private keys MUST be raw HPKE public and private keys
-   (respectively) for the KEM used by HPKE.
-
 7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
 
    The example below is a JWK representation of a JOSE-HPKE public and
@@ -776,9 +771,9 @@ Table of Contents
    [I-D.ietf-cose-dilithium]
               Prorock, M. and O. Steele, "ML-DSA for JOSE and COSE",
               Work in Progress, Internet-Draft, draft-ietf-cose-
-              dilithium-09, 12 September 2025,
+              dilithium-10, 14 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              dilithium-09>.
+              dilithium-10>.
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
