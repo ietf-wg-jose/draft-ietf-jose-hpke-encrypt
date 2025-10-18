@@ -543,6 +543,12 @@ for their contributions to the specification.
 
 * Removed orphan text about AKP kty field
 * Fixed bug in "include-fold" syntax
+* Switched reference from RFC 9180 to
+  draft-ietf-hpke-hpke
+* Editorial improvements to abstract and
+  introduction.
+* Removed Section 8.2 "Static Asymmetric
+  Authentication in HPKE"
 
 -12
 
