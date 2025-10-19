@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-14T01:24:34.168963+00:00",
+  "timestamp": "2025-10-19T01:43:26.948159+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -885,15 +885,15 @@
       "id": "I_kwDOMMuuSM7PS1sB",
       "title": "Reflect Madrid Discussion about  key type",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/65",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/jose/E2wD5eE1Gh6B6srVskWsoYhS4IA/",
       "createdAt": "2025-10-02T14:49:20Z",
-      "updatedAt": "2025-10-13T08:23:11Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-18T15:22:45Z",
+      "closedAt": "2025-10-18T15:21:54Z",
       "comments": [
         {
           "author": "tireddy2",
@@ -915,6 +915,13 @@
           "body": "Thanks, re-opened the issue. The above text can be deleted. ",
           "createdAt": "2025-10-13T08:23:11Z",
           "updatedAt": "2025-10-13T08:23:11Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I originally entered the issue into the wrong Github repo.\nInteresting that Brian spotted left-over-text...",
+          "createdAt": "2025-10-18T15:22:45Z",
+          "updatedAt": "2025-10-18T15:22:45Z"
         }
       ]
     },
@@ -8334,6 +8341,145 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOMMuuSM6uVNg2",
+      "title": "Removed AKP",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/70",
+      "state": "MERGED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-17T15:14:36Z",
+      "updatedAt": "2025-10-18T01:17:04Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "8fe8c0f7fbf127634dff47b0224807ecb5daa77b",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-12",
+      "headRefOid": "641b2d45f691024984c94eb80072eb2571307a6c",
+      "closedAt": "2025-10-18T01:17:04Z",
+      "mergedAt": "2025-10-18T01:17:04Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "f57da59b130b2c0539d85fcd3af67dbe072125d5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7HufTG",
+          "commit": {
+            "abbreviatedOid": "641b2d4"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T15:29:52Z",
+          "updatedAt": "2025-10-17T15:29:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7HukUl",
+          "commit": {
+            "abbreviatedOid": "641b2d4"
+          },
+          "author": "auriee",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T15:35:10Z",
+          "updatedAt": "2025-10-17T15:35:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "PR_kwDOMMuuSM6udHW_",
+      "title": "Fix syntax for include-fold in examples",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/71",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Two examples do not display correctly due to the buggy syntax for the \"include-fold\".",
+      "createdAt": "2025-10-18T15:19:12Z",
+      "updatedAt": "2025-10-18T15:23:58Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "f57da59b130b2c0539d85fcd3af67dbe072125d5",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "ae86caa7236d3dacacf3f12bb246f37597bac7c2",
+      "closedAt": "2025-10-18T15:23:54Z",
+      "mergedAt": "2025-10-18T15:23:54Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "ee50c335462ca4b6eeca6fafae39009df226cc46"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 72,
+      "id": "PR_kwDOMMuuSM6udJ-2",
+      "title": "Update document history with recent changes",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/72",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-18T15:36:32Z",
+      "updatedAt": "2025-10-18T15:38:33Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "ee50c335462ca4b6eeca6fafae39009df226cc46",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "7f933e19024a841740d9b0e7a686f07cdcfa3ebd",
+      "closedAt": "2025-10-18T15:38:30Z",
+      "mergedAt": "2025-10-18T15:38:30Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "16dec2aecb2a59b74602e38b3c7577443fa1054a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOMMuuSM6udNqD",
+      "title": "Updated Document History",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/73",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-18T16:02:39Z",
+      "updatedAt": "2025-10-18T16:05:22Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "16dec2aecb2a59b74602e38b3c7577443fa1054a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "45ef8fe2ef0cea9756bb29215fca3fef433681f5",
+      "closedAt": "2025-10-18T16:05:18Z",
+      "mergedAt": "2025-10-18T16:05:18Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
