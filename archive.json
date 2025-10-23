@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-19T01:43:26.948159+00:00",
+  "timestamp": "2025-10-23T01:27:18.065484+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -992,6 +992,22 @@
           "updatedAt": "2025-10-13T07:03:09Z"
         }
       ]
+    },
+    {
+      "number": 74,
+      "id": "I_kwDOMMuuSM7TCbMK",
+      "title": "Recipient_structure typos and reference issues",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/74",
+      "state": "OPEN",
+      "author": "panva",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Refs: https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#section-6.1-2.3.1 (recipient_protected_header) \n\n> recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in [Section 7.1](https://rfc-editor.org/rfc/rfc7156#section-7.1) of [[RFC7156](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#RFC7156)] of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the \"ek\" member. The inclusion of this data in the Recipient_structure allows context information to be included in the key derivation.\n\nA recipient_**protected**_header is to be the JWE Per-Recipient **Unprotected** Header? Something doesn't add up in here and it's not clear whether this is a typo or intention.\n\nThe references don't make it any clearer because reference to RFC7156 (Zorn, G., Wu, Q., and J. Korhonen, \"Diameter Support for Proxy Mobile IPv6 Localized Routing\", RFC 7156, DOI 10.17487/RFC7156, April 2014) is clearly meant to be RFC7516 (Jones, M. and J. Hildebrand, \"JSON Web Encryption (JWE)\", RFC 7516, DOI 10.17487/RFC7516, May 2015).\n\nBut even with the RFC reference fixed, section 7.1 that it references to is \"JWE Compact Serialization\", which does not have per-recipient unprotected headers at all.",
+      "createdAt": "2025-10-22T12:18:25Z",
+      "updatedAt": "2025-10-22T12:18:25Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
