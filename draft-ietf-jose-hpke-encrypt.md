@@ -549,7 +549,7 @@ for their contributions to the specification.
 # Document History
 {: numbered="false"}
 
--1
+-13
 
 * Add HPKE-7
 
