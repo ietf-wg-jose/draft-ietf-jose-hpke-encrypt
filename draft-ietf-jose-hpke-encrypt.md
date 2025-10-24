@@ -120,7 +120,6 @@ function (KDF), and authenticated encryption with additional data
 This document defines the use of HPKE with JOSE.
 The specification chooses a specific subset of the HPKE features to use with JOSE.
 
-
 --- middle
 
 # Introduction
@@ -275,19 +274,39 @@ The `Recipient_structure` is a JSON object with the following members:
 
 - next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE {{I-D.ietf-cose-hpke}} specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
 
-- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
+- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7516}}) of the recipients member. To serialize this header member the procedure from {{serialize}} MUST be used. All members from this header are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
 
 - recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
 
-### Deterministic Serialization for HPKE `info`
+### Deterministic Serialization for HPKE `info` {#serialize}
 
 JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement.
 
-To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST produce the deterministic JSON representation using the JSON Web Key (JWK) Thumbprint serialization rules {{RFC7638}}:
+To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST generate the same deterministic JSON representation using following steps:
 
-1. Construct the `Recipient_structure` JSON object exactly as defined {{recipient_structure}}.
-2. Prepare the JSON structure based on Section 3.3 of RFC 7638.
-3. Use the resulting JSON structure, base64url-encode it and use the octets as the HPKE `info` value.
+1. Construct the `Recipient_structure` JSON object exactly as defined in {{recipient_structure}}. 
+
+2. Order all members of the object lexicographically by the Unicode code points of the member names.
+
+3. Characters in member names and member values MUST be represented without escaping.  The JSON text contains no 
+   quotation-mark, backslash, or control-character escapes.
+
+4. The JSON text MUST NOT contain any insignificant whitespace such as
+   spaces, tabs, or line breaks.  
+
+5. Encode the resulting JSON text using UTF-8. 
+
+6. If any member value is itself a JSON object, apply Steps 2 to 6 recursively to that nested object.
+
+7. JSON numbers (if present) MUST be serialized in their shortest exact
+   decimal representation:
+   * Non-zero integers MUST have no leading zeros, fractional parts, or
+     exponent notation.
+   * If an exponent is used, it MUST use an uppercase `E` with no `+`
+     sign or leading zeros in the exponent.
+
+8. The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are 
+   used as the HPKE `info` value.
 
 #### Example
 
@@ -325,7 +344,7 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0              | EC  | P-256     |
+| HPKE-0, HPKE-7      | EC  | P-256     |
 | HPKE-1              | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
@@ -473,6 +492,16 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - Specification Document(s): {{alg-mapping}} of this specification
 - Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
+### HPKE-7
+
+- Algorithm Name: HPKE-7
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the A256GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+
 ### int
 
 - Algorithm Name: int
@@ -541,14 +570,7 @@ for their contributions to the specification.
 
 -13
 
-* Removed orphan text about AKP kty field
-* Fixed bug in "include-fold" syntax
-* Switched reference from RFC 9180 to
-  draft-ietf-hpke-hpke
-* Editorial improvements to abstract and
-  introduction.
-* Removed Section 8.2 "Static Asymmetric
-  Authentication in HPKE"
+* Add HPKE-7
 
 -12
 
