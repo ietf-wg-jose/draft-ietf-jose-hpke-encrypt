@@ -1608,35 +1608,26 @@ no additional processing requirements are introduced by HPKE-based key encryptio
               <p id="section-6.1.1-3.1.1">Construct the <code>Recipient_structure</code> JSON object exactly as defined in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.2">
-              <p id="section-6.1.1-3.2.1">Order all members of the object lexicographically by the Unicode code points of the member names.<a href="#section-6.1.1-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.1.1-3.2.1">Order all members of the object lexicographically by the Unicode code points of the member names (defined in
+Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.3">
-              <p id="section-6.1.1-3.3.1">Characters in member names and member values <span class="bcp14">MUST</span> be represented without escaping.  The JSON text contains no
-quotation-mark, backslash, or control-character escapes.<a href="#section-6.1.1-3.3.1" class="pilcrow">¶</a></p>
+              <p id="section-6.1.1-3.3.1">Characters in member names and member values <span class="bcp14">MUST</span> be represented without escaping (Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).
+The JSON text contains no quotation mark, backslash, or control-character escapes (Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.4">
-              <p id="section-6.1.1-3.4.1">The JSON text <span class="bcp14">MUST NOT</span> contain any insignificant whitespace such as
-spaces, tabs, or line breaks.<a href="#section-6.1.1-3.4.1" class="pilcrow">¶</a></p>
+              <p id="section-6.1.1-3.4.1">The JSON text <span class="bcp14">MUST NOT</span> contain any insignificant whitespace such as spaces, tabs, or line breaks
+(Section 3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.5">
-              <p id="section-6.1.1-3.5.1">Encode the resulting JSON text using UTF-8.<a href="#section-6.1.1-3.5.1" class="pilcrow">¶</a></p>
+              <p id="section-6.1.1-3.5.1">Encode the resulting JSON text using UTF-8 (Section 3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.5.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.6">
               <p id="section-6.1.1-3.6.1">If any member value is itself a JSON object, apply Steps 2 to 6 recursively to that nested object.<a href="#section-6.1.1-3.6.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.7">
-              <p id="section-6.1.1-3.7.1">JSON numbers (if present) <span class="bcp14">MUST</span> be serialized in their shortest exact
-decimal representation:<a href="#section-6.1.1-3.7.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6.1.1-3.7.2.1">
-                  <p id="section-6.1.1-3.7.2.1.1">Non-zero integers <span class="bcp14">MUST</span> have no leading zeros, fractional parts, or
-exponent notation.<a href="#section-6.1.1-3.7.2.1.1" class="pilcrow">¶</a></p>
-</li>
-                <li class="normal" id="section-6.1.1-3.7.2.2">
-                  <p id="section-6.1.1-3.7.2.2.1">If an exponent is used, it <span class="bcp14">MUST</span> use an uppercase <code>E</code> with no <code>+</code>
-sign or leading zeros in the exponent.<a href="#section-6.1.1-3.7.2.2.1" class="pilcrow">¶</a></p>
-</li>
-              </ul>
+              <p id="section-6.1.1-3.7.1">If the <code>Recipient_structure</code> includes any numeric members, their serialization and
+ representation follow the rules in Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>.<a href="#section-6.1.1-3.7.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-6.1.1-3.8">
               <p id="section-6.1.1-3.8.1">The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are

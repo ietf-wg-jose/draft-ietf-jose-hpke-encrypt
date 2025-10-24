@@ -396,28 +396,26 @@ Table of Contents
        in Section 6.1.
 
    2.  Order all members of the object lexicographically by the Unicode
-       code points of the member names.
+       code points of the member names (defined in Section 3.3 of
+       [RFC7638]).
 
    3.  Characters in member names and member values MUST be represented
-       without escaping.  The JSON text contains no quotation-mark,
-       backslash, or control-character escapes.
+       without escaping (Section 3.3 of [RFC7638]).  The JSON text
+       contains no quotation mark, backslash, or control-character
+       escapes (Section 3.3 of [RFC7638]).
 
    4.  The JSON text MUST NOT contain any insignificant whitespace such
-       as spaces, tabs, or line breaks.
+       as spaces, tabs, or line breaks (Section 3 of [RFC7638]).
 
-   5.  Encode the resulting JSON text using UTF-8.
+   5.  Encode the resulting JSON text using UTF-8 (Section 3 of
+       [RFC7638]).
 
    6.  If any member value is itself a JSON object, apply Steps 2 to 6
        recursively to that nested object.
 
-   7.  JSON numbers (if present) MUST be serialized in their shortest
-       exact decimal representation:
-
-       *  Non-zero integers MUST have no leading zeros, fractional
-          parts, or exponent notation.
-
-       *  If an exponent is used, it MUST use an uppercase E with no +
-          sign or leading zeros in the exponent.
+   7.  If the Recipient_structure includes any numeric members, their
+       serialization and representation follow the rules in Section 3.3
+       of [RFC7638].
 
    8.  The final UTF-8 octet sequence of the deterministic JSON text is
        base64url-encoded.  The resulting octets are used as the HPKE
