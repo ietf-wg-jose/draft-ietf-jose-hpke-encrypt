@@ -284,17 +284,17 @@ JSON texts that are semantically identical can serialize differently (e.g., memb
 
 To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST generate the same deterministic JSON representation using following steps:
 
-1. Construct the `Recipient_structure` JSON object exactly as defined in {{recipient_structure}}. 
+1. Construct the `Recipient_structure` JSON object exactly as defined in {{recipient_structure}}.
 
 2. Order all members of the object lexicographically by the Unicode code points of the member names.
 
-3. Characters in member names and member values MUST be represented without escaping.  The JSON text contains no 
+3. Characters in member names and member values MUST be represented without escaping.  The JSON text contains no
    quotation-mark, backslash, or control-character escapes.
 
 4. The JSON text MUST NOT contain any insignificant whitespace such as
-   spaces, tabs, or line breaks.  
+   spaces, tabs, or line breaks.
 
-5. Encode the resulting JSON text using UTF-8. 
+5. Encode the resulting JSON text using UTF-8.
 
 6. If any member value is itself a JSON object, apply Steps 2 to 6 recursively to that nested object.
 
@@ -305,7 +305,7 @@ To produce the HPKE `info` byte string from a `Recipient_structure`, both sides 
    * If an exponent is used, it MUST use an uppercase `E` with no `+`
      sign or leading zeros in the exponent.
 
-8. The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are 
+8. The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are
    used as the HPKE `info` value.
 
 #### Example
