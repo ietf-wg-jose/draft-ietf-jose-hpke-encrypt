@@ -341,7 +341,7 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0, HPKE-7      | EC  | P-256     |
+| HPKE-0              | EC  | P-256     |
 | HPKE-1              | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
@@ -489,16 +489,6 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - Specification Document(s): {{alg-mapping}} of this specification
 - Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
-### HPKE-7
-
-- Algorithm Name: HPKE-7
-- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the A256GCM AEAD
-- Algorithm Usage Location(s): "alg"
-- JOSE Implementation Requirements: Optional
-- Change Controller: IETF
-- Specification Document(s): {{alg-mapping}} of this specification
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
-
 ### int
 
 - Algorithm Name: int
@@ -567,7 +557,14 @@ for their contributions to the specification.
 
 -13
 
-* Add HPKE-7
+* Removed orphan text about AKP kty field
+* Fixed bug in "include-fold" syntax
+* Switched reference from RFC 9180 to
+  draft-ietf-hpke-hpke
+* Editorial improvements to abstract and
+  introduction.
+* Removed Section 8.2 "Static Asymmetric
+  Authentication in HPKE"
 
 -12
 
