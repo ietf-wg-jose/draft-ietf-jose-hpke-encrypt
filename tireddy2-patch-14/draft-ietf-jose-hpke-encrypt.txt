@@ -112,8 +112,7 @@ Table of Contents
        10.1.5.  HPKE-4
        10.1.6.  HPKE-5
        10.1.7.  HPKE-6
-       10.1.8.  HPKE-7
-       10.1.9.  int
+       10.1.8.  int
      10.2.  JSON Web Signature and Encryption Header Parameters
        10.2.1.  ek
        10.2.2.  psk_id
@@ -496,7 +495,7 @@ Table of Contents
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0, HPKE-7      | EC  | P-256     |
+   | HPKE-0              | EC  | P-256     |
    | HPKE-1              | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
@@ -713,25 +712,7 @@ Table of Contents
 
    *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
-10.1.8.  HPKE-7
-
-   *  Algorithm Name: HPKE-7
-
-   *  Algorithm Description: Cipher suite for JOSE-HPKE using the
-      DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the A256GCM
-      AEAD
-
-   *  Algorithm Usage Location(s): "alg"
-
-   *  JOSE Implementation Requirements: Optional
-
-   *  Change Controller: IETF
-
-   *  Specification Document(s): Section 7 of this specification
-
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
-
-10.1.9.  int
+10.1.8.  int
 
    *  Algorithm Name: int
 
@@ -890,7 +871,15 @@ Document History
 
    -13
 
-   *  Add HPKE-7
+   *  Removed orphan text about AKP kty field
+
+   *  Fixed bug in "include-fold" syntax
+
+   *  Switched reference from RFC 9180 to draft-ietf-hpke-hpke
+
+   *  Editorial improvements to abstract and introduction.
+
+   *  Removed Section 8.2 "Static Asymmetric Authentication in HPKE"
 
    -12
 
