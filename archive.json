@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-23T01:27:18.065484+00:00",
+  "timestamp": "2025-10-26T01:40:28.104551+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -861,7 +861,7 @@
       "labels": [],
       "body": "Add an update clause to the boilerplate of the draft.",
       "createdAt": "2025-07-11T15:31:40Z",
-      "updatedAt": "2025-09-24T21:10:39Z",
+      "updatedAt": "2025-10-24T21:06:35Z",
       "closedAt": "2025-08-22T15:34:49Z",
       "comments": [
         {
@@ -874,9 +874,9 @@
         {
           "author": "bc-pi",
           "authorAssociation": "NONE",
-          "body": "This might have been good to tell the draft author team about prior to the Madrid meeting where the erroneous assertion that the draft \"Updates RFC 7516\" was repeatedly made. Not having a shared factual basis makes it difficult to have productive discussions. \n\nRegardless, and as I said at that meeting and elsewhere, just doing this is not sufficient. It would be 'unfortunate for numerous reasons (reputation, later stage reviews, DEs, etc., and more)' if this is all there is that is done.\n\nMadrid 123 meeting proceedings (or whatever the right term is): https://datatracker.ietf.org/meeting/123/session/jose ",
+          "body": "This might have been good to tell the draft author team about prior to the Madrid meeting where the erroneous assertion that the draft \"Updates RFC 7516\" was repeatedly made. Not having a shared factual basis makes it difficult to have productive discussions. \n\nRegardless, and as I said at that meeting and elsewhere, just doing this alone is not sufficient. \n\nIt would be \"unfortunate for numerous reasons (reputation, later stage reviews, DEs, etc., and more)\" if this is all there is that is done. Quote is from slide 10 of [these from the Madrid meeting](https://datatracker.ietf.org/meeting/123/materials/slides-123-jose-bc-on-jose-hpke-00). \n\nMadrid 123 meeting proceedings for the JOSE group (or whatever the right term is): https://datatracker.ietf.org/meeting/123/session/jose ",
           "createdAt": "2025-09-24T20:56:43Z",
-          "updatedAt": "2025-09-24T21:10:39Z"
+          "updatedAt": "2025-10-24T21:06:35Z"
         }
       ]
     },
@@ -1006,6 +1006,22 @@
       "body": "Refs: https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#section-6.1-2.3.1 (recipient_protected_header) \n\n> recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in [Section 7.1](https://rfc-editor.org/rfc/rfc7156#section-7.1) of [[RFC7156](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#RFC7156)] of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the \"ek\" member. The inclusion of this data in the Recipient_structure allows context information to be included in the key derivation.\n\nA recipient_**protected**_header is to be the JWE Per-Recipient **Unprotected** Header? Something doesn't add up in here and it's not clear whether this is a typo or intention.\n\nThe references don't make it any clearer because reference to RFC7156 (Zorn, G., Wu, Q., and J. Korhonen, \"Diameter Support for Proxy Mobile IPv6 Localized Routing\", RFC 7156, DOI 10.17487/RFC7156, April 2014) is clearly meant to be RFC7516 (Jones, M. and J. Hildebrand, \"JSON Web Encryption (JWE)\", RFC 7516, DOI 10.17487/RFC7516, May 2015).\n\nBut even with the RFC reference fixed, section 7.1 that it references to is \"JWE Compact Serialization\", which does not have per-recipient unprotected headers at all.",
       "createdAt": "2025-10-22T12:18:25Z",
       "updatedAt": "2025-10-22T12:18:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 77,
+      "id": "I_kwDOMMuuSM7Tn39O",
+      "title": "Stabilize/rationalize/progress the work",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/77",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "There is prospective work in a different SDO that would really benefit (or could have benefited) from this draft being more stable and mature: https://github.com/openid/OpenID4VP/issues/676",
+      "createdAt": "2025-10-24T17:54:47Z",
+      "updatedAt": "2025-10-24T17:55:32Z",
       "closedAt": null,
       "comments": []
     }
@@ -8496,6 +8512,285 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 75,
+      "id": "PR_kwDOMMuuSM6vMumg",
+      "title": "Add HPKE-7",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/75",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Address https://mailarchive.ietf.org/arch/msg/jose/EVOyeH9SC68is87cQZfIfb7W6BA/",
+      "createdAt": "2025-10-23T06:56:09Z",
+      "updatedAt": "2025-10-24T15:15:06Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-13",
+      "headRefOid": "a5ea18d968c350004f37dc3adebd15904d77c247",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7JThkI",
+          "commit": {
+            "abbreviatedOid": "89aba5a"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T14:55:58Z",
+          "updatedAt": "2025-10-24T14:55:58Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "what is going on here? -13 was published with those things that are deleted. HPKE-7 (and I do think this shows some downsides of the short naming scheme but I digress) would be added in -14 ",
+              "createdAt": "2025-10-24T14:55:58Z",
+              "updatedAt": "2025-10-24T14:55:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7JT4rG",
+          "commit": {
+            "abbreviatedOid": "3b9de3b"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:14:43Z",
+          "updatedAt": "2025-10-24T15:14:43Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "what ?",
+              "createdAt": "2025-10-24T15:14:43Z",
+              "updatedAt": "2025-10-24T15:14:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7JT5hA",
+          "commit": {
+            "abbreviatedOid": "a5ea18d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:15:06Z",
+          "updatedAt": "2025-10-24T15:15:06Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "Thanks, Fixed. ",
+              "createdAt": "2025-10-24T15:15:06Z",
+              "updatedAt": "2025-10-24T15:15:28Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "id": "PR_kwDOMMuuSM6vcGAZ",
+      "title": "Address comments on Serialization",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-24T07:07:55Z",
+      "updatedAt": "2025-10-25T14:03:55Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-14",
+      "headRefOid": "ab6319e8241a7eac52346dbc13ffec041da0dd6b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "This is unimplementable with most platform's own JSON serializers.\r\n\r\nFor instance, javascript: (doesn't add needless fractions but uses lowercase e and a sign after exponent)\r\n\r\n```\r\n> JSON.stringify(JSON.parse('{\"a\":4E100}'))\r\n'{\"a\":4e+100}'\r\n```\r\n\r\nRuby: (adds needless fractions and uses lowercase e and a sign after exponent)\r\n\r\n```\r\nirb(main):007:0> JSON.dump JSON.load '{\"foo\":4E100}'\r\n=> \"{\\\"foo\\\":4.0e+100}\"\r\n```\r\n\r\nI implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).",
+          "createdAt": "2025-10-24T07:26:12Z",
+          "updatedAt": "2025-10-24T07:38:34Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> This is unimplementable with most platform's own JSON serializers.\r\n> \r\n> For instance, javascript: (doesn't add needless fractions but uses lowercase e and a sign after exponent)\r\n> \r\n> ```\r\n> > JSON.stringify(JSON.parse('{\"a\":4E100}'))\r\n> '{\"a\":4e+100}'\r\n> ```\r\n> \r\n> Ruby: (adds needless fractions and uses lowercase e and a sign after exponent)\r\n> \r\n> ```\r\n> irb(main):007:0> JSON.dump JSON.load '{\"foo\":4E100}'\r\n> => \"{\\\"foo\\\":4.0e+100}\"\r\n> ```\r\n> \r\n> I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n\r\nI updated the text, please check. It is now using most of rules in \r\n\r\n> This is unimplementable with most platform's own JSON serializers.\r\n> \r\n> For instance, javascript: (doesn't add needless fractions but uses lowercase e and a sign after exponent)\r\n> \r\n> ```\r\n> > JSON.stringify(JSON.parse('{\"a\":4E100}'))\r\n> '{\"a\":4e+100}'\r\n> ```\r\n> \r\n> Ruby: (adds needless fractions and uses lowercase e and a sign after exponent)\r\n> \r\n> ```\r\n> irb(main):007:0> JSON.dump JSON.load '{\"foo\":4E100}'\r\n> => \"{\\\"foo\\\":4.0e+100}\"\r\n> ```\r\n> \r\n> I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n\r\nI updated the text, it now includes all the serialization rules provided in RFC7638 except one (step 6). ",
+          "createdAt": "2025-10-24T10:07:48Z",
+          "updatedAt": "2025-10-24T10:07:48Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "> I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n\r\nThis still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON object with cherry-picked attributes that are exclusively string-only values and use base64url alphabet.",
+          "createdAt": "2025-10-24T10:12:28Z",
+          "updatedAt": "2025-10-24T10:14:17Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n> \r\n> This still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON objects with cherry-picked attributes that are exclusively string-only values and use base64url alphabetJ\r\n\r\n> > I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n> \r\n> This still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON object with cherry-picked attributes that are exclusively string-only values and use base64url alphabet.\r\n\r\nDeterministic JSON is required so that both the sender and receiver provide the same HPKE info value. If serialization is removed, different keys will be derived and decryption will fail. ",
+          "createdAt": "2025-10-24T10:16:22Z",
+          "updatedAt": "2025-10-24T10:16:22Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "> Deterministic JSON is required so that both the sender and receiver provide the same HPKE info value.\r\n\r\nAnd yet it isn't required in any other JOSE Key Management algorithm.\r\n\r\n> If serialization is removed, different keys will be derived and decryption will fail.\r\n\r\nYeah, so it's clear going down a unbound json object inclusion and subsequent normalization route shouldn't have happened in the first place.",
+          "createdAt": "2025-10-24T10:19:29Z",
+          "updatedAt": "2025-10-24T10:23:51Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> > I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n> \r\n> This still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON object with cherry-picked attributes that are exclusively string-only values and use base64url alphabet.\r\n\r\nThe entire ethos of JOSE and a major contributor to its success has been the avoidance of any attempts at JSON normalization/canonicalization. JWK Thumbprints are the only seeming exception but rely on such an extremely narrow and tightly defined subset of content that it's workable. And I say seeming because it's so narrow that calling it JSON normalization/canonicalization is a misnomer. ",
+          "createdAt": "2025-10-24T14:47:29Z",
+          "updatedAt": "2025-10-24T14:47:29Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > Deterministic JSON is required so that both the sender and receiver provide the same HPKE info value.\r\n> \r\n> And yet it isn't required in any other JOSE Key Management algorithm.\r\n> \r\n> > If serialization is removed, different keys will be derived and decryption will fail.\r\n> \r\n> Yeah, so it's clear going down a unbound json object inclusion and subsequent normalization route shouldn't have happened in the first place.\r\n\r\nThe goal isn\u2019t to normalize arbitrary JSON, but to guarantee stable, reproducible encoding for all valid Recipient_structure instances, present and future.\r\n",
+          "createdAt": "2025-10-24T15:22:15Z",
+          "updatedAt": "2025-10-24T15:22:15Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> > Deterministic JSON is required so that both the sender and receiver provide the same HPKE info value.\r\n> \r\n> And yet it isn't required in any other JOSE Key Management algorithm.\r\n> \r\n> > If serialization is removed, different keys will be derived and decryption will fail.\r\n> \r\n> Yeah, so it's clear going down a unbound json object inclusion and subsequent normalization route shouldn't have happened in the first place.\r\n \r\nI agree with this sentiment. Rather than trying to \"Address comments on Serialization\" the whole Recipient_structure mishap should be reverted. ",
+          "createdAt": "2025-10-24T15:27:41Z",
+          "updatedAt": "2025-10-24T15:27:41Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "body": "> The goal isn\u2019t to normalize arbitrary JSON, but to guarantee stable, reproducible encoding for all valid Recipient_structure instances, present and future.\r\n\r\nThe entire goal of recipient structure is yet to be commented on or explained by the authors.\r\n\r\nBut whatever the goal is, utilizing JSON normalization of arbitrary inputs is not what jose hpke should be asking implementers to do. ",
+          "createdAt": "2025-10-24T15:34:47Z",
+          "updatedAt": "2025-10-24T15:35:28Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> > The goal isn\u2019t to normalize arbitrary JSON, but to guarantee stable, reproducible encoding for all valid Recipient_structure instances, present and future.\r\n> \r\n> The entire goal of recipient structure is yet to be commented on or explained by the authors.\r\n> \r\n> But whatever the goal is, utilizing JSON normalization of arbitrary inputs is not what jose hpke should be asking implementers to do.\r\n\r\nRight. What is the actual rationale for the Recipient_structure and why was it haphazardly added in a surprise to most/all of the WG after a missed attempt at WGLC where there were other things that clearly needed attention? ",
+          "createdAt": "2025-10-24T16:02:30Z",
+          "updatedAt": "2025-10-24T16:02:30Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sounds like folks maybe prefer a context structure like what we already use for concatKDF... maybe we can find a way to use the same code to achieve a similar result?\r\n\r\nThe purpose of these context structures is to bind cross layers, either at the KDF level with info, or at the aead layer, with aad.\r\n\r\nSome folks like to mix in application specific context to get separation between cipher-texts or symmetric keys. ",
+          "createdAt": "2025-10-24T17:56:44Z",
+          "updatedAt": "2025-10-24T17:59:31Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Sounds like folks maybe prefer a context structure like what we already use for concatKDF... maybe we can find a way to use the same code to achieve a similar result?\r\n> \r\n> The purpose of these context structures is to bind cross layers, either at the KDF level with info, or at the aead layer, with aad.\r\n> \r\n> Some folks like to mix in application specific context to get separation between cipher-texts or symmetric keys.\r\n\r\nThis change is introduced for two reasons:\r\n\r\na) Align with COSE-HPKE \r\nb) JSON context information to be included in the key derivation. \r\n    1) The \"next_layer_alg\" in the Recipient_structure solves two problems: \r\n         i) derived key material is distinct for the JWE HPKE integrated encryption and key encryption modes (in other words, cryptographically domain-separated). \r\n         ii) Address the attack discussed in https://datatracker.ietf.org/doc/rfc9709/.  \r\n     For these reasons, the above field is mandatory. \r\n    2) recipient_protected_header, it includes the JWE Per-Recipient Unprotected Header, but I don't see any security benefit. Including unprotected header attributes in HPKE info provides tamper-detection via decryption failure, but does not authenticate those attributes.\r\n\r\nIf recipient_protected_header is removed, it would simplify the structure to only serialize strings but the drawback is it deviates from COSE HPKE. \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+          "createdAt": "2025-10-25T14:03:55Z",
+          "updatedAt": "2025-10-25T14:03:55Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7JTtz2",
+          "commit": {
+            "abbreviatedOid": "6cad196"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:05:06Z",
+          "updatedAt": "2025-10-24T15:05:06Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Ignoring for the moment that the comments that I saw on Serialization are not really addressed by this PR, what is \"HPKE-7\" doing in a PR that says it is to \"[Address comments on Serialization](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76/files#top)\"? ",
+              "createdAt": "2025-10-24T15:05:06Z",
+              "updatedAt": "2025-10-24T15:05:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7JTvam",
+          "commit": {
+            "abbreviatedOid": "6cad196"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:06:20Z",
+          "updatedAt": "2025-10-24T15:06:20Z",
+          "comments": [
+            {
+              "originalPosition": 81,
+              "body": "Same as https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/75#discussion_r2460904708 ",
+              "createdAt": "2025-10-24T15:06:20Z",
+              "updatedAt": "2025-10-24T15:06:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7JUAr9",
+          "commit": {
+            "abbreviatedOid": "6cad196"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:20:01Z",
+          "updatedAt": "2025-10-24T15:20:01Z",
+          "comments": [
+            {
+              "originalPosition": 81,
+              "body": "Thanks, fixed. ",
+              "createdAt": "2025-10-24T15:20:01Z",
+              "updatedAt": "2025-10-24T15:20:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7JUBNu",
+          "commit": {
+            "abbreviatedOid": "6cad196"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-24T15:20:16Z",
+          "updatedAt": "2025-10-24T15:20:16Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Fixed. ",
+              "createdAt": "2025-10-24T15:20:16Z",
+              "updatedAt": "2025-10-24T15:20:17Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
