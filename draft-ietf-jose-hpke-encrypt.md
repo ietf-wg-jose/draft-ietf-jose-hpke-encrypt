@@ -273,9 +273,9 @@ The `Recipient_structure` is a JSON object with the following members:
 
 - context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
 
-- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JSON context information included in the key derivation process and serves two purposes:  
-  1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.  
-  2. Mitigates downgrade attacks as discussed in {{?RFC9709}}.  
+- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JSON context information included in the key derivation process and serves two purposes:
+  1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
+  2. Mitigates downgrade attacks as discussed in {{?RFC9709}}.
   For these reasons, this field is mandatory.
 
 - recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
