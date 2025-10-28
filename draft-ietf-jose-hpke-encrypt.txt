@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 21 April 2026                                       A. Banerjee
+Expires: 1 May 2026                                          A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         18 October 2025
+                                                         28 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 April 2026.
+   This Internet-Draft will expire on 1 May 2026.
 
 Copyright Notice
 
@@ -112,7 +112,8 @@ Table of Contents
        10.1.5.  HPKE-4
        10.1.6.  HPKE-5
        10.1.7.  HPKE-6
-       10.1.8.  int
+       10.1.8.  HPKE-7
+       10.1.9.  int
      10.2.  JSON Web Signature and Encryption Header Parameters
        10.2.1.  ek
        10.2.2.  psk_id
@@ -367,7 +368,7 @@ Table of Contents
 
    *  recipient_protected_header (object): This member contains the
       base64url-encoded JWE Per-Recipient Unprotected Header (see JWE
-      JSON Serialization in Section 7.1 of [RFC7156] of the recipients
+      JSON Serialization in Section 7.1 of [RFC7516]) of the recipients
       member.  To serialize this header member the procedure from
       Section 3.3 of RFC 7638 MUST be used.  Unlike with RFC 7638, all
       members from this member are included except for the "ek" member.
@@ -474,7 +475,7 @@ Table of Contents
    | JWE Algorithm       | JWK |           |
    |                     | kty | crv       |
    +---------------------+-----+-----------+
-   | HPKE-0              | EC  | P-256     |
+   | HPKE-0, HPKE-7      | EC  | P-256     |
    | HPKE-1              | EC  | P-384     |
    | HPKE-2              | EC  | P-521     |
    | HPKE-3, HPKE-4      | OKP | X25519    |
@@ -691,7 +692,25 @@ Table of Contents
 
    *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
 
-10.1.8.  int
+10.1.8.  HPKE-7
+
+   *  Algorithm Name: HPKE-7
+
+   *  Algorithm Description: Cipher suite for JOSE-HPKE using the
+      DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the A256GCM
+      AEAD
+
+   *  Algorithm Usage Location(s): "alg"
+
+   *  JOSE Implementation Requirements: Optional
+
+   *  Change Controller: IETF
+
+   *  Specification Document(s): Section 7 of this specification
+
+   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+
+10.1.9.  int
 
    *  Algorithm Name: int
 
@@ -803,9 +822,9 @@ Table of Contents
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-16, 19 September
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              cose-hpke-16>.
+              Internet-Draft, draft-ietf-cose-hpke-18, 19 October 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              hpke-18>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
@@ -847,6 +866,10 @@ Acknowledgments
    to the specification.
 
 Document History
+
+   -14
+
+   *  Add HPKE-7
 
    -13
 
