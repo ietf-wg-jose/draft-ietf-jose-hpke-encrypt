@@ -1063,7 +1063,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 30 April 2026</td>
+<td class="center">Expires 1 May 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1079,12 +1079,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7516" class="eref">7516</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-27" class="published">27 October 2025</time>
+<time datetime="2025-10-28" class="published">28 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-30">30 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-05-01">1 May 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1159,7 +1159,7 @@ The specification chooses a specific subset of the HPKE features to use with JOS
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1223,7 +1223,7 @@ The specification chooses a specific subset of the HPKE features to use with JOS
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-recipient_structure" class="internal xref">Recipient_structure</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
-                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-deterministic-serialization" class="internal xref">Deterministic Serialization for HPKE <code>info</code></a></p>
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-example" class="internal xref">Example</a></p>
 </li>
                 </ul>
 </li>
@@ -1578,90 +1578,64 @@ no additional processing requirements are introduced by HPKE-based key encryptio
         <h3 id="name-recipient_structure">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-recipient_structure" class="section-name selfRef">Recipient_structure</a>
         </h3>
-<p id="section-6.1-1">The <code>Recipient_structure</code> is a JSON object with the following members:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">The <code>Recipient_structure</code> is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format rather than JSON. The encoding is as follows:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-2">
+<pre>
+Recipient_structure = UTF8("JOSE-HPKE rcpt") ||
+                      BYTE(255) ||
+                      UTF8(next_layer_alg) ||
+                      BYTE(255) ||
+                      UTF8(recipient_extra_info)
+</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-3">Where:<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.1-2.1">
-            <p id="section-6.1-2.1.1">context (string): This member <span class="bcp14">MUST</span> include the constant string value "JOSE HPKE Recipient".<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.1-4.1">
+            <p id="section-6.1-4.1.1">UTF8("JOSE-HPKE rcpt"): A fixed ASCII string identifying the context of the structure.<a href="#section-6.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-2.2">
-            <p id="section-6.1-2.2.1">next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key <span class="bcp14">MUST</span> be used. Its value <span class="bcp14">MUST</span> match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JSON context information included in the key derivation process and serves two purposes:<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.1-2.2.2">
-<li id="section-6.1-2.2.2.1">
-                <p id="section-6.1-2.2.2.1.1">Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.<a href="#section-6.1-2.2.2.1.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-4.2">
+            <p id="section-6.1-4.2.1">BYTE(255): A separator byte (0xFF) used to delimit fields.<a href="#section-6.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-6.1-2.2.2.2">
-                <p id="section-6.1-2.2.2.2.1">Mitigates downgrade attacks as discussed in <span>[<a href="#RFC9709" class="cite xref">RFC9709</a>]</span>.
-For these reasons, this field is mandatory.<a href="#section-6.1-2.2.2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-4.3">
+            <p id="section-6.1-4.3.1">UTF8(next_layer_alg): Identifies the algorithm with which the HPKE-encrypted key <span class="bcp14">MUST</span> be used. Its value <span class="bcp14">MUST</span>
+match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JSON context information included in the key derivation process and serves two purposes:<a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.1-4.3.2">
+<li id="section-6.1-4.3.2.1">
+                <p id="section-6.1-4.3.2.1.1">Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.<a href="#section-6.1-4.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-6.1-4.3.2.2">
+                <p id="section-6.1-4.3.2.2.1">Mitigates downgrade attacks as discussed in <span>[<a href="#RFC9709" class="cite xref">RFC9709</a>]</span>.
+For these reasons, this field is mandatory.<a href="#section-6.1-4.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 </li>
-          <li class="normal" id="section-6.1-2.3">
-            <p id="section-6.1-2.3.1">recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE <code>info</code> parameter. Mutually known private information, which is defined in <span>[<a href="#NIST.SP.800-56Ar3" class="cite xref">NIST.SP.800-56Ar3</a>]</span>, <span class="bcp14">MAY</span> be used in this input parameter. If no additional context is provided, this value <span class="bcp14">MUST</span> be the empty string "".<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-4.4">
+            <p id="section-6.1-4.4.1">BYTE(255): A separator byte (0xFF) used to delimit fields.<a href="#section-6.1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-4.5">
+            <p id="section-6.1-4.5.1">UTF8(recipient_extra_info): Contains additional context information that the application includes in the key
+derivation via the HPKE <code>info</code> parameter. Mutually known private information, which is defined in <span>[<a href="#NIST.SP.800-56Ar3" class="cite xref">NIST.SP.800-56Ar3</a>]</span>, <span class="bcp14">MAY</span> be used in this input parameter. If no additional context is provided, this value <span class="bcp14">MUST</span> be the empty string "".<a href="#section-6.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div id="deterministic-serialization-for-hpke-info">
-<section id="section-6.1.1">
-          <h4 id="name-deterministic-serialization">
-<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-deterministic-serialization" class="section-name selfRef">Deterministic Serialization for HPKE <code>info</code></a>
-          </h4>
-<p id="section-6.1.1-1">JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent <code>info</code> values and failed key agreement.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1.1-2">To produce the HPKE <code>info</code> byte string from a <code>Recipient_structure</code>, both sides <span class="bcp14">MUST</span> produce the deterministic JSON representation using the JSON Web Key (JWK) Thumbprint serialization rules <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>:<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.1.1-3">
-<li id="section-6.1.1-3.1">
-              <p id="section-6.1.1-3.1.1">Construct the <code>Recipient_structure</code> JSON object exactly as defined <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-3.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-6.1.1-3.2">
-              <p id="section-6.1.1-3.2.1">Prepare the JSON structure based on Section 3.3 of RFC 7638.<a href="#section-6.1.1-3.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-6.1.1-3.3">
-              <p id="section-6.1.1-3.3.1">Use the resulting JSON structure, base64url-encode it and use the octets as the HPKE <code>info</code> value.<a href="#section-6.1.1-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          </ol>
 <div id="example">
-<section id="section-6.1.1.1">
-            <h5 id="name-example">
-<a href="#section-6.1.1.1" class="section-number selfRef">6.1.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
-            </h5>
-<p id="section-6.1.1.1-1">The example below shows a pretty-printed JSON object with an empty <code>recipient_extra_info</code> member.<a href="#section-6.1.1.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1.1.1-2">
+<section id="section-6.1.1">
+          <h4 id="name-example">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
+          </h4>
+<p id="section-6.1.1-1">The Recipient_structure encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
+(next_layer_alg = "A128GCM", recipient_extra_info = ""), results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1-2">
 <pre>
-{
-  "context": "JOSE HPKE Recipient",
-  "next_layer_alg": "A128GCM",
-  "recipient_protected_header": {
-    "alg": "HPKE-0",
-    "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
-  },
-  "recipient_extra_info": ""
-}
-
-</pre><a href="#section-6.1.1.1-2" class="pilcrow">¶</a>
+"JOSE-HPKE rcpt\xffA128GCM\xff"
+</pre><a href="#section-6.1.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1.1.1-3">The serialized JSON leads to:<a href="#section-6.1.1.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1.1.1-4">
+<p id="section-6.1.1-3">The corresponding hexadecimal representation is:<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1-4">
 <pre>
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
-RFC7638-serialized recipient_protected_header (JSON string):
-{"alg":"HPKE-0","kid":"G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"}
-
-RFC7638-serialized Recipient_structure (JSON string):
-{"context":"JOSE HPKE Recipient","next_layer_alg":"A128GCM","\
-recipient_extra_info":"","recipient_protected_header":"\
-eyJhbGciOiJIUEtFLTAiLCJraWQiOiJHNU5fX0NxTXZfa0pHaWVHU0Z1QXVndmwwanJR\
-                                            SkNaM3lLd1ZLNnNVTTRvIn0"}
-
-HPKE info (base64url):
-eyJjb250ZXh0IjoiSk9TRSBIUEtFIFJlY2lwaWVudCIsIm5leHRfbGF5ZXJfYWxnIjoi\
-QTEyOEdDTSIsInJlY2lwaWVudF9leHRyYV9pbmZvIjoiIiwicmVjaXBpZW50X3Byb3Rl\
-Y3RlZF9oZWFkZXIiOiJleUpoYkdjaU9pSklVRXRGTFRBaUxDSnJhV1FpT2lKSE5VNWZY\
-ME54VFhaZmEwcEhhV1ZIVTBaMVFYVm5kbXd3YW5KUlNrTmFNM2xMZDFaTE5uTlZUVFJ2\
-                                                              SW4wIn0
-</pre><a href="#section-6.1.1.1-4" class="pilcrow">¶</a>
+4a4f53452d48504b452072637074ffa131323847434dff
+</pre><a href="#section-6.1.1-4" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1.1.1-5">The base64url-encoded JSON structure above is used as the HPKE <code>info</code> bytes.<a href="#section-6.1.1.1-5" class="pilcrow">¶</a></p>
-</section>
-</div>
+<p id="section-6.1.1-5">This value is directly used as the HPKE info parameter.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
