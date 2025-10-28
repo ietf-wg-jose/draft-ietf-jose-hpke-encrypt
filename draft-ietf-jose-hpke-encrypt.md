@@ -275,7 +275,7 @@ The `Recipient_structure` is a JSON object with the following members:
 
 - next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE {{I-D.ietf-cose-hpke}} specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
 
-- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7156}} of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
+- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7516}}) of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
 
 - recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
 
@@ -325,7 +325,7 @@ JWE Algorithm, "kty", and "crv" are shown in {{ciphersuite-kty-crv}}.
 | JWE Algorithm       | JWK |           |
 |                     | kty | crv       |
 +---------------------+-----+-----------+
-| HPKE-0              | EC  | P-256     |
+| HPKE-0, HPKE-7      | EC  | P-256     |
 | HPKE-1              | EC  | P-384     |
 | HPKE-2              | EC  | P-521     |
 | HPKE-3, HPKE-4      | OKP | X25519    |
@@ -473,6 +473,16 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - Specification Document(s): {{alg-mapping}} of this specification
 - Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
+### HPKE-7
+
+- Algorithm Name: HPKE-7
+- Algorithm Description: Cipher suite for JOSE-HPKE using the DHKEM(P-256, HKDF-SHA256) KEM, the HKDF-SHA256 KDF and the A256GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{alg-mapping}} of this specification
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+
 ### int
 
 - Algorithm Name: int
@@ -538,6 +548,10 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-14
+
+* Add HPKE-7
 
 -13
 
