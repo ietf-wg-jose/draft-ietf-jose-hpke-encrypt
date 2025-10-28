@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-26T01:40:28.104551+00:00",
+  "timestamp": "2025-10-28T01:26:30.782553+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -8612,13 +8612,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-10-24T07:07:55Z",
-      "updatedAt": "2025-10-25T14:03:55Z",
+      "updatedAt": "2025-10-27T18:55:40Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-14",
-      "headRefOid": "ab6319e8241a7eac52346dbc13ffec041da0dd6b",
+      "headRefOid": "a551325d1a48db70eebd9d2bf6eb5ab78cd2e480",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -8707,6 +8707,13 @@
           "body": "> Sounds like folks maybe prefer a context structure like what we already use for concatKDF... maybe we can find a way to use the same code to achieve a similar result?\r\n> \r\n> The purpose of these context structures is to bind cross layers, either at the KDF level with info, or at the aead layer, with aad.\r\n> \r\n> Some folks like to mix in application specific context to get separation between cipher-texts or symmetric keys.\r\n\r\nThis change is introduced for two reasons:\r\n\r\na) Align with COSE-HPKE \r\nb) JSON context information to be included in the key derivation. \r\n    1) The \"next_layer_alg\" in the Recipient_structure solves two problems: \r\n         i) derived key material is distinct for the JWE HPKE integrated encryption and key encryption modes (in other words, cryptographically domain-separated). \r\n         ii) Address the attack discussed in https://datatracker.ietf.org/doc/rfc9709/.  \r\n     For these reasons, the above field is mandatory. \r\n    2) recipient_protected_header, it includes the JWE Per-Recipient Unprotected Header, but I don't see any security benefit. Including unprotected header attributes in HPKE info provides tamper-detection via decryption failure, but does not authenticate those attributes.\r\n\r\nIf recipient_protected_header is removed, it would simplify the structure to only serialize strings but the drawback is it deviates from COSE HPKE. \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
           "createdAt": "2025-10-25T14:03:55Z",
           "updatedAt": "2025-10-25T14:03:55Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "As previously said [here](https://mailarchive.ietf.org/arch/msg/jose/s2YuuyPEtLooDoy7HuLjkI3jCKU/) - alignment just for the sake of alignment shouldn't be a goal. For better or worse, JOSE and COSE diverged long ago. These drafts are not the place to try to fix that nor could they. ",
+          "createdAt": "2025-10-27T18:55:40Z",
+          "updatedAt": "2025-10-27T18:55:40Z"
         }
       ],
       "reviews": [
