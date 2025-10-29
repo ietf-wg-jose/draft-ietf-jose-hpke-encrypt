@@ -290,7 +290,6 @@ Where:
 
   1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
   2. Mitigates downgrade attacks as discussed in {{?RFC9709}}.
-  For these reasons, this field is mandatory.
 
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
