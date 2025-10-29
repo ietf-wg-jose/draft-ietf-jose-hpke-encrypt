@@ -269,7 +269,7 @@ no additional processing requirements are introduced by HPKE-based key encryptio
 
 ## Recipient_structure {#recipient_structure}
 
-The `Recipient_structure` is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format rather than JSON. The encoding is as follows:
+The `Recipient_structure` is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format. The encoding is as follows:
 
 ~~~
 Recipient_structure = UTF8("JOSE-HPKE rcpt") ||
