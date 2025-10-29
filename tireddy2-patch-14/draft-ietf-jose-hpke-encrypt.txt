@@ -363,12 +363,12 @@ Table of Contents
 
    Where:
 
-   *  UTF8("JOSE-HPKE rcpt"): A fixed ASCII string identifying the
+   *  ASCII("JOSE-HPKE rcpt"): A fixed ASCII string identifying the
       context of the structure.
 
    *  BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-   *  UTF8(content_encryption_alg): Identifies the algorithm with which
+   *  ASCII(content_encryption_alg): Identifies the algorithm with which
       the HPKE-encrypted key MUST be used.  Its value MUST match the
       "enc" (encryption algorithm) header parameter in the JWE protected
       header.  This field provides JWE context information to the key
