@@ -120,6 +120,7 @@ function (KDF), and authenticated encryption with additional data
 This document defines the use of HPKE with JOSE.
 The specification chooses a specific subset of the HPKE features to use with JOSE.
 
+
 --- middle
 
 # Introduction
@@ -221,7 +222,8 @@ In HPKE JWE Integrated Encryption:
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
 - The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
-- The HPKE info parameter defaults to the empty string; mutually known private information MAY be used instead. The concept of mutually known private information is defined in {{NIST.SP.800-56Ar3}} as an input to the key derivation function.
+- The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
+  {{recipient_structure}}.
 - The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{Section 5.1 of RFC7516}}.
 - Then follow Steps 11-19 of {{Section 5.1 of RFC7516}} (Message Encryption).
 
@@ -268,58 +270,50 @@ no additional processing requirements are introduced by HPKE-based key encryptio
 
 ## Recipient_structure {#recipient_structure}
 
-The `Recipient_structure` is a JSON object with the following members:
+The `Recipient_structure` is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format. The encoding is as follows:
 
-- context (string): This member MUST include the constant string value "JOSE HPKE Recipient".
+~~~
+Recipient_structure = ASCII("JOSE-HPKE rcpt") ||
+                      BYTE(255) ||
+                      ASCII(content_encryption_alg) ||
+                      BYTE(255) ||
+                      UTF8(recipient_extra_info)
+~~~
 
-- next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE {{I-D.ietf-cose-hpke}} specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.
+Where:
 
-- recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in {{Section 7.1 of RFC7516}}) of the recipients member. To serialize this header member the procedure from {{serialize}} MUST be used. All members from this header are included except for the "ek" member. The inclusion of this data in the `Recipient_structure` allows context information to be included in the key derivation.
+* UTF8("JOSE-HPKE rcpt"): A fixed ASCII string identifying the context of the structure.
 
-- recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
+* BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-### Deterministic Serialization for HPKE `info` {#serialize}
+* UTF8(content_encryption_alg): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its
+  value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:
 
-JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent `info` values and failed key agreement.
+  1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
+  2. Mitigates downgrade attacks as discussed in {{?RFC9709}}.
 
-To produce the HPKE `info` byte string from a `Recipient_structure`, both sides MUST generate the same deterministic JSON representation using following steps:
+* BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-1. Construct the `Recipient_structure` JSON object exactly as defined in {{recipient_structure}}.
-
-2. Order all members of the object lexicographically by the Unicode code points of the member names (defined in
-   Section 3.3 of {{RFC7638}}).
-
-3. Characters in member names and member values MUST be represented without escaping (Section 3.3 of {{RFC7638}}).
-   The JSON text contains no quotation mark, backslash, or control-character escapes (Section 3.3 of {{RFC7638}}).
-
-4. The JSON text MUST NOT contain any insignificant whitespace such as spaces, tabs, or line breaks
-   (Section 3 of {{RFC7638}}).
-
-5. Encode the resulting JSON text using UTF-8 (Section 3 of {{RFC7638}}).
-
-6. If any member value is itself a JSON object, apply Steps 2 to 6 recursively to that nested object.
-
-7. If the `Recipient_structure` includes any numeric members, their serialization and
-    representation follow the rules in Section 3.3 of {{RFC7638}}.
-
-8. The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are
-   used as the HPKE `info` value.
+* UTF8(recipient_extra_info): Contains additional context information that the application includes in the key
+  derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context is provided, this value MUST be the empty string "".
 
 #### Example
 
-The example below shows a pretty-printed JSON object with an empty `recipient_extra_info` member.
+The Recipient_structure encoded in binary as specified in {{recipient_structure}}, and using the field values
+(next_layer_alg = "A128GCM", recipient_extra_info = ""), results in the following byte sequence:
 
 ~~~
-{::include-fold examples/recipient_structure_example.txt}
+"JOSE-HPKE rcpt\xffA128GCM\xff"
 ~~~
 
-The serialized JSON leads to:
+The corresponding hexadecimal representation is:
 
 ~~~
-{::include-fold examples/serialization_example1.txt}
+4a4f53452d48504b452072637074ffa131323847434dff
 ~~~
 
-The base64url-encoded JSON structure above is used as the HPKE `info` bytes.
+This value is directly used as the HPKE `info` parameter.
+
 
 ## JSON Example {#json-example}
 
