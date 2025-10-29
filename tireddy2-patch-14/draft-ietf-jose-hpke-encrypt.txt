@@ -373,8 +373,8 @@ Table of Contents
    *  UTF8(next_layer_alg): Identifies the algorithm with which the
       HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
       (encryption algorithm) header parameter in the JWE protected
-      header.  This field provides JSON context information included in
-      the key derivation process and serves two purposes:
+      header.  This field provides JWE context information to the key
+      derivation process and serves two purposes:
 
       1.  Ensures that derived key material is cryptographically domain-
           separated between the JWE HPKE integrated encryption and Key
