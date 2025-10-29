@@ -290,7 +290,7 @@ Where:
   value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:
 
   1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
-  2. Mitigates downgrade attacks as discussed in {{?RFC9709}}.
+  2. Ensures that the derived key is bound to the selected content encryption algorithm, preventing algorithm-substitution issues (similar in principle to the atttack discussed in {{?RFC9709}}).
 
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
