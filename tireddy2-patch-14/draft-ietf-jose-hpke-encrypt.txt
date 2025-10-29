@@ -378,7 +378,9 @@ Table of Contents
           separated between the JWE HPKE integrated encryption and Key
           Encryption modes.
 
-      2.  Mitigates downgrade attacks as discussed in [RFC9709].
+      2.  Ensures that the derived key is bound to the selected content
+          encryption algorithm, preventing algorithm-substitution issues
+          (similar in principle to the atttack discussed in [RFC9709]).
 
    *  BYTE(255): A separator byte (0xFF) used to delimit fields.
 

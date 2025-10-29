@@ -1605,7 +1605,7 @@ value <span class="bcp14">MUST</span> match the "enc" (encryption algorithm) hea
                 <p id="section-6.1-4.3.2.1.1">Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.<a href="#section-6.1-4.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-6.1-4.3.2.2">
-                <p id="section-6.1-4.3.2.2.1">Mitigates downgrade attacks as discussed in <span>[<a href="#RFC9709" class="cite xref">RFC9709</a>]</span>.<a href="#section-6.1-4.3.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-6.1-4.3.2.2.1">Ensures that the derived key is bound to the selected content encryption algorithm, preventing algorithm-substitution issues (similar in principle to the atttack discussed in <span>[<a href="#RFC9709" class="cite xref">RFC9709</a>]</span>).<a href="#section-6.1-4.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 </li>
