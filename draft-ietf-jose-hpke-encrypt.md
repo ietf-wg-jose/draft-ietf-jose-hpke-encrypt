@@ -312,7 +312,7 @@ The corresponding hexadecimal representation is:
 4a4f53452d48504b452072637074ffa131323847434dff
 ~~~
 
-This value is directly used as the HPKE info parameter.
+This value is directly used as the HPKE `info` parameter.
 
 
 ## JSON Example {#json-example}
