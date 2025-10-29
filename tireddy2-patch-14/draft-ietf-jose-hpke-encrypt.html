@@ -1223,7 +1223,7 @@ The specification chooses a specific subset of the HPKE features to use with JOS
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-recipient_structure" class="internal xref">Recipient_structure</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
-                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-example" class="internal xref">Example</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-deterministic-serialization" class="internal xref">Deterministic Serialization for HPKE <code>info</code></a></p>
 </li>
                 </ul>
 </li>
@@ -1578,63 +1578,104 @@ no additional processing requirements are introduced by HPKE-based key encryptio
         <h3 id="name-recipient_structure">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-recipient_structure" class="section-name selfRef">Recipient_structure</a>
         </h3>
-<p id="section-6.1-1">The <code>Recipient_structure</code> is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format. The encoding is as follows:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1-2">
-<pre>
-Recipient_structure = UTF8("JOSE-HPKE rcpt") ||
-                      BYTE(255) ||
-                      UTF8(next_layer_alg) ||
-                      BYTE(255) ||
-                      UTF8(recipient_extra_info)
-</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-6.1-3">Where:<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">The <code>Recipient_structure</code> is a JSON object with the following members:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.1-4.1">
-            <p id="section-6.1-4.1.1">UTF8("JOSE-HPKE rcpt"): A fixed ASCII string identifying the context of the structure.<a href="#section-6.1-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.1-2.1">
+            <p id="section-6.1-2.1.1">context (string): This member <span class="bcp14">MUST</span> include the constant string value "JOSE HPKE Recipient".<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-4.2">
-            <p id="section-6.1-4.2.1">BYTE(255): A separator byte (0xFF) used to delimit fields.<a href="#section-6.1-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.2">
+            <p id="section-6.1-2.2.1">next_layer_alg (string): Identifies the algorithm with which the HPKE-encrypted key <span class="bcp14">MUST</span> be used. Its value <span class="bcp14">MUST</span> match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field is included for alignment with the COSE HPKE <span>[<a href="#I-D.ietf-cose-hpke" class="cite xref">I-D.ietf-cose-hpke</a>]</span> specification. Currently, there are no known attacks that allow a downgrade attack of the content encryption algorithm.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-4.3">
-            <p id="section-6.1-4.3.1">UTF8(next_layer_alg): Identifies the algorithm with which the HPKE-encrypted key <span class="bcp14">MUST</span> be used. Its value <span class="bcp14">MUST</span>
-match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:<a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.1-4.3.2">
-<li id="section-6.1-4.3.2.1">
-                <p id="section-6.1-4.3.2.1.1">Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.<a href="#section-6.1-4.3.2.1.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.3">
+            <p id="section-6.1-2.3.1">recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-7.1" class="relref">Section 7.1</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>) of the recipients member. To serialize this header member the procedure from <a href="#serialize" class="auto internal xref">Section 6.1.1</a> <span class="bcp14">MUST</span> be used. All members from this header are included except for the "ek" member. The inclusion of this data in the <code>Recipient_structure</code> allows context information to be included in the key derivation.<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-6.1-4.3.2.2">
-                <p id="section-6.1-4.3.2.2.1">Mitigates downgrade attacks as discussed in <span>[<a href="#RFC9709" class="cite xref">RFC9709</a>]</span>.<a href="#section-6.1-4.3.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            </ol>
-</li>
-          <li class="normal" id="section-6.1-4.4">
-            <p id="section-6.1-4.4.1">BYTE(255): A separator byte (0xFF) used to delimit fields.<a href="#section-6.1-4.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-6.1-4.5">
-            <p id="section-6.1-4.5.1">UTF8(recipient_extra_info): Contains additional context information that the application includes in the key
-derivation via the HPKE <code>info</code> parameter. Mutually known private information, which is defined in <span>[<a href="#NIST.SP.800-56Ar3" class="cite xref">NIST.SP.800-56Ar3</a>]</span>, <span class="bcp14">MAY</span> be used in this input parameter. If no additional context is provided, this value <span class="bcp14">MUST</span> be the empty string "".<a href="#section-6.1-4.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.4">
+            <p id="section-6.1-2.4.1">recipient_extra_info (string): Contains additional context information that the application includes in the key derivation via the HPKE <code>info</code> parameter. Mutually known private information, which is defined in <span>[<a href="#NIST.SP.800-56Ar3" class="cite xref">NIST.SP.800-56Ar3</a>]</span>, <span class="bcp14">MAY</span> be used in this input parameter. If no additional context is provided, this value <span class="bcp14">MUST</span> be the empty string "".<a href="#section-6.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div id="example">
+<div id="serialize">
 <section id="section-6.1.1">
-          <h4 id="name-example">
-<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
+          <h4 id="name-deterministic-serialization">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-deterministic-serialization" class="section-name selfRef">Deterministic Serialization for HPKE <code>info</code></a>
           </h4>
-<p id="section-6.1.1-1">The Recipient_structure encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
-(next_layer_alg = "A128GCM", recipient_extra_info = ""), results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1.1-2">
+<p id="section-6.1.1-1">JSON texts that are semantically identical can serialize differently (e.g., member order, whitespace), which would lead to divergent <code>info</code> values and failed key agreement.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-2">To produce the HPKE <code>info</code> byte string from a <code>Recipient_structure</code>, both sides <span class="bcp14">MUST</span> generate the same deterministic JSON representation using following steps:<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.1.1-3">
+<li id="section-6.1.1-3.1">
+              <p id="section-6.1.1-3.1.1">Construct the <code>Recipient_structure</code> JSON object exactly as defined in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.2">
+              <p id="section-6.1.1-3.2.1">Order all members of the object lexicographically by the Unicode code points of the member names (defined in
+Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.3">
+              <p id="section-6.1.1-3.3.1">Characters in member names and member values <span class="bcp14">MUST</span> be represented without escaping (Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).
+The JSON text contains no quotation mark, backslash, or control-character escapes (Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.4">
+              <p id="section-6.1.1-3.4.1">The JSON text <span class="bcp14">MUST NOT</span> contain any insignificant whitespace such as spaces, tabs, or line breaks
+(Section 3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.5">
+              <p id="section-6.1.1-3.5.1">Encode the resulting JSON text using UTF-8 (Section 3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>).<a href="#section-6.1.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.6">
+              <p id="section-6.1.1-3.6.1">If any member value is itself a JSON object, apply Steps 2 to 6 recursively to that nested object.<a href="#section-6.1.1-3.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.7">
+              <p id="section-6.1.1-3.7.1">If the <code>Recipient_structure</code> includes any numeric members, their serialization and
+ representation follow the rules in Section 3.3 of <span>[<a href="#RFC7638" class="cite xref">RFC7638</a>]</span>.<a href="#section-6.1.1-3.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-6.1.1-3.8">
+              <p id="section-6.1.1-3.8.1">The final UTF-8 octet sequence of the deterministic JSON text is base64url-encoded. The resulting octets are
+used as the HPKE <code>info</code> value.<a href="#section-6.1.1-3.8.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
+<div id="example">
+<section id="section-6.1.1.1">
+            <h5 id="name-example">
+<a href="#section-6.1.1.1" class="section-number selfRef">6.1.1.1. </a><a href="#name-example" class="section-name selfRef">Example</a>
+            </h5>
+<p id="section-6.1.1.1-1">The example below shows a pretty-printed JSON object with an empty <code>recipient_extra_info</code> member.<a href="#section-6.1.1.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1.1-2">
 <pre>
-"JOSE-HPKE rcpt\xffA128GCM\xff"
-</pre><a href="#section-6.1.1-2" class="pilcrow">¶</a>
+{
+  "context": "JOSE HPKE Recipient",
+  "next_layer_alg": "A128GCM",
+  "recipient_protected_header": {
+    "alg": "HPKE-0",
+    "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
+  },
+  "recipient_extra_info": ""
+}
+
+</pre><a href="#section-6.1.1.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1.1-3">The corresponding hexadecimal representation is:<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1.1-4">
+<p id="section-6.1.1.1-3">The serialized JSON leads to:<a href="#section-6.1.1.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1.1-4">
 <pre>
-4a4f53452d48504b452072637074ffa131323847434dff
-</pre><a href="#section-6.1.1-4" class="pilcrow">¶</a>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+RFC7638-serialized recipient_protected_header (JSON string):
+{"alg":"HPKE-0","kid":"G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"}
+
+RFC7638-serialized Recipient_structure (JSON string):
+{"context":"JOSE HPKE Recipient","next_layer_alg":"A128GCM","\
+recipient_extra_info":"","recipient_protected_header":"\
+eyJhbGciOiJIUEtFLTAiLCJraWQiOiJHNU5fX0NxTXZfa0pHaWVHU0Z1QXVndmwwanJR\
+                                            SkNaM3lLd1ZLNnNVTTRvIn0"}
+
+HPKE info (base64url):
+eyJjb250ZXh0IjoiSk9TRSBIUEtFIFJlY2lwaWVudCIsIm5leHRfbGF5ZXJfYWxnIjoi\
+QTEyOEdDTSIsInJlY2lwaWVudF9leHRyYV9pbmZvIjoiIiwicmVjaXBpZW50X3Byb3Rl\
+Y3RlZF9oZWFkZXIiOiJleUpoYkdjaU9pSklVRXRGTFRBaUxDSnJhV1FpT2lKSE5VNWZY\
+ME54VFhaZmEwcEhhV1ZIVTBaMVFYVm5kbXd3YW5KUlNrTmFNM2xMZDFaTE5uTlZUVFJ2\
+                                                              SW4wIn0
+</pre><a href="#section-6.1.1.1-4" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1.1-5">This value is directly used as the HPKE <code>info</code> parameter.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1.1.1-5">The base64url-encoded JSON structure above is used as the HPKE <code>info</code> bytes.<a href="#section-6.1.1.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2175,12 +2216,8 @@ Future JOSE-HPKE ciphersuite names registered <span class="bcp14">MUST</span> al
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography, NIST Special Publication 800-56A Revision 3"</span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4086">[RFC4086]</dt>
-        <dd>
-<span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refAuthor">Schiller, J.</span>, and <span class="refAuthor">S. Crocker</span>, <span class="refTitle">"Randomness Requirements for Security"</span>, <span class="seriesInfo">BCP 106</span>, <span class="seriesInfo">RFC 4086</span>, <span class="seriesInfo">DOI 10.17487/RFC4086</span>, <time datetime="2005-06" class="refDate">June 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4086">https://www.rfc-editor.org/rfc/rfc4086</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9709">[RFC9709]</dt>
       <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Encryption Key Derivation in the Cryptographic Message Syntax (CMS) Using HKDF with SHA-256"</span>, <span class="seriesInfo">RFC 9709</span>, <span class="seriesInfo">DOI 10.17487/RFC9709</span>, <time datetime="2025-01" class="refDate">January 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9709">https://www.rfc-editor.org/rfc/rfc9709</a>&gt;</span>. </dd>
+<span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refAuthor">Schiller, J.</span>, and <span class="refAuthor">S. Crocker</span>, <span class="refTitle">"Randomness Requirements for Security"</span>, <span class="seriesInfo">BCP 106</span>, <span class="seriesInfo">RFC 4086</span>, <span class="seriesInfo">DOI 10.17487/RFC4086</span>, <time datetime="2005-06" class="refDate">June 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4086">https://www.rfc-editor.org/rfc/rfc4086</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
