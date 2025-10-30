@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 2 May 2026                                          A. Banerjee
+Expires: 3 May 2026                                          A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         29 October 2025
+                                                         30 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 May 2026.
+   This Internet-Draft will expire on 3 May 2026.
 
 Copyright Notice
 
@@ -359,7 +359,7 @@ Table of Contents
                          BYTE(255) ||
                          ASCII(content_encryption_alg) ||
                          BYTE(255) ||
-                         UTF8(recipient_extra_info)
+                         recipient_extra_info
 
    Where:
 
@@ -379,17 +379,16 @@ Table of Contents
           Encryption modes.
 
       2.  Ensures that the derived key is bound to the selected content
-          encryption algorithm, preventing algorithm-substitution issues
-          (similar in principle to the atttack discussed in [RFC9709]).
+          encryption algorithm.
 
    *  BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-   *  UTF8(recipient_extra_info): Contains additional context
-      information that the application includes in the key derivation
-      via the HPKE info parameter.  Mutually known private information,
-      which is defined in [NIST.SP.800-56Ar3], MAY be used in this input
-      parameter.  If no additional context is provided, this value MUST
-      be the empty string "".
+   *  recipient_extra_info: An octet string containing additional
+      context information that the application includes in the key
+      derivation via the HPKE info parameter.  Mutually known private
+      information, which is defined in [NIST.SP.800-56Ar3], MAY be used
+      in this input parameter.  If no additional context information is
+      provided, this field MUST be empty.
 
 6.1.1.  Example
 
@@ -791,11 +790,6 @@ Table of Contents
               "Randomness Requirements for Security", BCP 106, RFC 4086,
               DOI 10.17487/RFC4086, June 2005,
               <https://www.rfc-editor.org/rfc/rfc4086>.
-
-   [RFC9709]  Housley, R., "Encryption Key Derivation in the
-              Cryptographic Message Syntax (CMS) Using HKDF with SHA-
-              256", RFC 9709, DOI 10.17487/RFC9709, January 2025,
-              <https://www.rfc-editor.org/rfc/rfc9709>.
 
 Appendix A.  Keys Used in Examples
 
