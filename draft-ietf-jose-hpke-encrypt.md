@@ -290,11 +290,11 @@ Where:
   value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:
 
   1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
-  2. Ensures that the derived key is bound to the selected content encryption algorithm. 
+  2. Ensures that the derived key is bound to the selected content encryption algorithm.
 
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-* recipient_extra_info: An octet string containing additional context information that the application 
+* recipient_extra_info: An octet string containing additional context information that the application
   includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context information is provided, this field MUST be empty.
 
 #### Example
