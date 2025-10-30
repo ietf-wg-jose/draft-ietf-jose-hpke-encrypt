@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-28T01:26:30.782553+00:00",
+  "timestamp": "2025-10-30T01:40:25.897201+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -746,7 +746,7 @@
       "labels": [],
       "body": "> The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.   \n\n _Originally posted by @bc-pi in [#36](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2819132145)_\n\n\n ",
       "createdAt": "2025-04-21T18:00:04Z",
-      "updatedAt": "2025-04-30T08:46:14Z",
+      "updatedAt": "2025-10-29T07:54:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -797,6 +797,20 @@
           "body": "At https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2841222106 @ilaril wrote:\n> Integrated Encryption definitely needs very special treatment. Even if the HPKE implementation has non-standard key export, one can not use standard JWE bulk encryption, because the way iv/tag is handled is not quite compatible.\n\n> And with regards to architecture, I think the way it is currently done is close to the least bad way (I have seen some really horrible ideas).\n\n\"Close to the last bad way\", to me, is a strong endorsement of the current approach. :-)",
           "createdAt": "2025-04-30T08:46:13Z",
           "updatedAt": "2025-04-30T08:46:13Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> At [#36 (comment)](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2841222106) [@ilaril](https://github.com/ilaril) wrote:\n> \n> > Integrated Encryption definitely needs very special treatment. Even if the HPKE implementation has non-standard key export, one can not use standard JWE bulk encryption, because the way iv/tag is handled is not quite compatible.\n> \n> > And with regards to architecture, I think the way it is currently done is close to the least bad way (I have seen some really horrible ideas).\n> \n> \"Close to the last bad way\", to me, is a strong endorsement of the current approach. :-)\n\nTo me, it is definitely not the least or last bad way. And I'd find it hard to see that as an endorsement. \n",
+          "createdAt": "2025-10-28T21:59:50Z",
+          "updatedAt": "2025-10-28T21:59:50Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The way I see it, Integrated Encryption is an unnegotiated extension to base JWE. Thus, it should be expressed using syntax that is invalid in base JWE. Furthermore, that syntax should be thus that it is difficult to produce an implementation that seems to work but is broken in dangerous way. Being clean design or easy to integrate to existing implementations comes only after the above two (and one can not expect to do well here).\n\nThe present design sure as heck is not clean, and I expect that integration with many existing implementations will be challenging at best. However, I think it does well with the first two priorities: \"int\" is not an AEAD, so it is invalid in base JWE, and the way it behaves is so different from anything else that it is extremely hard to handle as anything but a special case, which can then easily do the needed checks (which should be minimized).\n\nThat \"close to the least bad way\" comment was that I do not think there exists any significantly better design. So if the current design is not acceptable, then very likely no acceptable design exists (implying adding Integrated Encryption is not possible).",
+          "createdAt": "2025-10-29T07:54:30Z",
+          "updatedAt": "2025-10-29T07:54:30Z"
         }
       ]
     },
@@ -1024,6 +1038,61 @@
       "updatedAt": "2025-10-24T17:55:32Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 78,
+      "id": "I_kwDOMMuuSM7UZMKN",
+      "title": "Mutually known private information is *not* defined in 800-56Ar3 and is also wrong",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/78",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "> Mutually known private information is *not* defined in {{NIST.SP.800-56Ar3}}. As mentioned in April https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#discussion_r2060452940 but subsequently ignored. \n> \n> Can we please stop erroneously saying that it is?\n> \n> Even the COSE-HPKE document removed it https://mailarchive.ietf.org/arch/msg/jose/s2YuuyPEtLooDoy7HuLjkI3jCKU/  \n> \n> \n>   \n\n _Originally posted by @bc-pi in [#76](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76/files#r2471037815)_",
+      "createdAt": "2025-10-28T21:08:22Z",
+      "updatedAt": "2025-10-28T23:34:27Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "also ignored in and around #41 was https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#issuecomment-2819260942. And I don't even disagree with the general outcome but am still genuinely perplexed and dismayed by how it played out. ",
+          "createdAt": "2025-10-28T21:40:24Z",
+          "updatedAt": "2025-10-28T21:40:24Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The private info stuff is inherited from:\n\nhttps://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2 \n\nits called \"SuppPrivInfo\" in https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf",
+          "createdAt": "2025-10-28T23:34:27Z",
+          "updatedAt": "2025-10-28T23:34:27Z"
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "id": "I_kwDOMMuuSM7UZoCN",
+      "title": "Can we do better?",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/79",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The title \"Can we do better?\" is taken from the second to last slide of https://datatracker.ietf.org/meeting/123/materials/slides-123-jose-bc-on-jose-hpke-00 and is/was absolutely a serious question. \n\nThe following is from [#59 Update Clause to Draft](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59):\n\n> This might have been good to tell the draft author team about prior to the Madrid meeting where the erroneous assertion that the draft \"Updates RFC 7516\" was repeatedly made. Not having a shared factual basis makes it difficult to have productive discussions. \n> \n> Regardless, and as I said at that meeting and elsewhere, just doing this alone is not sufficient. \n> \n> It would be \"unfortunate for numerous reasons (reputation, later stage reviews, DEs, etc., and more)\" if this is all there is that is done. Quote is from slide 10 of [these from the Madrid meeting](https://datatracker.ietf.org/meeting/123/materials/slides-123-jose-bc-on-jose-hpke-00). \n> \n> Madrid 123 meeting proceedings for the JOSE group (or whatever the right term is): https://datatracker.ietf.org/meeting/123/session/jose  \n\n _Originally posted by @bc-pi in [#59](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59#issuecomment-3330688810)_",
+      "createdAt": "2025-10-28T21:46:01Z",
+      "updatedAt": "2025-10-29T09:04:02Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Related https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/42#issuecomment-3460244651\n\nAnd on parallels to \"none\", it is very easy to handle \"none\" in dangerous ways, whereas handling \"int\" in dangerous ways seems much much harder. Consider implementation that supports JOSE-HPKE algorithms but does not special-case \"int\". In that case, it will always treat JOSE-HPKE as Key Encryption. However, JOSE-HPKE is designed so that Integrated Encryption and Key Encryption messages are incompatible, even with adversarial manipulation (and if \"int\" happens to be something weak on encryption side, that is critical vulnerability on that side).\n\nAnd on \"JWHPKE\", how to prevent it from getting confused with existing JOSE stuff?\n\nAnd on JWT being bad, I think the biggest mistake was wrapping it in generic signature layer. Cleanly separating tokens and token signing is impossible.\n",
+          "createdAt": "2025-10-29T09:04:02Z",
+          "updatedAt": "2025-10-29T09:04:02Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -8518,24 +8587,26 @@
       "id": "PR_kwDOMMuuSM6vMumg",
       "title": "Add HPKE-7",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/75",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Address https://mailarchive.ietf.org/arch/msg/jose/EVOyeH9SC68is87cQZfIfb7W6BA/",
       "createdAt": "2025-10-23T06:56:09Z",
-      "updatedAt": "2025-10-24T15:15:06Z",
+      "updatedAt": "2025-10-28T09:49:51Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-13",
       "headRefOid": "a5ea18d968c350004f37dc3adebd15904d77c247",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-10-28T09:49:51Z",
+      "mergedAt": "2025-10-28T09:49:50Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "f3b525e390674c460c5231bdff726b9349db1245"
+      },
       "comments": [],
       "reviews": [
         {
@@ -8597,6 +8668,19 @@
               "updatedAt": "2025-10-24T15:15:28Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7J6xmf",
+          "commit": {
+            "abbreviatedOid": "a5ea18d"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I am OK with adding the HPKE-7 ciphersuite based on request from Matt.",
+          "createdAt": "2025-10-28T09:26:31Z",
+          "updatedAt": "2025-10-28T09:26:31Z",
+          "comments": []
         }
       ]
     },
@@ -8612,13 +8696,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-10-24T07:07:55Z",
-      "updatedAt": "2025-10-27T18:55:40Z",
+      "updatedAt": "2025-10-29T08:12:28Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-14",
-      "headRefOid": "a551325d1a48db70eebd9d2bf6eb5ab78cd2e480",
+      "headRefOid": "0fce8906926bbbf613ecf01bcb142a79d94e3d7d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -8794,6 +8878,399 @@
               "body": "Fixed. ",
               "createdAt": "2025-10-24T15:20:16Z",
               "updatedAt": "2025-10-24T15:20:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7J63bs",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "While this PR impacts the alignment with COSE, I believe it is a good compromise. The recipient_structure still allows application developers using a JOSE library to incorporate additional context information while keeping the effort for JOSE-HPKE developer at a minimum.",
+          "createdAt": "2025-10-28T09:30:19Z",
+          "updatedAt": "2025-10-28T09:30:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KBtVZ",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T15:37:34Z",
+          "updatedAt": "2025-10-28T15:37:34Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "```suggestion\nThis value is directly used as the HPKE `info` parameter.\n```",
+              "createdAt": "2025-10-28T15:37:34Z",
+              "updatedAt": "2025-10-28T15:37:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KB7ri",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T15:47:59Z",
+          "updatedAt": "2025-10-28T15:47:59Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\nThe `Recipient_structure` is an input to the HPKE info parameter and provides context information used in key derivation. To ensure compactness and interoperability, this structure is encoded in a binary format. The encoding is as follows:\n```",
+              "createdAt": "2025-10-28T15:47:59Z",
+              "updatedAt": "2025-10-28T15:47:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KB8_8",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T15:49:08Z",
+          "updatedAt": "2025-10-28T15:49:08Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\n  match the \"enc\" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:\n```",
+              "createdAt": "2025-10-28T15:49:08Z",
+              "updatedAt": "2025-10-28T15:49:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KB9lM",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T15:49:40Z",
+          "updatedAt": "2025-10-28T15:49:41Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "```suggestion\n```",
+              "createdAt": "2025-10-28T15:49:41Z",
+              "updatedAt": "2025-10-28T15:49:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KEzEn",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T18:29:37Z",
+          "updatedAt": "2025-10-28T18:29:37Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "agree with @panva's suggestion ",
+              "createdAt": "2025-10-28T18:29:37Z",
+              "updatedAt": "2025-10-28T18:29:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KEzSB",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T18:29:52Z",
+          "updatedAt": "2025-10-28T18:29:53Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "agree with @panva's suggestion ",
+              "createdAt": "2025-10-28T18:29:52Z",
+              "updatedAt": "2025-10-28T18:29:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KEzYV",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T18:29:58Z",
+          "updatedAt": "2025-10-28T18:29:58Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "agree with @panva's suggestion ",
+              "createdAt": "2025-10-28T18:29:58Z",
+              "updatedAt": "2025-10-28T18:29:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KFWqs",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "panva",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T19:07:46Z",
+          "updatedAt": "2025-10-28T19:07:46Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "agree with @bc-pi's suggestion",
+              "createdAt": "2025-10-28T19:07:46Z",
+              "updatedAt": "2025-10-28T19:07:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KGLwI",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T20:13:29Z",
+          "updatedAt": "2025-10-28T20:13:29Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "As best I understand it, RFC9709 \"Encryption Key Derivation in the Cryptographic Message Syntax (CMS) Using HKDF with SHA-256\" is the fix for what was called the \"lamps attack\", which was never to my knowledge shown to be applicable to JWE. The word \"downgrade\" only even appears in RFC9709 in the title of an informative reference (which I think is to the pdf of the slides introducing what would become known as the \"lamps attack\" and is about a downgrade from AEAD to non-AEAD).  Remember that JWE doesn't allow non-AEAD content encryption. \n\nA reference and statement like this is, at best, confusing or distracting. And, at less than best, it's potentially misleading or alarmist.  \n\nIf there's something relevant, then maybe it could be briefly summarized or pointed to more directly? And framed appropriately. \n\nI don't want to derail this PR because it's a major improvement. But it does need to be fixed. \n\n\n\n",
+              "createdAt": "2025-10-28T20:13:29Z",
+              "updatedAt": "2025-10-28T20:13:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KGx-F",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T20:59:34Z",
+          "updatedAt": "2025-10-28T20:59:34Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "is there a reason to introduce next_layer_alg here for something that already has a name? like content encryption algorithm https://www.rfc-editor.org/rfc/rfc7516#section-4.1.2 ",
+              "createdAt": "2025-10-28T20:59:34Z",
+              "updatedAt": "2025-10-28T21:26:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KG2ro",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T21:06:33Z",
+          "updatedAt": "2025-10-28T21:06:33Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Mutually known private information is *not* defined in {{NIST.SP.800-56Ar3}}. As mentioned in April https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#discussion_r2060452940 but subsequently ignored. \n\nCan we please stop erroneously saying that it is?\n\nEven the COSE-HPKE document removed it https://mailarchive.ietf.org/arch/msg/jose/s2YuuyPEtLooDoy7HuLjkI3jCKU/  \n\n\n ",
+              "createdAt": "2025-10-28T21:06:33Z",
+              "updatedAt": "2025-10-28T21:06:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KG6Gv",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T21:11:17Z",
+          "updatedAt": "2025-10-28T21:11:17Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "I created #78 for this though because I don't want to derail this PR for something preexisting and only somewhat related.",
+              "createdAt": "2025-10-28T21:11:17Z",
+              "updatedAt": "2025-10-28T21:11:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KHJq_",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-28T21:29:36Z",
+          "updatedAt": "2025-10-28T21:29:36Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "why UTF8(...) for things that are ASCII or implied to be binary in other parts of the doc? ie https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#section-5-2.10.1 ",
+              "createdAt": "2025-10-28T21:29:36Z",
+              "updatedAt": "2025-10-28T21:29:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KKO2o",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T04:55:11Z",
+          "updatedAt": "2025-10-29T04:55:12Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "The KDF in https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2 leverages [NIST.800-56A](https://datatracker.ietf.org/doc/html/rfc7518#ref-NIST.800-56A) and the spec uses \"SuppPrivInfo\". However, the field is set to empty octet sequence. \r\n\r\nThe reference is correct but whether the field is required or not is the real question.\r\n\r\nI will leave it for now. ",
+              "createdAt": "2025-10-29T04:55:12Z",
+              "updatedAt": "2025-10-29T04:55:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KKXVm",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T05:15:03Z",
+          "updatedAt": "2025-10-29T05:15:03Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "Good point, fixed. \r\n\r\n~~~\r\nRecipient_structure = ASCII(\"JOSE-HPKE rcpt\") ||\r\n                      BYTE(255) ||\r\n                      ASCII(next_layer_alg) ||\r\n                      BYTE(255) ||\r\n                      UTF8(recipient_extra_info)\r\n~~~\r\n\r\nAnd fixed text in the \"Integrated Encryption\" section. ",
+              "createdAt": "2025-10-29T05:15:03Z",
+              "updatedAt": "2025-10-29T05:15:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KKY9I",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T05:19:26Z",
+          "updatedAt": "2025-10-29T05:19:26Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "It was using the same field name in COSE-HPKE which is no longer relevant based on the recent discussion, modified it to \"content_encryption_alg\". ",
+              "createdAt": "2025-10-29T05:19:26Z",
+              "updatedAt": "2025-10-29T05:19:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KKmIe",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T05:51:01Z",
+          "updatedAt": "2025-10-29T05:51:01Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "My intent is to capture the general principle: bind the content-encryption algorithm into the key derivation context so that algorithm-substitution  cannot occur.\r\n\r\nI have changed the wording to:\r\n\r\n\u201cEnsures that the derived key is bound to the selected content encryption algorithm, preventing algorithm-substitution issue (similar in principle to the attack discussed in {{?RFC9709}}).\u201d",
+              "createdAt": "2025-10-29T05:51:01Z",
+              "updatedAt": "2025-10-29T05:51:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KL2qZ",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T08:07:52Z",
+          "updatedAt": "2025-10-29T08:07:53Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "The \"lamps attack\" does not work against JWE.\r\n\r\nAnd I think requirements are secondary here, what really matters is how difficult it would be to use unauthenticated bulk cipher. That seems very hard: Nothing defines how to use non-AEAD bulk cipher (this is in contrast to COSE, where how to use unauthenticated bulk cipher is defined).",
+              "createdAt": "2025-10-29T08:07:52Z",
+              "updatedAt": "2025-10-29T08:07:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KL6Rs",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-29T08:12:28Z",
+          "updatedAt": "2025-10-29T08:12:28Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "I think that recipient_extra_info field should be taken to be byte string and not UTF-8 encoded. Looking at JWE, the JWE AAD is clearly a byte string (JWE does base64url on it before sticking the value to JSON string).",
+              "createdAt": "2025-10-29T08:12:28Z",
+              "updatedAt": "2025-10-29T08:12:28Z"
             }
           ]
         }
