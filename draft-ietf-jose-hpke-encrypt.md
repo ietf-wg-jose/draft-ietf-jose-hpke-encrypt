@@ -287,7 +287,7 @@ Where:
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
 * ASCII(content_encryption_alg): Identifies the algorithm with which the HPKE-encrypted key MUST be used. Its
-  value MUST match the "enc" (encryption algorithm) header parameter in the JWE protected header. This field provides JWE context information to the key derivation process and serves two purposes:
+  value MUST match the "enc" (encryption algorithm) header parameter in the JOSE Header. This field provides JWE context information to the key derivation process and serves two purposes:
 
   1. Ensures that derived key material is cryptographically domain-separated between the JWE HPKE integrated encryption and Key Encryption modes.
   2. Ensures that the derived key is bound to the selected content encryption algorithm.
