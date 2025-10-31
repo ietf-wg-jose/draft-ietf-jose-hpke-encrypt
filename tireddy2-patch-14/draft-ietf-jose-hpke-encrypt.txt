@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 3 May 2026                                          A. Banerjee
+Expires: 4 May 2026                                          A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         30 October 2025
+                                                         31 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2026.
+   This Internet-Draft will expire on 4 May 2026.
 
 Copyright Notice
 
@@ -370,9 +370,9 @@ Table of Contents
 
    *  ASCII(content_encryption_alg): Identifies the algorithm with which
       the HPKE-encrypted key MUST be used.  Its value MUST match the
-      "enc" (encryption algorithm) header parameter in the JWE protected
-      header.  This field provides JWE context information to the key
-      derivation process and serves two purposes:
+      "enc" (encryption algorithm) header parameter in the JOSE Header.
+      This field provides JWE context information to the key derivation
+      process and serves two purposes:
 
       1.  Ensures that derived key material is cryptographically domain-
           separated between the JWE HPKE integrated encryption and Key
