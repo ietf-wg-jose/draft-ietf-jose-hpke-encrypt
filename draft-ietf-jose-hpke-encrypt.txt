@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 1 May 2026                                          A. Banerjee
+Expires: 4 May 2026                                          A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         28 October 2025
+                                                         31 October 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 May 2026.
+   This Internet-Draft will expire on 4 May 2026.
 
 Copyright Notice
 
@@ -95,7 +95,7 @@ Table of Contents
      5.1.  Compact Example
    6.  Key Encryption
      6.1.  Recipient_structure
-       6.1.1.  Deterministic Serialization for HPKE info
+       6.1.1.  Example
      6.2.  JSON Example
    7.  Mapping HPKE Keys to JWK for JOSE
      7.1.  JWK Representation of a JOSE-HPKE Key with HPKE Ciphersuite
@@ -278,10 +278,8 @@ Table of Contents
    *  The JWE Ciphertext is the ciphertext defined in Section 5.2 of
       [I-D.ietf-hpke-hpke].
 
-   *  The HPKE info parameter defaults to the empty string; mutually
-      known private information MAY be used instead.  The concept of
-      mutually known private information is defined in
-      [NIST.SP.800-56Ar3] as an input to the key derivation function.
+   *  The HPKE info parameter contains the encoding of the
+      Recipient_structure, which is described in Section 6.1.
 
    *  The HPKE aad parameter MUST be set to the "Additional
       Authenticated Data encryption parameter", as specified in Step 14
@@ -353,90 +351,59 @@ Table of Contents
 
 6.1.  Recipient_structure
 
-   The Recipient_structure is a JSON object with the following members:
+   The Recipient_structure is an input to the HPKE info parameter and
+   provides context information used in key derivation.  To ensure
+   compactness and interoperability, this structure is encoded in a
+   binary format.  The encoding is as follows:
 
-   *  context (string): This member MUST include the constant string
-      value "JOSE HPKE Recipient".
+   Recipient_structure = ASCII("JOSE-HPKE rcpt") ||
+                         BYTE(255) ||
+                         ASCII(content_encryption_alg) ||
+                         BYTE(255) ||
+                         recipient_extra_info
 
-   *  next_layer_alg (string): Identifies the algorithm with which the
-      HPKE-encrypted key MUST be used.  Its value MUST match the "enc"
-      (encryption algorithm) header parameter in the JWE protected
-      header.  This field is included for alignment with the COSE HPKE
-      [I-D.ietf-cose-hpke] specification.  Currently, there are no known
-      attacks that allow a downgrade attack of the content encryption
-      algorithm.
+   Where:
 
-   *  recipient_protected_header (object): This member contains the
-      base64url-encoded JWE Per-Recipient Unprotected Header (see JWE
-      JSON Serialization in Section 7.1 of [RFC7516]) of the recipients
-      member.  To serialize this header member the procedure from
-      Section 3.3 of RFC 7638 MUST be used.  Unlike with RFC 7638, all
-      members from this member are included except for the "ek" member.
-      The inclusion of this data in the Recipient_structure allows
-      context information to be included in the key derivation.
+   *  ASCII("JOSE-HPKE rcpt"): A fixed ASCII string identifying the
+      context of the structure.
 
-   *  recipient_extra_info (string): Contains additional context
-      information that the application includes in the key derivation
-      via the HPKE info parameter.  Mutually known private information,
-      which is defined in [NIST.SP.800-56Ar3], MAY be used in this input
-      parameter.  If no additional context is provided, this value MUST
-      be the empty string "".
+   *  BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-6.1.1.  Deterministic Serialization for HPKE info
+   *  ASCII(content_encryption_alg): Identifies the algorithm with which
+      the HPKE-encrypted key MUST be used.  Its value MUST match the
+      "enc" (encryption algorithm) header parameter in the JOSE Header.
+      This field provides JWE context information to the key derivation
+      process and serves two purposes:
 
-   JSON texts that are semantically identical can serialize differently
-   (e.g., member order, whitespace), which would lead to divergent info
-   values and failed key agreement.
+      1.  Ensures that derived key material is cryptographically domain-
+          separated between the JWE HPKE integrated encryption and Key
+          Encryption modes.
 
-   To produce the HPKE info byte string from a Recipient_structure, both
-   sides MUST produce the deterministic JSON representation using the
-   JSON Web Key (JWK) Thumbprint serialization rules [RFC7638]:
+      2.  Ensures that the derived key is bound to the selected content
+          encryption algorithm.
 
-   1.  Construct the Recipient_structure JSON object exactly as defined
-       Section 6.1.
+   *  BYTE(255): A separator byte (0xFF) used to delimit fields.
 
-   2.  Prepare the JSON structure based on Section 3.3 of RFC 7638.
+   *  recipient_extra_info: An octet string containing additional
+      context information that the application includes in the key
+      derivation via the HPKE info parameter.  Mutually known private
+      information, which is defined in [NIST.SP.800-56Ar3], MAY be used
+      in this input parameter.  If no additional context information is
+      provided, this field MUST be empty.
 
-   3.  Use the resulting JSON structure, base64url-encode it and use the
-       octets as the HPKE info value.
+6.1.1.  Example
 
-6.1.1.1.  Example
+   The Recipient_structure encoded in binary as specified in
+   Section 6.1, and using the field values (next_layer_alg = "A128GCM",
+   recipient_extra_info = ""), results in the following byte sequence:
 
-   The example below shows a pretty-printed JSON object with an empty
-   recipient_extra_info member.
+   "JOSE-HPKE rcpt\xffA128GCM\xff"
 
-   {
-     "context": "JOSE HPKE Recipient",
-     "next_layer_alg": "A128GCM",
-     "recipient_protected_header": {
-       "alg": "HPKE-0",
-       "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"
-     },
-     "recipient_extra_info": ""
-   }
+   The corresponding hexadecimal representation is:
 
-   The serialized JSON leads to:
+   4a4f53452d48504b452072637074ffa131323847434dff
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
-   RFC7638-serialized recipient_protected_header (JSON string):
-   {"alg":"HPKE-0","kid":"G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o"}
-
-   RFC7638-serialized Recipient_structure (JSON string):
-   {"context":"JOSE HPKE Recipient","next_layer_alg":"A128GCM","\
-   recipient_extra_info":"","recipient_protected_header":"\
-   eyJhbGciOiJIUEtFLTAiLCJraWQiOiJHNU5fX0NxTXZfa0pHaWVHU0Z1QXVndmwwanJR\
-                                               SkNaM3lLd1ZLNnNVTTRvIn0"}
-
-   HPKE info (base64url):
-   eyJjb250ZXh0IjoiSk9TRSBIUEtFIFJlY2lwaWVudCIsIm5leHRfbGF5ZXJfYWxnIjoi\
-   QTEyOEdDTSIsInJlY2lwaWVudF9leHRyYV9pbmZvIjoiIiwicmVjaXBpZW50X3Byb3Rl\
-   Y3RlZF9oZWFkZXIiOiJleUpoYkdjaU9pSklVRXRGTFRBaUxDSnJhV1FpT2lKSE5VNWZY\
-   ME54VFhaZmEwcEhhV1ZIVTBaMVFYVm5kbXd3YW5KUlNrTmFNM2xMZDFaTE5uTlZUVFJ2\
-                                                                 SW4wIn0
-
-   The base64url-encoded JSON structure above is used as the HPKE info
-   bytes.
+   This value is directly used as the HPKE info parameter.
 
 6.2.  JSON Example
 
@@ -870,6 +837,8 @@ Document History
    -14
 
    *  Add HPKE-7
+
+   *  Update to Recipient_structure
 
    -13
 
