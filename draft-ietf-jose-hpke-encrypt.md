@@ -562,7 +562,7 @@ for their contributions to the specification.
 -14
 
 * Add HPKE-7
-* Update to Recipient_structure 
+* Update to Recipient_structure
 
 -13
 
