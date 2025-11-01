@@ -193,7 +193,7 @@ The HPKE "aad parameter" for Open() and Seal()
 specified in {{Section 8.1 of I-D.ietf-hpke-hpke}}
 is used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 Its value is the Additional Authenticated Data encryption parameter value
-computed in Step 14 of {{Section 5.1 of RFC7518}} (Message Encryption).
+computed in Step 14 of {{Section 5.1 of RFC7516}} (Message Encryption).
 
 Despite similarities to ECDH-ES,
 this specification does not use the `apu` and `apv` header parameters,
