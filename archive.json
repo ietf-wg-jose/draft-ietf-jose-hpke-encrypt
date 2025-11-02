@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-30T01:40:25.897201+00:00",
+  "timestamp": "2025-11-02T01:42:11.821560+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -986,7 +986,7 @@
       "id": "I_kwDOMMuuSM7Q0R2s",
       "title": "Reference HPKE as RFC 9180 until draft-ietf-hpke-hpke becomes an RFC",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/69",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -995,8 +995,8 @@
       "labels": [],
       "body": "#68 changed the HPKE reference from RFC 9180 to draft-ietf-hpke-hpke.  This is inappropriate until the latter becomes an RFC, since the downward reference would prevent us from finishing.  We're also not using any functionality that is specific to draft-ietf-hpke-hpke.  Therefore, we need to change the reference back for now.\n\nAlso, #68 failed to include the history entry describing the change in draft -13.  When this fix is made, please also add the history entry.\n\n@tireddy2, I'm assigning this to you since you created the PR that we need to revert part of.",
       "createdAt": "2025-10-10T15:15:17Z",
-      "updatedAt": "2025-10-13T07:03:09Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-30T11:58:23Z",
+      "closedAt": "2025-10-30T11:58:23Z",
       "comments": [
         {
           "author": "tireddy2",
@@ -1012,16 +1012,31 @@
       "id": "I_kwDOMMuuSM7TCbMK",
       "title": "Recipient_structure typos and reference issues",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/74",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "panva",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Refs: https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#section-6.1-2.3.1 (recipient_protected_header) \n\n> recipient_protected_header (object): This member contains the base64url-encoded JWE Per-Recipient Unprotected Header (see JWE JSON Serialization in [Section 7.1](https://rfc-editor.org/rfc/rfc7156#section-7.1) of [[RFC7156](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-13.html#RFC7156)] of the recipients member. To serialize this header member the procedure from Section 3.3 of RFC 7638 MUST be used. Unlike with RFC 7638, all members from this member are included except for the \"ek\" member. The inclusion of this data in the Recipient_structure allows context information to be included in the key derivation.\n\nA recipient_**protected**_header is to be the JWE Per-Recipient **Unprotected** Header? Something doesn't add up in here and it's not clear whether this is a typo or intention.\n\nThe references don't make it any clearer because reference to RFC7156 (Zorn, G., Wu, Q., and J. Korhonen, \"Diameter Support for Proxy Mobile IPv6 Localized Routing\", RFC 7156, DOI 10.17487/RFC7156, April 2014) is clearly meant to be RFC7516 (Jones, M. and J. Hildebrand, \"JSON Web Encryption (JWE)\", RFC 7516, DOI 10.17487/RFC7516, May 2015).\n\nBut even with the RFC reference fixed, section 7.1 that it references to is \"JWE Compact Serialization\", which does not have per-recipient unprotected headers at all.",
       "createdAt": "2025-10-22T12:18:25Z",
-      "updatedAt": "2025-10-22T12:18:25Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-30T18:08:15Z",
+      "closedAt": "2025-10-30T11:57:39Z",
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "recipient_protected_header has been removed. ",
+          "createdAt": "2025-10-30T11:57:39Z",
+          "updatedAt": "2025-10-30T11:57:39Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> recipient_protected_header has been removed.\n\nRemoval of the recipient_protected_header is an a PR that has not yet been merged so closing this issue seems premature. ",
+          "createdAt": "2025-10-30T18:08:15Z",
+          "updatedAt": "2025-10-30T18:08:15Z"
+        }
+      ]
     },
     {
       "number": 77,
@@ -1044,19 +1059,19 @@
       "id": "I_kwDOMMuuSM7UZMKN",
       "title": "Mutually known private information is *not* defined in 800-56Ar3 and is also wrong",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/78",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bc-pi",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "> Mutually known private information is *not* defined in {{NIST.SP.800-56Ar3}}. As mentioned in April https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#discussion_r2060452940 but subsequently ignored. \n> \n> Can we please stop erroneously saying that it is?\n> \n> Even the COSE-HPKE document removed it https://mailarchive.ietf.org/arch/msg/jose/s2YuuyPEtLooDoy7HuLjkI3jCKU/  \n> \n> \n>   \n\n _Originally posted by @bc-pi in [#76](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76/files#r2471037815)_",
       "createdAt": "2025-10-28T21:08:22Z",
-      "updatedAt": "2025-10-28T23:34:27Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-01T03:19:25Z",
+      "closedAt": "2025-10-30T11:58:58Z",
       "comments": [
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "also ignored in and around #41 was https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#issuecomment-2819260942. And I don't even disagree with the general outcome but am still genuinely perplexed and dismayed by how it played out. ",
           "createdAt": "2025-10-28T21:40:24Z",
           "updatedAt": "2025-10-28T21:40:24Z"
@@ -1067,6 +1082,20 @@
           "body": "The private info stuff is inherited from:\n\nhttps://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2 \n\nits called \"SuppPrivInfo\" in https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf",
           "createdAt": "2025-10-28T23:34:27Z",
           "updatedAt": "2025-10-28T23:34:27Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> The private info stuff is inherited from:\n> \n> https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2\n> \n> its called \"SuppPrivInfo\" in https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf\n\nPlease explain to me like I'm five how this jose-hpke inherited something from JWA? I am aware they're conceptual similarities with HPKE and ECDH-ES. Please don't explain that to me. That's not what I'm asking. \n\nThe jose-hpke draft has two references to RFC7518 and they are both in https://datatracker.ietf.org/doc/html/draft-ietf-jose-hpke-encrypt-13#section-4.1\n\nThe first one looks to be a mistake that should be referencing RFC7516. The section and step mentioned don't exist in RFC7518 but do in RFC7516.\n\nThe second one is a note that says jose-hpke does not use the apu and apv header parameters. I think the note was added to try and reduce confusion but I'm not convinced its effective. \n\nBut nothing is inherited from rfc7518. And everything I've said here and in the prior PRs/messages remain true. \n\n\n\n\n",
+          "createdAt": "2025-10-31T22:38:40Z",
+          "updatedAt": "2025-11-01T03:19:25Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "<img width=\"613\" height=\"153\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d8eb629e-b362-44f4-b434-4989bdca95b5\" />\n\nI can't reopen an issue that shouldn't have been closed so I have to open a new one #80",
+          "createdAt": "2025-11-01T03:12:24Z",
+          "updatedAt": "2025-11-01T03:12:24Z"
         }
       ]
     },
@@ -1091,6 +1120,37 @@
           "body": "Related https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/42#issuecomment-3460244651\n\nAnd on parallels to \"none\", it is very easy to handle \"none\" in dangerous ways, whereas handling \"int\" in dangerous ways seems much much harder. Consider implementation that supports JOSE-HPKE algorithms but does not special-case \"int\". In that case, it will always treat JOSE-HPKE as Key Encryption. However, JOSE-HPKE is designed so that Integrated Encryption and Key Encryption messages are incompatible, even with adversarial manipulation (and if \"int\" happens to be something weak on encryption side, that is critical vulnerability on that side).\n\nAnd on \"JWHPKE\", how to prevent it from getting confused with existing JOSE stuff?\n\nAnd on JWT being bad, I think the biggest mistake was wrapping it in generic signature layer. Cleanly separating tokens and token signing is impossible.\n",
           "createdAt": "2025-10-29T09:04:02Z",
           "updatedAt": "2025-10-29T09:04:02Z"
+        }
+      ]
+    },
+    {
+      "number": 80,
+      "id": "I_kwDOMMuuSM7VMDU-",
+      "title": "Mutually known private information is still *not* defined in 800-56Ar3 and is still wrong",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/80",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": ">  > The private info stuff is inherited from:\n> \n>  >  https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2\n> \n>  >  its called \"SuppPrivInfo\" in https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf\n> \n> Please explain to me like I'm five how this jose-hpke inherited something from JWA? I am aware they're conceptual similarities with HPKE and ECDH-ES. Please don't explain that to me. That's not what I'm asking. \n> \n> The jose-hpke draft has two references to RFC7518 and they are both in https://datatracker.ietf.org/doc/html/draft-ietf-jose-hpke-encrypt-13#section-4.1\n> \n> The first one looks to be a mistake that should be referencing RFC7516. The section and step mentioned don't exist in RFC7518 but do in RFC7516.\n> \n> The second one is a note that says jose-hpke does not use the apu and apv header parameters. I think the note was added to try and reduce confusion but I'm not convinced its effective. \n> \n> But nothing is inherited from rfc7518. And everything I've said here and in the prior PRs/messages remain true. \n> \n> \n> \n> \n>  \n\n _Originally posted by @bc-pi in [#78](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/78#issuecomment-3475090371)_",
+      "createdAt": "2025-10-31T22:39:28Z",
+      "updatedAt": "2025-11-01T13:28:44Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, to clarify, the draft does not say it inherits \"SuppPrivInfo\" from RFC7518. The recipient_extra_info field allows applications to supply additional context to HPKE\u2019s info parameter. \n\nThe mention of \u201cmutually known private information\u201d refers directly to the concept defined in NIST SP 800-56A Rev 3, where SuppPrivInfo is introduced and that\u2019s the normative source for this KDF input.\n\nSuppPrivInfo enhances security by enabling the cryptographic binding of private information that is not transmitted over the wire.\n\n",
+          "createdAt": "2025-11-01T07:24:45Z",
+          "updatedAt": "2025-11-01T07:24:45Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Thanks, to clarify, the draft does not say it inherits \"SuppPrivInfo\" from RFC7518.\n\nThen why did @OR13 say \"The private info stuff is inherited from [...] [rfc7518#section-4.6.2](https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.2)\"?\n\nAnd this https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76#discussion_r2471735311 that is nonsensical but seems to cite the unrelated RFC7518 and its different use of a sub-field of an unrelated KDF as reason that \"The reference is correct\" \n\n\n> The recipient_extra_info field allows applications to supply additional context to HPKE\u2019s info parameter.\n\nI'm genuinely wondering why this draft can't just say something like that? Which was even basically suggested when https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/41#pullrequestreview-2779885583 the PR was put doing what you'd told me previously couldn't/wouldn't be done. \n\n\n> \n> The mention of \u201cmutually known private information\u201d refers directly to the concept defined in NIST SP 800-56A Rev 3, where SuppPrivInfo is introduced and that\u2019s the normative source for this KDF input.\n> \n> SuppPrivInfo enhances security by enabling the cryptographic binding of private information that is not transmitted over the wire.\n\nThanks, to clarify, none of that addresses the point. ",
+          "createdAt": "2025-11-01T13:28:44Z",
+          "updatedAt": "2025-11-01T13:28:44Z"
         }
       ]
     }
@@ -8689,28 +8749,30 @@
       "id": "PR_kwDOMMuuSM6vcGAZ",
       "title": "Address comments on Serialization",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/76",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-10-24T07:07:55Z",
-      "updatedAt": "2025-10-29T08:12:28Z",
+      "updatedAt": "2025-10-31T19:46:32Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
-      "baseRefOid": "2650e0477c352956e0ec2eeca6dd25b0fa5c0b8a",
+      "baseRefOid": "f3b525e390674c460c5231bdff726b9349db1245",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "tireddy2-patch-14",
-      "headRefOid": "0fce8906926bbbf613ecf01bcb142a79d94e3d7d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "dfb3bda5a9bf0ccb1c7dbfe88b30d9b78f94f1bd",
+      "closedAt": "2025-10-31T05:51:39Z",
+      "mergedAt": "2025-10-31T05:51:39Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "e3f8591ff568222f3244061a338a7448b53e9328"
+      },
       "comments": [
         {
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "This is unimplementable with most platform's own JSON serializers.\r\n\r\nFor instance, javascript: (doesn't add needless fractions but uses lowercase e and a sign after exponent)\r\n\r\n```\r\n> JSON.stringify(JSON.parse('{\"a\":4E100}'))\r\n'{\"a\":4e+100}'\r\n```\r\n\r\nRuby: (adds needless fractions and uses lowercase e and a sign after exponent)\r\n\r\n```\r\nirb(main):007:0> JSON.dump JSON.load '{\"foo\":4E100}'\r\n=> \"{\\\"foo\\\":4.0e+100}\"\r\n```\r\n\r\nI implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).",
           "createdAt": "2025-10-24T07:26:12Z",
           "updatedAt": "2025-10-24T07:38:34Z"
@@ -8724,7 +8786,7 @@
         },
         {
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n\r\nThis still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON object with cherry-picked attributes that are exclusively string-only values and use base64url alphabet.",
           "createdAt": "2025-10-24T10:12:28Z",
           "updatedAt": "2025-10-24T10:14:17Z"
@@ -8738,14 +8800,14 @@
         },
         {
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Deterministic JSON is required so that both the sender and receiver provide the same HPKE info value.\r\n\r\nAnd yet it isn't required in any other JOSE Key Management algorithm.\r\n\r\n> If serialization is removed, different keys will be derived and decryption will fail.\r\n\r\nYeah, so it's clear going down a unbound json object inclusion and subsequent normalization route shouldn't have happened in the first place.",
           "createdAt": "2025-10-24T10:19:29Z",
           "updatedAt": "2025-10-24T10:23:51Z"
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> > I implore the authors to forego any attempts at JSON normalization (both existing that requires external libraries like JCS or proprietary to this draft).\r\n> \r\n> This still stands, RFC7638 is just as flawed wrt JSON normalization as anything before. The only reason why JWK Thumbprints don't exhibit any interop issues is because the JSON input to hashing there is a flat JSON object with cherry-picked attributes that are exclusively string-only values and use base64url alphabet.\r\n\r\nThe entire ethos of JOSE and a major contributor to its success has been the avoidance of any attempts at JSON normalization/canonicalization. JWK Thumbprints are the only seeming exception but rely on such an extremely narrow and tightly defined subset of content that it's workable. And I say seeming because it's so narrow that calling it JSON normalization/canonicalization is a misnomer. ",
           "createdAt": "2025-10-24T14:47:29Z",
           "updatedAt": "2025-10-24T14:47:29Z"
@@ -8759,21 +8821,21 @@
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> > Deterministic JSON is required so that both the sender and receiver provide the same HPKE info value.\r\n> \r\n> And yet it isn't required in any other JOSE Key Management algorithm.\r\n> \r\n> > If serialization is removed, different keys will be derived and decryption will fail.\r\n> \r\n> Yeah, so it's clear going down a unbound json object inclusion and subsequent normalization route shouldn't have happened in the first place.\r\n \r\nI agree with this sentiment. Rather than trying to \"Address comments on Serialization\" the whole Recipient_structure mishap should be reverted. ",
           "createdAt": "2025-10-24T15:27:41Z",
           "updatedAt": "2025-10-24T15:27:41Z"
         },
         {
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> The goal isn\u2019t to normalize arbitrary JSON, but to guarantee stable, reproducible encoding for all valid Recipient_structure instances, present and future.\r\n\r\nThe entire goal of recipient structure is yet to be commented on or explained by the authors.\r\n\r\nBut whatever the goal is, utilizing JSON normalization of arbitrary inputs is not what jose hpke should be asking implementers to do. ",
           "createdAt": "2025-10-24T15:34:47Z",
           "updatedAt": "2025-10-24T15:35:28Z"
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> > The goal isn\u2019t to normalize arbitrary JSON, but to guarantee stable, reproducible encoding for all valid Recipient_structure instances, present and future.\r\n> \r\n> The entire goal of recipient structure is yet to be commented on or explained by the authors.\r\n> \r\n> But whatever the goal is, utilizing JSON normalization of arbitrary inputs is not what jose hpke should be asking implementers to do.\r\n\r\nRight. What is the actual rationale for the Recipient_structure and why was it haphazardly added in a surprise to most/all of the WG after a missed attempt at WGLC where there were other things that clearly needed attention? ",
           "createdAt": "2025-10-24T16:02:30Z",
           "updatedAt": "2025-10-24T16:02:30Z"
@@ -8794,10 +8856,24 @@
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "As previously said [here](https://mailarchive.ietf.org/arch/msg/jose/s2YuuyPEtLooDoy7HuLjkI3jCKU/) - alignment just for the sake of alignment shouldn't be a goal. For better or worse, JOSE and COSE diverged long ago. These drafts are not the place to try to fix that nor could they. ",
           "createdAt": "2025-10-27T18:55:40Z",
           "updatedAt": "2025-10-27T18:55:40Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Other than \"enc\" not necessarily being in JWE protected header (and some wordsmithing for later), looks good on quick glance.",
+          "createdAt": "2025-10-30T15:26:37Z",
+          "updatedAt": "2025-10-30T15:26:37Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Other than \"enc\" not necessarily being in JWE protected header (and some wordsmithing for later), looks good on quick glance.\r\n\r\nThanks @ilaril, @bc-pi and @panva for the help. I will merge the changes and publish the revised draft. ",
+          "createdAt": "2025-10-31T05:44:27Z",
+          "updatedAt": "2025-10-31T05:44:27Z"
         }
       ],
       "reviews": [
@@ -8807,7 +8883,7 @@
             "abbreviatedOid": "6cad196"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-24T15:05:06Z",
@@ -8827,7 +8903,7 @@
             "abbreviatedOid": "6cad196"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-24T15:06:20Z",
@@ -8900,7 +8976,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T15:37:34Z",
@@ -8920,7 +8996,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T15:47:59Z",
@@ -8940,7 +9016,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T15:49:08Z",
@@ -8960,7 +9036,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T15:49:40Z",
@@ -8980,7 +9056,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T18:29:37Z",
@@ -9000,7 +9076,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T18:29:52Z",
@@ -9020,7 +9096,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T18:29:58Z",
@@ -9040,7 +9116,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "panva",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T19:07:46Z",
@@ -9060,7 +9136,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T20:13:29Z",
@@ -9080,7 +9156,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T20:59:34Z",
@@ -9100,7 +9176,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T21:06:33Z",
@@ -9120,7 +9196,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T21:11:17Z",
@@ -9140,7 +9216,7 @@
             "abbreviatedOid": "2d19119"
           },
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-10-28T21:29:36Z",
@@ -9271,6 +9347,173 @@
               "body": "I think that recipient_extra_info field should be taken to be byte string and not UTF-8 encoded. Looking at JWE, the JWE AAD is clearly a byte string (JWE does base64url on it before sticking the value to JSON string).",
               "createdAt": "2025-10-29T08:12:28Z",
               "updatedAt": "2025-10-29T08:12:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7KgQdQ",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-30T05:05:05Z",
+          "updatedAt": "2025-10-30T05:05:05Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "Fixed. ",
+              "createdAt": "2025-10-30T05:05:05Z",
+              "updatedAt": "2025-10-30T05:05:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Kq02H",
+          "commit": {
+            "abbreviatedOid": "86f0ac3"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-30T15:22:57Z",
+          "updatedAt": "2025-10-30T15:22:58Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "The \"enc\" is not guaranteed to be in JWE Protected Header since this is Key Encryption. \"JOSE Header\" seems to be the correct term. Also the wording seems a bit clunky to me, maybe something like (needs further wordsmithing):\r\n\r\n\"The value of the \"enc\" (encryption algorithm) header parameter in the JOSE Header. This identifies the content encryption algorithm the HPKE-encrypted key is used for, serving two purposes:\"\r\n\r\n",
+              "createdAt": "2025-10-30T15:22:57Z",
+              "updatedAt": "2025-10-30T15:22:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Kq4e2",
+          "commit": {
+            "abbreviatedOid": "86f0ac3"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-30T15:26:03Z",
+          "updatedAt": "2025-10-30T15:26:03Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "> The \"enc\" is not guaranteed to be in JWE Protected Header since this is Key Encryption. \"JOSE Header\" seems to be the correct term.\r\n\r\nI agree.",
+              "createdAt": "2025-10-30T15:26:03Z",
+              "updatedAt": "2025-10-30T15:26:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7K0JTc",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T05:41:18Z",
+          "updatedAt": "2025-10-31T05:41:18Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Yes, fixed. ",
+              "createdAt": "2025-10-31T05:41:18Z",
+              "updatedAt": "2025-10-31T05:41:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7K0KSJ",
+          "commit": {
+            "abbreviatedOid": "86f0ac3"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T05:43:20Z",
+          "updatedAt": "2025-10-31T05:43:20Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "Agreed, fixed. ",
+              "createdAt": "2025-10-31T05:43:20Z",
+              "updatedAt": "2025-10-31T05:43:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7LAfbR",
+          "commit": {
+            "abbreviatedOid": "2d19119"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T19:46:32Z",
+          "updatedAt": "2025-10-31T19:46:32Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Agree that recipient_extra_info should be bytes. But do not agree with or even understand the continued confused and confusing pointing to JWA, NIST800-56a, SuppPrivInfo, etc. ",
+              "createdAt": "2025-10-31T19:46:32Z",
+              "updatedAt": "2025-10-31T19:46:32Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "id": "PR_kwDOMMuuSM6w9taZ",
+      "title": "Fix Nit",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/81",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-01T08:15:11Z",
+      "updatedAt": "2025-11-01T17:48:36Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "dbcf726f0d9ff2528693c5e98f7dd3794779f797",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "tireddy2-patch-15",
+      "headRefOid": "1a9ec80f34b6376843ecca30070fb5ee9251628f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7LHBPK",
+          "commit": {
+            "abbreviatedOid": "1a9ec80"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-01T17:48:36Z",
+          "updatedAt": "2025-11-01T17:48:36Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "Let's also delete the unnecessary and potentially confusing mention of unrelated headers that are not about Auxiliary Authenticated Application info anyway. \n```suggestion\n```",
+              "createdAt": "2025-11-01T17:48:36Z",
+              "updatedAt": "2025-11-01T17:49:22Z"
             }
           ]
         }
