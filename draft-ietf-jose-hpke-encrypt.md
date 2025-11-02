@@ -291,7 +291,7 @@ Where:
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
 * recipient_extra_info: An octet string containing additional context information that the application
-  includes in the key derivation via the HPKE `info` parameter. Mutually known private information, which is defined in {{NIST.SP.800-56Ar3}}, MAY be used in this input parameter. If no additional context information is provided, this field MUST be empty.
+  includes in the key derivation via the HPKE `info` parameter. Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter. If no additional context information is provided, this field MUST be empty.
 
 #### Example
 
@@ -560,6 +560,7 @@ for their contributions to the specification.
 * Add HPKE-7
 * Update to Recipient_structure
 * Removed text related to apu and apv.
+* Updated description of mutually known private information.
 
 -13
 
