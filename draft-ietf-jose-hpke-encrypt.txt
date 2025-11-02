@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 4 May 2026                                          A. Banerjee
+Expires: 6 May 2026                                          A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         31 October 2025
+                                                         2 November 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 May 2026.
+   This Internet-Draft will expire on 6 May 2026.
 
 Copyright Notice
 
@@ -231,11 +231,7 @@ Table of Contents
    Section 8.1 of [I-D.ietf-hpke-hpke] is used with both HPKE JWE
    Integrated Encryption and HPKE JWE Key Encryption.  Its value is the
    Additional Authenticated Data encryption parameter value computed in
-   Step 14 of Section 5.1 of [RFC7518] (Message Encryption).
-
-   Despite similarities to ECDH-ES, this specification does not use the
-   apu and apv header parameters, which are described in Section 4.6.1
-   of [RFC7518].
+   Step 14 of Section 5.1 of [RFC7516] (Message Encryption).
 
 4.2.  Encapsulated Keys
 
@@ -839,6 +835,8 @@ Document History
    *  Add HPKE-7
 
    *  Update to Recipient_structure
+
+   *  Removed text related to apu and apv.
 
    -13
 
