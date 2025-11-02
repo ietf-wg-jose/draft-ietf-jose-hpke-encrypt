@@ -559,6 +559,7 @@ for their contributions to the specification.
 
 * Add HPKE-7
 * Update to Recipient_structure
+* Removed text related to apu and apv.
 
 -13
 
