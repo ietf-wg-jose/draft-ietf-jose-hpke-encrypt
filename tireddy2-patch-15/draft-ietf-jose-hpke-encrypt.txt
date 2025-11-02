@@ -836,6 +836,8 @@ Document History
 
    *  Update to Recipient_structure
 
+   *  Removed text related to apu and apv.
+
    -13
 
    *  Removed orphan text about AKP kty field
