@@ -383,9 +383,9 @@ Table of Contents
    *  recipient_extra_info: An octet string containing additional
       context information that the application includes in the key
       derivation via the HPKE info parameter.  Mutually known private
-      information, which is defined in [NIST.SP.800-56Ar3], MAY be used
-      in this input parameter.  If no additional context information is
-      provided, this field MUST be empty.
+      information (a concept also utilized in [NIST.SP.800-56Ar3]) MAY
+      be used in this input parameter.  If no additional context
+      information is provided, this field MUST be empty.
 
 6.1.1.  Example
 
@@ -837,6 +837,8 @@ Document History
    *  Update to Recipient_structure
 
    *  Removed text related to apu and apv.
+
+   *  Updated description of mutually known private information.
 
    -13
 
