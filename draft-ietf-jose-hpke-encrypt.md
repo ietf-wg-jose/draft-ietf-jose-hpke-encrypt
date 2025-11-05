@@ -204,7 +204,7 @@ The HPKE "aad parameter" for Open() and Seal()
 specified in {{Section 8.1 of I-D.ietf-hpke-hpke}}
 is used with both HPKE Integrated Encryption and HPKE Key Encryption.
 Its value is the Additional Authenticated Data encryption parameter value
-computed in Step 14 of {{Section 5.1 of RFC7516}} (Message Encryption).
+computed in Step 14 of {{encryption}}.
 
 ## Encapsulated Keys {#encapsulated-keys}
 
@@ -215,13 +215,15 @@ In HPKE Integrated Encryption, the JWE Encrypted Key of the sole recipient is th
 In HPKE Key Encryption, each recipient's JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
 is the base64url encoding of the HPKE encapsulated key.
 
-# Integrated Encryption
+# HPKE Integrated Encryption
 
 When using HPKE Integrated Encryption:
 
-- The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
-- The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in {{Section 4.1.2 of RFC7516}} that
-"enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
+- The protected header MUST contain an "alg" value that is JOSE-HPKE algorithm.
+- The protected header MUST contain an "enc" with the value "int".
+  This is an explicit exception to requirement in {{Section 4.1.2 of RFC7516}}
+  that "enc" must be an AEAD algorithm.
+  This is appropriate, as HPKE will perform plaintext encryption.
 - The protected header parameter "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
@@ -231,12 +233,8 @@ When using HPKE Integrated Encryption:
 - The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 - The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
   {{recipient_structure}}.
-- The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{Section 5.1 of RFC7516}}.
-- Then follow Steps 11-19 of {{Section 5.1 of RFC7516}} (Message Encryption).
-
-When decrypting, the checks in {{Section 5.2 of RFC7516}},
-Steps 1 through 5 MUST be performed. The JWE Encrypted Key in Step 2 is the
-base64url-encoded encapsulated key.
+  The content_encryption_alg value in the Recipient_structure is "int".
+- The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{encryption}}.
 
 ## Compact Example
 
@@ -248,7 +246,7 @@ Below is an example of a Compact JWE using HPKE integrated encryption:
 
 The keys used for this example are in {{keys-used}}.
 
-# Key Encryption
+# HPKE Key Encryption
 
 When using the JWE JSON Serialization,
 recipients using JOSE-HPKE can be added alongside other recipients
@@ -256,24 +254,18 @@ recipients using JOSE-HPKE can be added alongside other recipients
 since HPKE is used to encrypt the Content Encryption Key,
 which is then processed as specified in JWE.
 
-The encoding of the protected header remains consistent with existing JWE rules.
-
 When using HPKE Key Encryption:
 
-- The Key Management Mode is Key Encryption.
-- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
+- When all recipients use the same JOSE-HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
 - JOSE Header parameter "psk_id" MAY be present.
 - JOSE Header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated key.
 - Recipient JWE Encrypted Key MUST be the ciphertext from HPKE Encryption.
 - The HPKE info parameter contains the encoding of the Recipient_structure, which is described in {{recipient_structure}}.
+  The content_encryption_alg value in the Recipient_structure is the "enc" Header Parameter value.
 - The HPKE AAD parameter defaults to the empty string; externally provided information MAY be used instead.
 - THE HPKE plaintext MUST be set to the CEK.
-
-The processing of "enc", "iv", "tag", "aad", and "ciphertext" is as already defined in {{RFC7516}}.
-Implementations process these parameters as defined in {{RFC7516}};
-no additional processing requirements are introduced by HPKE-based key encryption.
 
 ## JSON Example {#json-example}
 
@@ -331,25 +323,28 @@ The corresponding hexadecimal representation is:
 
 This value is directly used as the HPKE `info` parameter.
 
+
 # Producing and Consuming JWEs
 
 Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of {{RFC7516}}
 are replaced by the following descriptions, which add processing rules for the
 HPKE Integrated Encryption and HPKE Key Encryption Key Management Modes.
 
-## Message Encryption
+## Message Encryption {#encryption}
 
 The message encryption process is as follows.
 The order of the steps is not significant in cases where
 there are no dependencies between the inputs and outputs of the steps.
 
 1.  Determine the Key Management Mode employed by the algorithm
-    used to determine the Content Encryption Key value.
+    used to determine the Content Encryption Key value,
+    when one is used.
     (This is the algorithm recorded in the
     `alg` (algorithm)
     Header Parameter of the resulting JWE.)
 
 1.  When Key Wrapping, Key Encryption,
+    HPKE Key Encryption,
     or Key Agreement with Key Wrapping are employed,
     generate a random CEK value.
     See {{RFC4086}} for
@@ -366,6 +361,7 @@ there are no dependencies between the inputs and outputs of the steps.
     the agreed upon key will be used to wrap the CEK.
 
 1.  When Key Wrapping, Key Encryption,
+    HPKE Key Encryption,
     or Key Agreement with Key Wrapping are employed,
     encrypt the CEK to the recipient and let the result be the
     JWE Encrypted Key.
@@ -376,7 +372,8 @@ there are no dependencies between the inputs and outputs of the steps.
 1.  When Direct Encryption is employed,
     let the CEK be the shared symmetric key.
 
-1.  Compute the encoded key value BASE64URL(JWE Encrypted Key).
+1.  If HPKE Integrated Encryption is not being employed,
+    compute the encoded key value BASE64URL(JWE Encrypted Key).
 
 1.  If the JWE JSON Serialization is being used, repeat this process
     (steps 1-7)
@@ -417,7 +414,13 @@ there are no dependencies between the inputs and outputs of the steps.
     the Additional Authenticated Data value
     using the specified content encryption algorithm
     to create the JWE Ciphertext value and the JWE Authentication Tag
-    (which is the Authentication Tag output from the encryption operation).
+    (which is the Authentication Tag output from the encryption operation)
+    unless HPKE Integrated Encryption is being employed.
+    If HPKE Integrated Encryption is being employed,
+    encrypt M using the specified HPKE algorithm
+    to create the JWE Ciphertext value;
+    in this case, the JWE Initialization Vector and JWE Authentication Tag
+    values are both the empty octet sequence.
 
 1.  Compute the encoded ciphertext value BASE64URL(JWE Ciphertext).
 
@@ -436,7 +439,7 @@ there are no dependencies between the inputs and outputs of the steps.
     || '.' || BASE64URL(JWE Authentication Tag).
     The JWE JSON Serialization is described in Section 7.2 of {{RFC7516}}.
 
-## Message Decryption
+## Message Decryption {#decryption}
 
 The message decryption process is the reverse of the
 encryption process.
@@ -518,9 +521,14 @@ MUST successfully validate or the JWE MUST be considered invalid.
     or by the `crit` Header Parameter value,
     and that the values of those parameters are also understood and supported.
 
-1.  Determine the Key Management Mode employed by the algorithm
-    specified by the
-    `alg` (algorithm) Header Parameter.
+1.  Determine the Key Management Mode employed by the algorithms
+    specified by the Header Parameters.
+    If `alg` is not a JOSE-HPKE algorithm then the Key Management Mode
+    is determined by the `alg` value.
+    If `alg` is a JOSE-HPKE algorithm then when the `enc` value is `int`,
+    the Key Management Mode is HPKE Integrated Encryption;
+    if `alg` is a JOSE-HPKE algorithm then when the `enc` value is not `int`,
+    the Key Management Mode is HPKE Key Encryption.
 
 1.  Verify that the JWE uses a key known to the recipient.
 
@@ -533,6 +541,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     the agreed upon key will be used to decrypt the JWE Encrypted Key.
 
 1.  When Key Wrapping, Key Encryption,
+    HPKE Key Encryption,
     or Key Agreement with Key Wrapping are employed,
     decrypt the JWE Encrypted Key to produce the CEK.
     The CEK MUST have a length equal to that
@@ -545,13 +554,15 @@ MUST successfully validate or the JWE MUST be considered invalid.
     Also, see  Section 11.5 of {{RFC7516}} for security considerations
     on mitigating timing attacks.
 
-1.  When Direct Key Agreement or Direct Encryption are employed,
+1.  When Direct Key Agreement, Direct Encryption,
+    or HPKE Integrated Encryption are employed,
     verify that the JWE Encrypted Key value is an empty octet sequence.
 
 1.  When Direct Encryption is employed,
     let the CEK be the shared symmetric key.
 
-1.  Record whether the CEK could be successfully determined for this recipient or not.
+1.  If HPKE Integrated Encryption is not being employed,
+    record whether the CEK could be successfully determined for this recipient or not.
 
 1.  If the JWE JSON Serialization is being used, repeat this process
     (steps 4-12)
@@ -579,7 +590,14 @@ MUST successfully validate or the JWE MUST be considered invalid.
     returning the decrypted plaintext and validating the JWE Authentication Tag
     in the manner specified for the algorithm,
     rejecting the input without emitting any decrypted output
-    if the JWE Authentication Tag is incorrect.
+    if the JWE Authentication Tag is incorrect
+    unless HPKE Integrated Encryption is being employed.
+    If HPKE Integrated Encryption is being employed,
+    decrypt the JWE Ciphertext using the specified HPKE algorithm
+    returning the decrypted plaintext
+    in the manner specified for the algorithm,
+    rejecting the input without emitting any decrypted output
+    if the HPKE decryption fails.
 
 1.  If a `zip` parameter was included,
     uncompress the decrypted plaintext using the specified compression algorithm.
@@ -835,7 +853,7 @@ for their contributions to the specification.
 
 -15
 
-* Defined the new HPKE Integrated Encryption and HPKE Key Encryption Key Management Mode for JWE {{RFC7516}}.
+* Defined the HPKE Integrated Encryption and HPKE Key Encryption Key Management Modes for JWE {{RFC7516}}.
 * Updated the encryption and decryption descriptions in JWE accordingly.
 * Many editorial improvements.
 
