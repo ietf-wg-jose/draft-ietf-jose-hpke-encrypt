@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-04T01:38:13.421662+00:00",
+  "timestamp": "2025-11-06T01:39:03.292101+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -9639,6 +9639,659 @@
           "createdAt": "2025-11-02T19:34:24Z",
           "updatedAt": "2025-11-02T19:34:24Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 83,
+      "id": "PR_kwDOMMuuSM6xiIbk",
+      "title": "Define JWE Key Management Modes for HPKE",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/83",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Defines the HPKE Integrated Encryption and HPKE Key Encryption Key Management Modes, as requested by Richard Barnes in his WGLC review and as supported during the IETF 123 JOSE meeting.\r\n\r\nUpdates the JWE [RFC 7516] Message Encryption and Message Decryption sections to utilize these new Key Management Modes.\r\n\r\nFixes #77 \r\nFixes #79 \r\nFixes #42 \r\n\r\nCc: @panva @bc-pi @jogu @kodonog \r\n",
+      "createdAt": "2025-11-05T01:51:45Z",
+      "updatedAt": "2025-11-05T19:20:06Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-key-management-modes",
+      "headRefOid": "e9cd718efbfde76dee90479eb8fd158ece07ee68",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The working group request at IETF 123 was to integrate the HPKE encryption and decryption instructions into the full set of JWE encryption and decryption instructions.  That's what this PR does.\r\n\r\nFor your reviewing pleasure, note that the first commit https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/83/commits/2e59c772e634bd6c5bab364a9256fe5fb6b9b7b6 contains the unmodified JWE encryption and decryption instructions from RFC 7516 (after converting the source to Markdown).  That way it's easy to see the deltas to them that adding the HPKE modes introduced.\r\n",
+          "createdAt": "2025-11-05T04:01:02Z",
+          "updatedAt": "2025-11-05T04:01:02Z"
+        },
+        {
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "body": "Perhaps im missing something, but if we are going to take the route of updating RFC 7516 could we then revise the language around the usage of the enc header parameter to say in the case of HPKE integrated encryption this header is not used instead of with the value \"int\".",
+          "createdAt": "2025-11-05T12:21:10Z",
+          "updatedAt": "2025-11-05T12:27:22Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Perhaps im missing something, but if we are going to take the route of updating RFC 7516 could we then revise the language around the usage of the enc header parameter to say in the case of HPKE integrated encryption this header is not used instead of with the value \"int\".\r\n\r\nExactly. Instead of fitting into the existing modes, a new properly defined mode can make do without an awkward value like \"int\" in \"enc\".\r\n\r\nAn update to https://www.rfc-editor.org/rfc/rfc7516#section-4.1.2 giving an exemption to \"This Header Parameter MUST be present and MUST be understood and processed by implementations.\" would be needed tho.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc7516#section-9 lists a number of ways to distinguish JWE from JWS, from my experience the first and second are wildly used for that purpose, the latter are not. the last one which then expects \"enc\" would need massaging/removal.",
+          "createdAt": "2025-11-05T13:13:09Z",
+          "updatedAt": "2025-11-05T17:34:04Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Perhaps im missing something, but if we are going to take the route of updating RFC 7516 could we then revise the language around the usage of the enc header parameter to say in the case of HPKE integrated encryption this header is not used instead of with the value \"int\".\r\n\r\nThat would complicate the implementations a bit. JWE allows putting the \"enc\" parameter in weird places, so implementations would have to assemble the JOSE Header to determine the mode, as opposed to checking if JWE Protected Header has enc=int and branching to IE case. Enc=int elsewhere is not allowed and not recognizing it is not a problem, as decryption will fail safe.",
+          "createdAt": "2025-11-05T13:22:25Z",
+          "updatedAt": "2025-11-05T13:23:35Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> That would complicate the implementations a bit. JWE allows putting the \"enc\" parameter in weird places, so implementations would have to assemble the JOSE Header to determine the mode, as opposed to checking if JWE Protected Header has enc=int and branching to IE case. Enc=int elsewhere is not allowed and not recognizing it is not a problem, as decryption will fail safe.\r\n\r\n> That would complicate the implementations\r\n\r\nI disagree.\r\n\r\nA generic implementation must assemble the JOSE Header anyway and in doing so ensuring individual header parameters are disjoint across all headers. In the current version \"int\" having to be exlusively in a protected header is a check that happens after doing so, not before. In my implementations that is at least. I don't see a complication.",
+          "createdAt": "2025-11-05T13:24:27Z",
+          "updatedAt": "2025-11-05T13:41:58Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Fixes #77 Fixes #79 Fixes #42\r\n> \r\n> Cc: @panva @bc-pi @jogu @kodonog\r\n\r\nOn a preliminary review of the content of this PR, it absolutely does not fix those issues.  ",
+          "createdAt": "2025-11-05T13:56:37Z",
+          "updatedAt": "2025-11-05T13:56:37Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> > Perhaps im missing something, but if we are going to take the route of updating RFC 7516 could we then revise the language around the usage of the enc header parameter to say in the case of HPKE integrated encryption this header is not used instead of with the value \"int\".\r\n> \r\n> Exactly. Instead of fitting into the existing modes, a new properly defined mode can make do without an awkward value like \"int\" in \"enc\"\r\n\r\nI strongly agree with this. And genuinely don't understand the attachment to the awkward and arguably dangerous approach. ",
+          "createdAt": "2025-11-05T14:11:04Z",
+          "updatedAt": "2025-11-05T14:11:04Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> > Exactly. Instead of fitting into the existing modes, a new properly defined mode can make do without an awkward value like \"int\" in \"enc\"\r\n> \r\n> I strongly agree with this. And genuinely don't understand the attachment to the awkward and arguably dangerous approach.\r\n\r\nGiven JWE, any approach to add Integrated Encryption is going to be awkward (it is going to be sui generis). I do not think it is dangerous, but could be missing some \"clever\" dangerous way of implementing it.\r\n\r\nAnd I do not think it can be compared with dangers of alg none, that one even advises how to implement it dangerously. ",
+          "createdAt": "2025-11-05T17:39:52Z",
+          "updatedAt": "2025-11-05T17:45:27Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7L0oeF",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Let's discuss if we need to keep the other modes or if we only need to talk about hpke modes, otherwise this looks good.",
+          "createdAt": "2025-11-05T03:29:06Z",
+          "updatedAt": "2025-11-05T03:53:14Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "The \"employed by this specification\" part can probably be limited to the hpke modes.",
+              "createdAt": "2025-11-05T03:29:06Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 141,
+              "body": "Perhaps:\n\nIn HPKE Integrated Encryption the JWE Encrypted Key is base64url encoding of the HPKE encapsulated key.",
+              "createdAt": "2025-11-05T03:35:41Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 160,
+              "body": "Missing the",
+              "createdAt": "2025-11-05T03:37:43Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 162,
+              "body": "...as the JOSE-HPKE algorithms include an aead operation internally, hence the name Integrated Encryption.",
+              "createdAt": "2025-11-05T03:40:12Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 281,
+              "body": "I think we can cut these and the other in unrelated modes",
+              "createdAt": "2025-11-05T03:43:53Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 461,
+              "body": "Again, probably don't need these ",
+              "createdAt": "2025-11-05T03:49:27Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            },
+            {
+              "originalPosition": 541,
+              "body": "Why not MUST?",
+              "createdAt": "2025-11-05T03:52:03Z",
+              "updatedAt": "2025-11-05T03:53:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1gXX",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:42:24Z",
+          "updatedAt": "2025-11-05T04:42:25Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "```suggestion\r\n: A method of determining the Content Encryption Key (CEK) value to use and whether the encryption uses a CEK. Key Management Modes employed by this specification are HPKE Integrated Encryption and HPKE Key Encryption.\r\n```",
+              "createdAt": "2025-11-05T04:42:24Z",
+              "updatedAt": "2025-11-05T04:42:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1it6",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:44:38Z",
+          "updatedAt": "2025-11-05T04:44:38Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "This text replaces an existing definition in JWE [RFC 7516] and so all the key management modes must continue to be listed.",
+              "createdAt": "2025-11-05T04:44:38Z",
+              "updatedAt": "2025-11-05T04:44:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1jly",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:45:28Z",
+          "updatedAt": "2025-11-05T04:45:29Z",
+          "comments": [
+            {
+              "originalPosition": 84,
+              "body": "```suggestion\r\n  *  HPKE Integrated Encryption\r\n```",
+              "createdAt": "2025-11-05T04:45:28Z",
+              "updatedAt": "2025-11-05T04:45:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1jyw",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:45:43Z",
+          "updatedAt": "2025-11-05T04:45:44Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\r\n  *  HPKE Key Encryption\r\n```",
+              "createdAt": "2025-11-05T04:45:43Z",
+              "updatedAt": "2025-11-05T04:45:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1kIw",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:46:09Z",
+          "updatedAt": "2025-11-05T04:46:09Z",
+          "comments": [
+            {
+              "originalPosition": 84,
+              "body": "HPKE integrated encryption is already defined in the terminology section. ",
+              "createdAt": "2025-11-05T04:46:09Z",
+              "updatedAt": "2025-11-05T04:46:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1lV1",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:47:14Z",
+          "updatedAt": "2025-11-05T04:47:15Z",
+          "comments": [
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\r\n\r\n```",
+              "createdAt": "2025-11-05T04:47:14Z",
+              "updatedAt": "2025-11-05T04:47:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1mA_",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T04:47:47Z",
+          "updatedAt": "2025-11-05T04:47:47Z",
+          "comments": [
+            {
+              "originalPosition": 106,
+              "body": "\"mode_auth\" and \"mode_auth_psk\" are removed from the HPKE draft.",
+              "createdAt": "2025-11-05T04:47:47Z",
+              "updatedAt": "2025-11-05T04:47:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L1rJm",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Thanks, Mike; most of the changes look good. ",
+          "createdAt": "2025-11-05T04:52:44Z",
+          "updatedAt": "2025-11-05T04:52:44Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L2ufx",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T06:25:03Z",
+          "updatedAt": "2025-11-05T06:25:03Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "Got it, Thanks.",
+              "createdAt": "2025-11-05T06:25:03Z",
+              "updatedAt": "2025-11-05T06:25:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L20jk",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T06:33:56Z",
+          "updatedAt": "2025-11-05T06:33:56Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\nand the possibility of utilizing future HPKE algorithms, including PQ/T hybrid KEMs.\r\n```",
+              "createdAt": "2025-11-05T06:33:56Z",
+              "updatedAt": "2025-11-05T06:33:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L2-OB",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T06:49:21Z",
+          "updatedAt": "2025-11-05T06:49:22Z",
+          "comments": [
+            {
+              "originalPosition": 167,
+              "body": "```suggestion\r\n- The JWE Encrypted Key MUST be the encapsulated secret, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}.\r\n```",
+              "createdAt": "2025-11-05T06:49:22Z",
+              "updatedAt": "2025-11-05T06:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L2-tH",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T06:50:16Z",
+          "updatedAt": "2025-11-05T06:50:17Z",
+          "comments": [
+            {
+              "originalPosition": 301,
+              "body": "In HPKE Integrated Encryption, the JWE Encrypted Key is base64url encoding of the HPKE encapsulated secret.",
+              "createdAt": "2025-11-05T06:50:16Z",
+              "updatedAt": "2025-11-05T06:50:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L8ubo",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:28:34Z",
+          "updatedAt": "2025-11-05T12:28:35Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "What's the difference between \"HPKE Key Encryption\" and \"Key Encryption\"? The processing rules look identical. Furthermore, seems like one place in spec says that JOSE-HPKE alg with enc!=int is Key Encryption, and another says it is HPKE Key Encryption.\r\n",
+              "createdAt": "2025-11-05T12:28:35Z",
+              "updatedAt": "2025-11-05T12:33:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L82A-",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:34:57Z",
+          "updatedAt": "2025-11-05T12:34:57Z",
+          "comments": [
+            {
+              "originalPosition": 119,
+              "body": "Maybe \"not expressed with Compact JWE Serialization\" -> \"expressed with JWE JSON Serialization\"",
+              "createdAt": "2025-11-05T12:34:57Z",
+              "updatedAt": "2025-11-05T12:34:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L86ln",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:38:42Z",
+          "updatedAt": "2025-11-05T12:38:42Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "This seems to contradict section \"HPKE Key Encryption\" which says: \"The HPKE AAD parameter defaults to the empty string\".",
+              "createdAt": "2025-11-05T12:38:42Z",
+              "updatedAt": "2025-11-05T12:38:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L88ax",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:40:26Z",
+          "updatedAt": "2025-11-05T12:40:26Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "The serialization already has implicit base64url, so no need to base64url it.",
+              "createdAt": "2025-11-05T12:40:26Z",
+              "updatedAt": "2025-11-05T12:40:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L9Izr",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:50:15Z",
+          "updatedAt": "2025-11-05T12:50:15Z",
+          "comments": [
+            {
+              "originalPosition": 180,
+              "body": "Per HPKE specification, using HPKE info and HPKE aad parameters simultaneously in single-shot SHOULD NOT be allowed. It really recommends returning an error, so using both will cause problems with implementations that follow this recommendation.",
+              "createdAt": "2025-11-05T12:50:15Z",
+              "updatedAt": "2025-11-05T12:52:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L9S2w",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T12:57:29Z",
+          "updatedAt": "2025-11-05T12:57:29Z",
+          "comments": [
+            {
+              "originalPosition": 301,
+              "body": "I do not think that is right. JWE serialization does implicit base64url-encoding, so JWE Encrypted Key should not be base64url-encoded.\r\n\r\nThe \"ek\" parameter needs base64url-encoding, because it is used as header parameter.",
+              "createdAt": "2025-11-05T12:57:29Z",
+              "updatedAt": "2025-11-05T12:59:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L9bC7",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T13:02:32Z",
+          "updatedAt": "2025-11-05T13:02:33Z",
+          "comments": [
+            {
+              "originalPosition": 366,
+              "body": "Might be clearer not repeat the Compact Serialization stuff from RFC7516, but refer to it.",
+              "createdAt": "2025-11-05T13:02:33Z",
+              "updatedAt": "2025-11-05T13:02:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L9oZw",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T13:11:31Z",
+          "updatedAt": "2025-11-05T13:11:31Z",
+          "comments": [
+            {
+              "originalPosition": 541,
+              "body": "I do not think applications should be doing this check at all. Also, the check also requires applications to evaluate algorithms that are potentially unknown. Should applications reject JWEs that have recipients with unknown algorithms?\r\n\r\nReceiver-side checking is appropriate for signatures, not for encryption (for encryption the checks need to be on sender side).",
+              "createdAt": "2025-11-05T13:11:31Z",
+              "updatedAt": "2025-11-05T13:24:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L_DgC",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T14:11:08Z",
+          "updatedAt": "2025-11-05T14:11:09Z",
+          "comments": [
+            {
+              "originalPosition": 180,
+              "body": "It is discussed in Section 8.1 of https://datatracker.ietf.org/doc/draft-ietf-hpke-hpke/\r\n\r\n  Applications that only use the single-shot APIs described in\r\n   Section 6 should use the Setup info parameter for specifying\r\n   auxiliary authenticated information.  Implementations which only\r\n   expose single-shot APIs should not allow applications to use both\r\n   Setup info and Context aad or exporter_context auxiliary information\r\n   parameters.\r\n\r\nThis comment is not related to this PR but need to be discussed and fixed.",
+              "createdAt": "2025-11-05T14:11:08Z",
+              "updatedAt": "2025-11-05T14:11:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L_KO9",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T14:15:28Z",
+          "updatedAt": "2025-11-05T14:15:28Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "Yes, it needs to be fixed. It is not specific to this PR. ",
+              "createdAt": "2025-11-05T14:15:28Z",
+              "updatedAt": "2025-11-05T14:15:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7L_XoF",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T14:24:09Z",
+          "updatedAt": "2025-11-05T14:24:09Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "I would say HPKE Key Encryption is simply a subtype of Key Encryption category. The processing rules are identical to those of other Key Encryption algorithms; the \u201cHPKE\u201d qualifier is used only to indicate that HPKE is the underlying mechanism.",
+              "createdAt": "2025-11-05T14:24:09Z",
+              "updatedAt": "2025-11-05T14:24:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MDkAv",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T17:30:42Z",
+          "updatedAt": "2025-11-05T17:30:42Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "I would omit HPKE Key Encryption entirely, and title the relevant section \"JOSE-HPKE as Key Encryption\" or something similar.",
+              "createdAt": "2025-11-05T17:30:42Z",
+              "updatedAt": "2025-11-05T17:30:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MFCDj",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T19:09:18Z",
+          "updatedAt": "2025-11-05T19:09:18Z",
+          "comments": [
+            {
+              "originalPosition": 366,
+              "body": "These sections completely replace the corresponding sections in RFC 7516, so we have to repeat everything.",
+              "createdAt": "2025-11-05T19:09:18Z",
+              "updatedAt": "2025-11-05T19:09:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MFNzY",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-05T19:20:06Z",
+          "updatedAt": "2025-11-05T19:20:06Z",
+          "comments": [
+            {
+              "originalPosition": 366,
+              "body": "Apparently RFC 7516 also repeats this stuff (the encryption procedure describes Compact Serialization instead of referencing section 7.1, which specifies Compact Serialization).",
+              "createdAt": "2025-11-05T19:20:06Z",
+              "updatedAt": "2025-11-05T19:20:06Z"
+            }
+          ]
         }
       ]
     }
