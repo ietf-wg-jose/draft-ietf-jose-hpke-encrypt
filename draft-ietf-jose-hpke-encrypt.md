@@ -13,9 +13,12 @@ v: 3
 area: "Security"
 workgroup: "JOSE"
 keyword:
+ - Hybrid Public Key Encryption
  - HPKE
- - JOSE
+ - JSON Web Encryption
  - JWE
+ - JSON Object Signing and Encryption
+ - JOSE
  - Hybrid
 
 venue:
@@ -72,11 +75,8 @@ normative:
   RFC8174:
   I-D.ietf-hpke-hpke:
   RFC7516:
-  RFC7518:
-  RFC7517:
-  RFC7156:
   RFC8725:
-  RFC7638:
+  RFC8259:
   IANA.JOSE:
      author:
         org: IANA
@@ -85,7 +85,7 @@ normative:
 
 informative:
   RFC4086:
-  I-D.ietf-cose-dilithium:
+  RFC7518:
   I-D.ietf-cose-hpke:
 
   IANA.HPKE:
@@ -128,26 +128,40 @@ The specification chooses a specific subset of the HPKE features to use with JOS
 Hybrid Public Key Encryption (HPKE) {{I-D.ietf-hpke-hpke}} is a public key encryption
 (PKE) scheme that provides encryption of arbitrary-sized plaintexts given a
 recipient's public key.
+This specification enables JSON Web Encryption (JWE) {{RFC7516}} to leverage HPKE,
+bringing support for HPKE encryption and KEMs to JWE,
+and the possibility of utilizing future HPKE algorithms, including hybrid KEMs.
 
-This specification enables JSON Web Encryption (JWE) to leverage HPKE,
-bringing support for KEMs and the possibility of Hybrid KEMs to JWE.
-
-# Conventions and Definitions
+# Notational Conventions
 
 {::boilerplate bcp14-tagged}
 
-# Conventions and Terminology
+# Terminology
 
 This specification uses the following abbreviations and terms:
 
-- Content Encryption Key (CEK), is defined in {{RFC7517}}.
-- Hybrid Public Key Encryption (HPKE) is defined in {{I-D.ietf-hpke-hpke}}.
+- Content Encryption Key (CEK), as defined in {{RFC7516}}.
+- Hybrid Public Key Encryption (HPKE), as defined in {{I-D.ietf-hpke-hpke}}.
 - pkR is the public key of the recipient, as defined in {{I-D.ietf-hpke-hpke}}.
 - skR is the private key of the recipient, as defined in {{I-D.ietf-hpke-hpke}}.
-- Key Encapsulation Mechanism (KEM), see {{I-D.ietf-hpke-hpke}}.
-- Key Derivation Function (KDF), see {{I-D.ietf-hpke-hpke}}.
-- Authenticated Encryption with Associated Data (AEAD), see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
-- Additional Authenticated Data (AAD), see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
+- Key Encapsulation Mechanism (KEM), per {{I-D.ietf-hpke-hpke}}.
+- Key Derivation Function (KDF), per {{I-D.ietf-hpke-hpke}}.
+- Authenticated Encryption with Associated Data (AEAD); see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
+- Additional Authenticated Data (AAD); see {{I-D.ietf-hpke-hpke}} and {{RFC7516}}.
+
+This specification defines the following terms.
+When the term is already defined in JWE {{RFC7516}}, the definition below replaces it.
+
+Key Management Mode
+: A method of determining the Content Encryption Key value to use.
+  Each algorithm used for determining the CEK value uses a
+  specific Key Management Mode.
+  Key Management Modes employed by this specification are
+  Key Encryption,
+  Key Wrapping,
+  Direct Key Agreement,
+  Key Agreement with Key Wrapping, and
+  Direct Encryption.
 
 # Overview {#overview}
 
@@ -161,18 +175,23 @@ When "alg" is a JOSE-HPKE algorithm:
   * If "enc" is "int", HPKE JWE Integrated Encryption is used.
   * If "enc" is an AEAD algorithm, the recipient Key Management mode is Key Encryption.
 
-The HPKE KEM, KDF, and AEAD used depend on the JOSE-HPKE algorithm used. This HPKE AEAD is used internally by HPKE and is distinct from the AEAD algorithm specified in "enc".
+The HPKE key encapsulation mechanism (KEM), key derivation function (KDF),
+and authenticated encryption with additional data (AEAD) encryption function
+utilized depend on the JOSE-HPKE algorithm used.
+The HPKE AEAD encryption function is used internally by HPKE
+and is distinct from the JWE AEAD algorithm specified in "enc".
 
 HPKE supports two modes, which are described in Table 1 of {{I-D.ietf-hpke-hpke}}.
+In this specification, both "mode_base" and "mode_psk" are supported.
+When the "psk_id" JOSE Header parameter is present, the mode is "mode_psk";
+otherwise, the mode is "mode_base".
 
-In JOSE-HPKE, both "mode_base" and "mode_psk" are supported.
-When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise the mode is "mode_base".
-
-JWE supports different serializations, including Compact JWE Serialization as described in {{Section 3.1 of RFC7516}}, General JWE JSON Serialization as described in {{Section 3.2 of RFC7516}}.
-
+JWE supports multiple serializations,
+including the JWE Compact Serialization described in {{Section 3.1 of RFC7516}},
+and the General JWE JSON Serialization described in {{Section 3.2 of RFC7516}}.
 Certain JWE features are only supported in specific serializations.
 
-For example Compact JWE Serialization does not support the following:
+For example, the Compact JWE Serialization does not support:
 
 - additional authenticated data
 - multiple recipients
@@ -193,7 +212,7 @@ The HPKE "aad parameter" for Open() and Seal()
 specified in {{Section 8.1 of I-D.ietf-hpke-hpke}}
 is used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 Its value is the Additional Authenticated Data encryption parameter value
-computed in Step 14 of {{Section 5.1 of RFC7516}} (Message Encryption).
+computed in Step 14 of {{encryption}}.
 
 ## Encapsulated Keys {#encapsulated-keys}
 
@@ -201,29 +220,29 @@ HPKE encapsulated key is defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
 
 In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.
 
-In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
-is base64url-encoded HPKE encapsulated key.
+In HPKE JWE Key Encryption, each recipient's JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
+is the base64url encoding of the HPKE encapsulated key.
 
-# Integrated Encryption
+# HPKE Integrated Encryption
 
-In HPKE JWE Integrated Encryption:
+When using HPKE JWE Integrated Encryption:
 
-- The protected header MUST contain an "alg" that is JOSE-HPKE algorithm.
+- The protected header MUST contain an "alg" value that is a JOSE-HPKE algorithm.
 - The protected header MUST contain an "enc" with value "int". This is an explicit exception to requirement in {{Section 4.1.2 of RFC7516}} that
 "enc" must be an AEAD algorithm. This is appropriate, as HPKE will perform plaintext encryption.
-- The protected header parameters "psk_id" MAY be present.
+- The protected header parameter "psk_id" MAY be present.
 - The protected header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
-- The JWE Encrypted Key MUST be encapsulated key, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
+- The JWE Encrypted Key MUST be the encapsulated key, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
 - The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 - The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
   {{recipient_structure}}.
-- The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{Section 5.1 of RFC7516}}.
-- Then follow Steps 11-19 of {{Section 5.1 of RFC7516}} (Message Encryption).
+- The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{encryption}}.
+- Then follow Steps 11-19 of {{encryption}} (Message Encryption).
 
-When decrypting, the checks in {{Section 5.2 of RFC7516}},
+When decrypting, the checks in {{decryption}},
 Steps 1 through 5 MUST be performed. The JWE Encrypted Key in Step 2 is the
 base64url-encoded encapsulated key.
 
@@ -237,7 +256,7 @@ Below is an example of a Compact JWE using HPKE integrated encryption:
 
 The keys used for this example are in {{keys-used}}.
 
-# Key Encryption
+# HPKE Key Encryption
 
 When using the JWE JSON Serialization,
 recipients using JOSE-HPKE can be added alongside other recipients
@@ -245,12 +264,9 @@ recipients using JOSE-HPKE can be added alongside other recipients
 since HPKE is used to encrypt the Content Encryption Key,
 which is then processed as specified in JWE.
 
-The encoding of the protected header remains consistent with existing JWE rules.
+When using HPKE JWE Key Encryption:
 
-In HPKE JWE Key Encryption:
-
-- The Key Management Mode is Key Encryption.
-- When all recipients use the same HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
+- When all recipients use the same JOSE-HPKE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - JOSE Header parameter "alg" MUST be a JOSE-HPKE algorithm.
 - JOSE Header parameter "psk_id" MAY be present.
@@ -293,7 +309,7 @@ Where:
 * recipient_extra_info: An octet string containing additional context information that the application
   includes in the key derivation via the HPKE `info` parameter. Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter. If no additional context information is provided, this field MUST be empty.
 
-#### Example
+### Recipient_structure Example
 
 The Recipient_structure encoded in binary as specified in {{recipient_structure}}, and using the field values
 (next_layer_alg = "A128GCM", recipient_extra_info = ""), results in the following byte sequence:
@@ -313,13 +329,279 @@ This value is directly used as the HPKE `info` parameter.
 
 ## JSON Example {#json-example}
 
-Below is an example of a JWE using the JSON Serialization and HPKE key encryption:
+Below is an example of a JWE using the JSON Serialization and HPKE JWE Key Encryption:
 
 ~~~
 {::include-fold examples/json_example.txt}
 ~~~
 
 The keys used for this example are in {{keys-used}}.
+
+
+# Producing and Consuming JWEs
+
+Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of {{RFC7516}}
+are replaced by the following sections.
+
+## Message Encryption {#encryption}
+
+The message encryption process is as follows.
+The order of the steps is not significant in cases where
+there are no dependencies between the inputs and outputs of the steps.
+
+1.  Determine the Key Management Mode employed by the algorithm
+    used to determine the Content Encryption Key value.
+    (This is the algorithm recorded in the
+    `alg` (algorithm)
+    Header Parameter of the resulting JWE.)
+
+1.  When Key Wrapping, Key Encryption,
+    or Key Agreement with Key Wrapping are employed,
+    generate a random CEK value.
+    See {{RFC4086}} for
+    considerations on generating random values.
+    The CEK MUST have a length equal to that
+    required for the content encryption algorithm.
+
+1.  When Direct Key Agreement or Key Agreement with Key Wrapping
+    are employed, use the key agreement algorithm
+    to compute the value of the agreed upon key.
+    When Direct Key Agreement is employed,
+    let the CEK be the agreed upon key.
+    When Key Agreement with Key Wrapping is employed,
+    the agreed upon key will be used to wrap the CEK.
+
+1.  When Key Wrapping, Key Encryption,
+    or Key Agreement with Key Wrapping are employed,
+    encrypt the CEK to the recipient and let the result be the
+    JWE Encrypted Key.
+
+1.  When Direct Key Agreement or Direct Encryption are employed,
+    let the JWE Encrypted Key be the empty octet sequence.
+
+1.  When Direct Encryption is employed,
+    let the CEK be the shared symmetric key.
+
+1.  Compute the encoded key value BASE64URL(JWE Encrypted Key).
+
+1.  If the JWE JSON Serialization is being used, repeat this process
+    (steps 1-7)
+    for each recipient.
+
+1.  Generate a random JWE Initialization Vector of the correct size
+    for the content encryption algorithm (if required for the algorithm);
+    otherwise, let the JWE Initialization Vector be the empty octet sequence.
+
+1.  Compute the encoded Initialization Vector value
+    BASE64URL(JWE Initialization Vector).
+
+1.  If a `zip` parameter was included,
+    compress the plaintext using the specified compression algorithm
+    and let M be the octet sequence representing the compressed plaintext;
+    otherwise, let M be the octet sequence representing the plaintext.
+
+1.  Create the JSON object(s) containing the desired set of Header Parameters,
+    which together comprise the JOSE Header: one or more of the JWE Protected
+    Header, the JWE Shared Unprotected
+    Header, and the JWE Per-Recipient Unprotected Header.
+
+1.  Compute the Encoded Protected Header value
+    BASE64URL(UTF8(JWE Protected Header)).
+    If the JWE Protected Header is not present
+    (which can only happen when using the JWE JSON Serialization
+    and no `protected` member is present),
+    let this value be the empty string.
+
+1.  Let the Additional Authenticated Data encryption parameter be
+    ASCII(Encoded Protected Header).
+    However, if a JWE AAD value is present
+    (which can only be the case when using the JWE JSON Serialization),
+    instead let the Additional Authenticated Data encryption parameter be
+    ASCII(Encoded Protected Header || '.' || BASE64URL(JWE AAD)).
+
+1.  Encrypt M using the CEK, the JWE Initialization Vector, and
+    the Additional Authenticated Data value
+    using the specified content encryption algorithm
+    to create the JWE Ciphertext value and the JWE Authentication Tag
+    (which is the Authentication Tag output from the encryption operation).
+
+1.  Compute the encoded ciphertext value BASE64URL(JWE Ciphertext).
+
+1.  Compute the encoded Authentication Tag value
+    BASE64URL(JWE Authentication Tag).
+
+1.  If a JWE AAD value is present,
+    compute the encoded AAD value BASE64URL(JWE AAD).
+
+1.  Create the desired serialized output.
+    The Compact Serialization of this result is the string
+    BASE64URL(UTF8(JWE Protected Header))
+    || '.' || BASE64URL(JWE Encrypted Key)
+    || '.' || BASE64URL(JWE Initialization Vector)
+    || '.' || BASE64URL(JWE Ciphertext)
+    || '.' || BASE64URL(JWE Authentication Tag).
+    The JWE JSON Serialization is described in {{Section 7.2 of RFC7516}}.
+
+## Message Decryption {#decryption}
+
+The message decryption process is the reverse of the
+encryption process.
+The order of the steps is not significant in cases where
+there are no dependencies between the inputs and outputs of the steps.
+If any of these steps fail, the encrypted content cannot be validated.
+
+When there are multiple recipients,
+it is an application decision which of the recipients' encrypted content
+must successfully validate for the JWE to be accepted.
+In some cases, encrypted content for all recipients must successfully validate
+or the JWE will be considered invalid.
+In other cases, only the encrypted content for a single recipient
+needs to be successfully validated.
+However, in all cases, the encrypted content for at least one recipient
+MUST successfully validate or the JWE MUST be considered invalid.
+
+1.  Parse the JWE representation to extract the serialized values
+    for the components of the JWE.
+    When using the JWE Compact Serialization,
+    these components are
+    the base64url-encoded representations of
+    the JWE Protected Header,
+    the JWE Encrypted Key,
+    the JWE Initialization Vector,
+    the JWE Ciphertext, and
+    the JWE Authentication Tag,
+    and when using the JWE JSON Serialization,
+    these components also include the base64url-encoded representation of
+    the JWE AAD and the unencoded
+    JWE Shared Unprotected Header and
+    JWE Per-Recipient Unprotected Header values.
+    When using the JWE Compact Serialization,
+    the JWE Protected Header,
+    the JWE Encrypted Key,
+    the JWE Initialization Vector,
+    the JWE Ciphertext, and
+    the JWE Authentication Tag
+    are represented as base64url-encoded values in that order,
+    with each value being separated from the next by a single period ('.') character,
+    resulting in exactly four delimiting period characters being used.
+    The JWE JSON Serialization
+    is described in {{Section 7.2 of RFC7516}}.
+
+1.  Base64url decode the encoded representations of
+    the JWE Protected Header,
+    the JWE Encrypted Key,
+    the JWE Initialization Vector,
+    the JWE Ciphertext,
+    the JWE Authentication Tag, and
+    the JWE AAD,
+    following the restriction that no line breaks, whitespace, or other additional characters have been used.
+
+1.  Verify that the octet sequence resulting from decoding the encoded JWE Protected Header
+    is a UTF-8-encoded representation of
+    a completely valid JSON object
+    conforming to {{RFC8259}};
+    let the JWE Protected Header be this JSON object.
+
+1.  If using the JWE Compact Serialization, let the JOSE Header be the
+    JWE Protected Header.
+    Otherwise, when using the JWE JSON Serialization,
+    let the JOSE Header be the union of
+    the members of the JWE Protected Header,
+    the JWE Shared Unprotected Header and
+    the corresponding JWE Per-Recipient Unprotected Header,
+    all of which must be completely valid JSON objects.
+    During this step,
+    verify that the resulting JOSE Header does not contain duplicate
+    Header Parameter names.
+    When using the JWE JSON Serialization, this restriction includes
+    that the same Header Parameter name also MUST NOT occur in
+    distinct JSON object values that together comprise the JOSE Header.
+
+1.  Verify that the implementation understands and can process
+    all fields that it is required to support,
+    whether required by this specification,
+    by the algorithms being used,
+    or by the `crit` Header Parameter value,
+    and that the values of those parameters are also understood and supported.
+
+1.  Determine the Key Management Mode employed by the algorithm
+    specified by the
+    `alg` (algorithm) Header Parameter.
+
+1.  Verify that the JWE uses a key known to the recipient.
+
+1.  When Direct Key Agreement or Key Agreement with Key Wrapping
+    are employed, use the key agreement algorithm
+    to compute the value of the agreed upon key.
+    When Direct Key Agreement is employed,
+    let the CEK be the agreed upon key.
+    When Key Agreement with Key Wrapping is employed,
+    the agreed upon key will be used to decrypt the JWE Encrypted Key.
+
+1.  When Key Wrapping, Key Encryption,
+    or Key Agreement with Key Wrapping are employed,
+    decrypt the JWE Encrypted Key to produce the CEK.
+    The CEK MUST have a length equal to that
+    required for the content encryption algorithm.
+    Note that when there are multiple recipients,
+    each recipient will only be able to decrypt JWE Encrypted Key values
+    that were encrypted to a key in that recipient's possession.
+    It is therefore normal to only be able to decrypt one of the
+    per-recipient JWE Encrypted Key values to obtain the CEK value.
+    Also, see {{Section 11.5 of RFC7516}} for security considerations
+    on mitigating timing attacks.
+
+1.  When Direct Key Agreement or Direct Encryption are employed,
+    verify that the JWE Encrypted Key value is an empty octet sequence.
+
+1.  When Direct Encryption is employed,
+    let the CEK be the shared symmetric key.
+
+1.  Record whether the CEK could be successfully determined for this recipient or not.
+
+1.  If the JWE JSON Serialization is being used, repeat this process
+    (steps 4-12)
+    for each recipient contained in the representation.
+
+1.  Compute the Encoded Protected Header value
+    BASE64URL(UTF8(JWE Protected Header)).
+    If the JWE Protected Header is not present
+    (which can only happen when using the JWE JSON Serialization
+    and no `protected` member is present),
+    let this value be the empty string.
+
+1.  Let the Additional Authenticated Data encryption parameter be
+    ASCII(Encoded Protected Header).
+    However, if a JWE AAD value is present
+    (which can only be the case when using the JWE JSON Serialization),
+    instead let the Additional Authenticated Data encryption parameter be
+    ASCII(Encoded Protected Header || '.' || BASE64URL(JWE AAD)).
+
+1.  Decrypt the JWE Ciphertext using the CEK, the JWE Initialization Vector,
+    the Additional Authenticated Data value,
+    and the JWE Authentication Tag
+    (which is the Authentication Tag input to the calculation)
+    using the specified content encryption algorithm,
+    returning the decrypted plaintext and validating the JWE Authentication Tag
+    in the manner specified for the algorithm,
+    rejecting the input without emitting any decrypted output
+    if the JWE Authentication Tag is incorrect.
+
+1.  If a `zip` parameter was included,
+    uncompress the decrypted plaintext using the specified compression algorithm.
+
+1.  If there was no recipient for which all of the decryption steps succeeded,
+    then the JWE MUST be considered invalid.
+    Otherwise, output the plaintext.
+    In the JWE JSON Serialization case, also return a result to the application
+    indicating for which of the recipients the decryption succeeded and failed.
+
+Finally, note that it is an application decision which algorithms
+may be used in a given context.
+Even if a JWE can be successfully decrypted,
+unless the algorithms used in the JWE are acceptable
+to the application, it SHOULD consider the JWE to be invalid.
+
 
 # Mapping HPKE Keys to JWK for JOSE {#alg-mapping}
 
@@ -407,7 +689,7 @@ Future JOSE-HPKE ciphersuite names registered MUST also follow this convention.
 
 ## JSON Web Signature and Encryption Algorithms
 
-The following entries are added to the IANA "JSON Web Signature and Encryption Algorithms" registry {{IANA.JOSE}}:
+The following entries are added to the IANA "JSON Web Signature and Encryption Algorithms" registry {{IANA.JOSE}} established by {{RFC7518}}:
 
 ### HPKE-0
 
@@ -543,6 +825,8 @@ This private key and its implied public key are used the examples:
 
 This specification leverages text from {{?I-D.ietf-cose-hpke}}.
 We would like to thank
+Richard Barnes,
+Brian Campbell,
 Matt Chanda,
 Ilari Liusvaara,
 Neil Madden,
@@ -554,6 +838,11 @@ for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-15
+
+* Added the Message Encryption and Message Decryption procedures from {{RFC7516}}.
+* Several editorial improvements.
 
 -14
 
