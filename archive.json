@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-06T01:39:03.292101+00:00",
+  "timestamp": "2025-11-09T01:41:34.651048+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -9654,7 +9654,7 @@
       "labels": [],
       "body": "Defines the HPKE Integrated Encryption and HPKE Key Encryption Key Management Modes, as requested by Richard Barnes in his WGLC review and as supported during the IETF 123 JOSE meeting.\r\n\r\nUpdates the JWE [RFC 7516] Message Encryption and Message Decryption sections to utilize these new Key Management Modes.\r\n\r\nFixes #77 \r\nFixes #79 \r\nFixes #42 \r\n\r\nCc: @panva @bc-pi @jogu @kodonog \r\n",
       "createdAt": "2025-11-05T01:51:45Z",
-      "updatedAt": "2025-11-05T19:20:06Z",
+      "updatedAt": "2025-11-06T20:06:15Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
@@ -9721,6 +9721,13 @@
           "body": "> > Exactly. Instead of fitting into the existing modes, a new properly defined mode can make do without an awkward value like \"int\" in \"enc\"\r\n> \r\n> I strongly agree with this. And genuinely don't understand the attachment to the awkward and arguably dangerous approach.\r\n\r\nGiven JWE, any approach to add Integrated Encryption is going to be awkward (it is going to be sui generis). I do not think it is dangerous, but could be missing some \"clever\" dangerous way of implementing it.\r\n\r\nAnd I do not think it can be compared with dangers of alg none, that one even advises how to implement it dangerously. ",
           "createdAt": "2025-11-05T17:39:52Z",
           "updatedAt": "2025-11-05T17:45:27Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Marking as \"draft\" so that it will not be merged.  I'm leaving it open until useful information in the review comments has been filed as issues.",
+          "createdAt": "2025-11-06T15:42:51Z",
+          "updatedAt": "2025-11-06T15:42:51Z"
         }
       ],
       "reviews": [
@@ -10292,8 +10299,376 @@
               "updatedAt": "2025-11-05T19:20:06Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MN86n",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T05:22:25Z",
+          "updatedAt": "2025-11-06T05:22:25Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "I suggest \"Key Encryption Using JOSE-HPKE\"",
+              "createdAt": "2025-11-06T05:22:25Z",
+              "updatedAt": "2025-11-06T05:22:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MOBEO",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T05:26:10Z",
+          "updatedAt": "2025-11-06T05:26:11Z",
+          "comments": [
+            {
+              "originalPosition": 180,
+              "body": "@ilaril - In HPKE integrated encryption, it seems the only solution possible is to not set the the HPKE info parameter. The HPKE AAD will have to carry the \"Additional Authenticated Data encryption parameter\".",
+              "createdAt": "2025-11-06T05:26:10Z",
+              "updatedAt": "2025-11-06T05:26:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MXP6B",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T14:59:10Z",
+          "updatedAt": "2025-11-06T14:59:10Z",
+          "comments": [
+            {
+              "originalPosition": 541,
+              "body": "I get your point. \r\n\r\nHowever consider the case were there are 2 recipients and one is RSA and the other a PQ/T hybrid... should the hybrid recipient consider the message confidential after Q day?\r\n\r\nPerhaps we can reframe this in terms of known algorithms that are not considered strong enough to secure the CEK?\r\n\r\n",
+              "createdAt": "2025-11-06T14:59:10Z",
+              "updatedAt": "2025-11-06T14:59:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MbWGH",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T18:01:21Z",
+          "updatedAt": "2025-11-06T18:01:21Z",
+          "comments": [
+            {
+              "originalPosition": 541,
+              "body": "> I get your point.\r\n> \r\n> However consider the case were there are 2 recipients and one is RSA and the other a PQ/T hybrid... should the hybrid recipient consider the message confidential after Q day?\r\n\r\nI think that message should be decrypted, even after Q day. The included RSA recipient is sender's fault (and may present a critical vulnerability in the sender). Receiver has legitimate reason to remove weak algorithms (e.g, RSA in this case) but that does not come into play as the message can be decrypted without any weak algorithms.\r\n\r\nThen the recipients are not authenticated (unless the whole message is signed), so a MITM attacker can hide the weak recipients by dropping those from the message.\r\n\r\nIOW, it was sender including the RSA recipient that compromised the message, not receiver decrypting the message with RSA recipient.\r\n\r\n\r\nThis is the opposite of signatures, where it is receiver that is at fault for accepting weak signatures, and thus RSA signatures should not be accepted after Q day (unless the signature algorithm is so bad that it actually compromises the key). Even then, mere presence of weak algorithm is not grounds for rejection (unless it is none, as that gives signature error if implemented properly).\r\n\r\n> Perhaps we can reframe this in terms of known algorithms that are not considered strong enough to secure the CEK?\r\n\r\nThe crypto policy enforcement for encryption is on sender, not receiver. It is critical for security, so counts as critical vulnerability if broken. And what that policy is very much depends on environment and possibly even the message.\r\n",
+              "createdAt": "2025-11-06T18:01:21Z",
+              "updatedAt": "2025-11-06T18:01:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MdPoL",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T19:45:56Z",
+          "updatedAt": "2025-11-06T19:45:56Z",
+          "comments": [
+            {
+              "originalPosition": 541,
+              "body": "Is it ok to resolve this thread? feel free to suggest to remove the should.",
+              "createdAt": "2025-11-06T19:45:56Z",
+              "updatedAt": "2025-11-06T19:45:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Mdi1s",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T20:05:08Z",
+          "updatedAt": "2025-11-06T20:05:08Z",
+          "comments": [
+            {
+              "originalPosition": 461,
+              "body": "I gather this is a replace, so we need these.",
+              "createdAt": "2025-11-06T20:05:08Z",
+              "updatedAt": "2025-11-06T20:05:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MdjMI",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T20:05:32Z",
+          "updatedAt": "2025-11-06T20:05:32Z",
+          "comments": [
+            {
+              "originalPosition": 281,
+              "body": "This text replaces, so the other modes need to be present.",
+              "createdAt": "2025-11-06T20:05:32Z",
+              "updatedAt": "2025-11-06T20:05:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Mdjmx",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-06T20:05:54Z",
+          "updatedAt": "2025-11-06T20:05:55Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "nvm",
+              "createdAt": "2025-11-06T20:05:54Z",
+              "updatedAt": "2025-11-06T20:05:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Mdj8y",
+          "commit": {
+            "abbreviatedOid": "e9cd718"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-06T20:06:15Z",
+          "updatedAt": "2025-11-06T20:06:15Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 84,
+      "id": "PR_kwDOMMuuSM6x7h2X",
+      "title": "Apply design team decisions",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/84",
+      "state": "OPEN",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
+      "createdAt": "2025-11-06T15:41:14Z",
+      "updatedAt": "2025-11-07T20:42:17Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "mbj-design-team",
+      "headRefOid": "f1cdb22458f7fb110537d2a8faeaa75ed05bbd9c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@selfissued one missing decision from your bullet point list\r\n\r\n- designate distinct \"alg\" values for Integrated Encryption and Key Encryption modes, e.g. `HPKE-0` for IE and `HPKE-0+KE` for KE (actual values TBD, i'll leave those for the authors to propose)",
+          "createdAt": "2025-11-06T15:48:09Z",
+          "updatedAt": "2025-11-06T15:48:09Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good catch @panva, where you said:\r\n> @selfissued one missing decision from your bullet point list\r\n\r\n> designate distinct \"alg\" values for Integrated Encryption and Key Encryption modes, e.g. HPKE-0 for IE and HPKE-0+KE for KE (actual values TBD, i'll leave those for the authors to propose)\r\n\r\nI've edited the PR description to add this decision to the list.",
+          "createdAt": "2025-11-06T16:20:01Z",
+          "updatedAt": "2025-11-06T16:20:01Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thank you Mike for the super-quick response on this issue! Give me time over the weekend to review the new PR!",
+          "createdAt": "2025-11-07T16:18:52Z",
+          "updatedAt": "2025-11-07T16:18:52Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7MuBC9",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T15:18:46Z",
+          "updatedAt": "2025-11-07T15:18:46Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "```suggestion\r\n```\r\n\r\nI believe we agreed on Recipient_structure not being used for HPKE Integrated Encryption in the design team.\r\n\r\nDoes that mean Mutually known private information cannot be used for HPKE Integrated Encryption?\r\n\r\nIf that's a feat needed for HPKE Integrated Encryption then Recipient_structure's content_encryption_alg needs a special case for HPKE Integrated Encryption when no \"enc\" is to be present.",
+              "createdAt": "2025-11-07T15:18:46Z",
+              "updatedAt": "2025-11-07T15:21:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MvZVj",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T16:18:17Z",
+          "updatedAt": "2025-11-07T16:18:17Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "I believe this means that the developer make up his mind on what he passes into the info parameter of HPKE and what the encoding of that structure is. Maybe we should say that.\r\n",
+              "createdAt": "2025-11-07T16:18:17Z",
+              "updatedAt": "2025-11-07T16:18:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MvqCy",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T16:29:14Z",
+          "updatedAt": "2025-11-07T16:29:14Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "> I believe this means that the developer make up his mind on what he passes into the info parameter of HPKE and what the encoding of that structure is. Maybe we should say that.\r\n\r\nHow does that relate to JOSE-HPKE definition?\r\n\r\nMy PR suggestion is to remove Recipient_structure from the HPKE Integrated Encryption description because that's what we agreed upon is the intention in the design team meeting.\r\n\r\nThat leads to the questions I've posted below that suggestion\r\n\r\n> Does that mean Mutually known private information cannot be used for HPKE Integrated Encryption?\r\n\r\nIf the answer to that is yes, cool - PR suggestion can be accepted and no additional thought or text is needed.\r\n\r\nIf the answer to that is no, then the PR suggestion should not be accepted and we need to update Recipient_structure to say that content_encryption_alg is \"\\<TBD>\" when using HPKE Integrated Encryption.",
+              "createdAt": "2025-11-07T16:29:14Z",
+              "updatedAt": "2025-11-07T16:51:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Mv8lZ",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T16:41:36Z",
+          "updatedAt": "2025-11-07T16:41:36Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "I think the term hybrid can be super confusing in this context and think some/many folks are starting to use the word composite a la LAMPS' Composite ML-KEM \n```suggestion\nand the possibility of utilizing future HPKE algorithms, including composite KEMs.\n```",
+              "createdAt": "2025-11-07T16:41:36Z",
+              "updatedAt": "2025-11-07T16:41:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7MwvmC",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T17:23:06Z",
+          "updatedAt": "2025-11-07T17:23:06Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "\r\nIMO use:\r\n\r\n```\r\nPQ/T hybrid Key Encapsulation Mechanism (KEM):\r\n      A multi-algorithm KEM made up of two or more component algorithms\r\n      where at least one is a post-quantum algorithm and at least one is\r\n      a traditional algorithm.  The component algorithms could be KEMs\r\n      or other key establishment algorithms.\r\n```\r\n\r\n- https://datatracker.ietf.org/doc/rfc9794/",
+              "createdAt": "2025-11-07T17:23:06Z",
+              "updatedAt": "2025-11-07T17:23:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7M0bgp",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-07T20:42:17Z",
+          "updatedAt": "2025-11-07T20:42:17Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "> I believe we agreed on Recipient_structure not being used for HPKE Integrated Encryption in the design team.\n\nI believe we did agree that the Recipient_structure itself was not used for HPKE Integrated Encryption, yes, but that in IE there would be a facility to convey additional context information to the key derivation via the HPKE info parameter. Basically like a bare recipient_extra_info thing. ",
+              "createdAt": "2025-11-07T20:42:17Z",
+              "updatedAt": "2025-11-07T20:42:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 85,
+      "id": "PR_kwDOMMuuSM6yPShu",
+      "title": "fix 6.1.1 example",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/85",
+      "state": "OPEN",
+      "author": "panva",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "```diff\r\n- 4a4f53452d48504b452072637074ffa131323847434dff\r\n+ 4a4f53452d48504b452072637074ff4131323847434dff\r\n                                ^^\r\n                                a1 = 0xa1 = \u00a1 > \u00a1256GCM\r\n                                41 = 0x41 = A > A256GCM\r\n```",
+      "createdAt": "2025-11-07T22:37:21Z",
+      "updatedAt": "2025-11-07T22:41:53Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
+      "headRepository": "panva/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "fix-example-info",
+      "headRefOid": "8f1a3d6ec10e1d9000c96d11fa8afcf049313ec7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
