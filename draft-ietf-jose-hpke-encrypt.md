@@ -130,7 +130,7 @@ Hybrid Public Key Encryption (HPKE) {{I-D.ietf-hpke-hpke}} is a public key encry
 recipient's public key.
 This specification enables JSON Web Encryption (JWE) {{RFC7516}} to leverage HPKE,
 bringing support for HPKE encryption and KEMs to JWE,
-and the possibility of utilizing future HPKE algorithms, including hybrid KEMs.
+and the possibility of utilizing future HPKE algorithms, including composite KEMs.
 
 # Notational Conventions
 
