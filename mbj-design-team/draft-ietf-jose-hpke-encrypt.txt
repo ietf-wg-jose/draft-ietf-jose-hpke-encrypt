@@ -287,9 +287,6 @@ Table of Contents
    *  The JWE Ciphertext is the ciphertext defined in Section 5.2 of
       [I-D.ietf-hpke-hpke].
 
-   *  The HPKE info parameter contains the encoding of the
-      Recipient_structure, which is described in Section 6.1.
-
    *  The HPKE aad parameter MUST be set to the "Additional
       Authenticated Data encryption parameter", as specified in Step 14
       of Section 7.1.

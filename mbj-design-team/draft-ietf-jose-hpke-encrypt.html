@@ -1533,14 +1533,10 @@ is the base64url encoding of the HPKE encapsulated key.<a href="#section-4.2-3" 
           <p id="section-5-2.9.1">The JWE Ciphertext is the ciphertext defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.10">
-          <p id="section-5-2.10.1">The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
-<a href="#recipient_structure" class="auto internal xref">Section 6.1</a>.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.10.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of <a href="#encryption" class="auto internal xref">Section 7.1</a>.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.11">
-          <p id="section-5-2.11.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of <a href="#encryption" class="auto internal xref">Section 7.1</a>.<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-5-2.12">
-          <p id="section-5-2.12.1">Then follow Steps 11-19 of <a href="#encryption" class="auto internal xref">Section 7.1</a> (Message Encryption).<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.11.1">Then follow Steps 11-19 of <a href="#encryption" class="auto internal xref">Section 7.1</a> (Message Encryption).<a href="#section-5-2.11.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-5-3">When decrypting, the checks in <a href="#decryption" class="auto internal xref">Section 7.2</a>,
