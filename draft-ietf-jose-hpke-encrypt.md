@@ -319,7 +319,7 @@ The Recipient_structure encoded in binary as specified in {{recipient_structure}
 The corresponding hexadecimal representation is:
 
 ~~~
-4a4f53452d48504b452072637074ffa131323847434dff
+4a4f53452d48504b452072637074ff4131323847434dff
 ~~~
 
 This value is directly used as the HPKE `info` parameter.
