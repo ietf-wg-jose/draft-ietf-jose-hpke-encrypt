@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 10 May 2026                                         A. Banerjee
+Expires: 14 May 2026                                         A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         6 November 2025
+                                                        10 November 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 May 2026.
+   This Internet-Draft will expire on 14 May 2026.
 
 Copyright Notice
 
@@ -135,7 +135,7 @@ Table of Contents
    sized plaintexts given a recipient's public key.  This specification
    enables JSON Web Encryption (JWE) [RFC7516] to leverage HPKE,
    bringing support for HPKE encryption and KEMs to JWE, and the
-   possibility of utilizing future HPKE algorithms, including hybrid
+   possibility of utilizing future HPKE algorithms, including composite
    KEMs.
 
 2.  Notational Conventions
