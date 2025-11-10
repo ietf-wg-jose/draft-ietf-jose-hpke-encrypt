@@ -237,8 +237,6 @@ When using HPKE JWE Integrated Encryption:
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
 - The JWE Ciphertext is the ciphertext defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
-- The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
-  {{recipient_structure}}.
 - The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter", as specified in Step 14 of {{encryption}}.
 - Then follow Steps 11-19 of {{encryption}} (Message Encryption).
 
