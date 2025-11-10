@@ -1063,7 +1063,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 6 May 2026</td>
+<td class="center">Expires 14 May 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1079,12 +1079,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7516" class="eref">7516</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-11-02" class="published">2 November 2025</time>
+<time datetime="2025-11-10" class="published">10 November 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-05-06">6 May 2026</time></dd>
+<dd class="expires"><time datetime="2026-05-14">14 May 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1159,7 +1159,7 @@ The specification chooses a specific subset of the HPKE features to use with JOS
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1428,7 +1428,7 @@ When "psk_id" JOSE Header parameter is present the mode is "mode_psk", otherwise
 </li>
       </ul>
 <p id="section-4-12">HPKE JWE Key Encryption can be used with "aad" but only when not expressed with Compact JWE Serialization.<a href="#section-4-12" class="pilcrow">¶</a></p>
-<p id="section-4-13">Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-4-13" class="pilcrow">¶</a></p>
+<p id="section-4-13">Single recipient HPKE JWE Key Encryption with no "aad" can be expressed in Compact JWE Serialization, so long as the recipient and sender use the same HPKE Setup process as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-4-13" class="pilcrow">¶</a></p>
 <p id="section-4-14">This specification updates the "enc" definition in <span><a href="https://rfc-editor.org/rfc/rfc7516#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>
 by allowing the "enc" value "int" when the "alg" value is a JOSE-HPKE algorithm.
 When "alg" is not a JOSE-HPKE algorithm and the "enc" value is "int",
@@ -1439,7 +1439,7 @@ the input <span class="bcp14">MUST NOT</span> be used and <span class="bcp14">MU
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-auxiliary-authenticated-app" class="section-name selfRef">Auxiliary Authenticated Application Information</a>
         </h3>
 <p id="section-4.1-1">The HPKE "aad parameter" for Open() and Seal()
-specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-8.1" class="relref">Section 8.1</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>
+specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-8.1" class="relref">Section 8.1</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>
 is used with both HPKE JWE Integrated Encryption and HPKE JWE Key Encryption.
 Its value is the Additional Authenticated Data encryption parameter value
 computed in Step 14 of <span><a href="https://rfc-editor.org/rfc/rfc7516#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span> (Message Encryption).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
@@ -1450,7 +1450,7 @@ computed in Step 14 of <span><a href="https://rfc-editor.org/rfc/rfc7516#section
         <h3 id="name-encapsulated-keys">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-encapsulated-keys" class="section-name selfRef">Encapsulated Keys</a>
         </h3>
-<p id="section-4.2-1">HPKE encapsulated key is defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">HPKE encapsulated key is defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">In HPKE JWE Integrated Encryption, the JWE Encrypted Key of the sole recipient is the HPKE encapsulated key.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">In HPKE JWE Key Encryption, each recipient JWE Encrypted Key is the encrypted content encryption key, and the value of JOSE Header parameter "ek"
 is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
@@ -1482,7 +1482,7 @@ is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcr
           <p id="section-5-2.5.1">There <span class="bcp14">MUST</span> be exactly one recipient.<a href="#section-5-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.6">
-          <p id="section-5-2.6.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.6.1">The JWE Encrypted Key <span class="bcp14">MUST</span> be encapsulated key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.7">
           <p id="section-5-2.7.1">The JWE Initialization Vector and JWE Authentication Tag <span class="bcp14">MUST</span> be the empty octet sequence.<a href="#section-5-2.7.1" class="pilcrow">¶</a></p>
@@ -1491,7 +1491,7 @@ is base64url-encoded HPKE encapsulated key.<a href="#section-4.2-3" class="pilcr
           <p id="section-5-2.8.1">The JWE AAD <span class="bcp14">MAY</span> be present when using the JWE JSON Serialization.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.9">
-          <p id="section-5-2.9.1">The JWE Ciphertext is the ciphertext defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.9.1">The JWE Ciphertext is the ciphertext defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-5-2.9.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.10">
           <p id="section-5-2.10.1">The HPKE info parameter contains the encoding of the Recipient_structure, which is described in
@@ -1632,7 +1632,7 @@ includes in the key derivation via the HPKE <code>info</code> parameter. Mutuall
 <p id="section-6.1.1-3">The corresponding hexadecimal representation is:<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1.1-4">
 <pre>
-4a4f53452d48504b452072637074ffa131323847434dff
+4a4f53452d48504b452072637074ff4131323847434dff
 </pre><a href="#section-6.1.1-4" class="pilcrow">¶</a>
 </div>
 <p id="section-6.1.1-5">This value is directly used as the HPKE <code>info</code> parameter.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
@@ -2087,7 +2087,7 @@ Future JOSE-HPKE ciphersuite names registered <span class="bcp14">MUST</span> al
               <p id="section-10.2.1-1.1.1">Header Parameter Name: "ek"<a href="#section-10.2.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.2.1-1.2">
-              <p id="section-10.2.1-1.2.1">Header Parameter Description: A base64url-encoded encapsulated key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span><a href="#section-10.2.1-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-10.2.1-1.2.1">Header Parameter Description: A base64url-encoded encapsulated key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span><a href="#section-10.2.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.2.1-1.3">
               <p id="section-10.2.1-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-10.2.1-1.3.1" class="pilcrow">¶</a></p>
@@ -2111,7 +2111,7 @@ Future JOSE-HPKE ciphersuite names registered <span class="bcp14">MUST</span> al
               <p id="section-10.2.2-1.1.1">Header Parameter Name: "psk_id"<a href="#section-10.2.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.2.2-1.2">
-              <p id="section-10.2.2-1.2.1">Header Parameter Description: A base64url-encoded key identifier (kid) for the pre-shared key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01#section-5.1.2" class="relref">Section 5.1.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span><a href="#section-10.2.2-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-10.2.2-1.2.1">Header Parameter Description: A base64url-encoded key identifier (kid) for the pre-shared key, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5.1.2" class="relref">Section 5.1.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span><a href="#section-10.2.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.2.2-1.3">
               <p id="section-10.2.2-1.3.1">Header Parameter Usage Location(s): JWE<a href="#section-10.2.2-1.3.1" class="pilcrow">¶</a></p>
@@ -2142,7 +2142,7 @@ Future JOSE-HPKE ciphersuite names registered <span class="bcp14">MUST</span> al
 <dl class="references">
 <dt id="I-D.ietf-hpke-hpke">[I-D.ietf-hpke-hpke]</dt>
         <dd>
-<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-hpke-hpke-01</span>, <time datetime="2025-06-24" class="refDate">24 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01">https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-hpke-hpke-02</span>, <time datetime="2025-11-04" class="refDate">4 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02">https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.JOSE">[IANA.JOSE]</dt>
         <dd>

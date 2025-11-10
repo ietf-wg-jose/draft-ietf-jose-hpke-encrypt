@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 6 May 2026                                          A. Banerjee
+Expires: 14 May 2026                                         A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                         2 November 2025
+                                                        10 November 2025
 
 
 Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2026.
+   This Internet-Draft will expire on 14 May 2026.
 
 Copyright Notice
 
@@ -397,7 +397,7 @@ Table of Contents
 
    The corresponding hexadecimal representation is:
 
-   4a4f53452d48504b452072637074ffa131323847434dff
+   4a4f53452d48504b452072637074ff4131323847434dff
 
    This value is directly used as the HPKE info parameter.
 
@@ -729,9 +729,9 @@ Table of Contents
    [I-D.ietf-hpke-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
               "Hybrid Public Key Encryption", Work in Progress,
-              Internet-Draft, draft-ietf-hpke-hpke-01, 24 June 2025,
+              Internet-Draft, draft-ietf-hpke-hpke-02, 4 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-hpke-
-              hpke-01>.
+              hpke-02>.
 
    [IANA.JOSE]
               IANA, "JSON Web Signature and Encryption Algorithms",
