@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-09T01:41:34.651048+00:00",
+  "timestamp": "2025-11-11T01:39:51.453692+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -10485,15 +10485,15 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
+      "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n- Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
       "createdAt": "2025-11-06T15:41:14Z",
-      "updatedAt": "2025-11-07T20:42:17Z",
+      "updatedAt": "2025-11-10T18:58:32Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
-      "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
+      "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-design-team",
-      "headRefOid": "f1cdb22458f7fb110537d2a8faeaa75ed05bbd9c",
+      "headRefOid": "d526d004932f9457412149866acac39ce392e480",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -10519,6 +10519,13 @@
           "body": "Thank you Mike for the super-quick response on this issue! Give me time over the weekend to review the new PR!",
           "createdAt": "2025-11-07T16:18:52Z",
           "updatedAt": "2025-11-07T16:18:52Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@hannestschofenig I would suggest waiting to review the PR until I've completed it.  The initial commit does not instantiate the design team decisions.  The primary text change in the PR is to add the baseline Message Encryption and Message Decryption instructions from Sections 5.1 and 5.2 of RFC 7516 without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions this specification introduces are.)",
+          "createdAt": "2025-11-10T18:27:46Z",
+          "updatedAt": "2025-11-10T18:27:46Z"
         }
       ],
       "reviews": [
@@ -10641,6 +10648,106 @@
               "updatedAt": "2025-11-07T20:42:17Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NAcZj",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-09T07:16:30Z",
+          "updatedAt": "2025-11-09T07:16:30Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "If the decision was made to comply with Section 8.1 of draft-ietf-hpke-hpke, which states that using the HPKE info and aad parameters simultaneously in a single-shot operation SHOULD NOT be allowed, it should be clarified in the draft why the HPKE info parameter is not used.",
+              "createdAt": "2025-11-09T07:16:30Z",
+              "updatedAt": "2025-11-09T07:16:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NA9Le",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-09T09:07:19Z",
+          "updatedAt": "2025-11-09T09:07:19Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "> I believe we did agree that the Recipient_structure itself was not used for HPKE Integrated Encryption, yes, but that in IE there would be a facility to convey additional context information to the key derivation via the HPKE info parameter. Basically like a bare recipient_extra_info thing.\r\n\r\nAh ok.",
+              "createdAt": "2025-11-09T09:07:19Z",
+              "updatedAt": "2025-11-09T09:07:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NUBSG",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-10T18:23:04Z",
+          "updatedAt": "2025-11-10T18:23:04Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "I added this to the description of the decisions reached by the design team:\r\n> Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.",
+              "createdAt": "2025-11-10T18:23:04Z",
+              "updatedAt": "2025-11-10T18:23:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NUIFb",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-10T18:32:11Z",
+          "updatedAt": "2025-11-10T18:32:11Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "Thank you @selfissued. Feel free to resolve this thread.",
+              "createdAt": "2025-11-10T18:32:11Z",
+              "updatedAt": "2025-11-10T18:32:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NUgjx",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-10T18:58:32Z",
+          "updatedAt": "2025-11-10T18:58:32Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "> If the decision was made to comply with Section 8.1 of draft-ietf-hpke-hpke, which states that using the HPKE info and aad parameters simultaneously in a single-shot operation SHOULD NOT be allowed, it should be clarified in the draft why the HPKE info parameter is not used.\r\n\r\nMy understating is that we felt that the Recipient_structure itself was not needed for HPKE Integrated Encryption but that it'd be useful to allow for the calling application of the JOSE layer to provide a value to the underlying HPKE API for the info parameter. \r\n\r\nSo the decision here was not made to comply with Sec 8.1 of draft-ietf-hpke-hpke. But it seems that's an issue that needs to be addressed regardless. ",
+              "createdAt": "2025-11-10T18:58:32Z",
+              "updatedAt": "2025-11-10T18:58:32Z"
+            }
+          ]
         }
       ]
     },
@@ -10649,26 +10756,68 @@
       "id": "PR_kwDOMMuuSM6yPShu",
       "title": "fix 6.1.1 example",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/85",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "panva",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "```diff\r\n- 4a4f53452d48504b452072637074ffa131323847434dff\r\n+ 4a4f53452d48504b452072637074ff4131323847434dff\r\n                                ^^\r\n                                a1 = 0xa1 = \u00a1 > \u00a1256GCM\r\n                                41 = 0x41 = A > A256GCM\r\n```",
       "createdAt": "2025-11-07T22:37:21Z",
-      "updatedAt": "2025-11-07T22:41:53Z",
+      "updatedAt": "2025-11-10T18:30:31Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
-      "headRepository": "panva/draft-ietf-jose-hpke-encrypt",
+      "headRepository": null,
       "headRefName": "fix-example-info",
       "headRefOid": "8f1a3d6ec10e1d9000c96d11fa8afcf049313ec7",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-11-10T18:20:23Z",
+      "mergedAt": "2025-11-10T18:20:23Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7NAYiR",
+          "commit": {
+            "abbreviatedOid": "8f1a3d6"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-09T06:48:40Z",
+          "updatedAt": "2025-11-09T06:48:40Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NCm35",
+          "commit": {
+            "abbreviatedOid": "8f1a3d6"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-09T13:47:13Z",
+          "updatedAt": "2025-11-09T13:47:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NT_R1",
+          "commit": {
+            "abbreviatedOid": "8f1a3d6"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-10T18:20:15Z",
+          "updatedAt": "2025-11-10T18:20:15Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
