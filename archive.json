@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-11T01:39:51.453692+00:00",
+  "timestamp": "2025-11-13T01:40:04.560624+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -10487,7 +10487,7 @@
       "labels": [],
       "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n- Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
       "createdAt": "2025-11-06T15:41:14Z",
-      "updatedAt": "2025-11-10T18:58:32Z",
+      "updatedAt": "2025-11-12T06:18:33Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
@@ -10746,6 +10746,86 @@
               "body": "> If the decision was made to comply with Section 8.1 of draft-ietf-hpke-hpke, which states that using the HPKE info and aad parameters simultaneously in a single-shot operation SHOULD NOT be allowed, it should be clarified in the draft why the HPKE info parameter is not used.\r\n\r\nMy understating is that we felt that the Recipient_structure itself was not needed for HPKE Integrated Encryption but that it'd be useful to allow for the calling application of the JOSE layer to provide a value to the underlying HPKE API for the info parameter. \r\n\r\nSo the decision here was not made to comply with Sec 8.1 of draft-ietf-hpke-hpke. But it seems that's an issue that needs to be addressed regardless. ",
               "createdAt": "2025-11-10T18:58:32Z",
               "updatedAt": "2025-11-10T18:58:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NiWXj",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-11T14:26:50Z",
+          "updatedAt": "2025-11-11T14:26:50Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "please explain why the design team decided Recipient_structure is not required HPKE Integrated Encryption ?\r\nWe need an explanation in the draft why excluding it is acceptable for HPKE Integrated Encryption from a security point of view.",
+              "createdAt": "2025-11-11T14:26:50Z",
+              "updatedAt": "2025-11-11T14:26:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NkxPA",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-11T16:42:07Z",
+          "updatedAt": "2025-11-11T16:42:07Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "to come at it from the other perspective - why would the Recipient_structure be required for HPKE Integrated Encryption? It wasn't used in IE until the most recent draft and I am not aware of any rational for it being added there.  ",
+              "createdAt": "2025-11-11T16:42:07Z",
+              "updatedAt": "2025-11-11T16:42:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Nk8qN",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-11T16:55:16Z",
+          "updatedAt": "2025-11-11T16:55:17Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "The point Recipient_structure as explained and requested is binding cross-layer in KE where \"alg\" and \"enc\" are not required to be protected.\r\n\r\nBut in IE the \"alg\" is required to be in a protected header, therefore, the entire protected header + JWE aad goes into HPKE through aad already.\r\n\r\n> https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-14.html#name-integrated-encryption\r\n> The HPKE aad parameter MUST be set to the \"Additional Authenticated Data encryption parameter\", as specified in Step 14 of [Section 5.1](https://rfc-editor.org/rfc/rfc7516#section-5.1) of [[RFC7516](https://www.ietf.org/archive/id/draft-ietf-jose-hpke-encrypt-14.html#RFC7516)].\r\n\r\n> Let the Additional Authenticated Data encryption parameter be\r\n> ASCII(Encoded Protected Header).  However, if a JWE AAD value is\r\n> present (which can only be the case when using the JWE JSON\r\n> Serialization), instead let the Additional Authenticated Data\r\n> encryption parameter be ASCII(Encoded Protected Header || '.' ||\r\n> BASE64URL(JWE AAD)).\r\n\r\nHPKE AAD in IE = ASCII(Encoded Protected Header) or ASCII(Encoded Protected Header || '.' || BASE64URL(JWE AAD)) when JWE AAD is present\r\nHPKE info in IE = \"\" (unless OOB means exist to set it in which case API **_Considerations_** from Section 8.1 of draft-ietf-hpke-hpke needs to not be enforced by the underlying HPKE implementation)\r\n\r\nHPKE AAD in KE = \"\"\r\nHPKE info in IE = Recipient_structure",
+              "createdAt": "2025-11-11T16:55:16Z",
+              "updatedAt": "2025-11-11T17:14:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7NvazU",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-12T06:18:33Z",
+          "updatedAt": "2025-11-12T06:18:33Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "Thanks @panva. I will create a separate PR to add the following text:\r\nIn HPKE Key Encryption, the HPKE info parameter carries the Recipient_structure, which binds the derived key to the JOSE context and the selected content encryption algorithm. HPKE Integrated Encryption does not require such differentiation, as the JWE protected header and any JWE AAD value are already authenticated via the HPKE aad, which binds these parameters to the ciphertext. Furthermore, using both info and aad simultaneously could violate the API guidance in {{Section 8.1 of I-D.ietf-hpke-hpke}}, which advises against the use of both parameters in single-shot HPKE APIs. ",
+              "createdAt": "2025-11-12T06:18:33Z",
+              "updatedAt": "2025-11-12T06:18:33Z"
             }
           ]
         }
