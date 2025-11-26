@@ -1691,7 +1691,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span cl
           <p id="section-6-3.4.1">The header parameter "ek" <span class="bcp14">MUST</span> be present and contain the base64url-encoded HPKE encapsulated secret.<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.5">
-          <p id="section-6-3.5.1">The HPKE aad parameter <span class="bcp14">MUST</span> be set to the "Additional Authenticated Data encryption parameter" value specified in Step 15 of <a href="#encryption" class="auto internal xref">Section 7.1</a>.<a href="#section-6-3.5.1" class="pilcrow">¶</a></p>
+          <p id="section-6-3.5.1">The HPKE aad parameter defaults to the empty string.<a href="#section-6-3.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.6">
           <p id="section-6-3.6.1">The HPKE info parameter is set to the value of the Recipient_structure defined below.<a href="#section-6-3.6.1" class="pilcrow">¶</a></p>

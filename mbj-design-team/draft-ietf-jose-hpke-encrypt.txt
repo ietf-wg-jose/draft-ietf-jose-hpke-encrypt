@@ -379,9 +379,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    *  The header parameter "ek" MUST be present and contain the
       base64url-encoded HPKE encapsulated secret.
 
-   *  The HPKE aad parameter MUST be set to the "Additional
-      Authenticated Data encryption parameter" value specified in Step
-      15 of Section 7.1.
+   *  The HPKE aad parameter defaults to the empty string.
 
    *  The HPKE info parameter is set to the value of the
       Recipient_structure defined below.
