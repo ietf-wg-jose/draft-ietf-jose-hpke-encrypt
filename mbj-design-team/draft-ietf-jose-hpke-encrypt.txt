@@ -90,11 +90,12 @@ Table of Contents
    5.  Integrated Encryption
      5.1.  Integrated Encryption Algorithms using HPKE
      5.2.  JWE Compact Serialization Example
+     5.3.  Flattened JWE JSON Serialization Example
    6.  Key Encryption
      6.1.  Recipient_structure
      6.2.  Key Encryption Algorithms using HPKE
        6.2.1.  Recipient_structure Example
-     6.3.  JWE JSON Serialization Example
+     6.3.  General JWE JSON Serialization Example
    7.  Producing and Consuming JWEs
      7.1.  Message Encryption
      7.2.  Message Decryption
@@ -341,7 +342,19 @@ Table of Contents
    Below is an example of a JWE using the Compact Serialization and
    Integrated Encryption with HPKE:
 
-eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVBdWd2bDBqclFKQ1ozeUt3Vks2c1VNNG8ifQ.BIh6I40uiBbK8-UK7nHdo3ISEfgwJ_MF3zWjQzLt00GhFF2-1VgWKHSYLXdeVeRV7AinyocYiCYmISvW0yqiDmc..Ov-llz6VUyiw8nZL0OPGLGZckLTm5UcTZFg.
+eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jEH3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmXXNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMraa9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkgy2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ37A0Hr5esPLwHRTTrBFw.
+
+5.3.  Flattened JWE JSON Serialization Example
+
+   Below is an example of a JWE using the Flattened JSON Serialization
+   and Integrated Encryption with HPKE:
+
+{
+  "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0heU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1vEzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQonx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsfUa2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
+  "encrypted_key": "BAOlZ-VnbhQu4NOlTlDAVYwUJB-Q6YcWwnRNWK6YLSiHHlW4rN0qUzBJ3Rc2_y8nkasn8nUVGBzdq7OhdKKiLq4",
+  "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
+  "protected": "eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0"
+}
 
    The key used for this example is in Appendix A.1.
 
@@ -455,23 +468,28 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
 
    This value is used as the HPKE info parameter.
 
-6.3.  JWE JSON Serialization Example
+6.3.  General JWE JSON Serialization Example
 
-   Below is an example of a JWE using the JSON Serialization and Key
-   Encryption with HPKE:
+   Below is an example of a JWE using the General JSON Serialization and
+   Key Encryption with HPKE:
 
-  {
-    "protected": "eyJhbGciOiAiSFBLRS0wLUtFIiwgImtpZCI6ICJLaWRGb3JLRSJ9",
-    "ciphertext": "TBD",
-    "recipients": [
-      {
-        "encrypted_key": "TBD",
-        "header": {
-          "ek": "TBD"
-        }
+{
+  "ciphertext": "uF1XBbVZWhYm_pDbeJvI_fkuqFJiKd1WMP3O_BAGOP-LkpTLE3Et2VQNcOpPAIBfyx8rUzshGqiOFOWzcoWZ3mIwYuDvvAW3-P1RCS8Dtq70JRvahO5O8sAN1vzJg8_dyBPnwsQY6Cy3RhMD6sSSCjjSw0FYmmx67IiI2zJ6Wr8z69k0f34ZTh43k4C-pTwaUSvjl2XI_YrUgdDVYmY_MJ5vmlPTcceMaefP8Onz_fx5xOcGfnVBVz2gpMQPuQL8k5Rk5KJvPGfFfN6hrgWkK_LDzi4lrfnIrvNsk3BCBeZPpc-n19-u7W4-GQxLjAlVyMHeGk5K4tU6gHB8PnnQ4ND5ZTtyXrJWQW-Qr1iFev6g",
+  "iv": "mLiHjYaQA42nPm1L",
+  "recipients": [
+    {
+      "encrypted_key": "hU6b0hp4-y4ZoK1Qz8YWmDmqDmgTto3HW25-RyPhcLU",
+      "header": {
+        "alg": "HPKE-0-KE",
+        "kid": "9CfUPiGcAcTp7oXgVbDStw2FEjka-_KHU_i-X3XMCEA",
+        "ek": "BGWPWLoD5BUjFEDIjMS-yvtcCXBn5A-kuv2RjzUY_2hKUjgZINqtEy1aHZ8dWxAiyApV5JafG76W8O_yZzy5T54"
       }
-    ]
-  }
+    }
+  ],
+  "tag": "K22C64ZhFABEu2S2F00PLg",
+  "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
+  "protected": "eyJlbmMiOiJBMTI4R0NNIn0"
+}
 
    The key used for this example is in Appendix A.2.
 
@@ -776,7 +794,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
      "d": "nWGxne0tAiV8Hk6kcy4rN0wMskjl9yND0N3Xeho9n6g",
      "kid": "recipient-key-1",
      "alg": "HPKE-3",
-     "key_ops": "encrypt"
+     "use": "enc"
    }
 
 10.  Security Considerations
@@ -1223,13 +1241,13 @@ Appendix A.  Keys Used in Examples
 A.1.  Integrated Encryption Key
 
    This private key and its implied public key are used for the
-   Integrated Encryption example in Section 5.2:
+   Integrated Encryption example in Section 5.2 and Section 5.3:
 
    {
      "kty": "EC",
      "use": "enc",
      "alg": "HPKE-0",
-     "kid": "G5N__CqMv_kJGieGSFuAugvl0jrQJCZ3yKwVK6sUM4o",
+     "kid": "yCnfbmYMZcWrKDt_DjNebRCB1vxVoqv4umJ4WK8RYjk",
      "crv": "P-256",
      "x": "gixQJ0qg4Ag-6HSMaIEDL_zbDhoXavMyKlmdn__AQVE",
      "y": "ZxTgRLWaKONCL_GbZKLNPsW9EW6nBsN4AwQGEFAFFbM",
@@ -1245,11 +1263,11 @@ A.2.  Key Encryption Key
      "kty": "EC",
      "use": "enc",
      "alg": "HPKE-0-KE",
-     "kid": "KidForKE",
+     "kid": "9CfUPiGcAcTp7oXgVbDStw2FEjka-_KHU_i-X3XMCEA",
      "crv": "P-256",
-     "x": "TBD",
-     "y": "TBD",
-     "d": "TBD"
+     "x": "WVKOswXQAgntIrLSYlwkyaU1dIE-FIhrbTEotFgMwIA",
+     "y": "jpZT1WNmQH752Bh_pDK41IhLkiXLj-15wR4ZBZ-MWFk",
+     "d": "MeCnMF65SaRVZ11Gf1Weacx3H9SdzO7MtWcDXvHWNv8"
    }
 
 Acknowledgments
