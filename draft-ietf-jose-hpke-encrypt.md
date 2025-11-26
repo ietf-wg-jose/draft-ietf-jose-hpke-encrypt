@@ -245,9 +245,10 @@ is the base64url encoding of the HPKE encapsulated secret.
 
 # Integrated Encryption
 
-When using Integrated Encryption:
+When using Integrated Encryption with HPKE:
 
-- The protected header MUST contain an "alg" value that uses Integrated Encryption.
+- The protected header MUST contain an "alg" value that is
+  an HPKE JWE algorithm using Integrated Encryption.
 - The "enc" header parameter MUST NOT be present.
   This is because no separate content encryption algorithm is used in this mode.
 - The protected header parameter "psk_id" MAY be present.
