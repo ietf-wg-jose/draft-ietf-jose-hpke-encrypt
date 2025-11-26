@@ -512,10 +512,12 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         the resulting JWE.)
 
    2.   When Key Wrapping, Key Encryption, or Key Agreement with Key
-        Wrapping are employed, generate a random CEK value.  See
-        [RFC4086] for considerations on generating random values.  The
-        CEK MUST have a length equal to that required for the content
-        encryption algorithm.
+        Wrapping are employed, generate a random CEK value to use for
+        subsequent steps, unless one was already generated for a
+        previously processed recipient in which case let that be the one
+        used for subsequent steps.  See [RFC4086] for considerations on
+        generating random values.  The CEK MUST have a length equal to
+        that required for the content encryption algorithm.
 
    3.   When Direct Key Agreement or Key Agreement with Key Wrapping are
         employed, use the key agreement algorithm to compute the value

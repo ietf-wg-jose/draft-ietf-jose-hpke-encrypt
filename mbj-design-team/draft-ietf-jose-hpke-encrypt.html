@@ -1865,7 +1865,10 @@ Header Parameter of the resulting JWE.)<a href="#section-7.1-2.1.1" class="pilcr
           <li id="section-7.1-2.2">
             <p id="section-7.1-2.2.1">When Key Wrapping, Key Encryption,
 or Key Agreement with Key Wrapping are employed,
-generate a random CEK value.
+generate a random CEK value to use for subsequent steps,
+unless one was already generated for a previously
+processed recipient in which case let that be the one used
+for subsequent steps.
 See <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span> for
 considerations on generating random values.
 The CEK <span class="bcp14">MUST</span> have a length equal to that
