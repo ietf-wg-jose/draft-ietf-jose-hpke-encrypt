@@ -365,7 +365,7 @@ Where:
 * recipient_extra_info: An octet string containing additional context information
   that the application includes in the key derivation.
   Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter.
-  If no additional context information is provided, this field MUST be empty.
+  If no additional context information is provided, this field MUST be the empty string.
 
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
