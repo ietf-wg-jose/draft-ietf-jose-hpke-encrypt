@@ -308,7 +308,7 @@ When using Key Encryption with HPKE:
 
 - When all recipients use the same JWE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
-- The "alg" header parameter MUST be a JWE algorithm using Key Encryption.
+- The "alg" header parameter MUST be a HPKE JWE algorithm using Key Encryption.
 - The header parameter "psk_id" MAY be present.
 - The header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated secret.
 - The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter" value specified in Step 15 of {{encryption}}.
