@@ -324,7 +324,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - The "alg" header parameter MUST be a HPKE JWE algorithm using Key Encryption.
 - The header parameter "psk_id" MAY be present.
 - The header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated secret.
-- The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter" value specified in Step 15 of {{encryption}}.
+- The HPKE aad parameter defaults to the empty string.
 - The HPKE info parameter is set to the value of the Recipient_structure defined below.
 - THE HPKE plaintext MUST be set to the CEK.
 - The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
