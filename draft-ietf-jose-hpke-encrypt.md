@@ -456,9 +456,9 @@ there are no dependencies between the inputs and outputs of the steps.
 
 1.  When Key Wrapping, Key Encryption,
     or Key Agreement with Key Wrapping are employed,
-    generate a random CEK value to use for subsequent steps,
+    generate a random CEK value to use for subsequent steps
     unless one was already generated for a previously
-    processed recipient in which case let that be the one used
+    processed recipient, in which case, let that be the one used
     for subsequent steps.
     See {{RFC4086}} for
     considerations on generating random values.
