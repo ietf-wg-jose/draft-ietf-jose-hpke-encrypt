@@ -359,7 +359,7 @@ eyJhbGciOiAiSFBLRS0wIiwgImVuYyI6ICJpbnQiLCAia2lkIjogIkc1Tl9fQ3FNdl9rSkdpZUdTRnVB
       "alg".  Otherwise, the JWE Protected Header (and JWE Shared
       Unprotected Header) MUST NOT contain "alg".
 
-   *  The "alg" header parameter MUST be a JWE algorithm using Key
+   *  The "alg" header parameter MUST be a HPKE JWE algorithm using Key
       Encryption.
 
    *  The header parameter "psk_id" MAY be present.
