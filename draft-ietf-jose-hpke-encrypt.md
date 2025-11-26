@@ -260,7 +260,6 @@ When using Integrated Encryption:
 - The HPKE info parameter defaults to the empty string;
   mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}})
   MAY be used instead so the application can include it during key derivation.
-externally provided information MAY be used instead.
 - The JWE Ciphertext is the ciphertext from the HPKE encryption,
   as defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 
