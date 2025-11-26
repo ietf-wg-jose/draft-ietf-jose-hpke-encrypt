@@ -1,9 +1,12 @@
+<!-- regenerate: on (set to off if you edit this file) -->
+
 # Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)
 
-This is the working area for the JOSE Working Group Internet-Draft, "Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)".
+This is the working area for the IETF [JOSE Working Group](https://datatracker.ietf.org/group/jose/documents/) Internet-Draft, "Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)".
 
 * [Editor's Copy](https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/#go.draft-ietf-jose-hpke-encrypt.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-jose-hpke-encrypt)
 * [Compare Editor's Copy to Working Group Draft](https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/#go.draft-ietf-jose-hpke-encrypt.diff)
 
 
@@ -12,9 +15,8 @@ This is the working area for the JOSE Working Group Internet-Draft, "Use of Hybr
 See the
 [guidelines for contributions](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/blob/main/CONTRIBUTING.md).
 
-Contributions can be made by creating pull requests.
-The GitHub interface supports creating pull requests using the Edit (✏) button.
-
+The contributing file also has tips on how to make contributions, if you
+don't already know how to do that.
 
 ## Command Line Usage
 
