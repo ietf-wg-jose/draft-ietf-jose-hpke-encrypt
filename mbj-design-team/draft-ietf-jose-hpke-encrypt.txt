@@ -143,8 +143,7 @@ Table of Contents
    sized plaintexts to a recipient's public key.  This specification
    enables JSON Web Encryption (JWE) [RFC7516] to leverage HPKE,
    bringing support for HPKE encryption and KEMs to JWE, and the
-   possibility of utilizing future HPKE algorithms, including composite
-   KEMs.
+   possibility of utilizing future HPKE algorithms.
 
 2.  Notational Conventions
 
