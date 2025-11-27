@@ -532,9 +532,7 @@ there are no dependencies between the inputs and outputs of the steps.
     (which is the Authentication Tag output from the encryption operation).
 
 1.  If Integrated Encryption is being employed,
-    encrypt M using the public key,
-    the Additional Authenticated Data value,
-    and the JWE Encrypted Key value
+    encrypt M
     using the specified Integrated Encryption algorithm
     to create the JWE Ciphertext value.
     Let the JWE Authentication Tag be the empty octet sequence.
@@ -704,9 +702,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     if the JWE Authentication Tag is incorrect.
 
 1.  If Integrated Encryption is being employed,
-    decrypt the JWE Ciphertext using the private key,
-    the Additional Authenticated Data value,
-    and the JWE Encrypted Key value
+    decrypt the JWE Ciphertext
     using the specified Integrated Encryption algorithm,
     returning the decrypted plaintext
     in the manner specified for the algorithm,
