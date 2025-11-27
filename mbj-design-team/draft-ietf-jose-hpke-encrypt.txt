@@ -428,6 +428,10 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
       parameter.  If no additional context information is provided, this
       field MUST be the empty octet sequence.
 
+   Note that Integrated Encryption does not use the Recipient_structure
+   because the JWE Protected Header and JWE AAD are included in the HPKE
+   aad value, which binds these parameters to the ciphertext.
+
 6.2.  Key Encryption Algorithms using HPKE
 
    The following JWE algorithms using HPKE are defined for use with the

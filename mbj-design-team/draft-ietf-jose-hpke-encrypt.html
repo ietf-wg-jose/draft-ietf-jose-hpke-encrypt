@@ -1751,6 +1751,7 @@ Mutually known private information (a concept also utilized in <span>[<a href="#
 If no additional context information is provided, this field <span class="bcp14">MUST</span> be the empty octet sequence.<a href="#section-6.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+<p id="section-6.1-5">Note that Integrated Encryption does not use the <code>Recipient_structure</code> because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ke-algs">
