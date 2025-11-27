@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-13T01:40:04.560624+00:00",
+  "timestamp": "2025-11-27T01:38:26.093984+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -9647,21 +9647,21 @@
       "id": "PR_kwDOMMuuSM6xiIbk",
       "title": "Define JWE Key Management Modes for HPKE",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/83",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Defines the HPKE Integrated Encryption and HPKE Key Encryption Key Management Modes, as requested by Richard Barnes in his WGLC review and as supported during the IETF 123 JOSE meeting.\r\n\r\nUpdates the JWE [RFC 7516] Message Encryption and Message Decryption sections to utilize these new Key Management Modes.\r\n\r\nFixes #77 \r\nFixes #79 \r\nFixes #42 \r\n\r\nCc: @panva @bc-pi @jogu @kodonog \r\n",
       "createdAt": "2025-11-05T01:51:45Z",
-      "updatedAt": "2025-11-06T20:06:15Z",
+      "updatedAt": "2025-11-26T01:09:19Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "f2ef43381b8f89c7a8523594f257dae449bf6a73",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-key-management-modes",
       "headRefOid": "e9cd718efbfde76dee90479eb8fd158ece07ee68",
-      "closedAt": null,
+      "closedAt": "2025-11-26T01:09:19Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -9728,6 +9728,13 @@
           "body": "Marking as \"draft\" so that it will not be merged.  I'm leaving it open until useful information in the review comments has been filed as issues.",
           "createdAt": "2025-11-06T15:42:51Z",
           "updatedAt": "2025-11-06T15:42:51Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Replaced by #84 ",
+          "createdAt": "2025-11-26T01:09:19Z",
+          "updatedAt": "2025-11-26T01:09:19Z"
         }
       ],
       "reviews": [
@@ -10487,13 +10494,13 @@
       "labels": [],
       "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n- Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
       "createdAt": "2025-11-06T15:41:14Z",
-      "updatedAt": "2025-11-12T06:18:33Z",
+      "updatedAt": "2025-11-27T01:02:31Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-design-team",
-      "headRefOid": "d526d004932f9457412149866acac39ce392e480",
+      "headRefOid": "44ac8aef377cc93e967f3794a8f941dbeaad340b",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -10526,6 +10533,48 @@
           "body": "@hannestschofenig I would suggest waiting to review the PR until I've completed it.  The initial commit does not instantiate the design team decisions.  The primary text change in the PR is to add the baseline Message Encryption and Message Decryption instructions from Sections 5.1 and 5.2 of RFC 7516 without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions this specification introduces are.)",
           "createdAt": "2025-11-10T18:27:46Z",
           "updatedAt": "2025-11-10T18:27:46Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For your reviewing pleasure, a rendered version of this PR is available at https://self-issued.info/tmp/draft-ietf-jose-hpke-encrypt.html",
+          "createdAt": "2025-11-26T02:15:02Z",
+          "updatedAt": "2025-11-26T02:15:02Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Since this construction does not seem to be named, how should another draft that adds a new cipher suite reference the procedures \u2014 especially HPKE in Key Encryption / Integrated Encryption \u2014 defined in this draft? Repeating the procedures risks divergences, which are very much undesirable.\r\n\r\nE.g., how should the two cipher suites with KDF=0x647a (X-Wing), KDF=0x0011 (SHAKE256), AEAD=0x0002 (AES-256-GCM) be defined?",
+          "createdAt": "2025-11-26T09:05:56Z",
+          "updatedAt": "2025-11-26T09:09:47Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Since this construction does not seem to be named, how should another draft that adds a new cipher suite reference the procedures \u2014 especially HPKE in Key Encryption / Integrated Encryption \u2014 defined in this draft? Repeating the procedures risks divergences, which are very much undesirable.\r\n> \r\n> E.g., how should the two cipher suites with KDF=0x647a (X-Wing), KDF=0x0011 (SHAKE256), AEAD=0x0002 (AES-256-GCM) be defined?\r\n\r\n@ilaril they would just be IANA \"alg\" registrations like the ones here, wouldn't they?",
+          "createdAt": "2025-11-26T13:21:23Z",
+          "updatedAt": "2025-11-26T13:21:23Z"
+        },
+        {
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> > Since this construction does not seem to be named, how should another draft that adds a new cipher suite reference the procedures \u2014 especially HPKE in Key Encryption / Integrated Encryption \u2014 defined in this draft? Repeating the procedures risks divergences, which are very much undesirable.\r\n> \r\n> @ilaril they would just be IANA \"alg\" registrations like the ones here, wouldn't they?\r\n\r\nIf the IE description was tweaked a bit to be consistent with KE description, one could refer to \"HPKE JWE algorithm\".",
+          "createdAt": "2025-11-26T13:43:53Z",
+          "updatedAt": "2025-11-26T13:43:53Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ilaril wrote:\r\n> If the IE description was tweaked a bit to be consistent with KE description, one could refer to \"HPKE JWE algorithm\".\r\n\r\nIndeed, the spec now uses the description \"HPKE JWE algorithm using Integrated Encryption\" in this case.",
+          "createdAt": "2025-11-26T21:07:13Z",
+          "updatedAt": "2025-11-26T21:07:13Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "FYI, I uploaded a fresh build of the PR to https://self-issued.info/tmp/draft-ietf-jose-hpke-encrypt.html so the recent changes can be viewed in context.",
+          "createdAt": "2025-11-27T01:02:31Z",
+          "updatedAt": "2025-11-27T01:02:31Z"
         }
       ],
       "reviews": [
@@ -10828,6 +10877,826 @@
               "updatedAt": "2025-11-12T06:18:33Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RMmtA",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:45:07Z",
+          "updatedAt": "2025-11-26T08:45:07Z",
+          "comments": [
+            {
+              "originalPosition": 335,
+              "body": "This seems a bit odd, RSA-OAEP-384 is a \"JWE algorithm using Key Encryption\", but this surely does not apply to it.",
+              "createdAt": "2025-11-26T08:45:07Z",
+              "updatedAt": "2025-11-26T08:45:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RMrrT",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:49:23Z",
+          "updatedAt": "2025-11-26T08:49:23Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "The HPKE aad parameter is empty for Key Encryption. Using Additional Authenticated Data encryption parameter would cause extreme implementation difficulties.",
+              "createdAt": "2025-11-26T08:49:23Z",
+              "updatedAt": "2025-11-26T08:49:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RMu2d",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:51:53Z",
+          "updatedAt": "2025-11-26T08:51:53Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "This does not seem right, steps 1-8 includes step 2, which is generating CEK. That should happen only once, not per recipient.",
+              "createdAt": "2025-11-26T08:51:53Z",
+              "updatedAt": "2025-11-26T08:51:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RMymv",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:54:46Z",
+          "updatedAt": "2025-11-26T08:54:46Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "Is this value used somewhere?",
+              "createdAt": "2025-11-26T08:54:46Z",
+              "updatedAt": "2025-11-26T08:54:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RM11c",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:56:46Z",
+          "updatedAt": "2025-11-26T08:56:46Z",
+          "comments": [
+            {
+              "originalPosition": 563,
+              "body": "Are these used anywhere?",
+              "createdAt": "2025-11-26T08:56:46Z",
+              "updatedAt": "2025-11-26T08:56:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RM4jM",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T08:58:52Z",
+          "updatedAt": "2025-11-26T08:58:52Z",
+          "comments": [
+            {
+              "originalPosition": 572,
+              "body": "For compact serialization, it might be clearer to reference Section 7.1 of RFC7516, instead of repeating most of that section here.",
+              "createdAt": "2025-11-26T08:58:52Z",
+              "updatedAt": "2025-11-26T08:58:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RPPQu",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T11:18:14Z",
+          "updatedAt": "2025-11-26T11:18:15Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "The problem is with step 8 in https://datatracker.ietf.org/doc/html/rfc7516#section-5.1 which says:\r\n   8.   If the JWE JSON Serialization is being used, repeat this process\r\n        (steps 1-7) for each recipient.",
+              "createdAt": "2025-11-26T11:18:15Z",
+              "updatedAt": "2025-11-26T11:18:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RP3-N",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:03:03Z",
+          "updatedAt": "2025-11-26T12:03:03Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "This is replacing the entire Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of {{RFC7516}}. So yeah, it is.",
+              "createdAt": "2025-11-26T12:03:03Z",
+              "updatedAt": "2025-11-26T12:03:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RP4H_",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:03:15Z",
+          "updatedAt": "2025-11-26T12:03:15Z",
+          "comments": [
+            {
+              "originalPosition": 563,
+              "body": "This is replacing the entire Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of {{RFC7516}}. So yeah, they are.",
+              "createdAt": "2025-11-26T12:03:15Z",
+              "updatedAt": "2025-11-26T12:03:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RP5lf",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:05:02Z",
+          "updatedAt": "2025-11-26T12:05:02Z",
+          "comments": [
+            {
+              "originalPosition": 572,
+              "body": "We are replacing an entire JWE section, I belive the proposed state is correct in explicitly stating the construction.",
+              "createdAt": "2025-11-26T12:05:02Z",
+              "updatedAt": "2025-11-26T12:05:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RP-PS",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:10:02Z",
+          "updatedAt": "2025-11-26T12:10:02Z",
+          "comments": [
+            {
+              "originalPosition": 266,
+              "body": "```suggestion\n- The HPKE info parameter defaults to the empty string;\n  mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}})\n  MAY be used instead so the application can include it during key derivation.\n```",
+              "createdAt": "2025-11-26T12:10:02Z",
+              "updatedAt": "2025-11-26T12:10:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQAnY",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:12:08Z",
+          "updatedAt": "2025-11-26T12:12:09Z",
+          "comments": [
+            {
+              "originalPosition": 335,
+              "body": "```suggestion\n- The \"alg\" header parameter MUST be a HPKE JWE algorithm using Key Encryption.\n```",
+              "createdAt": "2025-11-26T12:12:08Z",
+              "updatedAt": "2025-11-26T12:12:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQFYk",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:15:28Z",
+          "updatedAt": "2025-11-26T12:15:28Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "Can we possibly tone down the \"extreme implementation difficulties\" concerns? Any underlying HPKE implementation could be used such that Setup<Role>() and then ctx<Role>.Seal()/Open() is used and then both aad and info is available for use.\n\nThat being said, yes, we don't use `aad` in HPKE Key Encryption.\n\n```suggestion\n- The HPKE aad parameter defaults to the empty string.\n```",
+              "createdAt": "2025-11-26T12:15:28Z",
+              "updatedAt": "2025-11-26T12:15:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQLkI",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:20:21Z",
+          "updatedAt": "2025-11-26T12:20:22Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "The proposed language is correct. The new steps 1-7 are exclusive (with 7 being a new one), so it makes sense the original repeat of steps 1-7 becomes 1-8",
+              "createdAt": "2025-11-26T12:20:21Z",
+              "updatedAt": "2025-11-26T12:20:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQxxs",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T12:56:04Z",
+          "updatedAt": "2025-11-26T12:56:05Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "The thing that causes the implementation difficulties is lack of way of getting AADEP for Key Encryption. In fact, the AADEP might not even exist yet at that point.",
+              "createdAt": "2025-11-26T12:56:05Z",
+              "updatedAt": "2025-11-26T12:56:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQ2lU",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:00:41Z",
+          "updatedAt": "2025-11-26T13:00:41Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "I would say:  \r\nThe HPKE aad parameter MUST be set to a empty string.",
+              "createdAt": "2025-11-26T13:00:41Z",
+              "updatedAt": "2025-11-26T13:00:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQ3Ig",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:01:20Z",
+          "updatedAt": "2025-11-26T13:01:20Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "The problem is with step 2 which should not be repeated for each recipient. ",
+              "createdAt": "2025-11-26T13:01:20Z",
+              "updatedAt": "2025-11-26T13:01:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQ5N0",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:03:24Z",
+          "updatedAt": "2025-11-26T13:03:24Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "I do not think a new CEK should be generated for each recipient. There should be at most one generated CEK.\r\n\r\nLooks like this is copied from RFC 7516: Steps 1-7 are repeated for each recipient, which includes CEK generation (step 2).",
+              "createdAt": "2025-11-26T13:03:24Z",
+              "updatedAt": "2025-11-26T13:03:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQ5g7",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:03:46Z",
+          "updatedAt": "2025-11-26T13:03:46Z",
+          "comments": [
+            {
+              "originalPosition": 266,
+              "body": "Using both info and aad simultaneously would violate the API guidance in {{Section 8.1 of I-D.ietf-hpke-hpke}}, which advises against the use of both parameters in single-shot HPKE APIs.",
+              "createdAt": "2025-11-26T13:03:46Z",
+              "updatedAt": "2025-11-26T13:03:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RQ_lG",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:09:32Z",
+          "updatedAt": "2025-11-26T13:09:32Z",
+          "comments": [
+            {
+              "originalPosition": 266,
+              "body": "That guidance doesn't preclude an implementer using Setup\\<Role> and then ctx\\<Role>.Seal() or ctx\\<Role>.Open() even for a single JOSE message. I say there's no reason to preclude use of mutually known private information in Integrated Encryption outside of AAD if that's what niche use cases call for.",
+              "createdAt": "2025-11-26T13:09:32Z",
+              "updatedAt": "2025-11-26T13:09:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRDuO",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:13:12Z",
+          "updatedAt": "2025-11-26T13:13:13Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "I do not see where it gets used. The only subsequent steps to use Initialization Vector are 16 and 21, and both work on raw Initialization Vector, not on encoded Initialization Vector.\r\n\r\nThis looks to be copied from RFC 7516, where encoded Initialization Vector is also computed, but not used anywhere.",
+              "createdAt": "2025-11-26T13:13:12Z",
+              "updatedAt": "2025-11-26T13:13:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRFAK",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:14:35Z",
+          "updatedAt": "2025-11-26T13:14:35Z",
+          "comments": [
+            {
+              "originalPosition": 563,
+              "body": "The only subsequent step is 21, which does not use these values.\r\n\r\nAnd again, seems to be copied from RFC 7516, where these values are not used for anything.",
+              "createdAt": "2025-11-26T13:14:35Z",
+              "updatedAt": "2025-11-26T13:14:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRNjX",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:22:21Z",
+          "updatedAt": "2025-11-26T13:22:21Z",
+          "comments": [
+            {
+              "originalPosition": 572,
+              "body": "I prefer referencing stuff as opposed to repeating stuff, as repeating is error-prone. At least this is just copy-paste, which is easy \u2014 as opposed to something more complicated.\r\n\r\nAnd this is yet another thing from RFC 7516.",
+              "createdAt": "2025-11-26T13:22:21Z",
+              "updatedAt": "2025-11-26T13:22:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRgZ5",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:40:22Z",
+          "updatedAt": "2025-11-26T13:40:22Z",
+          "comments": [
+            {
+              "originalPosition": 247,
+              "body": "Since other stuff is specific to HPKE , maybe:\r\n\r\nThe \"alg\" header parameter MUST be a HPKE JWE algorithm using Integrated Encryption",
+              "createdAt": "2025-11-26T13:40:22Z",
+              "updatedAt": "2025-11-26T13:40:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRmXw",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:46:23Z",
+          "updatedAt": "2025-11-26T13:46:23Z",
+          "comments": [
+            {
+              "originalPosition": 477,
+              "body": "```suggestion\r\n1.  When Key Wrapping, Key Encryption,\r\n    or Key Agreement with Key Wrapping are employed,\r\n    generate a random CEK value to use for subsequent steps,\r\n    unless one was already generated for a previously\r\n    processed recipient in which case let that be the one used\r\n    for subsequent steps.\r\n```",
+              "createdAt": "2025-11-26T13:46:23Z",
+              "updatedAt": "2025-11-26T13:56:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RRmoq",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T13:46:41Z",
+          "updatedAt": "2025-11-26T13:46:41Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "I understand, see my proposal https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/84/files#r2565076018",
+              "createdAt": "2025-11-26T13:46:41Z",
+              "updatedAt": "2025-11-26T13:46:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RR-6_",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T14:10:53Z",
+          "updatedAt": "2025-11-26T14:10:54Z",
+          "comments": [
+            {
+              "originalPosition": 247,
+              "body": "```suggestion\r\n- An Integrated Encryption algorithm MUST be present in the protected header inside the \"alg\" header parameter.\r\n```",
+              "createdAt": "2025-11-26T14:10:53Z",
+              "updatedAt": "2025-11-26T14:10:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RSALL",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T14:11:38Z",
+          "updatedAt": "2025-11-26T14:11:38Z",
+          "comments": [
+            {
+              "originalPosition": 247,
+              "body": "Actually, I think the original is better.",
+              "createdAt": "2025-11-26T14:11:38Z",
+              "updatedAt": "2025-11-26T14:11:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RSILK",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T14:18:50Z",
+          "updatedAt": "2025-11-26T14:18:51Z",
+          "comments": [
+            {
+              "originalPosition": 383,
+              "body": "```suggestion\r\n  If no additional context information is provided, this field MUST be the empty string.\r\n```",
+              "createdAt": "2025-11-26T14:18:50Z",
+              "updatedAt": "2025-11-26T14:18:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RSRFm",
+          "commit": {
+            "abbreviatedOid": "f1cdb22"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T14:26:31Z",
+          "updatedAt": "2025-11-26T14:26:31Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "Resolving outdated thread.",
+              "createdAt": "2025-11-26T14:26:31Z",
+              "updatedAt": "2025-11-26T14:26:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXVtJ",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T19:53:06Z",
+          "updatedAt": "2025-11-26T19:53:07Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "We must include the \"Additional Authenticated Data encryption parameter\" value specified in Step 15 of {{encryption}} in the computation or the protected header and AAD value are not protected.  Given that this is Additional Authenticated Data, the HPKE \"aad\" parameter is the logical place to put it.\r\n\r\nThat leaves the HPKE \"info\" parameter for the application to use as it sees fit.  There are multiple potential applications of JOSE HPKE that want this capability.\r\n\r\nIlari, please expand the acronym AADEP and say why it's pertinent.  I can't find it in the HPKE spec or anywhere on the Web, for that matter.  Thanks.",
+              "createdAt": "2025-11-26T19:53:06Z",
+              "updatedAt": "2025-11-26T19:53:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXcTK",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T20:02:30Z",
+          "updatedAt": "2025-11-26T20:02:30Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "@selfissued this section is for HPKE Key Encryption, so no, we don't use HPKE to protect the JWE AAD, as that is done by JWE's \"enc\" / AEAD as per usual. In HPKE Key Encryption HPKE only protects the CEK and the cross-layer Recipient_structure.",
+              "createdAt": "2025-11-26T20:02:30Z",
+              "updatedAt": "2025-11-26T20:07:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXq8z",
+          "commit": {
+            "abbreviatedOid": "31d92c6"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T20:22:02Z",
+          "updatedAt": "2025-11-26T20:22:02Z",
+          "comments": [
+            {
+              "originalPosition": 497,
+              "body": "```suggestion\n    generate a random CEK value to use for subsequent steps\n    unless one was already generated for a previously\n    processed recipient, in which case, let that be the one used\n```",
+              "createdAt": "2025-11-26T20:22:02Z",
+              "updatedAt": "2025-11-26T20:22:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXurz",
+          "commit": {
+            "abbreviatedOid": "db5f235"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T20:27:18Z",
+          "updatedAt": "2025-11-26T20:27:18Z",
+          "comments": [
+            {
+              "originalPosition": 509,
+              "body": "@panva's suggestion was merged and addressed the problem.",
+              "createdAt": "2025-11-26T20:27:18Z",
+              "updatedAt": "2025-11-26T20:27:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXvwu",
+          "commit": {
+            "abbreviatedOid": "db5f235"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T20:29:15Z",
+          "updatedAt": "2025-11-26T20:29:15Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "Yes, the JWE Initialization Vector is used in all serializations.  See Step 21.",
+              "createdAt": "2025-11-26T20:29:15Z",
+              "updatedAt": "2025-11-26T20:29:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RXwE3",
+          "commit": {
+            "abbreviatedOid": "db5f235"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T20:29:50Z",
+          "updatedAt": "2025-11-26T20:29:50Z",
+          "comments": [
+            {
+              "originalPosition": 563,
+              "body": "This is used in all serializations.  See Step 21.",
+              "createdAt": "2025-11-26T20:29:50Z",
+              "updatedAt": "2025-11-26T20:29:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RYEyt",
+          "commit": {
+            "abbreviatedOid": "d7ae043"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T21:03:57Z",
+          "updatedAt": "2025-11-26T21:03:58Z",
+          "comments": [
+            {
+              "originalPosition": 247,
+              "body": "The latest commit updated the wording in a manner similar to that suggested by Ilari.",
+              "createdAt": "2025-11-26T21:03:57Z",
+              "updatedAt": "2025-11-26T21:03:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RYPcv",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T21:24:45Z",
+          "updatedAt": "2025-11-26T21:24:45Z",
+          "comments": [
+            {
+              "originalPosition": 338,
+              "body": "AADEP => Additional Authenticated Data encryption parameter\r\n\r\nSince encryption procedure is supposed to be in order, that value is only supposed to appear in bulk encryption (step 16 or 17), not in key encryption (step 4).",
+              "createdAt": "2025-11-26T21:24:45Z",
+              "updatedAt": "2025-11-26T21:24:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RYTvf",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T21:33:56Z",
+          "updatedAt": "2025-11-26T21:33:57Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "Yes, but step 21 does \"BASE64URL(JWE Initialization Vector)\" (for any serialization) instead of using \"encoded Initialization Vector\". IOW, this step gets re-done in step 21.\r\n",
+              "createdAt": "2025-11-26T21:33:57Z",
+              "updatedAt": "2025-11-26T21:39:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RYVig",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-26T21:37:09Z",
+          "updatedAt": "2025-11-26T21:37:09Z",
+          "comments": [
+            {
+              "originalPosition": 563,
+              "body": "Step 21 has \"BASE64URL(JWE Ciphertext)\", \"BASE64URL(JWE Authentication Tag)\" and \"BASE64URL(JWE AAD)\" (for all serializations), not \"encoded ciphertext\", \"encoded Authentication Tag\" and \"encoded AAD\". IOW, these steps get re-done in step 21.",
+              "createdAt": "2025-11-26T21:37:09Z",
+              "updatedAt": "2025-11-26T21:39:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RZgR-",
+          "commit": {
+            "abbreviatedOid": "b3dedc8"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T00:48:49Z",
+          "updatedAt": "2025-11-27T00:48:49Z",
+          "comments": [
+            {
+              "originalPosition": 516,
+              "body": "I guess it depends upon what you mean by \"used\".  The value BASE64URL(JWE Initialization Vector) computed in Step 11 is used in Step 21.  Yes, an implementation of Step 21 could throw away the value computed in Step 11 and recompute it, but that would be inefficient.\r\n\r\nIn any event, this is all text from RFC 7516.  If you want to suggest improvements to it, you can, but I'd rather leave it alone where it is already correct, which this is.  Let's only change things needed to make HPKE work or to fix actual problems found (such as the problem with repeating Step 2 that Filip fixed).",
+              "createdAt": "2025-11-27T00:48:49Z",
+              "updatedAt": "2025-11-27T00:48:49Z"
+            }
+          ]
         }
       ]
     },
@@ -10895,6 +11764,103 @@
           "body": "",
           "createdAt": "2025-11-10T18:20:15Z",
           "updatedAt": "2025-11-10T18:20:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 86,
+      "id": "PR_kwDOMMuuSM61p0iw",
+      "title": "update examples for PR #84",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/86",
+      "state": "MERGED",
+      "author": "panva",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Mike asked me to produce these.",
+      "createdAt": "2025-11-26T13:32:54Z",
+      "updatedAt": "2025-11-26T18:22:44Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "mbj-design-team",
+      "baseRefOid": "d7ae043c0d874867e12d29d621f486e420b99bfa",
+      "headRepository": null,
+      "headRefName": "mbj-design-team",
+      "headRefOid": "386013f423ec9f4eaaf761b8b974349f7357199d",
+      "closedAt": "2025-11-26T18:22:04Z",
+      "mergedAt": "2025-11-26T18:22:04Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "84d360d0cbf9d64f7342549e78b9524cf02bb044"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7RR4xx",
+          "commit": {
+            "abbreviatedOid": "386013f"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-26T14:05:18Z",
+          "updatedAt": "2025-11-26T14:05:18Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RWKba",
+          "commit": {
+            "abbreviatedOid": "386013f"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-26T18:21:55Z",
+          "updatedAt": "2025-11-26T18:21:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 87,
+      "id": "PR_kwDOMMuuSM61qL7B",
+      "title": "Fix preview",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/87",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-26T14:03:49Z",
+      "updatedAt": "2025-11-26T18:32:41Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "fix-preview",
+      "headRefOid": "484a55efc6a1b3a2da49b707d13bfc0b46f9eda7",
+      "closedAt": "2025-11-26T18:32:41Z",
+      "mergedAt": "2025-11-26T18:32:41Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "f1c62932aabdbc3a936de7dca9680c16f961708e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7RWRij",
+          "commit": {
+            "abbreviatedOid": "484a55e"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-26T18:32:25Z",
+          "updatedAt": "2025-11-26T18:32:25Z",
           "comments": []
         }
       ]
