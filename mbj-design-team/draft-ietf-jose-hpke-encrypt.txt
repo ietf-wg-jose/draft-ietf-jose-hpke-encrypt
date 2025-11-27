@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 30 May 2026                                         A. Banerjee
+Expires: 31 May 2026                                         A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                        26 November 2025
+                                                        27 November 2025
 
 
   Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 May 2026.
+   This Internet-Draft will expire on 31 May 2026.
 
 Copyright Notice
 
@@ -305,8 +305,8 @@ Table of Contents
       Authenticated Data encryption parameter" value specified in Step
       15 of Section 7.1.
 
-   *  The HPKE info parameter defaults to the empty string; mutually
-      known private information (a concept also utilized in
+   *  The HPKE info parameter defaults to the empty octet sequence;
+      mutually known private information (a concept also utilized in
       [NIST.SP.800-56Ar3]) MAY be used instead so the application can
       include it during key derivation.
 
@@ -379,7 +379,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    *  The header parameter "ek" MUST be present and contain the
       base64url-encoded HPKE encapsulated secret.
 
-   *  The HPKE aad parameter defaults to the empty string.
+   *  The HPKE aad parameter defaults to the empty octet sequence.
 
    *  The HPKE info parameter is set to the value of the
       Recipient_structure defined below.
@@ -425,7 +425,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
       derivation.  Mutually known private information (a concept also
       utilized in [NIST.SP.800-56Ar3]) MAY be used in this input
       parameter.  If no additional context information is provided, this
-      field MUST be the empty string.
+      field MUST be the empty octet sequence.
 
 6.2.  Key Encryption Algorithms using HPKE
 
