@@ -368,7 +368,7 @@ Where:
   that the application includes in the key derivation.
   Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter.
   If no additional context information is provided, this field MUST be the empty octet sequence.
-
+Note that JWE HPKE integrated encryption does not require `Recipient_structure` because the JWE Protected Header and JWE AAD are already provided as HPKE aad, which binds these parameters to the ciphertext.
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
 The following JWE algorithms using HPKE are defined for use with
