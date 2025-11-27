@@ -258,7 +258,7 @@ When using Integrated Encryption with HPKE:
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
 - The JWE AAD MAY be present when using the JWE JSON Serialization.
 - The HPKE aad parameter MUST be set to the "Additional Authenticated Data encryption parameter" value specified in Step 15 of {{encryption}}.
-- The HPKE info parameter defaults to the empty string;
+- The HPKE info parameter defaults to the empty octet sequence;
   mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}})
   MAY be used instead so the application can include it during key derivation.
 - The JWE Ciphertext is the ciphertext from the HPKE encryption,
@@ -324,7 +324,7 @@ Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT
 - The "alg" header parameter MUST be a HPKE JWE algorithm using Key Encryption.
 - The header parameter "psk_id" MAY be present.
 - The header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated secret.
-- The HPKE aad parameter defaults to the empty string.
+- The HPKE aad parameter defaults to the empty octet sequence.
 - The HPKE info parameter is set to the value of the Recipient_structure defined below.
 - THE HPKE plaintext MUST be set to the CEK.
 - The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
@@ -365,7 +365,7 @@ Where:
 * recipient_extra_info: An octet string containing additional context information
   that the application includes in the key derivation.
   Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter.
-  If no additional context information is provided, this field MUST be the empty string.
+  If no additional context information is provided, this field MUST be the empty octet sequence.
 
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
