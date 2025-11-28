@@ -367,28 +367,16 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    When using Key Encryption with HPKE:
 
-   *  When all recipients use the same JWE algorithm to secure the
-      Content Encryption Key, the JWE Protected Header SHOULD contain
-      "alg".  Otherwise, the JWE Protected Header (and JWE Shared
-      Unprotected Header) MUST NOT contain "alg".
-
-   *  The "alg" header parameter MUST be a HPKE JWE algorithm using Key
-      Encryption.
-
-   *  The header parameter "psk_id" MAY be present.
-
-   *  The header parameter "ek" MUST be present and contain the
-      base64url-encoded HPKE encapsulated secret.
-
-   *  The HPKE aad parameter defaults to the empty octet sequence.
-
-   *  The HPKE info parameter is set to the value of the
-      Recipient_structure defined below.
-
-   *  THE HPKE plaintext MUST be set to the CEK.
-
-   *  The recipient's JWE Encrypted Key is the ciphertext from the HPKE
-      Encryption, as defined in Section 5.2 of [I-D.ietf-hpke-hpke].
+   Otherwise, the JWE Protected Header (and JWE Shared Unprotected
+   Header) MUST NOT contain "alg". - The "alg" header parameter MUST be
+   a HPKE JWE algorithm using Key Encryption. - The header parameter
+   "psk_id" MAY be present. - The header parameter "ek" MUST be present
+   and contain the base64url-encoded HPKE encapsulated secret. - The
+   HPKE aad parameter defaults to the empty octet sequence. - The HPKE
+   info parameter is set to the value of the Recipient_structure defined
+   below. - THE HPKE plaintext MUST be set to the CEK. - The recipient's
+   JWE Encrypted Key is the ciphertext from the HPKE Encryption, as
+   defined in Section 5.2 of [I-D.ietf-hpke-hpke].
 
 6.1.  Recipient_structure
 
