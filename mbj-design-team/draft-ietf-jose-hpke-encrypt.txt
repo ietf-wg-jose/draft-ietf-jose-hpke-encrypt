@@ -413,7 +413,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  ASCII(content_encryption_alg): Identifies the content encryption
       algorithm with which the HPKE-encrypted Content Encryption Key
-      (CEK) MUST be used.  Its value MUST match the "enc" (encryption
+      (CEK) is used.  Its value MUST match the "enc" (encryption
       algorithm) header parameter value in the JOSE Header.  This field
       provides JWE context information to the key derivation process,
       which ensures that the derived key is bound to the selected
