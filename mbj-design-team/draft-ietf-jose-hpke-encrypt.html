@@ -1677,15 +1677,30 @@ recipients using Key Encryption with HPKE can be added alongside other recipient
 (e.g., those using <code>ECDH-ES+A128KW</code> or <code>RSA-OAEP-256</code>),
 since HPKE is used to encrypt the Content Encryption Key (CEK).<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">When using Key Encryption with HPKE:<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) <span class="bcp14">MUST NOT</span> contain "alg".
-- The "alg" header parameter <span class="bcp14">MUST</span> be a HPKE JWE algorithm using Key Encryption.
-- The header parameter "psk_id" <span class="bcp14">MAY</span> be present.
-- The header parameter "ek" <span class="bcp14">MUST</span> be present and contain the base64url-encoded HPKE encapsulated secret.
-- The HPKE aad parameter defaults to the empty octet sequence.
-- The HPKE info parameter is set to the value of the Recipient_structure defined below.
-- THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.
-- The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
-  as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-3.1">
+          <p id="section-6-3.1.1">The "alg" header parameter <span class="bcp14">MUST</span> be a HPKE JWE algorithm using Key Encryption.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.2">
+          <p id="section-6-3.2.1">The header parameter "psk_id" <span class="bcp14">MAY</span> be present.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.3">
+          <p id="section-6-3.3.1">The header parameter "ek" <span class="bcp14">MUST</span> be present and contain the base64url-encoded HPKE encapsulated secret.<a href="#section-6-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.4">
+          <p id="section-6-3.4.1">The HPKE aad parameter defaults to the empty octet sequence.<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.5">
+          <p id="section-6-3.5.1">The HPKE info parameter is set to the value of the Recipient_structure defined below.<a href="#section-6-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.6">
+          <p id="section-6-3.6.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-3.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.7">
+          <p id="section-6-3.7.1">The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
+as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-02#section-5.2" class="relref">Section 5.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-6-3.7.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 <div id="recipient_structure">
 <section id="section-6.1">
         <h3 id="name-recipient_structure">
