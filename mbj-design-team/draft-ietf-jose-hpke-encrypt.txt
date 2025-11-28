@@ -586,10 +586,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         the encryption operation).
 
    17.  If Integrated Encryption is being employed, encrypt M using the
-        public key, the Additional Authenticated Data value, and the JWE
-        Encrypted Key value using the specified Integrated Encryption
-        algorithm to create the JWE Ciphertext value.  Let the JWE
-        Authentication Tag be the empty octet sequence.
+        specified Integrated Encryption algorithm to create the JWE
+        Ciphertext value.  Let the JWE Authentication Tag be the empty
+        octet sequence.
 
    18.  Compute the encoded ciphertext value BASE64URL(JWE Ciphertext).
 
@@ -731,12 +730,10 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         Tag is incorrect.
 
    17.  If Integrated Encryption is being employed, decrypt the JWE
-        Ciphertext using the private key, the Additional Authenticated
-        Data value, and the JWE Encrypted Key value using the specified
-        Integrated Encryption algorithm, returning the decrypted
-        plaintext in the manner specified for the algorithm, rejecting
-        the input without emitting any decrypted output if the
-        decryption fails.
+        Ciphertext using the specified Integrated Encryption algorithm,
+        returning the decrypted plaintext in the manner specified for
+        the algorithm, rejecting the input without emitting any
+        decrypted output if the decryption fails.
 
    18.  If a zip parameter was included, uncompress the decrypted
         plaintext using the specified compression algorithm.

@@ -1958,9 +1958,7 @@ to create the JWE Ciphertext value and the JWE Authentication Tag
 </li>
           <li id="section-7.1-2.17">
             <p id="section-7.1-2.17.1">If Integrated Encryption is being employed,
-encrypt M using the public key,
-the Additional Authenticated Data value,
-and the JWE Encrypted Key value
+encrypt M
 using the specified Integrated Encryption algorithm
 to create the JWE Ciphertext value.
 Let the JWE Authentication Tag be the empty octet sequence.<a href="#section-7.1-2.17.1" class="pilcrow">¶</a></p>
@@ -2156,9 +2154,7 @@ if the JWE Authentication Tag is incorrect.<a href="#section-7.2-3.16.1" class="
 </li>
           <li id="section-7.2-3.17">
             <p id="section-7.2-3.17.1">If Integrated Encryption is being employed,
-decrypt the JWE Ciphertext using the private key,
-the Additional Authenticated Data value,
-and the JWE Encrypted Key value
+decrypt the JWE Ciphertext
 using the specified Integrated Encryption algorithm,
 returning the decrypted plaintext
 in the manner specified for the algorithm,
