@@ -357,10 +357,10 @@ Where:
 
 * ASCII(content_encryption_alg): Identifies the content encryption algorithm
   with which the HPKE-encrypted Content Encryption Key (CEK) is used.
-  Its value MUST match the "enc" (encryption algorithm) header parameter value
+  Its value MUST be the "enc" (encryption algorithm) header parameter value
   in the JOSE Header.
-  This field provides JWE context information to the key derivation process,
-  which ensures that the derived key is bound to the selected content encryption algorithm.
+  This field provides JWE context information to the HPKE key schedule,
+  which ensures that the encapsulated secret is bound to the selected content encryption algorithm.
 
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
