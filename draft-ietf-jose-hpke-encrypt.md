@@ -321,7 +321,6 @@ since HPKE is used to encrypt the Content Encryption Key (CEK).
 
 When using Key Encryption with HPKE:
 
-- When all recipients use the same JWE algorithm to secure the Content Encryption Key, the JWE Protected Header SHOULD contain "alg".
 Otherwise, the JWE Protected Header (and JWE Shared Unprotected Header) MUST NOT contain "alg".
 - The "alg" header parameter MUST be a HPKE JWE algorithm using Key Encryption.
 - The header parameter "psk_id" MAY be present.
