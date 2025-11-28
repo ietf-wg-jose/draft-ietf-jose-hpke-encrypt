@@ -134,7 +134,7 @@ and the possibility of utilizing future HPKE algorithms.
 
 {::boilerplate bcp14-tagged}
 
-# Terminology
+# Terminology {#terminology}
 
 This specification uses the following abbreviations and terms:
 
@@ -223,14 +223,6 @@ Key Encryption can be used with the "aad" header parameter
 when using the JWE JSON Serialization.
 Single recipient Key Encryption with no "aad" header parameter can be expressed
 in the JWE Compact Serialization.
-
-## Auxiliary Authenticated Application Information
-
-The HPKE "aad parameter" for Open() and Seal()
-specified in {{Section 8.1 of I-D.ietf-hpke-hpke}}
-is used with both Integrated Encryption and Key Encryption.
-Its value is the Additional Authenticated Data encryption parameter value
-specified in Step 15 of {{encryption}}.
 
 ## Encapsulated Secrets {#encapsulated-secrets}
 
@@ -642,6 +634,9 @@ MUST successfully validate or the JWE MUST be considered invalid.
     specified by the
     `alg` (algorithm) Header Parameter.
 
+1.  If using Integrated Encryption, Direct Encryption or Direct Key Agreement,
+    verify that there is exactly one recipient.
+
 1.  Verify that the JWE uses a key known to the recipient.
 
 1.  When Direct Key Agreement or Key Agreement with Key Wrapping
@@ -675,7 +670,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     record whether the CEK could be successfully determined for this recipient or not.
 
 1.  If the JWE JSON Serialization is being used, repeat this process
-    (steps 4-12)
+    (steps 4-13)
     for each recipient contained in the representation.
 
 1.  Compute the Encoded Protected Header value
@@ -697,11 +692,14 @@ MUST successfully validate or the JWE MUST be considered invalid.
     the Additional Authenticated Data value,
     and the JWE Authentication Tag
     (which is the Authentication Tag input to the calculation)
-    using the specified content encryption algorithm,
+    using the content encryption algorithm specified in the "enc" header parameter,
     returning the decrypted plaintext and validating the JWE Authentication Tag
     in the manner specified for the algorithm,
     rejecting the input without emitting any decrypted output
     if the JWE Authentication Tag is incorrect.
+
+1.  If Integrated Encryption is being employed,
+    verify that no "enc" header parameter is present.
 
 1.  If Integrated Encryption is being employed,
     decrypt the JWE Ciphertext
@@ -726,7 +724,7 @@ Even if a JWE can be successfully decrypted,
 unless the algorithms used in the JWE are acceptable
 to the application, it SHOULD consider the JWE to be invalid.
 
-# Distinguishing between JWS and JWE Objects
+# Distinguishing Between JWS and JWE Objects {#distinguishing}
 
 {{Section 9 of RFC7516}} is updated to delete the last bullet, which says:
 
@@ -995,6 +993,23 @@ The following entries are added to the IANA "JSON Web Key Parameters" registry {
 - Header Parameter Usage Location(s): JWE
 - Change Controller: IETF
 - Specification Document(s): {{overview}} of [[ this specification ]]
+
+# Summary of Updates to RFC 7516 (JWE)
+
+This specification updates JSON Web Encryption (JWE) {{RFC7516}} as follows:
+
+- Adds the Integrated Encryption Key Management Mode and correspondingly
+  updates the Key Management Mode definition ({{terminology}}).
+
+- Updates the "enc" header parameter to be absent when
+  Integrated Encryption is used in ({{overview}}).
+
+- Replaces the Message Encryption procedure ({{encryption}}).
+
+- Replaces the Message Decryption procedure ({{decryption}}).
+
+- Updates the methods for distinguishing between JWS and JWE objects
+  ({{distinguishing}}).
 
 --- back
 
