@@ -1,6 +1,6 @@
 ---
 title: "Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption (JWE)"
-abbrev: "Use of HPKE in JOSE"
+abbrev: "Use of HPKE in JWE"
 category: std
 updates: 7516
 
