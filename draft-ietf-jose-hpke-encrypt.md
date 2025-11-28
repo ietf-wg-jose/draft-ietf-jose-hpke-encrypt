@@ -1,6 +1,6 @@
 ---
 title: "Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption (JWE)"
-abbrev: "Use of HPKE in JOSE"
+abbrev: "Use of HPKE in JWE"
 category: std
 updates: 7516
 
@@ -128,7 +128,7 @@ Hybrid Public Key Encryption (HPKE) {{I-D.ietf-hpke-hpke}} is a public key encry
 recipient's public key.
 This specification enables JSON Web Encryption (JWE) {{RFC7516}} to leverage HPKE,
 bringing support for HPKE encryption and KEMs to JWE,
-and the possibility of utilizing future HPKE algorithms, including composite KEMs.
+and the possibility of utilizing future HPKE algorithms.
 
 # Notational Conventions
 
@@ -295,6 +295,8 @@ Below is an example of a JWE using the Compact Serialization and Integrated Encr
 eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jEH3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmXXNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMraa9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkgy2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ37A0Hr5esPLwHRTTrBFw.
 ~~~
 
+The key used for this example is in {{int-key}}.
+
 ## Flattened JWE JSON Serialization Example {#flattened-example}
 
 Below is an example of a JWE using the Flattened JSON Serialization and Integrated Encryption with HPKE:
@@ -354,11 +356,11 @@ Where:
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
 * ASCII(content_encryption_alg): Identifies the content encryption algorithm
-  with which the HPKE-encrypted Content Encryption Key (CEK) MUST be used.
-  Its value MUST match the "enc" (encryption algorithm) header parameter value
+  with which the HPKE-encrypted Content Encryption Key (CEK) is used.
+  Its value MUST be the "enc" (encryption algorithm) header parameter value
   in the JOSE Header.
-  This field provides JWE context information to the key derivation process,
-  which ensures that the derived key is bound to the selected content encryption algorithm.
+  This field provides JWE context information to the HPKE key schedule,
+  which ensures that the encapsulated secret is bound to the selected content encryption algorithm.
 
 * BYTE(255): A separator byte (0xFF) used to delimit fields.
 
@@ -366,6 +368,8 @@ Where:
   that the application includes in the key derivation.
   Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter.
   If no additional context information is provided, this field MUST be the empty octet sequence.
+
+Note that Integrated Encryption does not use the `Recipient_structure` because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.
 
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
@@ -406,7 +410,7 @@ The corresponding hexadecimal representation is:
 4a4f53452d48504b452072637074ff4131323847434dff
 ~~~
 
-This value is used as the HPKE `info` parameter.
+This value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.
 
 
 ## General JWE JSON Serialization Example {#general-example}
