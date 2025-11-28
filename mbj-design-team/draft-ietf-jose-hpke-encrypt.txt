@@ -85,8 +85,7 @@ Table of Contents
    2.  Notational Conventions
    3.  Terminology
    4.  Overview
-     4.1.  Auxiliary Authenticated Application Information
-     4.2.  Encapsulated Secrets
+     4.1.  Encapsulated Secrets
    5.  Integrated Encryption
      5.1.  Integrated Encryption Algorithms using HPKE
      5.2.  JWE Compact Serialization Example
@@ -99,7 +98,7 @@ Table of Contents
    7.  Producing and Consuming JWEs
      7.1.  Message Encryption
      7.2.  Message Decryption
-   8.  Distinguishing between JWS and JWE Objects
+   8.  Distinguishing Between JWS and JWE Objects
    9.  JWK Representations for JWE HPKE Keys
      9.1.  JWK Representation of Key using JWE HPKE Ciphersuite
    10. Security Considerations
@@ -126,9 +125,10 @@ Table of Contents
      11.2.  JSON Web Signature and Encryption Header Parameters
        11.2.1.  ek
        11.2.2.  psk_id
-   12. References
-     12.1.  Normative References
-     12.2.  Informative References
+   12. Summary of Updates to RFC 7516 (JWE)
+   13. References
+     13.1.  Normative References
+     13.2.  Informative References
    Appendix A.  Keys Used in Examples
      A.1.  Integrated Encryption Key
      A.2.  Key Encryption Key
@@ -256,15 +256,7 @@ Table of Contents
    "aad" header parameter can be expressed in the JWE Compact
    Serialization.
 
-4.1.  Auxiliary Authenticated Application Information
-
-   The HPKE "aad parameter" for Open() and Seal() specified in
-   Section 8.1 of [I-D.ietf-hpke-hpke] is used with both Integrated
-   Encryption and Key Encryption.  Its value is the Additional
-   Authenticated Data encryption parameter value specified in Step 15 of
-   Section 7.1.
-
-4.2.  Encapsulated Secrets
+4.1.  Encapsulated Secrets
 
    HPKE encapsulated secret is defined in Section 5 of
    [I-D.ietf-hpke-hpke].
@@ -667,16 +659,19 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    6.   Determine the Key Management Mode employed by the algorithm
         specified by the alg (algorithm) Header Parameter.
 
-   7.   Verify that the JWE uses a key known to the recipient.
+   7.   If using Integrated Encryption, Direct Encryption or Direct Key
+        Agreement, verify that there is exactly one recipient.
 
-   8.   When Direct Key Agreement or Key Agreement with Key Wrapping are
+   8.   Verify that the JWE uses a key known to the recipient.
+
+   9.   When Direct Key Agreement or Key Agreement with Key Wrapping are
         employed, use the key agreement algorithm to compute the value
         of the agreed upon key.  When Direct Key Agreement is employed,
         let the CEK be the agreed upon key.  When Key Agreement with Key
         Wrapping is employed, the agreed upon key will be used to
         decrypt the JWE Encrypted Key.
 
-   9.   When Key Wrapping, Key Encryption, or Key Agreement with Key
+   10.  When Key Wrapping, Key Encryption, or Key Agreement with Key
         Wrapping are employed, decrypt the JWE Encrypted Key to produce
         the CEK.  The CEK MUST have a length equal to that required for
         the content encryption algorithm.  Note that when there are
@@ -687,53 +682,56 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         obtain the CEK value.  Also, see Section 11.5 of [RFC7516] for
         security considerations on mitigating timing attacks.
 
-   10.  When Direct Key Agreement or Direct Encryption are employed,
+   11.  When Direct Key Agreement or Direct Encryption are employed,
         verify that the JWE Encrypted Key value is an empty octet
         sequence.
 
-   11.  When Direct Encryption is employed, let the CEK be the shared
+   12.  When Direct Encryption is employed, let the CEK be the shared
         symmetric key.
 
-   12.  If Integrated Encryption is not being employed, record whether
+   13.  If Integrated Encryption is not being employed, record whether
         the CEK could be successfully determined for this recipient or
         not.
 
-   13.  If the JWE JSON Serialization is being used, repeat this process
-        (steps 4-12) for each recipient contained in the representation.
+   14.  If the JWE JSON Serialization is being used, repeat this process
+        (steps 4-13) for each recipient contained in the representation.
 
-   14.  Compute the Encoded Protected Header value BASE64URL(UTF8(JWE
+   15.  Compute the Encoded Protected Header value BASE64URL(UTF8(JWE
         Protected Header)).  If the JWE Protected Header is not present
         (which can only happen when using the JWE JSON Serialization and
         no protected member is present), let this value be the empty
         string.
 
-   15.  Let the Additional Authenticated Data encryption parameter be
+   16.  Let the Additional Authenticated Data encryption parameter be
         ASCII(Encoded Protected Header).  However, if a JWE AAD value is
         present (which can only be the case when using the JWE JSON
         Serialization), instead let the Additional Authenticated Data
         encryption parameter be ASCII(Encoded Protected Header || '.' ||
         BASE64URL(JWE AAD)).
 
-   16.  If Integrated Encryption is not being employed, decrypt the JWE
+   17.  If Integrated Encryption is not being employed, decrypt the JWE
         Ciphertext using the CEK, the JWE Initialization Vector, the
         Additional Authenticated Data value, and the JWE Authentication
         Tag (which is the Authentication Tag input to the calculation)
-        using the specified content encryption algorithm, returning the
-        decrypted plaintext and validating the JWE Authentication Tag in
-        the manner specified for the algorithm, rejecting the input
-        without emitting any decrypted output if the JWE Authentication
-        Tag is incorrect.
+        using the content encryption algorithm specified in the "enc"
+        header parameter, returning the decrypted plaintext and
+        validating the JWE Authentication Tag in the manner specified
+        for the algorithm, rejecting the input without emitting any
+        decrypted output if the JWE Authentication Tag is incorrect.
 
-   17.  If Integrated Encryption is being employed, decrypt the JWE
+   18.  If Integrated Encryption is being employed, verify that no "enc"
+        header parameter is present.
+
+   19.  If Integrated Encryption is being employed, decrypt the JWE
         Ciphertext using the specified Integrated Encryption algorithm,
         returning the decrypted plaintext in the manner specified for
         the algorithm, rejecting the input without emitting any
         decrypted output if the decryption fails.
 
-   18.  If a zip parameter was included, uncompress the decrypted
+   20.  If a zip parameter was included, uncompress the decrypted
         plaintext using the specified compression algorithm.
 
-   19.  If there was no recipient for which all of the decryption steps
+   21.  If there was no recipient for which all of the decryption steps
         succeeded, then the JWE MUST be considered invalid.  Otherwise,
         output the plaintext.  In the JWE JSON Serialization case, also
         return a result to the application indicating for which of the
@@ -744,7 +742,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    decrypted, unless the algorithms used in the JWE are acceptable to
    the application, it SHOULD consider the JWE to be invalid.
 
-8.  Distinguishing between JWS and JWE Objects
+8.  Distinguishing Between JWS and JWE Objects
 
    Section 9 of [RFC7516] is updated to delete the last bullet, which
    says:
@@ -1134,7 +1132,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Change Controller: IETF
 
-   *  Specification Document(s): Section 4.2 of [[ this specification ]]
+   *  Specification Document(s): Section 4.1 of [[ this specification ]]
 
 11.2.2.  psk_id
 
@@ -1150,9 +1148,28 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 4 of [[ this specification ]]
 
-12.  References
+12.  Summary of Updates to RFC 7516 (JWE)
 
-12.1.  Normative References
+   This specification updates JSON Web Encryption (JWE) [RFC7516] as
+   follows:
+
+   *  Adds the Integrated Encryption Key Management Mode and
+      correspondingly updates the Key Management Mode definition
+      (Section 3).
+
+   *  Updates the "enc" header parameter to be absent when Integrated
+      Encryption is used in (Section 4).
+
+   *  Replaces the Message Encryption procedure (Section 7.1).
+
+   *  Replaces the Message Decryption procedure (Section 7.2).
+
+   *  Updates the methods for distinguishing between JWS and JWE objects
+      (Section 8).
+
+13.  References
+
+13.1.  Normative References
 
    [I-D.ietf-hpke-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
@@ -1192,7 +1209,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
               DOI 10.17487/RFC8725, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8725>.
 
-12.2.  Informative References
+13.2.  Informative References
 
    [I-D.ietf-cose-hpke]
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
