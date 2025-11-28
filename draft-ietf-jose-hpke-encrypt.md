@@ -410,7 +410,7 @@ The corresponding hexadecimal representation is:
 4a4f53452d48504b452072637074ff4131323847434dff
 ~~~
 
-This value is used as the HPKE `info` parameter.
+This value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.
 
 
 ## General JWE JSON Serialization Example {#general-example}
