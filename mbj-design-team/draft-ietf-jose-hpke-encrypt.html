@@ -1736,10 +1736,10 @@ Recipient_structure = ASCII("JOSE-HPKE rcpt") ||
           <li class="normal" id="section-6.1-4.3">
             <p id="section-6.1-4.3.1">ASCII(content_encryption_alg): Identifies the content encryption algorithm
 with which the HPKE-encrypted Content Encryption Key (CEK) is used.
-Its value <span class="bcp14">MUST</span> match the "enc" (encryption algorithm) header parameter value
+Its value <span class="bcp14">MUST</span> be the "enc" (encryption algorithm) header parameter value
 in the JOSE Header.
-This field provides JWE context information to the key derivation process,
-which ensures that the derived key is bound to the selected content encryption algorithm.<a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
+This field provides JWE context information to the HPKE key schedule,
+which ensures that the encapsulated secret is bound to the selected content encryption algorithm.<a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-4.4">
             <p id="section-6.1-4.4.1">BYTE(255): A separator byte (0xFF) used to delimit fields.<a href="#section-6.1-4.4.1" class="pilcrow">¶</a></p>
