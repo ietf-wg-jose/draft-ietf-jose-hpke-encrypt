@@ -361,6 +361,25 @@ Where:
 
 Note that Integrated Encryption does not use the `Recipient_structure` because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.
 
+### Recipient_structure Example
+
+The Recipient_structure encoded in binary as specified in {{recipient_structure}}, and using the field values
+(content_encryption_alg = "A128GCM", recipient_extra_info = ""),
+results in the following byte sequence:
+
+~~~
+"JOSE-HPKE rcpt\xffA128GCM\xff"
+~~~
+
+The corresponding hexadecimal representation is:
+
+~~~
+4a4f53452d48504b452072637074ff4131323847434dff
+~~~
+
+This value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.
+
+
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
 The following JWE algorithms using HPKE are defined for use with
@@ -383,24 +402,6 @@ the Key Encryption Key Establishment Mode:
 {: #ciphersuite-ke-algs title="Algorithms using HPKE for Key Encryption"}
 
 The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE registry {{IANA.HPKE}}.
-
-### Recipient_structure Example
-
-The Recipient_structure encoded in binary as specified in {{recipient_structure}}, and using the field values
-(content_encryption_alg = "A128GCM", recipient_extra_info = ""),
-results in the following byte sequence:
-
-~~~
-"JOSE-HPKE rcpt\xffA128GCM\xff"
-~~~
-
-The corresponding hexadecimal representation is:
-
-~~~
-4a4f53452d48504b452072637074ff4131323847434dff
-~~~
-
-This value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.
 
 
 ## General JWE JSON Serialization Example {#general-example}
