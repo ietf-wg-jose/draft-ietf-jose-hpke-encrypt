@@ -92,8 +92,8 @@ Table of Contents
      5.3.  Flattened JWE JSON Serialization Example
    6.  Key Encryption
      6.1.  Recipient_structure
+       6.1.1.  Recipient_structure Example
      6.2.  Key Encryption Algorithms using HPKE
-       6.2.1.  Recipient_structure Example
      6.3.  General JWE JSON Serialization Example
    7.  Producing and Consuming JWEs
      7.1.  Message Encryption
@@ -419,6 +419,22 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    because the JWE Protected Header and JWE AAD are included in the HPKE
    aad value, which binds these parameters to the ciphertext.
 
+6.1.1.  Recipient_structure Example
+
+   The Recipient_structure encoded in binary as specified in
+   Section 6.1, and using the field values (content_encryption_alg =
+   "A128GCM", recipient_extra_info = ""), results in the following byte
+   sequence:
+
+   "JOSE-HPKE rcpt\xffA128GCM\xff"
+
+   The corresponding hexadecimal representation is:
+
+   4a4f53452d48504b452072637074ff4131323847434dff
+
+   This value is used as the HPKE info parameter when performing Key
+   Encryption with HPKE.
+
 6.2.  Key Encryption Algorithms using HPKE
 
    The following JWE algorithms using HPKE are defined for use with the
@@ -441,22 +457,6 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE
    registry [IANA.HPKE].
-
-6.2.1.  Recipient_structure Example
-
-   The Recipient_structure encoded in binary as specified in
-   Section 6.1, and using the field values (content_encryption_alg =
-   "A128GCM", recipient_extra_info = ""), results in the following byte
-   sequence:
-
-   "JOSE-HPKE rcpt\xffA128GCM\xff"
-
-   The corresponding hexadecimal representation is:
-
-   4a4f53452d48504b452072637074ff4131323847434dff
-
-   This value is used as the HPKE info parameter when performing Key
-   Encryption with HPKE.
 
 6.3.  General JWE JSON Serialization Example
 

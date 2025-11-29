@@ -1223,14 +1223,14 @@ the Integrated Encryption Key Establishment Mode.<a href="#section-abstract-2" c
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-recipient_structure" class="internal xref">Recipient_structure</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-recipient_structure-example" class="internal xref">Recipient_structure Example</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-key-encryption-algorithms-u" class="internal xref">Key Encryption Algorithms using HPKE</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
-                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-recipient_structure-example" class="internal xref">Recipient_structure Example</a></p>
-</li>
-                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-general-jwe-json-serializat" class="internal xref">General JWE JSON Serialization Example</a></p>
@@ -1736,6 +1736,28 @@ If no additional context information is provided, this field <span class="bcp14"
 </li>
         </ul>
 <p id="section-6.1-5">Note that Integrated Encryption does not use the <code>Recipient_structure</code> because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<div id="recipientstructure-example">
+<section id="section-6.1.1">
+          <h4 id="name-recipient_structure-example">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-recipient_structure-example" class="section-name selfRef">Recipient_structure Example</a>
+          </h4>
+<p id="section-6.1.1-1">The Recipient_structure encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
+(content_encryption_alg = "A128GCM", recipient_extra_info = ""),
+results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1-2">
+<pre>
+"JOSE-HPKE rcpt\xffA128GCM\xff"
+</pre><a href="#section-6.1.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1.1-3">The corresponding hexadecimal representation is:<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1.1-4">
+<pre>
+4a4f53452d48504b452072637074ff4131323847434dff
+</pre><a href="#section-6.1.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1.1-5">This value is used as the HPKE <code>info</code> parameter when performing Key Encryption with HPKE.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="ke-algs">
@@ -1768,28 +1790,6 @@ the Key Encryption Key Establishment Mode:<a href="#section-6.2-1" class="pilcro
           </figcaption></figure>
 </div>
 <p id="section-6.2-3">The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE registry <span>[<a href="#IANA.HPKE" class="cite xref">IANA.HPKE</a>]</span>.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<div id="recipientstructure-example">
-<section id="section-6.2.1">
-          <h4 id="name-recipient_structure-example">
-<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-recipient_structure-example" class="section-name selfRef">Recipient_structure Example</a>
-          </h4>
-<p id="section-6.2.1-1">The Recipient_structure encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
-(content_encryption_alg = "A128GCM", recipient_extra_info = ""),
-results in the following byte sequence:<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2.1-2">
-<pre>
-"JOSE-HPKE rcpt\xffA128GCM\xff"
-</pre><a href="#section-6.2.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-6.2.1-3">The corresponding hexadecimal representation is:<a href="#section-6.2.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2.1-4">
-<pre>
-4a4f53452d48504b452072637074ff4131323847434dff
-</pre><a href="#section-6.2.1-4" class="pilcrow">¶</a>
-</div>
-<p id="section-6.2.1-5">This value is used as the HPKE <code>info</code> parameter when performing Key Encryption with HPKE.<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
-</section>
-</div>
 </section>
 </div>
 <div id="general-example">
