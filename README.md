@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)
+# Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption (JWE)
 
-This is the working area for the IETF [JOSE Working Group](https://datatracker.ietf.org/group/jose/documents/) Internet-Draft, "Use of Hybrid Public Key Encryption (HPKE) with JSON Object Signing and Encryption (JOSE)".
+This is the working area for the IETF [JOSE Working Group](https://datatracker.ietf.org/group/jose/documents/) Internet-Draft, "Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption (JWE)".
 
 * [Editor's Copy](https://ietf-wg-jose.github.io/draft-ietf-jose-hpke-encrypt/#go.draft-ietf-jose-hpke-encrypt.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt)
