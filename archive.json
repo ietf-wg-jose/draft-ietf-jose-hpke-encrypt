@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-27T01:38:26.093984+00:00",
+  "timestamp": "2025-11-30T01:49:42.247625+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -739,15 +739,15 @@
       "id": "I_kwDOMMuuSM6zWUAL",
       "title": "a null JWE content encryption algorithm is dangerous regardless of name",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/42",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bc-pi",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "> The feedback during the presentation at IETF-122 was also (and more so) that it was not a good idea to create effectively a null content encryption algorithm for use in JWE where an AEAD is mandated.   \n\n _Originally posted by @bc-pi in [#36](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2819132145)_\n\n\n ",
       "createdAt": "2025-04-21T18:00:04Z",
-      "updatedAt": "2025-10-29T07:54:30Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-29T05:58:56Z",
+      "closedAt": "2025-11-29T05:58:56Z",
       "comments": [
         {
           "author": "hannestschofenig",
@@ -779,14 +779,14 @@
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> The enc:inc is the signal that HPKE is used. It is needed to make the encryption possible.\n\nI know there's ample opportunity for miscommunication and misunderstanding in all this stuff. But they way I read those two statements, they are not correct. alg:HPKE-<0-6> is the signal that HPKE is used and encryption is certainly possible without it. ",
           "createdAt": "2025-04-29T21:19:10Z",
           "updatedAt": "2025-04-29T21:19:10Z"
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "There's some more sort-of related discussion in #36 after it was merged and I am certainly aware that some discussion has taken place regarding the impedance mismatch but I am not convinced that the approach settled on a while ago is a good one nor is it reliably reflected in the content of the draft. ",
           "createdAt": "2025-04-29T21:39:36Z",
           "updatedAt": "2025-04-29T21:39:36Z"
@@ -800,7 +800,7 @@
         },
         {
           "author": "bc-pi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> At [#36 (comment)](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/36#issuecomment-2841222106) [@ilaril](https://github.com/ilaril) wrote:\n> \n> > Integrated Encryption definitely needs very special treatment. Even if the HPKE implementation has non-standard key export, one can not use standard JWE bulk encryption, because the way iv/tag is handled is not quite compatible.\n> \n> > And with regards to architecture, I think the way it is currently done is close to the least bad way (I have seen some really horrible ideas).\n> \n> \"Close to the last bad way\", to me, is a strong endorsement of the current approach. :-)\n\nTo me, it is definitely not the least or last bad way. And I'd find it hard to see that as an endorsement. \n",
           "createdAt": "2025-10-28T21:59:50Z",
           "updatedAt": "2025-10-28T21:59:50Z"
@@ -1043,15 +1043,15 @@
       "id": "I_kwDOMMuuSM7Tn39O",
       "title": "Stabilize/rationalize/progress the work",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/77",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bc-pi",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "There is prospective work in a different SDO that would really benefit (or could have benefited) from this draft being more stable and mature: https://github.com/openid/OpenID4VP/issues/676",
       "createdAt": "2025-10-24T17:54:47Z",
-      "updatedAt": "2025-10-24T17:55:32Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-29T05:58:56Z",
+      "closedAt": "2025-11-29T05:58:56Z",
       "comments": []
     },
     {
@@ -1104,15 +1104,15 @@
       "id": "I_kwDOMMuuSM7UZoCN",
       "title": "Can we do better?",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/79",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bc-pi",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The title \"Can we do better?\" is taken from the second to last slide of https://datatracker.ietf.org/meeting/123/materials/slides-123-jose-bc-on-jose-hpke-00 and is/was absolutely a serious question. \n\nThe following is from [#59 Update Clause to Draft](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59):\n\n> This might have been good to tell the draft author team about prior to the Madrid meeting where the erroneous assertion that the draft \"Updates RFC 7516\" was repeatedly made. Not having a shared factual basis makes it difficult to have productive discussions. \n> \n> Regardless, and as I said at that meeting and elsewhere, just doing this alone is not sufficient. \n> \n> It would be \"unfortunate for numerous reasons (reputation, later stage reviews, DEs, etc., and more)\" if this is all there is that is done. Quote is from slide 10 of [these from the Madrid meeting](https://datatracker.ietf.org/meeting/123/materials/slides-123-jose-bc-on-jose-hpke-00). \n> \n> Madrid 123 meeting proceedings for the JOSE group (or whatever the right term is): https://datatracker.ietf.org/meeting/123/session/jose  \n\n _Originally posted by @bc-pi in [#59](https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/issues/59#issuecomment-3330688810)_",
       "createdAt": "2025-10-28T21:46:01Z",
-      "updatedAt": "2025-10-29T09:04:02Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-29T05:58:57Z",
+      "closedAt": "2025-11-29T05:58:57Z",
       "comments": [
         {
           "author": "ilaril",
@@ -10487,24 +10487,26 @@
       "id": "PR_kwDOMMuuSM6x7h2X",
       "title": "Apply design team decisions",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/84",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "selfissued",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n- Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
       "createdAt": "2025-11-06T15:41:14Z",
-      "updatedAt": "2025-11-27T01:02:31Z",
+      "updatedAt": "2025-11-29T05:58:55Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
       "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "headRefName": "mbj-design-team",
-      "headRefOid": "44ac8aef377cc93e967f3794a8f941dbeaad340b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "6d254c7ea664d496dfca72cf3bd14922f07f1f19",
+      "closedAt": "2025-11-29T05:58:55Z",
+      "mergedAt": "2025-11-29T05:58:55Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "1f93f0de94dfdae3b16bbab8f57003412f80cf12"
+      },
       "comments": [
         {
           "author": "panva",
@@ -10575,6 +10577,20 @@
           "body": "FYI, I uploaded a fresh build of the PR to https://self-issued.info/tmp/draft-ietf-jose-hpke-encrypt.html so the recent changes can be viewed in context.",
           "createdAt": "2025-11-27T01:02:31Z",
           "updatedAt": "2025-11-27T01:02:31Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I propose to add a section with a summary of all 7516 updates\r\n\r\n```\r\n# Summary of Updates to RFC 7516\r\n\r\nThis specification updates JSON Web Encryption (JWE) {{RFC7516}} as follows:\r\n\r\n- Adds the Integrated Encryption Key Management Mode and\r\n  updates the definition of Key Management Mode ({{terminology}}).\r\n\r\n- Updates the \"enc\" header parameter to be absent when\r\n  Integrated Encryption is used ({{overview}}).\r\n\r\n- Replaces the Message Encryption procedure ({{encryption}}).\r\n\r\n- Replaces the Message Decryption procedure ({{decryption}}).\r\n\r\n- Updates the methods for distinguishing between JWS and JWE objects\r\n  ({{needs-an-anchor}}).\r\n```",
+          "createdAt": "2025-11-28T07:47:10Z",
+          "updatedAt": "2025-11-28T07:47:10Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The summary was added.  The rendered draft at https://self-issued.info/tmp/draft-ietf-jose-hpke-encrypt.html been updated.",
+          "createdAt": "2025-11-28T20:22:15Z",
+          "updatedAt": "2025-11-28T20:22:15Z"
         }
       ],
       "reviews": [
@@ -11697,6 +11713,1191 @@
               "updatedAt": "2025-11-27T00:48:49Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RbYMf",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T05:38:17Z",
+          "updatedAt": "2025-11-27T05:38:17Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\r\nand the possibility of utilizing future HPKE algorithms, including PQ/T hybrid KEMs.\r\n```",
+              "createdAt": "2025-11-27T05:38:17Z",
+              "updatedAt": "2025-11-27T05:38:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RbfcF",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T05:53:58Z",
+          "updatedAt": "2025-11-27T05:53:58Z",
+          "comments": [
+            {
+              "originalPosition": 397,
+              "body": "```suggestion\r\nNote that JWE HPKE integrated encryption does not require `Recipient_structure` because the JWE Protected Header and JWE AAD are already provided as HPKE aad, which binds these parameters to the ciphertext.\r\n```",
+              "createdAt": "2025-11-27T05:53:58Z",
+              "updatedAt": "2025-11-27T05:53:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RboD-",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:13:34Z",
+          "updatedAt": "2025-11-27T06:13:34Z",
+          "comments": [
+            {
+              "originalPosition": 571,
+              "body": "```suggestion\r\n    encrypt M using the using HPKE encryption,\r\n```",
+              "createdAt": "2025-11-27T06:13:34Z",
+              "updatedAt": "2025-11-27T06:13:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RboVE",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:14:11Z",
+          "updatedAt": "2025-11-27T06:14:11Z",
+          "comments": [
+            {
+              "originalPosition": 743,
+              "body": "```suggestion\r\n    decrypt the JWE Ciphertext using the HPKE decryption,\r\n```",
+              "createdAt": "2025-11-27T06:14:11Z",
+              "updatedAt": "2025-11-27T06:14:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RbotV",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Looks almost ready. ",
+          "createdAt": "2025-11-27T06:15:02Z",
+          "updatedAt": "2025-11-27T06:15:51Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "we will have to provide a justification for the exception, I prefer \"MUST\" instead. ",
+              "createdAt": "2025-11-27T06:15:02Z",
+              "updatedAt": "2025-11-27T06:16:39Z"
+            },
+            {
+              "originalPosition": 858,
+              "body": "we will have to provide a justification for the exception, I prefer \"MUST\" instead.",
+              "createdAt": "2025-11-27T06:15:25Z",
+              "updatedAt": "2025-11-27T06:15:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rb0iX",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:40:16Z",
+          "updatedAt": "2025-11-27T06:40:16Z",
+          "comments": [
+            {
+              "originalPosition": 304,
+              "body": "```suggestion\nBelow is an example of a JWE using the Compact Serialization and Integrated Encryption with HPKE:\n\n~~~\neyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jEH3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmXXNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMraa9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkgy2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ37A0Hr5esPLwHRTTrBFw.\n~~~\n\nThe key used for this example is in {{int-key}}.\n```",
+              "createdAt": "2025-11-27T06:40:16Z",
+              "updatedAt": "2025-11-27T06:40:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rb1da",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:42:13Z",
+          "updatedAt": "2025-11-27T06:42:14Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "We shouldn't be introducing undefined acronyms.  I am guessing that PQ is post quantum but I have no idea what the T is.",
+              "createdAt": "2025-11-27T06:42:14Z",
+              "updatedAt": "2025-11-27T06:42:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rb2ty",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:44:51Z",
+          "updatedAt": "2025-11-27T06:44:51Z",
+          "comments": [
+            {
+              "originalPosition": 743,
+              "body": "Nothing in this section should be specific to HPKE.  This is general JWE text.  *If* the algorithm is an HPKE algorithm what you say is true, but your proposed text forecloses the possibility of Integrated Encryption algorithms not using HPKE.",
+              "createdAt": "2025-11-27T06:44:51Z",
+              "updatedAt": "2025-11-27T06:44:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rb4hv",
+          "commit": {
+            "abbreviatedOid": "1a20f90"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:48:30Z",
+          "updatedAt": "2025-11-27T06:48:30Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\nand the possibility of utilizing future HPKE algorithms.\n```",
+              "createdAt": "2025-11-27T06:48:30Z",
+              "updatedAt": "2025-11-27T06:48:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rb8Az",
+          "commit": {
+            "abbreviatedOid": "0a7e924"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T06:53:53Z",
+          "updatedAt": "2025-11-27T06:53:53Z",
+          "comments": [
+            {
+              "originalPosition": 399,
+              "body": "```suggestion\n\nNote that Integrated Encryption does not use the `Recipient_structure` because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.\n\n```",
+              "createdAt": "2025-11-27T06:53:53Z",
+              "updatedAt": "2025-11-27T06:53:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RcGEb",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T07:11:54Z",
+          "updatedAt": "2025-11-27T07:11:55Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "T stands for Traditional, HPKE PQ draft does not use the term \"composite\" it uses \"PQ/T hybrid\". ",
+              "createdAt": "2025-11-27T07:11:54Z",
+              "updatedAt": "2025-11-27T07:12:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RcIai",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T07:15:35Z",
+          "updatedAt": "2025-11-27T07:15:35Z",
+          "comments": [
+            {
+              "originalPosition": 743,
+              "body": "Sure, but messages are encrypted using the shared secret derived from the key exchange, it is not correct to say \"JWE Ciphertext\" is decryted using the public key. \r\n\r\nwe can say:\r\ndecrypt the JWE Ciphertext using the shared secret derived from the key exchange algorithm.\r\n\r\nIt also needs to be fixed for Message encryption. ",
+              "createdAt": "2025-11-27T07:15:35Z",
+              "updatedAt": "2025-11-27T07:15:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RcJaK",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T07:17:24Z",
+          "updatedAt": "2025-11-27T07:17:24Z",
+          "comments": [
+            {
+              "originalPosition": 571,
+              "body": "It is incorrect to say encrypt M using the public key. Alternatively, we can say:\r\nencrypt M using the shared secret derived from the key exchange. \r\n",
+              "createdAt": "2025-11-27T07:17:24Z",
+              "updatedAt": "2025-11-27T07:17:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RcLtE",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T07:21:29Z",
+          "updatedAt": "2025-11-27T07:21:29Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "That would be RFC 6919 \"MUST (BUT WE KNOW YOU WON'T)\", because in practice, many applications will not do it.\r\n\r\nHPKE is designed to resist such attacks \u2014 otherwise its security considerations would have some major disclaimers.\r\n\r\nThe only thing with key usage that is potentially unsafe is using the same key for both HPKE and non-HPKE algorithms. And even then, causing actual issues is not trivial. Most problematic thing I can think of is using Ed25519/Ed448 keys for encryption \u2014 unfortunately there is a way to make that work.",
+              "createdAt": "2025-11-27T07:21:29Z",
+              "updatedAt": "2025-11-27T07:21:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RcPsD",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T07:27:55Z",
+          "updatedAt": "2025-11-27T07:27:55Z",
+          "comments": [
+            {
+              "originalPosition": 858,
+              "body": "That would be another RFC 6919 \"MUST (BUT WE KNOW YOU WON'T)\", because in practice, very few applications are going to do that.\r\n\r\nAnd in practice, one can not even rely on explicit checks working. So HPKE in JWE must be designed to resist any such attacks at cryptographic level. Fortunately, that is the case.",
+              "createdAt": "2025-11-27T07:27:55Z",
+              "updatedAt": "2025-11-27T07:27:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RdDyQ",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T08:38:51Z",
+          "updatedAt": "2025-11-27T08:38:51Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "We can still use \u201cMUST\u201d here. HPKE itself includes several normative requirements that the protocol cannot enforce",
+              "createdAt": "2025-11-27T08:38:51Z",
+              "updatedAt": "2025-11-27T08:38:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RdFkT",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T08:40:26Z",
+          "updatedAt": "2025-11-27T08:40:26Z",
+          "comments": [
+            {
+              "originalPosition": 858,
+              "body": "Implementations can ignore it, but that is also true for similar normative usage requirements present in HPKE, such as not reusing ikm across KEMs or not reusing randomness in KEM operations. These requirements cannot be enforced by the protocol either, yet HPKE still states them normatively because they are essential for security. Our use of \u201cMUST\u201d fits the same model.",
+              "createdAt": "2025-11-27T08:40:26Z",
+              "updatedAt": "2025-11-27T08:40:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7ReMI5",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T09:52:47Z",
+          "updatedAt": "2025-11-27T09:52:47Z",
+          "comments": [
+            {
+              "originalPosition": 858,
+              "body": "Except this requirement is not essential for security and is much more difficult to follow than those HPKE requirements,\r\n\r\nI have tried to implement this kind of requirement. It was so much trouble that I just left it out. The other comment about flags applies here too.",
+              "createdAt": "2025-11-27T09:52:47Z",
+              "updatedAt": "2025-11-27T09:57:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7ReNuY",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T09:54:32Z",
+          "updatedAt": "2025-11-27T09:54:32Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "Those requirements tend to be easy to implement and important for security. This is neither.\r\n\r\nI have tried to implement this kind of requirement, it was so much trouble that I just left it out.\r\n\r\nAnd if I did not know that this is requirement is not necessary, it would be a black flag.",
+              "createdAt": "2025-11-27T09:54:32Z",
+              "updatedAt": "2025-11-27T09:56:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7ReUu8",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T10:02:14Z",
+          "updatedAt": "2025-11-27T10:02:14Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "It is an requirement that was discussed and added to the draft in the prior versions of the draft. If it needs to be removed, it needs to be discussed in the WG. ",
+              "createdAt": "2025-11-27T10:02:14Z",
+              "updatedAt": "2025-11-27T10:02:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7ReU3d",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T10:02:22Z",
+          "updatedAt": "2025-11-27T10:02:22Z",
+          "comments": [
+            {
+              "originalPosition": 858,
+              "body": "It is an requirement that was discussed and added to the draft in the prior versions of the draft. If it needs to be removed, it needs to be discussed in the WG. ",
+              "createdAt": "2025-11-27T10:02:22Z",
+              "updatedAt": "2025-11-27T10:02:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rn9T9",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T21:07:50Z",
+          "updatedAt": "2025-11-27T21:07:50Z",
+          "comments": [
+            {
+              "originalPosition": 743,
+              "body": "We cannot say\r\n> decrypt the JWE Ciphertext using the shared secret derived from the key exchange algorithm.\r\n\r\nin this section because that text is HPKE-specific.  This section is written in a way that allows for future Integrated Encryption algorithms that do not use HPKE - just as there are Key Encryption algorithms that do not use HPKE.\r\n\r\nInstead, I removed the misleading text about using public keys (and private keys in the decryption section).\r\n",
+              "createdAt": "2025-11-27T21:07:50Z",
+              "updatedAt": "2025-11-27T21:07:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rn-Dd",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T21:09:40Z",
+          "updatedAt": "2025-11-27T21:09:41Z",
+          "comments": [
+            {
+              "originalPosition": 571,
+              "body": "We cannot say\r\n> encrypt M using the shared secret derived from the key exchange.\r\n\r\nin this section, because that text is HPKE-specific, and therefore doesn't belong in this section.",
+              "createdAt": "2025-11-27T21:09:40Z",
+              "updatedAt": "2025-11-27T21:09:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rn-sQ",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T21:11:14Z",
+          "updatedAt": "2025-11-27T21:11:14Z",
+          "comments": [
+            {
+              "originalPosition": 854,
+              "body": "Changing this is unrelated to the purpose of this PR.  Feel free to file an independent issue describing a specific requested change and the motivation for it.",
+              "createdAt": "2025-11-27T21:11:14Z",
+              "updatedAt": "2025-11-27T21:11:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rn-9e",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-27T21:11:54Z",
+          "updatedAt": "2025-11-27T21:11:54Z",
+          "comments": [
+            {
+              "originalPosition": 858,
+              "body": "Changing this is unrelated to the purpose of this PR.  Feel free to file an independent issue describing a specific requested change and the motivation for it.",
+              "createdAt": "2025-11-27T21:11:54Z",
+              "updatedAt": "2025-11-27T21:11:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RoLZ4",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-27T21:42:19Z",
+          "updatedAt": "2025-11-27T21:42:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RqTZh",
+          "commit": {
+            "abbreviatedOid": "44ac8ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T05:31:23Z",
+          "updatedAt": "2025-11-28T05:31:23Z",
+          "comments": [
+            {
+              "originalPosition": 743,
+              "body": "Thanks but I don't any update to these sections removing the mention of using public/public keys for encryption/decryption. ",
+              "createdAt": "2025-11-28T05:31:23Z",
+              "updatedAt": "2025-11-28T05:31:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rqmv2",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T06:21:53Z",
+          "updatedAt": "2025-11-28T06:21:53Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\nabbrev: \"Use of HPKE in JWE\"\n```",
+              "createdAt": "2025-11-28T06:21:53Z",
+              "updatedAt": "2025-11-28T06:21:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RqsXd",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T06:32:34Z",
+          "updatedAt": "2025-11-28T06:32:34Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "This section is incorrect now. I would propose to simply remove it as whole given the use of HPKE parameters for Auxiliary Authenticated Application Information is clearly defined in each of the HPKE Key Management instances.",
+              "createdAt": "2025-11-28T06:32:34Z",
+              "updatedAt": "2025-11-28T07:58:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RrLFS",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T07:23:28Z",
+          "updatedAt": "2025-11-28T07:23:28Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "Agreed. ",
+              "createdAt": "2025-11-28T07:23:28Z",
+              "updatedAt": "2025-11-28T07:23:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RrP5f",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T07:32:45Z",
+          "updatedAt": "2025-11-28T07:32:45Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "Was there a particular ask to get the X448 variants? I ask because rarely do I see Curve448 actually supported let alone used. (same question applies to KE algs)",
+              "createdAt": "2025-11-28T07:32:45Z",
+              "updatedAt": "2025-11-28T07:47:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RrRLJ",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T07:35:09Z",
+          "updatedAt": "2025-11-28T07:35:09Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "I don't see the point behind this SHOULD requirement. When all recipients use the same \"alg\", in this case HPKE Key Encryption, then the chosen HPKE CipherSuite is tied to the resulting ciphertext / CEK anyway. It doesn't hurt but also doesn't mean much given it's a SHOULD, and FWIW i would object to a MUST.",
+              "createdAt": "2025-11-28T07:35:09Z",
+              "updatedAt": "2025-11-28T07:50:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RrTGI",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T07:37:24Z",
+          "updatedAt": "2025-11-28T07:37:25Z",
+          "comments": [
+            {
+              "originalPosition": 389,
+              "body": "```suggestion\r\n* ASCII(content_encryption_alg): Identifies the content encryption algorithm\r\n  with which the HPKE-encrypted Content Encryption Key (CEK) is used.\r\n  Its value MUST be the \"enc\" (encryption algorithm) header parameter value\r\n  in the JOSE Header.\r\n  This field provides JWE context information to the HPKE key schedule,\r\n  which ensures that the encapsulated secret is bound to the selected content encryption algorithm.\r\n```",
+              "createdAt": "2025-11-28T07:37:25Z",
+              "updatedAt": "2025-11-28T07:57:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RrUDH",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T07:39:18Z",
+          "updatedAt": "2025-11-28T07:39:18Z",
+          "comments": [
+            {
+              "originalPosition": 440,
+              "body": "```suggestion\nThis value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.\n```",
+              "createdAt": "2025-11-28T07:39:18Z",
+              "updatedAt": "2025-11-28T07:39:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rtf7r",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T10:27:23Z",
+          "updatedAt": "2025-11-28T10:27:23Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "X448 is supported by HPKE, see https://www.iana.org/assignments/hpke/hpke.xhtml",
+              "createdAt": "2025-11-28T10:27:23Z",
+              "updatedAt": "2025-11-28T10:27:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RtgUc",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T10:27:42Z",
+          "updatedAt": "2025-11-28T10:27:42Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "It being defined for use in HPKE is not my point.",
+              "createdAt": "2025-11-28T10:27:42Z",
+              "updatedAt": "2025-11-28T10:27:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RthBz",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T10:28:21Z",
+          "updatedAt": "2025-11-28T10:28:21Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "Avoiding needless JOSE registrations is.",
+              "createdAt": "2025-11-28T10:28:21Z",
+              "updatedAt": "2025-11-28T10:31:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RtiKF",
+          "commit": {
+            "abbreviatedOid": "df56d72"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T10:29:14Z",
+          "updatedAt": "2025-11-28T10:29:14Z",
+          "comments": [
+            {
+              "originalPosition": 391,
+              "body": "```suggestion\n* ASCII(content_encryption_alg): Identifies the content encryption algorithm\n  with which the HPKE-encrypted Content Encryption Key (CEK) is used.\n  Its value MUST be the \"enc\" (encryption algorithm) header parameter value\n  in the JOSE Header.\n  This field provides JWE context information to the HPKE key schedule,\n  which ensures that the encapsulated secret is bound to the selected content encryption algorithm.\n```",
+              "createdAt": "2025-11-28T10:29:14Z",
+              "updatedAt": "2025-11-28T10:29:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RvaBV",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T12:47:19Z",
+          "updatedAt": "2025-11-28T12:47:19Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "Both COSE and JOSE HPKE drafts use X448, we need to hear the WG that it can to be removed. Please raise it in WG mailing list. ",
+              "createdAt": "2025-11-28T12:47:19Z",
+              "updatedAt": "2025-11-28T12:47:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rvd4a",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T12:51:08Z",
+          "updatedAt": "2025-11-28T12:51:08Z",
+          "comments": [
+            {
+              "originalPosition": 289,
+              "body": "I will, during the next WGLC. It's not a huge deal. Feel free to resolve this thread.",
+              "createdAt": "2025-11-28T12:51:08Z",
+              "updatedAt": "2025-11-28T12:51:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RwZZk",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T14:03:28Z",
+          "updatedAt": "2025-11-28T14:03:28Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-11-28T14:03:28Z",
+              "updatedAt": "2025-11-28T14:03:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RwaRl",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T14:04:44Z",
+          "updatedAt": "2025-11-28T14:04:45Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "```suggestion\n```",
+              "createdAt": "2025-11-28T14:04:44Z",
+              "updatedAt": "2025-11-28T14:04:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rwace",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T14:04:59Z",
+          "updatedAt": "2025-11-28T14:05:00Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "We can say something like:\r\nWhen all recipients use the same JWE algorithm to secure the Content Encryption Key, placing the \"alg\" parameter in the JWE Protected Header avoids unnecessary repetition in the per-recipient headers.",
+              "createdAt": "2025-11-28T14:04:59Z",
+              "updatedAt": "2025-11-28T14:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rwa4m",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T14:05:38Z",
+          "updatedAt": "2025-11-28T14:05:38Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "Since this is a) no longer true and b) already included in the respective HPKE Key Management instance definitions",
+              "createdAt": "2025-11-28T14:05:38Z",
+              "updatedAt": "2025-11-28T14:05:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rwf-I",
+          "commit": {
+            "abbreviatedOid": "3d2d157"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T14:13:15Z",
+          "updatedAt": "2025-11-28T14:13:16Z",
+          "comments": [
+            {
+              "originalPosition": 342,
+              "body": "I think that's very much pointless, but still better than a normative pointless SHOULD.",
+              "createdAt": "2025-11-28T14:13:15Z",
+              "updatedAt": "2025-11-28T14:13:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RxUUa",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T15:29:11Z",
+          "updatedAt": "2025-11-28T15:29:11Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "Some other checks that need to be done when decrypting:\r\n\r\n* If using Integrated Encryption, verify that the Protected Header contains \"alg\", and that the JOSE Header does not contain \"enc\".\r\n* If using Integrated Encryption, Direct Encryption or Direct Key Agreement, verify that there is exactly one recipient.\r\n\r\nIf either check fails, the whole message is invalid.",
+              "createdAt": "2025-11-28T15:29:11Z",
+              "updatedAt": "2025-11-28T15:29:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rxa9X",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T15:40:27Z",
+          "updatedAt": "2025-11-28T15:40:27Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "> If using Integrated Encryption, verify that the Protected Header contains \"alg\", and that the JOSE Header does not contain \"enc\".\n\nThis feels like an overreach to have in the general routine. Given that Integrated Encryption says\n\n> The \"enc\" header parameter MUST NOT be present.\n>\n> The protected header MUST contain an \"alg\" value that is\n\n---\n\n> If using Integrated Encryption, Direct Encryption or Direct Key Agreement, verify that there is exactly one recipient.\n\nThis has always been implied on the account of there not being able to be more than one ciphertext. Why do we need this now?",
+              "createdAt": "2025-11-28T15:40:27Z",
+              "updatedAt": "2025-11-28T15:40:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RxepX",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T15:47:02Z",
+          "updatedAt": "2025-11-28T15:47:03Z",
+          "comments": [
+            {
+              "originalPosition": 717,
+              "body": "What should be done if CEK could be successfully determined for two or more recipients, but those values disagree? Each recipient can produce a CEK, but subsequent steps require a single CEK.\r\n\r\nPresumably:\r\n\r\nIf no processed recipient needs timing attack countermeasures \u2014 i.e. is not \"RSA1_5\" \u2014 treat the whole message as malformed. Otherwise, proceed with a random CEK.",
+              "createdAt": "2025-11-28T15:47:02Z",
+              "updatedAt": "2025-11-28T16:05:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RxwnO",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:20:36Z",
+          "updatedAt": "2025-11-28T16:20:37Z",
+          "comments": [
+            {
+              "originalPosition": 717,
+              "body": "If the wrong CEK is somehow obtained, the decryption will fail.  So I don't think we need to say anything specific about this.",
+              "createdAt": "2025-11-28T16:20:37Z",
+              "updatedAt": "2025-11-28T16:20:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RxxZ6",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:22:12Z",
+          "updatedAt": "2025-11-28T16:22:12Z",
+          "comments": [
+            {
+              "originalPosition": 717,
+              "body": "@selfissued agreed.",
+              "createdAt": "2025-11-28T16:22:12Z",
+              "updatedAt": "2025-11-28T16:22:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rxz3I",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:27:24Z",
+          "updatedAt": "2025-11-28T16:27:24Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "> > If using Integrated Encryption, verify that the Protected Header contains \"alg\", and that the JOSE Header does not contain \"enc\".\r\n> \r\n> This feels like an overreach to have in the general routine. Given that Integrated Encryption says\r\n> \r\n> > The \"enc\" header parameter MUST NOT be present.\r\n> > The protected header MUST contain an \"alg\" value that is\r\n\r\nThis is to check exactly that requirement.\r\n\r\n> > If using Integrated Encryption, Direct Encryption or Direct Key Agreement, verify that there is exactly one recipient.\r\n> \r\n> This has always been implied on the account of there not being able to be more than one ciphertext. Why do we need this now?\r\n\r\nIt is still possible to represent such nonsensical JWE. And for Integrated Encryption case, seems like only HPKE-specific parts require a single recipient.\r\n",
+              "createdAt": "2025-11-28T16:27:24Z",
+              "updatedAt": "2025-11-28T16:27:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rxz-P",
+          "commit": {
+            "abbreviatedOid": "fc88c3f"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:27:38Z",
+          "updatedAt": "2025-11-28T16:27:38Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "@selfissued this should be applied before resolving.",
+              "createdAt": "2025-11-28T16:27:38Z",
+              "updatedAt": "2025-11-28T16:27:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rx0kP",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:28:55Z",
+          "updatedAt": "2025-11-28T16:28:55Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "> This is to check exactly that requirement.\r\n\r\nAnd why would we need to have the same requirement in two different places?",
+              "createdAt": "2025-11-28T16:28:55Z",
+              "updatedAt": "2025-11-28T16:28:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rx2EI",
+          "commit": {
+            "abbreviatedOid": "fc88c3f"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:31:55Z",
+          "updatedAt": "2025-11-28T16:31:55Z",
+          "comments": [
+            {
+              "originalPosition": 344,
+              "body": "```suggestion\n```\n\nA leftover from a previusly applied suggestion.",
+              "createdAt": "2025-11-28T16:31:55Z",
+              "updatedAt": "2025-11-28T16:31:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Rx5vF",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T16:39:21Z",
+          "updatedAt": "2025-11-28T16:39:22Z",
+          "comments": [
+            {
+              "originalPosition": 717,
+              "body": "Should an implementation immediately abort upon detecting CEK conflict? Or should it proceed? If it proceeds, what CEK should it use?\r\n\r\nNote that how this is done is important for timing attack mitigations.\r\n\r\nI think the safest way would be to keep CEK conflict flag, setting it on any failed \"RSA1_5\" decryption or if successful decryption results CEK different from previous. Then generate a random CEK and then conditional-overwrite the resulting CEK with that if CEK conflict flag is set.\r\n\r\n(For an implementation that does not support \"RSA1_5\" or similar problems, immediately aborting, using the first CEK, using the last CEK or using random CEK are all fine. I think using the first or last CEK would be the most natural for an implementation.)",
+              "createdAt": "2025-11-28T16:39:21Z",
+              "updatedAt": "2025-11-28T16:59:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RyF_m",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "ilaril",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T17:06:57Z",
+          "updatedAt": "2025-11-28T17:06:57Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "The decryption procedure from RFC 7516 already repeats some important checks from other places.",
+              "createdAt": "2025-11-28T17:06:57Z",
+              "updatedAt": "2025-11-28T17:06:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RyYOl",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T17:58:13Z",
+          "updatedAt": "2025-11-28T17:58:13Z",
+          "comments": [
+            {
+              "originalPosition": 717,
+              "body": "Before writing new text about this into the spec, I'd like to understand how and whether it's even possible to get different CEK values for different recipients.\r\n\r\nI'll also note that this is about the general decryption procedure and not about the purpose of this PR, so if we do anything about it, I believe that it should be first discussed in a separate issue.",
+              "createdAt": "2025-11-28T17:58:13Z",
+              "updatedAt": "2025-11-28T17:58:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7RyYtn",
+          "commit": {
+            "abbreviatedOid": "7a77593"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-28T17:59:46Z",
+          "updatedAt": "2025-11-28T17:59:46Z",
+          "comments": [
+            {
+              "originalPosition": 687,
+              "body": "I agree that these are basic checks in line with other sanity checks already in these procedures.  And these belong as part of this PR, since they are prompted by the introduction of Integrated Encryption.",
+              "createdAt": "2025-11-28T17:59:46Z",
+              "updatedAt": "2025-11-28T17:59:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7Ryf5c",
+          "commit": {
+            "abbreviatedOid": "6d254c7"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-28T18:22:09Z",
+          "updatedAt": "2025-11-28T18:22:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7R1oGJ",
+          "commit": {
+            "abbreviatedOid": "6d254c7"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-29T05:58:33Z",
+          "updatedAt": "2025-11-29T05:58:33Z",
+          "comments": []
         }
       ]
     },
