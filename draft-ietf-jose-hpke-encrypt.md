@@ -172,23 +172,21 @@ The definition of Key Management Mode above replaces the one in JWE {{RFC7516}}.
 
 # Overview {#overview}
 
-This specification defines how to use HPKE in JWE in two Key Management Modes:
+This specification defines the use of HPKE in JWE for two Key Management Modes:
 
-*  Key Encryption, and
-*  Integrated Encryption.
+* Key Encryption, and
+* Integrated Encryption.
 
-It defines the Integrated Encryption Key Management Mode.
-It also defines JWE algorithm identifiers for using HPKE
-with those two Key Management Modes.
-Distinct JWE algorithms are used with Key Encryption and Integrated Encryption,
-which is required for them to be fully-specified {{RFC9864}}.
+It specifies the Integrated Encryption Key Management Mode and registers the
+corresponding JWE algorithm identifiers for both modes. Distinct JWE algorithms
+are defined for Key Encryption and Integrated Encryption
+so that they are fully specified, as required by {{RFC9864}}.
 
-When the Key Management Mode is Integrated Encryption,
-HPKE is used to directly encrypt the plaintext.
-In this mode, the "enc" header parameter MUST NOT be present.
-This specification updates the use of the "enc" header parameter,
-which is defined in {{Section 4.1.2 of RFC7516}},
-to require it MUST NOT be present when Integrated Encryption is used.
+When the Key Management Mode is Integrated Encryption, HPKE is used to directly
+encrypt the plaintext, and the "enc" header parameter MUST NOT be included.
+This specification updates the definition of the "enc" header parameter in
+{{Section 4.1.2 of RFC7516}} to require that it be omitted when Integrated
+Encryption is used.
 
 When the Key Management Mode is Key Encryption,
 HPKE is used to encrypt the Content Encryption Key (CEK).
