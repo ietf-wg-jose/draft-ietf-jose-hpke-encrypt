@@ -208,7 +208,8 @@ Table of Contents
    It specifies the Integrated Encryption Key Management Mode and
    registers the corresponding JWE algorithm identifiers for both modes.
    Distinct JWE algorithms are defined for Key Encryption and Integrated
-   Encryption, as required for full specification in [RFC9864].
+   Encryption so that they are fully specified, as required by
+   [RFC9864].
 
    When the Key Management Mode is Integrated Encryption, HPKE is used
    to directly encrypt the plaintext, and the "enc" header parameter
