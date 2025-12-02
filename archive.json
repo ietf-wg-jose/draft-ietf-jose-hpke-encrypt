@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-30T01:49:42.247625+00:00",
+  "timestamp": "2025-12-02T01:42:04.817711+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13062,6 +13062,196 @@
           "body": "",
           "createdAt": "2025-11-26T18:32:25Z",
           "updatedAt": "2025-11-26T18:32:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 88,
+      "id": "PR_kwDOMMuuSM62KkrZ",
+      "title": "Editorial Update for Overview",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/88",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-30T09:12:25Z",
+      "updatedAt": "2025-11-30T15:47:39Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "85f825f334a8074b17769a6ffc150241ecc1c388",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "6e9978d0f3b5bc501cefc2df483334679e0ee9c3",
+      "closedAt": "2025-11-30T15:47:39Z",
+      "mergedAt": "2025-11-30T15:47:38Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "8994ce38c561a87bd1c60e4cfef73e0ea428dac9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7R4pRT",
+          "commit": {
+            "abbreviatedOid": "b394619"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-30T13:22:47Z",
+          "updatedAt": "2025-11-30T13:22:47Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7R5xOg",
+          "commit": {
+            "abbreviatedOid": "b394619"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-30T15:46:55Z",
+          "updatedAt": "2025-11-30T15:46:56Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\nare defined for Key Encryption and Integrated Encryption\nso that they are fully specified, as required by {{RFC9864}}.\n```\n\nUse the term \"fully specified\" from RFC 9864",
+              "createdAt": "2025-11-30T15:46:55Z",
+              "updatedAt": "2025-11-30T15:46:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7R5xYE",
+          "commit": {
+            "abbreviatedOid": "6e9978d"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-30T15:47:16Z",
+          "updatedAt": "2025-11-30T15:47:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 89,
+      "id": "PR_kwDOMMuuSM62K0TY",
+      "title": "Fixed example formatting.",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/89",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-30T10:48:11Z",
+      "updatedAt": "2025-11-30T16:17:21Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "85f825f334a8074b17769a6ffc150241ecc1c388",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "fix_examples",
+      "headRefOid": "e64f5a2e2cee40ce7f370f224d3d58cbadaa762a",
+      "closedAt": "2025-11-30T16:17:21Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't believe this to be an improvement since now the blocks cannot be copied and be valid JSON objects or Compact Serialization tokens.",
+          "createdAt": "2025-11-30T10:50:53Z",
+          "updatedAt": "2025-11-30T10:50:53Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Can you possibly retain the unformatted examples in the repo and point to them with a language from the spec? The HPKE spec does that for its vector files",
+          "createdAt": "2025-11-30T11:16:18Z",
+          "updatedAt": "2025-11-30T11:16:18Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I made a new attempt in PR#90",
+          "createdAt": "2025-11-30T16:17:19Z",
+          "updatedAt": "2025-11-30T16:17:19Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7R4pUH",
+          "commit": {
+            "abbreviatedOid": "e64f5a2"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-30T13:23:13Z",
+          "updatedAt": "2025-11-30T13:23:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7R501x",
+          "commit": {
+            "abbreviatedOid": "e64f5a2"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I agree with @panva that this makes the examples less usable.  Let's not do this at this time.\n\nFor what it's worth, there are other formatting things that we probably want to address at some point.  In particular, the tables in Figures 1-3 are formatted as ASCII art rather than real tables.  Maybe somebody knows the Markdown incantation to fix this.  But I don't want to hold publishing the design team recommendations as -15 for these editorial changes.",
+          "createdAt": "2025-11-30T15:53:52Z",
+          "updatedAt": "2025-11-30T15:53:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 90,
+      "id": "PR_kwDOMMuuSM62L7R1",
+      "title": "New formatting attempt",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/90",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-30T16:16:04Z",
+      "updatedAt": "2025-11-30T17:10:17Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "8994ce38c561a87bd1c60e4cfef73e0ea428dac9",
+      "headRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "new_example_fix",
+      "headRefOid": "42832818b736831e7e96ce73222780bba5d16e57",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7R6moi",
+          "commit": {
+            "abbreviatedOid": "4283281"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Like #89, this also inserts line breaks into the examples.  Let's not merge this until look into alternatives that do not do this, per @panva's feedback in #89.",
+          "createdAt": "2025-11-30T17:10:17Z",
+          "updatedAt": "2025-11-30T17:10:17Z",
           "comments": []
         }
       ]
