@@ -90,6 +90,7 @@ informative:
   RFC7518:
   RFC9864:
   I-D.ietf-cose-hpke:
+  I-D.ietf-hpke-pq:
 
   IANA.HPKE:
      author:
@@ -271,6 +272,8 @@ the Integrated Encryption Key Establishment Mode:
 | HPKE-5 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
 | HPKE-6 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
 | HPKE-7 | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
+| HPKE-8 | ML-KEM-768                 | HKDF-SHA256 | AES-128-GCM      |
+| HPKE-9 | MLKEM768-X25519            | HKDF-SHA256 | AES-128-GCM      |
 +--------+----------------------------+-------------+------------------+
 ~~~
 {: #ciphersuite-int-algs title="Algorithms using HPKE for Integrated Encryption"}
@@ -395,6 +398,8 @@ the Key Encryption Key Establishment Mode:
 | HPKE-5-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
 | HPKE-6-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
 | HPKE-7-KE | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
+| HPKE-8-KE | ML-KEM-768                 | HKDF-SHA256 | AES-128-GCM      |
+| HPKE-9-KE | MLKEM768-X25519            | HKDF-SHA256 | AES-128-GCM      |
 +-----------+----------------------------+-------------+------------------+
 ~~~
 {: #ciphersuite-ke-algs title="Algorithms using HPKE for Key Encryption"}
@@ -748,17 +753,28 @@ The valid combinations of the
 "alg", "kty", and "crv" in the JWK are shown in {{ciphersuite-kty-crv}}.
 
 ~~~
-+--------------------------------------+-------+--------+
-| "alg" values                         | "kty" | "crv"  |
-+--------------------------------------+-------+--------+
-| HPKE-0, HPKE-0-KE, HPKE-7, HPKE-7-KE | EC    | P-256  |
-| HPKE-1, HPKE-1-KE                    | EC    | P-384  |
-| HPKE-2, HPKE-2-KE                    | EC    | P-521  |
-| HPKE-3, HPKE-3-KE, HPKE-4, HPKE-4-KE | OKP   | X25519 |
-| HPKE-5, HPKE-5-KE, HPKE-6, HPKE-6-KE | OKP   | X448   |
-+--------------------------------------+-------+--------+
++--------------------------------------+-------+----------------+
+| "alg" values                         | "kty" | "crv"          |
++--------------------------------------+-------+----------------+
+| HPKE-0, HPKE-0-KE, HPKE-7, HPKE-7-KE | EC    | P-256          |
+| HPKE-1, HPKE-1-KE                    | EC    | P-384          |
+| HPKE-2, HPKE-2-KE                    | EC    | P-521          |
+| HPKE-3, HPKE-3-KE, HPKE-4, HPKE-4-KE | OKP   | X25519         |
+| HPKE-5, HPKE-5-KE, HPKE-6, HPKE-6-KE | OKP   | X448           |
+| HPKE-8, HPKE-8-KE                    | AKP   |                |
+| HPKE-9, HPKE-9-KE                    | AKP   |                |
++--------------------------------------+-------+----------------+
 ~~~
 {: #ciphersuite-kty-crv title="JWK Types and Curves for JWE HPKE Ciphersuites"}
+
+For the PQ and PQ/T hybrid algorithms (HPKE-8, HPKE-8-KE, HPKE-9, HPKE-9-KE),
+the "AKP" (Asymmetric Key Pair) key type is used.
+The "pub" member contains the base64url encoding of HPKE's SerializePublicKey output
+for the respective KEM.
+The "priv" member contains the base64url encoding of HPKE's SerializePrivateKey output
+for the respective KEM.
+See {{I-D.ietf-hpke-pq}} for the definitions of SerializePublicKey and
+SerializePrivateKey for ML-KEM-768 and MLKEM768-X25519.
 
 ## JWK Representation of Key using JWE HPKE Ciphersuite
 
@@ -893,6 +909,26 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
 - Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
 
+### HPKE-8
+
+- Algorithm Name: HPKE-8
+- Algorithm Description: Integrated Encryption with HPKE using ML-KEM-768 KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{int-algs}} of [[ this specification ]]
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-pq}}
+
+### HPKE-9
+
+- Algorithm Name: HPKE-9
+- Algorithm Description: Integrated Encryption with HPKE using MLKEM768-X25519 KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{int-algs}} of [[ this specification ]]
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-pq}}
+
 ### HPKE-0-KE
 
 - Algorithm Name: HPKE-0-KE
@@ -972,6 +1008,26 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
 - Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+
+### HPKE-8-KE
+
+- Algorithm Name: HPKE-8-KE
+- Algorithm Description: Key Encryption with HPKE using ML-KEM-768 KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{ke-algs}} of [[ this specification ]]
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-pq}}
+
+### HPKE-9-KE
+
+- Algorithm Name: HPKE-9-KE
+- Algorithm Description: Key Encryption with HPKE using MLKEM768-X25519 KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
+- Algorithm Usage Location(s): "alg"
+- JOSE Implementation Requirements: Optional
+- Change Controller: IETF
+- Specification Document(s): {{ke-algs}} of [[ this specification ]]
+- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-pq}}
 
 ## JSON Web Signature and Encryption Header Parameters
 
