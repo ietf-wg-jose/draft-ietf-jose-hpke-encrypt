@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-02T01:42:04.817711+00:00",
+  "timestamp": "2025-12-04T01:42:29.222757+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13255,6 +13255,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 91,
+      "id": "PR_kwDOMMuuSM62jcWk",
+      "title": "JOSE PQ and PQ/T through HPKE",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/91",
+      "state": "OPEN",
+      "author": "panva",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR adds Pure PQ and PQ/T Hybrids to JWE HPKE.\r\n\r\nI am opening this PR to visually aid a discussing on the mailing list. Hence a draft PR state.\r\n\r\nPlease discuss on the mailing list (`Proposal: Use HPKE for JWE PQ/PQT straight away` [thread](https://mailarchive.ietf.org/arch/msg/jose/gtRE1H8ZxbxylzTjBL5Qr6O46Ns/)).",
+      "createdAt": "2025-12-02T09:24:25Z",
+      "updatedAt": "2025-12-02T10:02:49Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
+      "headRepository": "panva/draft-ietf-jose-hpke-encrypt",
+      "headRefName": "easy-jose-pq-pqt",
+      "headRefOid": "7930a19dd3e66099d16f388892bd7bc9e295c1b3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
