@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-04T01:42:29.222757+00:00",
+  "timestamp": "2025-12-07T01:50:11.000297+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13268,7 +13268,7 @@
       "labels": [],
       "body": "This PR adds Pure PQ and PQ/T Hybrids to JWE HPKE.\r\n\r\nI am opening this PR to visually aid a discussing on the mailing list. Hence a draft PR state.\r\n\r\nPlease discuss on the mailing list (`Proposal: Use HPKE for JWE PQ/PQT straight away` [thread](https://mailarchive.ietf.org/arch/msg/jose/gtRE1H8ZxbxylzTjBL5Qr6O46Ns/)).",
       "createdAt": "2025-12-02T09:24:25Z",
-      "updatedAt": "2025-12-02T10:02:49Z",
+      "updatedAt": "2025-12-05T16:55:55Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
@@ -13279,7 +13279,22 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Your PR, more or less, suggests what we had written down in https://datatracker.ietf.org/doc/draft-reddy-cose-jose-pqc-hybrid-hpke/\r\n\r\nI would prefer to get the JOSE HPKE draft across the finish line before starting new work. I am also not sure whether everyone will indeed use HPKE.",
+          "createdAt": "2025-12-05T16:19:09Z",
+          "updatedAt": "2025-12-05T16:19:09Z"
+        },
+        {
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@hannestschofenig i'm not discussing here. See the PR description, this is mere visual aid. ",
+          "createdAt": "2025-12-05T16:55:55Z",
+          "updatedAt": "2025-12-05T16:55:55Z"
+        }
+      ],
       "reviews": []
     }
   ]
