@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-07T01:50:11.000297+00:00",
+  "timestamp": "2025-12-30T01:46:17.365593+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -10494,7 +10494,7 @@
       "labels": [],
       "body": "This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\r\n\r\n- Not use \"enc\" when performing Integrated Encryption.\r\n- Define one new Key Management Mode for Integrated Encryption.\r\n- Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\r\n- Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\r\n- Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\r\n\r\nFixes #42 \r\nFixes #77 \r\nFixes #79 \r\n\r\nReplaces #83 \r\n\r\n(The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\r\n\r\nCc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley",
       "createdAt": "2025-11-06T15:41:14Z",
-      "updatedAt": "2025-11-29T05:58:55Z",
+      "updatedAt": "2025-12-28T18:41:42Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "3f1187c7508586ad48537f0d5471e72fd2dcccb5",
@@ -10591,6 +10591,13 @@
           "body": "The summary was added.  The rendered draft at https://self-issued.info/tmp/draft-ietf-jose-hpke-encrypt.html been updated.",
           "createdAt": "2025-11-28T20:22:15Z",
           "updatedAt": "2025-11-28T20:22:15Z"
+        },
+        {
+          "author": "konginit",
+          "authorAssociation": "NONE",
+          "body": "\n> This PR will apply the design team decisions from 5-Nov-25 at IETF 124 in Montreal.  Those decisions were to:\n> \n> - Not use \"enc\" when performing Integrated Encryption.\n> - Define one new Key Management Mode for Integrated Encryption.\n> - Integrate the new mode into the Message Encryption and Message Decryption instructions from RFC 7516 and replace them.\n> - Utilize distinct algorithm identifiers for the use of HPKE for Integrated Encryption and HPKE for Key Encryption.\n> - Only use the Recipient_structure when doing Key Encryption and not when doing Integrated Encryption.\n> \n> Fixes #42 \n> Fixes #77 \n> Fixes #79 \n> \n> Replaces #83 \n> \n> (The initial commit adds the baseline Message Encryption and Message Decryption instructions without modification (other than conversion from XML to Markdown) so that future commits will make it obvious what the deltas to the instructions in RFC 7516 are.)\n> \n> Cc: @bc-pi @panva @dwaite @leifj @paulbastian @jogu @kodonog @debcooley\n\n",
+          "createdAt": "2025-12-28T18:41:42Z",
+          "updatedAt": "2025-12-28T18:41:42Z"
         }
       ],
       "reviews": [
