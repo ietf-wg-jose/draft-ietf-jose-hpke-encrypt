@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-30T01:46:17.365593+00:00",
+  "timestamp": "2026-02-08T02:36:49.072669+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13303,6 +13303,46 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 92,
+      "id": "PR_kwDOMMuuSM7CL7NI",
+      "title": "Change uses of Key Establishment Mode to Key Management Mode to align with JWE terminology",
+      "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/92",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-02-07T15:03:34Z",
+      "updatedAt": "2026-02-07T15:09:09Z",
+      "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
+      "baseRefName": "main",
+      "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
+      "headRepository": "bc-pi/forking-draft-ietf-jose-hpke-encrypt",
+      "headRefName": "main",
+      "headRefOid": "9400f454c468ce98a66c3c8e91bdead56f11cca3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMMuuSM7gi9hk",
+          "commit": {
+            "abbreviatedOid": "9400f45"
+          },
+          "author": "panva",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-02-07T15:09:09Z",
+          "updatedAt": "2026-02-07T15:09:09Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
