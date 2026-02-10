@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-08T02:36:49.072669+00:00",
+  "timestamp": "2026-02-10T02:31:28.814933+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13316,7 +13316,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2026-02-07T15:03:34Z",
-      "updatedAt": "2026-02-07T15:09:09Z",
+      "updatedAt": "2026-02-08T07:08:05Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
@@ -13340,6 +13340,19 @@
           "body": "",
           "createdAt": "2026-02-07T15:09:09Z",
           "updatedAt": "2026-02-07T15:09:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7gpsmA",
+          "commit": {
+            "abbreviatedOid": "9400f45"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-02-08T07:08:05Z",
+          "updatedAt": "2026-02-08T07:08:05Z",
           "comments": []
         }
       ]
