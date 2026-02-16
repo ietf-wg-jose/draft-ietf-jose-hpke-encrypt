@@ -18,7 +18,7 @@ of arbitrary-sized plaintexts to a recipient's public key, and provides security
 against adaptive chosen ciphertext attacks.
 This specification chooses a specific subset of the HPKE features to use with JWE. 
        This specification updates RFC 7516 (JWE) to enable use of
-the Integrated Encryption Key Establishment Mode. 
+Integrated Encryption as a Key Management Mode. 
     " name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Hybrid Public Key Encryption" name="keyword">
@@ -34,14 +34,14 @@ the Integrated Encryption Key Establishment Mode.
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.5.0
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-ietf-jose-hpke-encrypt.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -182,7 +182,7 @@ the Integrated Encryption Key Establishment Mode.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -190,7 +190,8 @@ the Integrated Encryption Key Establishment Mode.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -582,6 +583,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -652,7 +654,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1060,11 +1062,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Use of HPKE in JWE</td>
-<td class="right">November 2025</td>
+<td class="right">February 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 3 June 2026</td>
+<td class="center">Expires 20 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1080,12 +1082,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7516" class="eref">7516</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-11-30" class="published">30 November 2025</time>
+<time datetime="2026-02-16" class="published">16 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-03">3 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-08-20">20 August 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1121,7 +1123,7 @@ of arbitrary-sized plaintexts to a recipient's public key, and provides security
 against adaptive chosen ciphertext attacks.
 This specification chooses a specific subset of the HPKE features to use with JWE.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This specification updates RFC 7516 (JWE) to enable use of
-the Integrated Encryption Key Establishment Mode.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+Integrated Encryption as a Key Management Mode.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1158,7 +1160,7 @@ the Integrated Encryption Key Establishment Mode.<a href="#section-abstract-2" c
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1167,7 +1169,7 @@ the Integrated Encryption Key Establishment Mode.<a href="#section-abstract-2" c
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1592,7 +1594,7 @@ as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hp
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-integrated-encryption-algor" class="section-name selfRef">Integrated Encryption Algorithms using HPKE</a>
         </h3>
 <p id="section-5.1-1">The following JWE algorithms using HPKE are defined for use with
-the Integrated Encryption Key Establishment Mode:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+the Integrated Encryption as the Key Management Mode:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <span id="name-algorithms-using-hpke-for-i"></span><div id="ciphersuite-int-algs">
 <figure id="figure-1">
           <div class="alignLeft art-text artwork" id="section-5.1-2.1">
@@ -1764,7 +1766,7 @@ results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-key-encryption-algorithms-u" class="section-name selfRef">Key Encryption Algorithms using HPKE</a>
         </h3>
 <p id="section-6.2-1">The following JWE algorithms using HPKE are defined for use with
-the Key Encryption Key Establishment Mode:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+Key Encryption Key Management Mode:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <span id="name-algorithms-using-hpke-for-k"></span><div id="ciphersuite-ke-algs">
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-6.2-2.1">
@@ -2228,7 +2230,7 @@ The valid combinations of the
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-jwk-representation-of-key-u" class="section-name selfRef">JWK Representation of Key using JWE HPKE Ciphersuite</a>
         </h3>
 <p id="section-9.1-1">The example below is a JWK representation of a public and private key
-used with the Integrated Encryption Key Establishment Mode:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+used with Integrated Encryption as the Key Management Mode:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9.1-2">
 <pre>
 {
@@ -2918,7 +2920,7 @@ Integrated Encryption is used in (<a href="#overview" class="auto internal xref"
 <dl class="references">
 <dt id="I-D.ietf-cose-hpke">[I-D.ietf-cose-hpke]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Daisuke, A.</span>, and <span class="refAuthor">L. Lundblade</span>, <span class="refTitle">"Use of Hybrid Public-Key Encryption (HPKE) with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hpke-18</span>, <time datetime="2025-10-19" class="refDate">19 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-18">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Daisuke, A.</span>, <span class="refAuthor">Lundblade, L.</span>, and <span class="refAuthor">M. B. Jones</span>, <span class="refTitle">"Use of Hybrid Public-Key Encryption (HPKE) with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hpke-21</span>, <time datetime="2026-02-02" class="refDate">2 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-21">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-21</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.HPKE">[IANA.HPKE]</dt>
         <dd>
@@ -3026,196 +3028,202 @@ for their contributions to the specification.<a href="#appendix-B-1" class="pilc
       <h2 id="name-document-history">
 <a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-C-1">-15<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">-16<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-2.1">
-          <p id="appendix-C-2.1.1">Defined the Integrated Encryption Key Establishment Mode
-and updated JWE to enable its use.<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-2.2">
-          <p id="appendix-C-2.2.1">Specified distinct algorithms for use with Key Encryption and Integrated Encryption
-so that they are fully-specified.<a href="#appendix-C-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-2.3">
-          <p id="appendix-C-2.3.1">Updated the Message Encryption and Message Decryption procedures from JWE.<a href="#appendix-C-2.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-2.4">
-          <p id="appendix-C-2.4.1">Said that JWS and JWE objects can no longer be distinguished by the presence of
-an "enc" header parameter.<a href="#appendix-C-2.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-2.5">
-          <p id="appendix-C-2.5.1">Many editorial improvements.<a href="#appendix-C-2.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-2.1.1">Change uses of Key Establishment Mode to Key Management Mode to align with JWE terminology.<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-3">-14<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">-15<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-4.1">
-          <p id="appendix-C-4.1.1">Added HPKE-7.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-4.1.1">Defined the Integrated Encryption Key Establishment Mode
+and updated JWE to enable its use.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-4.2">
-          <p id="appendix-C-4.2.1">Update to Recipient_structure.<a href="#appendix-C-4.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-4.2.1">Specified distinct algorithms for use with Key Encryption and Integrated Encryption
+so that they are fully-specified.<a href="#appendix-C-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-4.3">
-          <p id="appendix-C-4.3.1">Removed text related to apu and apv.<a href="#appendix-C-4.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-4.3.1">Updated the Message Encryption and Message Decryption procedures from JWE.<a href="#appendix-C-4.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-4.4">
-          <p id="appendix-C-4.4.1">Updated description of mutually known private information.<a href="#appendix-C-4.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-4.4.1">Said that JWS and JWE objects can no longer be distinguished by the presence of
+an "enc" header parameter.<a href="#appendix-C-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-4.5">
+          <p id="appendix-C-4.5.1">Many editorial improvements.<a href="#appendix-C-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-5">-13<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-C-5">-14<a href="#appendix-C-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-6.1">
-          <p id="appendix-C-6.1.1">Removed orphan text about AKP kty field<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-6.1.1">Added HPKE-7.<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-6.2">
-          <p id="appendix-C-6.2.1">Fixed bug in "include-fold" syntax<a href="#appendix-C-6.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-6.2.1">Update to Recipient_structure.<a href="#appendix-C-6.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-6.3">
-          <p id="appendix-C-6.3.1">Switched reference from RFC 9180 to
-draft-ietf-hpke-hpke<a href="#appendix-C-6.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-6.3.1">Removed text related to apu and apv.<a href="#appendix-C-6.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-6.4">
-          <p id="appendix-C-6.4.1">Editorial improvements to abstract and
-introduction.<a href="#appendix-C-6.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-6.5">
-          <p id="appendix-C-6.5.1">Removed Section 8.2 "Static Asymmetric
-Authentication in HPKE"<a href="#appendix-C-6.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-6.4.1">Updated description of mutually known private information.<a href="#appendix-C-6.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-7">-12<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<p id="appendix-C-7">-13<a href="#appendix-C-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-8.1">
-          <p id="appendix-C-8.1.1">Added the Recipient_structure<a href="#appendix-C-8.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-8.1.1">Removed orphan text about AKP kty field<a href="#appendix-C-8.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-8.2">
+          <p id="appendix-C-8.2.1">Fixed bug in "include-fold" syntax<a href="#appendix-C-8.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-8.3">
+          <p id="appendix-C-8.3.1">Switched reference from RFC 9180 to
+draft-ietf-hpke-hpke<a href="#appendix-C-8.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-8.4">
+          <p id="appendix-C-8.4.1">Editorial improvements to abstract and
+introduction.<a href="#appendix-C-8.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-8.5">
+          <p id="appendix-C-8.5.1">Removed Section 8.2 "Static Asymmetric
+Authentication in HPKE"<a href="#appendix-C-8.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-9">-11<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<p id="appendix-C-9">-12<a href="#appendix-C-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-10.1">
-          <p id="appendix-C-10.1.1">Fix too long lines<a href="#appendix-C-10.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-10.1.1">Added the Recipient_structure<a href="#appendix-C-10.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-11">-10<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<p id="appendix-C-11">-11<a href="#appendix-C-11" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-12.1">
-          <p id="appendix-C-12.1.1">Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.<a href="#appendix-C-12.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-12.1.1">Fix too long lines<a href="#appendix-C-12.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-13">-09<a href="#appendix-C-13" class="pilcrow">¶</a></p>
+<p id="appendix-C-13">-10<a href="#appendix-C-13" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-14.1">
-          <p id="appendix-C-14.1.1">Corrected examples.<a href="#appendix-C-14.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-14.1.1">Addressed WGLC review comments by Neil Madden and Sebastian Stenzel.<a href="#appendix-C-14.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-15">-08<a href="#appendix-C-15" class="pilcrow">¶</a></p>
+<p id="appendix-C-15">-09<a href="#appendix-C-15" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-16.1">
-          <p id="appendix-C-16.1.1">Use "enc":"int" for integrated encryption.<a href="#appendix-C-16.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-16.2">
-          <p id="appendix-C-16.2.1">Described reasons for excluding authenticated HPKE.<a href="#appendix-C-16.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-16.3">
-          <p id="appendix-C-16.3.1">Stated that mutually known private information <span class="bcp14">MAY</span> be used as the HPKE info value.<a href="#appendix-C-16.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-16.1.1">Corrected examples.<a href="#appendix-C-16.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-17">-07<a href="#appendix-C-17" class="pilcrow">¶</a></p>
+<p id="appendix-C-17">-08<a href="#appendix-C-17" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-18.1">
-          <p id="appendix-C-18.1.1">Clarifications<a href="#appendix-C-18.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-18.1.1">Use "enc":"int" for integrated encryption.<a href="#appendix-C-18.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-18.2">
+          <p id="appendix-C-18.2.1">Described reasons for excluding authenticated HPKE.<a href="#appendix-C-18.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-18.3">
+          <p id="appendix-C-18.3.1">Stated that mutually known private information <span class="bcp14">MAY</span> be used as the HPKE info value.<a href="#appendix-C-18.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-19">-06<a href="#appendix-C-19" class="pilcrow">¶</a></p>
+<p id="appendix-C-19">-07<a href="#appendix-C-19" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-20.1">
-          <p id="appendix-C-20.1.1">Remove auth mode and auth_kid from the specification.<a href="#appendix-C-20.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-20.2">
-          <p id="appendix-C-20.2.1">HPKE AAD for JOSE HPKE Key Encryption is now empty.<a href="#appendix-C-20.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-20.1.1">Clarifications<a href="#appendix-C-20.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-21">-05<a href="#appendix-C-21" class="pilcrow">¶</a></p>
+<p id="appendix-C-21">-06<a href="#appendix-C-21" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-22.1">
-          <p id="appendix-C-22.1.1">Removed incorrect text about HPKE algorithm names.<a href="#appendix-C-22.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-22.1.1">Remove auth mode and auth_kid from the specification.<a href="#appendix-C-22.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-22.2">
-          <p id="appendix-C-22.2.1">Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.<a href="#appendix-C-22.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.3">
-          <p id="appendix-C-22.3.1">Fixed #19: Binding the Application Context.<a href="#appendix-C-22.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.4">
-          <p id="appendix-C-22.4.1">Fixed #18: Use of apu and apv in Recipient context.<a href="#appendix-C-22.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.5">
-          <p id="appendix-C-22.5.1">Added new Section 7.1 (Authentication using an Asymmetric Key).<a href="#appendix-C-22.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.6">
-          <p id="appendix-C-22.6.1">Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.<a href="#appendix-C-22.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.7">
-          <p id="appendix-C-22.7.1">Updated HPKE Setup info parameter to be empty.<a href="#appendix-C-22.7.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-22.8">
-          <p id="appendix-C-22.8.1">Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.<a href="#appendix-C-22.8.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-22.2.1">HPKE AAD for JOSE HPKE Key Encryption is now empty.<a href="#appendix-C-22.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-23">-04<a href="#appendix-C-23" class="pilcrow">¶</a></p>
+<p id="appendix-C-23">-05<a href="#appendix-C-23" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-24.1">
-          <p id="appendix-C-24.1.1">Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.<a href="#appendix-C-24.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-24.1.1">Removed incorrect text about HPKE algorithm names.<a href="#appendix-C-24.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.2">
+          <p id="appendix-C-24.2.1">Fixed #21: Comply with NIST SP 800-227 Recommendations for Key-Encapsulation Mechanisms.<a href="#appendix-C-24.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.3">
+          <p id="appendix-C-24.3.1">Fixed #19: Binding the Application Context.<a href="#appendix-C-24.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.4">
+          <p id="appendix-C-24.4.1">Fixed #18: Use of apu and apv in Recipient context.<a href="#appendix-C-24.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.5">
+          <p id="appendix-C-24.5.1">Added new Section 7.1 (Authentication using an Asymmetric Key).<a href="#appendix-C-24.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.6">
+          <p id="appendix-C-24.6.1">Updated Section 7.2 (Key Management) to prevent cross-protocol attacks.<a href="#appendix-C-24.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.7">
+          <p id="appendix-C-24.7.1">Updated HPKE Setup info parameter to be empty.<a href="#appendix-C-24.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-24.8">
+          <p id="appendix-C-24.8.1">Added details on HPKE AEAD AAD, compression and decryption for HPKE Integrated Encryption.<a href="#appendix-C-24.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-25">-03<a href="#appendix-C-25" class="pilcrow">¶</a></p>
+<p id="appendix-C-25">-04<a href="#appendix-C-25" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-26.1">
-          <p id="appendix-C-26.1.1">Added new section 7.1 to discuss Key Management.<a href="#appendix-C-26.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-26.2">
-          <p id="appendix-C-26.2.1">HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.<a href="#appendix-C-26.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-26.1.1">Fixed #8: Use short algorithm identifiers, per the JOSE naming conventions.<a href="#appendix-C-26.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-27">-02<a href="#appendix-C-27" class="pilcrow">¶</a></p>
+<p id="appendix-C-27">-03<a href="#appendix-C-27" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-28.1">
-          <p id="appendix-C-28.1.1">Fixed #4: HPKE Integrated Encryption "enc: dir".<a href="#appendix-C-28.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-28.1.1">Added new section 7.1 to discuss Key Management.<a href="#appendix-C-28.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-28.2">
-          <p id="appendix-C-28.2.1">Updated text on the use of HPKE Setup info parameter.<a href="#appendix-C-28.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-28.3">
-          <p id="appendix-C-28.3.1">Added Examples in Sections 5.1, 5.2 and 6.1.<a href="#appendix-C-28.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-28.4">
-          <p id="appendix-C-28.4.1">Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.<a href="#appendix-C-28.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-28.2.1">HPKE Setup info parameter is updated to carry JOSE context-specific data for both modes.<a href="#appendix-C-28.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-29">-01<a href="#appendix-C-29" class="pilcrow">¶</a></p>
+<p id="appendix-C-29">-02<a href="#appendix-C-29" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-30.1">
-          <p id="appendix-C-30.1.1">Apply feedback from call for adoption.<a href="#appendix-C-30.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-30.1.1">Fixed #4: HPKE Integrated Encryption "enc: dir".<a href="#appendix-C-30.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-30.2">
-          <p id="appendix-C-30.2.1">Provide examples of auth and psk modes for JSON and Compact Serializations<a href="#appendix-C-30.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-30.2.1">Updated text on the use of HPKE Setup info parameter.<a href="#appendix-C-30.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-30.3">
-          <p id="appendix-C-30.3.1">Simplify description of HPKE modes<a href="#appendix-C-30.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-30.3.1">Added Examples in Sections 5.1, 5.2 and 6.1.<a href="#appendix-C-30.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-30.4">
-          <p id="appendix-C-30.4.1">Adjust IANA registration requests<a href="#appendix-C-30.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-30.5">
-          <p id="appendix-C-30.5.1">Remove HPKE Mode from named algorithms<a href="#appendix-C-30.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-30.6">
-          <p id="appendix-C-30.6.1">Fix AEAD named algorithms<a href="#appendix-C-30.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-30.4.1">Use of registered HPKE  "alg" value in the recipient unprotected header for Key Encryption.<a href="#appendix-C-30.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-31">-00<a href="#appendix-C-31" class="pilcrow">¶</a></p>
+<p id="appendix-C-31">-01<a href="#appendix-C-31" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-32.1">
-          <p id="appendix-C-32.1.1">Created initial working group version from draft-rha-jose-hpke-encrypt-07<a href="#appendix-C-32.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-32.1.1">Apply feedback from call for adoption.<a href="#appendix-C-32.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-32.2">
+          <p id="appendix-C-32.2.1">Provide examples of auth and psk modes for JSON and Compact Serializations<a href="#appendix-C-32.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-32.3">
+          <p id="appendix-C-32.3.1">Simplify description of HPKE modes<a href="#appendix-C-32.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-32.4">
+          <p id="appendix-C-32.4.1">Adjust IANA registration requests<a href="#appendix-C-32.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-32.5">
+          <p id="appendix-C-32.5.1">Remove HPKE Mode from named algorithms<a href="#appendix-C-32.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-32.6">
+          <p id="appendix-C-32.6.1">Fix AEAD named algorithms<a href="#appendix-C-32.6.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-33">-00<a href="#appendix-C-33" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-34.1">
+          <p id="appendix-C-34.1.1">Created initial working group version from draft-rha-jose-hpke-encrypt-07<a href="#appendix-C-34.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
