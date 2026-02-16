@@ -305,7 +305,7 @@ Table of Contents
 
 5.1.  Integrated Encryption Algorithms using HPKE
 
-   The following JWE algorithms using HPKE are defined for use with the
+   The following JWE algorithms using HPKE are defined for use with
    Integrated Encryption as the Key Management Mode:
 
 +--------+----------------------------+-------------+------------------+
@@ -437,7 +437,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 6.2.  Key Encryption Algorithms using HPKE
 
    The following JWE algorithms using HPKE are defined for use with Key
-   Encryption Key Management Mode:
+   Encryption as the Key Management Mode:
 
 +-----------+----------------------------+-------------+------------------+
 | "alg"     | HPKE KEM                   | HPKE KDF    | HPKE AEAD        |
@@ -486,8 +486,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of
    [RFC7516] are replaced by the following sections, which add
-   processing rules for using the Integrated Encryption Key Management
-   Mode.
+   processing rules for using Integrated Encryption as the Key
+   Management Mode.
 
 7.1.  Message Encryption
 
