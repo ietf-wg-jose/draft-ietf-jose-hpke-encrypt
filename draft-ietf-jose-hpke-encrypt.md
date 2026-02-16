@@ -257,7 +257,7 @@ When using Integrated Encryption with HPKE:
 ## Integrated Encryption Algorithms using HPKE {#int-algs}
 
 The following JWE algorithms using HPKE are defined for use with
-the Integrated Encryption as the Key Management Mode:
+Integrated Encryption as the Key Management Mode:
 
 ~~~
 +--------+----------------------------+-------------+------------------+
@@ -381,7 +381,7 @@ This value is used as the HPKE `info` parameter when performing Key Encryption w
 ## Key Encryption Algorithms using HPKE {#ke-algs}
 
 The following JWE algorithms using HPKE are defined for use with
-Key Encryption Key Management Mode:
+Key Encryption as the Key Management Mode:
 
 ~~~
 +-----------+----------------------------+-------------+------------------+
@@ -433,7 +433,7 @@ The key used for this example is in {{ke-key}}.
 
 Sections 5.1 (Message Encryption) and 5.2 (Message Decryption) of {{RFC7516}}
 are replaced by the following sections,
-which add processing rules for using the Integrated Encryption Key Management Mode.
+which add processing rules for using Integrated Encryption as the Key Management Mode.
 
 ## Message Encryption {#encryption}
 
