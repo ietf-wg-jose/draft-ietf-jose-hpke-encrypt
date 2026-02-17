@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-10T02:31:28.814933+00:00",
+  "timestamp": "2026-02-17T02:10:18.680013+00:00",
   "repo": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
   "labels": [
     {
@@ -13268,21 +13268,21 @@
       "id": "PR_kwDOMMuuSM62jcWk",
       "title": "JOSE PQ and PQ/T through HPKE",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/91",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "panva",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR adds Pure PQ and PQ/T Hybrids to JWE HPKE.\r\n\r\nI am opening this PR to visually aid a discussing on the mailing list. Hence a draft PR state.\r\n\r\nPlease discuss on the mailing list (`Proposal: Use HPKE for JWE PQ/PQT straight away` [thread](https://mailarchive.ietf.org/arch/msg/jose/gtRE1H8ZxbxylzTjBL5Qr6O46Ns/)).",
       "createdAt": "2025-12-02T09:24:25Z",
-      "updatedAt": "2025-12-05T16:55:55Z",
+      "updatedAt": "2026-02-16T23:34:27Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
       "headRepository": "panva/draft-ietf-jose-hpke-encrypt",
       "headRefName": "easy-jose-pq-pqt",
       "headRefOid": "7930a19dd3e66099d16f388892bd7bc9e295c1b3",
-      "closedAt": null,
+      "closedAt": "2026-02-16T23:34:27Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -13300,6 +13300,13 @@
           "body": "@hannestschofenig i'm not discussing here. See the PR description, this is mere visual aid. ",
           "createdAt": "2025-12-05T16:55:55Z",
           "updatedAt": "2025-12-05T16:55:55Z"
+        },
+        {
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "body": "https://datatracker.ietf.org/doc/draft-skokan-jose-hpke-pq-pqt/ takes this to the next step.",
+          "createdAt": "2026-02-16T23:34:27Z",
+          "updatedAt": "2026-02-16T23:34:27Z"
         }
       ],
       "reviews": []
@@ -13309,24 +13316,26 @@
       "id": "PR_kwDOMMuuSM7CL7NI",
       "title": "Change uses of Key Establishment Mode to Key Management Mode to align with JWE terminology",
       "url": "https://github.com/ietf-wg-jose/draft-ietf-jose-hpke-encrypt/pull/92",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-02-07T15:03:34Z",
-      "updatedAt": "2026-02-08T07:08:05Z",
+      "updatedAt": "2026-02-16T23:32:45Z",
       "baseRepository": "ietf-wg-jose/draft-ietf-jose-hpke-encrypt",
       "baseRefName": "main",
       "baseRefOid": "491d44698eb4007d113ad0603a0b4a17e22e7407",
       "headRepository": "bc-pi/forking-draft-ietf-jose-hpke-encrypt",
       "headRefName": "main",
       "headRefOid": "9400f454c468ce98a66c3c8e91bdead56f11cca3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-02-16T23:32:45Z",
+      "mergedAt": "2026-02-16T23:32:45Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "958119acbf6534560243ab259c2884626aee2b8d"
+      },
       "comments": [],
       "reviews": [
         {
@@ -13353,6 +13362,19 @@
           "body": "",
           "createdAt": "2026-02-08T07:08:05Z",
           "updatedAt": "2026-02-08T07:08:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMMuuSM7jJbg2",
+          "commit": {
+            "abbreviatedOid": "9400f45"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-02-16T23:32:35Z",
+          "updatedAt": "2026-02-16T23:32:35Z",
           "comments": []
         }
       ]
