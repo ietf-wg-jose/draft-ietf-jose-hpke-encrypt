@@ -413,14 +413,6 @@ Key Encryption as the Key Management Mode:
 
 The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE registry {{IANA.HPKE}}.
 
-Note that HPKE-7-KE pairs DHKEM(P-256, HKDF-SHA256) with AES-256-GCM.
-While the security strengths of these components are not matched,
-this combination is valid per {{I-D.ietf-hpke-hpke}}, which allows
-any combination of KEM, KDF, and AEAD. This combination was
-included to support existing deployments already using this
-algorithm suite.
-
-
 ## General JWE JSON Serialization Example {#general-example}
 
 Below is an example of a JWE using the General JSON Serialization and Key Encryption with HPKE:
