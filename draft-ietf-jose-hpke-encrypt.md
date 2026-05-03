@@ -815,9 +815,14 @@ Each key and its associated HPKE algorithm suite, comprising the KEM, KDF, and A
 SHOULD be managed independently.
 This separation prevents unintended interactions or vulnerabilities between algorithms,
 ensuring the integrity and security guarantees of each algorithm are preserved.
-Additionally, the same key MUST NOT be used for both
-Key Encryption and Integrated Encryption, as it may introduce security risks.
-It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
+Additionally, the same key SHOULD NOT be used for both
+Key Encryption and Integrated Encryption.
+While HPKE remains secure across parallel modes
+(see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}),
+wrapping the same content encryption key under a weaker
+alternative key agreement algorithm bound to the shared key
+reduces the effective security of the protected content to that
+weakest alternative — a false sense of security.
 
 ## JWT Best Current Practices
 
