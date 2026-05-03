@@ -2288,9 +2288,14 @@ Each key and its associated HPKE algorithm suite, comprising the KEM, KDF, and A
 <span class="bcp14">SHOULD</span> be managed independently.
 This separation prevents unintended interactions or vulnerabilities between algorithms,
 ensuring the integrity and security guarantees of each algorithm are preserved.
-Additionally, the same key <span class="bcp14">MUST NOT</span> be used for both
-Key Encryption and Integrated Encryption, as it may introduce security risks.
-It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+Additionally, the same key <span class="bcp14">SHOULD NOT</span> be used for both
+Key Encryption and Integrated Encryption.
+While HPKE remains secure across parallel modes
+(see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-03#section-9.2.2" class="relref">Section 9.2.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>),
+wrapping the same content encryption key under a weaker
+alternative key agreement algorithm bound to the shared key
+reduces the effective security of the protected content to that
+weakest alternative — a false sense of security.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="jwt-best-current-practices">
