@@ -812,10 +812,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    of public key distribution mechanism is assumed to exist but outside
    the scope of this document.
 
-   HPKE in Base mode does not offer sender authentication (i.e., proof
-   of sender origin) as part of the HPKE KEM.  The PSK mode provides
-   sender authentication for recipients that possess the pre-shared key,
-   as described in Section 9.1 of [I-D.ietf-hpke-hpke].
+   HPKE in Base mode does not provide proof of sender origin as part of
+   the HPKE KEM.  PSK mode authenticates the sender as a holder of the
+   pre-shared key (see Section 9.1 of [I-D.ietf-hpke-hpke]).
 
    HPKE relies on a source of randomness being available on the device.
    In Key Agreement with Key Wrapping mode, the CEK has to be randomly

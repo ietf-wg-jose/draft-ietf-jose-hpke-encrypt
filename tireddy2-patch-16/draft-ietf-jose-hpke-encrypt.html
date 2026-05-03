@@ -2271,10 +2271,9 @@ used with Integrated Encryption as the Key Management Mode:<a href="#section-9.1
 <p id="section-10-2">HPKE assumes the sender is in possession of the public key of the recipient and
 HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
 mechanism is assumed to exist but outside the scope of this document.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">HPKE in Base mode does not offer sender authentication (i.e.,
-proof of sender origin) as part of the HPKE KEM. The PSK mode
-provides sender authentication for recipients that possess the
-pre-shared key, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-03#section-9.1" class="relref">Section 9.1</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-3">HPKE in Base mode does not provide proof of sender origin
+as part of the HPKE KEM. PSK mode authenticates the sender
+as a holder of the pre-shared key (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-03#section-9.1" class="relref">Section 9.1</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>).<a href="#section-10-3" class="pilcrow">¶</a></p>
 <p id="section-10-4">HPKE relies on a source of randomness being available on the device.
 In Key Agreement with Key Wrapping mode, the CEK has to be randomly generated.
 The guidance on randomness in <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span> applies.<a href="#section-10-4" class="pilcrow">¶</a></p>
