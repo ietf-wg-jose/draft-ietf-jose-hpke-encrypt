@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 4 November 2026                                     A. Banerjee
+Expires: 6 November 2026                                     A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                              3 May 2026
+                                                              5 May 2026
 
 
   Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 November 2026.
+   This Internet-Draft will expire on 6 November 2026.
 
 Copyright Notice
 
@@ -701,10 +701,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         the CEK could be successfully determined for this recipient or
         not.
 
-   14.  If the JWE JSON Serialization is being used and the Key
-        Management Mode supports multiple recipients, repeat this
-        process (steps 4-13) for each recipient contained in the
-        representation.
+   14.  If the JWE JSON Serialization is being used and there are
+        multiple recipients, repeat this process (steps 4-13) for each
+        recipient contained in the representation.
 
    15.  Compute the Encoded Protected Header value BASE64URL(UTF8(JWE
         Protected Header)).  If the JWE Protected Header is not present
