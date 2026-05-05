@@ -538,9 +538,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    8.   Compute the encoded key value BASE64URL(JWE Encrypted Key).
 
-   9.   If the JWE JSON Serialization is being used, and the Key
-        Management Mode supports multiple recipients, repeat this
-        process (steps 1-8) for each recipient.
+   9.   If the JWE JSON Serialization is being used, and there are
+        multiple recipients, repeat this process (steps 1-8) for each
+        recipient.
 
    10.  Generate a random JWE Initialization Vector of the correct size
         for the content encryption algorithm (if required for the
