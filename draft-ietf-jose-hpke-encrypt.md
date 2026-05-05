@@ -680,8 +680,8 @@ MUST successfully validate or the JWE MUST be considered invalid.
 1.  If Integrated Encryption is not being employed,
     record whether the CEK could be successfully determined for this recipient or not.
 
-1.  If the JWE JSON Serialization is being used and the Key
-    Management Mode supports multiple recipients, repeat this process
+1.  If the JWE JSON Serialization is being used and
+    there are multiple recipients, repeat this process
     (steps 4-13)
     for each recipient contained in the representation.
 
