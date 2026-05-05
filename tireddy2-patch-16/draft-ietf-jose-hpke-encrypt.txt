@@ -831,8 +831,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    across parallel modes (see Section 9.2.2 of [I-D.ietf-hpke-hpke]),
    wrapping the same content encryption key under a weaker alternative
    key agreement algorithm bound to the shared key reduces the effective
-   security of the protected content to that weakest alternative — a
-   false sense of security.
+   security of the protected content to that weakest alternative.
 
 10.2.  JWT Best Current Practices
 
