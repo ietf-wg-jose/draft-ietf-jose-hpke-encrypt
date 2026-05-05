@@ -493,8 +493,8 @@ there are no dependencies between the inputs and outputs of the steps.
 
 1.  Compute the encoded key value BASE64URL(JWE Encrypted Key).
 
-1.  If the JWE JSON Serialization is being used, and the Key
-    Management Mode supports multiple recipients, repeat this process
+1.  If the JWE JSON Serialization is being used, and
+    there are multiple recipients, repeat this process
     (steps 1-8)
     for each recipient.
 
