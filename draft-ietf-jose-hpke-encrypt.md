@@ -822,7 +822,7 @@ While HPKE remains secure across parallel modes
 wrapping the same content encryption key under a weaker
 alternative key agreement algorithm bound to the shared key
 reduces the effective security of the protected content to that
-weakest alternative — a false sense of security.
+weakest alternative.
 
 ## JWT Best Current Practices
 
