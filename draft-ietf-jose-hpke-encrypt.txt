@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 20 August 2026                                      A. Banerjee
+Expires: 11 November 2026                                    A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                        16 February 2026
+                                                             10 May 2026
 
 
   Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2026.
+   This Internet-Draft will expire on 11 November 2026.
 
 Copyright Notice
 
@@ -89,7 +89,7 @@ Table of Contents
    5.  Integrated Encryption
      5.1.  Integrated Encryption Algorithms using HPKE
      5.2.  JWE Compact Serialization Example
-     5.3.  Flattened JWE JSON Serialization Example
+     5.3.  JWE JSON Serialization Example
    6.  Key Encryption
      6.1.  Recipient_structure
        6.1.1.  Recipient_structure Example
@@ -187,11 +187,19 @@ Table of Contents
       specific Key Management Mode.  Key Management Modes employed by
       this specification are Key Encryption, Key Wrapping, Direct Key
       Agreement, Key Agreement with Key Wrapping, Direct Encryption, and
-      Integrated Encryption.
+      Integrated Encryption.  Of these, only Integrated Encryption is
+      defined by this specification; the remaining modes are defined in
+      [RFC7516] and are included here because this specification
+      replaces the Message Encryption and Message Decryption procedures
+      of [RFC7516] in their entirety.
 
    Integrated Encryption  A Key Management Mode in which the plaintext
       is directly encrypted without the use of a Content Encryption Key
-      (CEK).
+      (CEK).  This mode corresponds to the Single-Shot API defined in
+      Section 6.1 of [I-D.ietf-hpke-hpke], which is used in cases where
+      applications encrypt only a single message to a recipient's public
+      key.  This mode is appropriate when there is exactly one recipient
+      and no separate content encryption algorithm is required.
 
    The definition of Key Management Mode above replaces the one in JWE
    [RFC7516].
@@ -335,10 +343,10 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    The key used for this example is in Appendix A.1.
 
-5.3.  Flattened JWE JSON Serialization Example
+5.3.  JWE JSON Serialization Example
 
-   Below is an example of a JWE using the Flattened JSON Serialization
-   and Integrated Encryption with HPKE:
+   Below is an example of a JWE using the JWE JSON Serialization and
+   Integrated Encryption with HPKE:
 
 {
   "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0heU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1vEzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQonx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsfUa2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
@@ -504,7 +512,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         Wrapping are employed, generate a random CEK value to use for
         subsequent steps unless one was already generated for a
         previously processed recipient, in which case, let that be the
-        one used for subsequent steps.  See [RFC4086] for considerations
+        one used for subsequent steps.  See [RFC8937] for considerations
         on generating random values.  The CEK MUST have a length equal
         to that required for the content encryption algorithm.
 
@@ -530,8 +538,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    8.   Compute the encoded key value BASE64URL(JWE Encrypted Key).
 
-   9.   If the JWE JSON Serialization is being used, repeat this process
-        (steps 1-8) for each recipient.
+   9.   If the JWE JSON Serialization is being used, and there are
+        multiple recipients, repeat this process (steps 1-8) for each
+        recipient.
 
    10.  Generate a random JWE Initialization Vector of the correct size
         for the content encryption algorithm (if required for the
@@ -692,8 +701,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
         the CEK could be successfully determined for this recipient or
         not.
 
-   14.  If the JWE JSON Serialization is being used, repeat this process
-        (steps 4-13) for each recipient contained in the representation.
+   14.  If the JWE JSON Serialization is being used and there are
+        multiple recipients, repeat this process (steps 4-13) for each
+        recipient contained in the representation.
 
    15.  Compute the Encoded Protected Header value BASE64URL(UTF8(JWE
         Protected Header)).  If the JWE Protected Header is not present
@@ -801,12 +811,13 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    of public key distribution mechanism is assumed to exist but outside
    the scope of this document.
 
-   HPKE in Base mode does not offer authentication as part of the HPKE
-   KEM.
+   HPKE in Base mode does not provide proof of sender origin as part of
+   the HPKE KEM.  PSK mode authenticates the sender as a holder of the
+   pre-shared key (see Section 9.1 of [I-D.ietf-hpke-hpke]).
 
    HPKE relies on a source of randomness being available on the device.
    In Key Agreement with Key Wrapping mode, the CEK has to be randomly
-   generated.  The guidance on randomness in [RFC4086] applies.
+   generated.  The guidance on randomness in [RFC8937] applies.
 
 10.1.  Key Management
 
@@ -816,15 +827,21 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    unintended interactions or vulnerabilities between algorithms,
    ensuring the integrity and security guarantees of each algorithm are
    preserved.  Additionally, the same key SHOULD NOT be used for both
-   Key Encryption and Integrated Encryption, as it may introduce
-   security risks.  It creates algorithm confusion, increases the
-   potential for key leakage, cross-suite attacks, and improper handling
-   of the key.
+   Key Encryption and Integrated Encryption.  While HPKE remains secure
+   across parallel modes (see Section 9.2.2 of [I-D.ietf-hpke-hpke]),
+   wrapping the same content encryption key under a weaker alternative
+   key agreement algorithm bound to the shared key reduces the effective
+   security of the protected content to that weakest alternative.
 
 10.2.  JWT Best Current Practices
 
    The guidance in [RFC8725] about encryption is also pertinent to this
    specification.
+
+   RFC Editor Note: If draft-ietf-oauth-8725bis has been published as an
+   RFC by the time this document is processed, please update the
+   reference from [RFC8725] to the published RFC for draft-ietf-oauth-
+   8725bis.
 
 11.  IANA Considerations
 
@@ -849,7 +866,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.2.  HPKE-1
 
@@ -867,7 +885,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.3.  HPKE-2
 
@@ -885,7 +904,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.4.  HPKE-3
 
@@ -903,7 +923,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.5.  HPKE-4
 
@@ -921,7 +942,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.6.  HPKE-5
 
@@ -939,7 +961,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.7.  HPKE-6
 
@@ -957,7 +980,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.8.  HPKE-7
 
@@ -975,7 +999,8 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 5.1 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 6.1 of
+      [I-D.ietf-hpke-hpke]
 
 11.1.9.  HPKE-0-KE
 
@@ -992,7 +1017,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.10.  HPKE-1-KE
 
@@ -1009,7 +1034,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.11.  HPKE-2-KE
 
@@ -1026,7 +1051,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.12.  HPKE-3-KE
 
@@ -1044,7 +1069,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.13.  HPKE-4-KE
 
@@ -1062,7 +1087,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.14.  HPKE-5-KE
 
@@ -1079,7 +1104,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.15.  HPKE-6-KE
 
@@ -1096,7 +1121,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.1.16.  HPKE-7-KE
 
@@ -1113,7 +1138,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
    *  Specification Document(s): Section 6.2 of [[ this specification ]]
 
-   *  Algorithm Analysis Documents(s): [I-D.ietf-hpke-hpke]
+   *  Algorithm Analysis Documents(s): Section 5 of [I-D.ietf-hpke-hpke]
 
 11.2.  JSON Web Signature and Encryption Header Parameters
 
@@ -1173,13 +1198,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
    [I-D.ietf-hpke-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
               "Hybrid Public Key Encryption", Work in Progress,
-              Internet-Draft, draft-ietf-hpke-hpke-02, 4 November 2025,
+              Internet-Draft, draft-ietf-hpke-hpke-03, 2 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-hpke-
-              hpke-02>.
-
-   [IANA.JOSE]
-              IANA, "JSON Web Signature and Encryption Algorithms",
-              n.d., <https://www.iana.org/assignments/jose>.
+              hpke-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1208,19 +1229,28 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
               DOI 10.17487/RFC8725, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8725>.
 
+   [RFC8937]  Cremers, C., Garratt, L., Smyshlyaev, S., Sullivan, N.,
+              and C. Wood, "Randomness Improvements for Security
+              Protocols", RFC 8937, DOI 10.17487/RFC8937, October 2020,
+              <https://www.rfc-editor.org/rfc/rfc8937>.
+
 13.2.  Informative References
 
    [I-D.ietf-cose-hpke]
-              Tschofenig, H., Steele, O., Daisuke, A., Lundblade, L.,
-              and M. B. Jones, "Use of Hybrid Public-Key Encryption
-              (HPKE) with CBOR Object Signing and Encryption (COSE)",
-              Work in Progress, Internet-Draft, draft-ietf-cose-hpke-21,
-              2 February 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-cose-hpke-21>.
+              Tschofenig, H., Jones, M. B., Steele, O., Daisuke, A., and
+              L. Lundblade, "Use of Hybrid Public-Key Encryption (HPKE)
+              with CBOR Object Signing and Encryption (COSE)", Work in
+              Progress, Internet-Draft, draft-ietf-cose-hpke-25, 7 April
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              cose-hpke-25>.
 
    [IANA.HPKE]
               IANA, "Hybrid Public Key Encryption (HPKE)", n.d.,
               <https://www.iana.org/assignments/hpke>.
+
+   [IANA.JOSE]
+              IANA, "JSON Web Signature and Encryption Algorithms",
+              n.d., <https://www.iana.org/assignments/jose>.
 
    [NIST.SP.800-56Ar3]
               National Institute of Standards and Technology,
@@ -1229,11 +1259,6 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
               Publication 800-56A Revision 3", April 2018,
               <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-56Ar3.pdf>.
-
-   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
-              "Randomness Requirements for Security", BCP 106, RFC 4086,
-              DOI 10.17487/RFC4086, June 2005,
-              <https://www.rfc-editor.org/rfc/rfc4086>.
 
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
@@ -1287,10 +1312,42 @@ Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
    would like to thank Richard Barnes, Brian Campbell, Matt Chanda,
-   Ilari Liusvaara, Neil Madden, Aaron Parecki, Filip Skokan, and
-   Sebastian Stenzel for their contributions to the specification.
+   Ilari Liusvaara, Neil Madden, Aaron Parecki, Filip Skokan, Deb
+   Cooley, and Sebastian Stenzel for their contributions to the
+   specification.
 
 Document History
+
+   -17
+
+   *  Clarified in Section 3 that only Integrated Encryption is newly
+      defined; other Key Management Modes are from [RFC7516].
+
+   *  Added explanation that Integrated Encryption corresponds to the
+      Single-Shot API in Section 6.1 of [I-D.ietf-hpke-hpke].
+
+   *  Renamed "Flattened JWE JSON Serialization Example" to "JWE JSON
+      Serialization Example".
+
+   *  Added note explaining HPKE-7/HPKE-7-KE pairing rationale.
+
+   *  Added qualifying clause to step 9 of Message Encryption and step
+      13 of Message Decryption regarding multiple recipients.
+
+   *  Updated authentication wording in Security Considerations to use
+      HPKE spec terminology "proof of sender origin".
+
+   *  Replaced RFC4086 with [RFC8937].
+
+   *  Upgraded SHOULD NOT to MUST NOT for key reuse across Key
+      Encryption and Integrated Encryption modes.
+
+   *  Added RFC Editor note regarding draft-ietf-oauth-8725bis.
+
+   *  Updated Algorithm Analysis field in IANA registrations to point to
+      specific sections of [I-D.ietf-hpke-hpke].
+
+   *  Moved IANA.JOSE and IANA.HPKE to informative references.
 
    -16
 
