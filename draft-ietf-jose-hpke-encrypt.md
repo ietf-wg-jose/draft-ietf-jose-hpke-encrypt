@@ -78,14 +78,9 @@ normative:
   RFC7517:
   RFC8725:
   RFC8259:
-  IANA.JOSE:
-     author:
-        org: IANA
-     title: JSON Web Signature and Encryption Algorithms
-     target: https://www.iana.org/assignments/jose
+  RFC8937:
 
 informative:
-  RFC4086:
   RFC7515:
   RFC7518:
   RFC9864:
@@ -96,6 +91,12 @@ informative:
         org: IANA
      title: Hybrid Public Key Encryption (HPKE)
      target: https://www.iana.org/assignments/hpke
+
+  IANA.JOSE:
+     author:
+        org: IANA
+     title: JSON Web Signature and Encryption Algorithms
+     target: https://www.iana.org/assignments/jose
 
   NIST.SP.800-56Ar3:
      author:
@@ -163,10 +164,21 @@ Key Management Mode
   Direct Encryption,
   and
   Integrated Encryption.
+  Of these, only Integrated Encryption is defined by this
+  specification; the remaining modes are defined in {{RFC7516}}
+  and are included here because this specification replaces the
+  Message Encryption and Message Decryption procedures
+  of {{RFC7516}} in their entirety.
 
 Integrated Encryption
 : A Key Management Mode in which the plaintext is directly encrypted
   without the use of a Content Encryption Key (CEK).
+  This mode corresponds to the Single-Shot API defined in
+  {{Section 6.1 of I-D.ietf-hpke-hpke}}, which is used in
+  cases where applications encrypt only a single message to
+  a recipient's public key. This mode is appropriate when there is
+  exactly one recipient and no separate content encryption algorithm
+  is required.
 
 The definition of Key Management Mode above replaces the one in JWE {{RFC7516}}.
 
@@ -287,9 +299,9 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 
 The key used for this example is in {{int-key}}.
 
-## Flattened JWE JSON Serialization Example {#flattened-example}
+## JWE JSON Serialization Example {#flattened-example}
 
-Below is an example of a JWE using the Flattened JSON Serialization and Integrated Encryption with HPKE:
+Below is an example of a JWE using the JWE JSON Serialization and Integrated Encryption with HPKE:
 
 ~~~
 {
@@ -401,7 +413,6 @@ Key Encryption as the Key Management Mode:
 
 The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE registry {{IANA.HPKE}}.
 
-
 ## General JWE JSON Serialization Example {#general-example}
 
 Below is an example of a JWE using the General JSON Serialization and Key Encryption with HPKE:
@@ -453,7 +464,7 @@ there are no dependencies between the inputs and outputs of the steps.
     unless one was already generated for a previously
     processed recipient, in which case, let that be the one used
     for subsequent steps.
-    See {{RFC4086}} for
+    See {{RFC8937}} for
     considerations on generating random values.
     The CEK MUST have a length equal to that
     required for the content encryption algorithm.
@@ -482,7 +493,8 @@ there are no dependencies between the inputs and outputs of the steps.
 
 1.  Compute the encoded key value BASE64URL(JWE Encrypted Key).
 
-1.  If the JWE JSON Serialization is being used, repeat this process
+1.  If the JWE JSON Serialization is being used, and
+    there are multiple recipients, repeat this process
     (steps 1-8)
     for each recipient.
 
@@ -668,7 +680,8 @@ MUST successfully validate or the JWE MUST be considered invalid.
 1.  If Integrated Encryption is not being employed,
     record whether the CEK could be successfully determined for this recipient or not.
 
-1.  If the JWE JSON Serialization is being used, repeat this process
+1.  If the JWE JSON Serialization is being used and
+    there are multiple recipients, repeat this process
     (steps 4-13)
     for each recipient contained in the representation.
 
@@ -786,11 +799,14 @@ HPKE assumes the sender is in possession of the public key of the recipient and
 HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
 mechanism is assumed to exist but outside the scope of this document.
 
-HPKE in Base mode does not offer authentication as part of the HPKE KEM.
+HPKE in Base mode does not provide proof of sender origin
+as part of the HPKE KEM. PSK mode authenticates the sender
+as a holder of the pre-shared key (see {{Section 9.1 of
+I-D.ietf-hpke-hpke}}).
 
 HPKE relies on a source of randomness being available on the device.
 In Key Agreement with Key Wrapping mode, the CEK has to be randomly generated.
-The guidance on randomness in {{RFC4086}} applies.
+The guidance on randomness in {{RFC8937}} applies.
 
 ## Key Management
 
@@ -800,12 +816,22 @@ SHOULD be managed independently.
 This separation prevents unintended interactions or vulnerabilities between algorithms,
 ensuring the integrity and security guarantees of each algorithm are preserved.
 Additionally, the same key SHOULD NOT be used for both
-Key Encryption and Integrated Encryption, as it may introduce security risks.
-It creates algorithm confusion, increases the potential for key leakage, cross-suite attacks, and improper handling of the key.
+Key Encryption and Integrated Encryption.
+While HPKE remains secure across parallel modes
+(see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}),
+wrapping the same content encryption key under a weaker
+alternative key agreement algorithm bound to the shared key
+reduces the effective security of the protected content to that
+weakest alternative.
 
 ## JWT Best Current Practices
 
 The guidance in {{RFC8725}} about encryption is also pertinent to this specification.
+
+RFC Editor Note: If draft-ietf-oauth-8725bis has been published as
+an RFC by the time this document is processed, please update the
+reference from {{RFC8725}} to the published RFC for
+draft-ietf-oauth-8725bis.
 
 #  IANA Considerations {#IANA}
 
@@ -821,7 +847,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-1
 
@@ -831,7 +857,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-2
 
@@ -841,7 +867,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-3
 
@@ -851,7 +877,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-4
 
@@ -861,7 +887,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-5
 
@@ -871,7 +897,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-6
 
@@ -881,7 +907,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-7
 
@@ -891,7 +917,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{int-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 6.1 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-0-KE
 
@@ -901,7 +927,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-1-KE
 
@@ -911,7 +937,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-2-KE
 
@@ -921,7 +947,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-3-KE
 
@@ -931,7 +957,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-4-KE
 
@@ -941,7 +967,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-5-KE
 
@@ -951,7 +977,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-6-KE
 
@@ -961,7 +987,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ### HPKE-7-KE
 
@@ -971,7 +997,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
 - Specification Document(s): {{ke-algs}} of [[ this specification ]]
-- Algorithm Analysis Documents(s): {{I-D.ietf-hpke-hpke}}
+- Algorithm Analysis Documents(s): {{Section 5 of I-D.ietf-hpke-hpke}}
 
 ## JSON Web Signature and Encryption Header Parameters
 
@@ -1062,12 +1088,34 @@ Ilari Liusvaara,
 Neil Madden,
 Aaron Parecki,
 Filip Skokan,
+Deb Cooley,
 and
 Sebastian Stenzel
 for their contributions to the specification.
 
 # Document History
 {: numbered="false"}
+
+-17
+
+* Clarified in Section 3 that only Integrated Encryption is newly
+  defined; other Key Management Modes are from {{RFC7516}}.
+* Added explanation that Integrated Encryption corresponds to the
+  Single-Shot API in {{Section 6.1 of I-D.ietf-hpke-hpke}}.
+* Renamed "Flattened JWE JSON Serialization Example" to
+  "JWE JSON Serialization Example".
+* Added note explaining HPKE-7/HPKE-7-KE pairing rationale.
+* Added qualifying clause to step 9 of Message Encryption and
+  step 13 of Message Decryption regarding multiple recipients.
+* Updated authentication wording in Security Considerations to use
+  HPKE spec terminology "proof of sender origin".
+* Replaced RFC4086 with {{RFC8937}}.
+* Upgraded SHOULD NOT to MUST NOT for key reuse across Key
+  Encryption and Integrated Encryption modes.
+* Added RFC Editor note regarding draft-ietf-oauth-8725bis.
+* Updated Algorithm Analysis field in IANA registrations to point
+  to specific sections of {{I-D.ietf-hpke-hpke}}.
+* Moved IANA.JOSE and IANA.HPKE to informative references.
 
 -16
 
