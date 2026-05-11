@@ -272,18 +272,26 @@ The following JWE algorithms using HPKE are defined for use with
 Integrated Encryption as the Key Management Mode:
 
 ~~~
-+--------+----------------------------+-------------+------------------+
-| "alg"  | HPKE KEM                   | HPKE KDF    | HPKE AEAD        |
-+--------+----------------------------+-------------+------------------+
-| HPKE-0 | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-1 | DHKEM(P-384, HKDF-SHA384)  | HKDF-SHA384 | AES-256-GCM      |
-| HPKE-2 | DHKEM(P-521, HKDF-SHA512)  | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-3 | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-4 | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | ChaCha20Poly1305 |
-| HPKE-5 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-6 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
-| HPKE-7 | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
-+--------+----------------------------+-------------+------------------+
++--------+------------------+-------------+------------------+
+| "alg"  | HPKE KEM         | HPKE KDF    | HPKE AEAD        |
++--------+------------------+-------------+------------------+
+| HPKE-0 | DHKEM(P-256,     | HKDF-SHA256 | AES-128-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-1 | DHKEM(P-384,     | HKDF-SHA384 | AES-256-GCM      |
+|        |   HKDF-SHA384)   |             |                  |
+| HPKE-2 | DHKEM(P-521,     | HKDF-SHA512 | AES-256-GCM      |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-3 | DHKEM(X25519,    | HKDF-SHA256 | AES-128-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-4 | DHKEM(X25519,    | HKDF-SHA256 | ChaCha20Poly1305 |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-5 | DHKEM(X448,      | HKDF-SHA512 | AES-256-GCM      |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-6 | DHKEM(X448,      | HKDF-SHA512 | ChaCha20Poly1305 |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-7 | DHKEM(P-256,     | HKDF-SHA256 | AES-256-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
++--------+------------------+-------------+------------------+
 ~~~
 {: #ciphersuite-int-algs title="Algorithms using HPKE for Integrated Encryption"}
 
@@ -294,8 +302,19 @@ The HPKE KEM, KDF, and AEAD values are chosen from the IANA HPKE registry {{IANA
 Below is an example of a JWE using the Compact Serialization and Integrated Encryption with HPKE:
 
 ~~~
-eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jEH3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmXXNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMraa9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkgy2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ37A0Hr5esPLwHRTTrBFw.
+eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJS
+Q0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jE
+H3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..
+NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmX
+XNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMra
+a9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8
+clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkg
+y2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe
+1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ3
+7A0Hr5esPLwHRTTrBFw.
 ~~~
+
+Note: Line breaks are for display purposes only.
 
 The key used for this example is in {{int-key}}.
 
@@ -305,12 +324,22 @@ Below is an example of a JWE using the JWE JSON Serialization and Integrated Enc
 
 ~~~
 {
-  "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0heU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1vEzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQonx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsfUa2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
-  "encrypted_key": "BAOlZ-VnbhQu4NOlTlDAVYwUJB-Q6YcWwnRNWK6YLSiHHlW4rN0qUzBJ3Rc2_y8nkasn8nUVGBzdq7OhdKKiLq4",
+  "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0h
+    eU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1v
+    EzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn
+    7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQ
+    onx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-
+    OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsf
+    Ua2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
+  "encrypted_key": "BAOlZ-VnbhQu4NOlTlDAVYwUJB-Q6YcWwnRNWK6Y
+    LSiHHlW4rN0qUzBJ3Rc2_y8nkasn8nUVGBzdq7OhdKKiLq4",
   "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
-  "protected": "eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0"
+  "protected": "eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpj
+    V3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0"
 }
 ~~~
+
+Note: Line breaks are for display purposes only.
 
 The key used for this example is in {{int-key}}.
 
@@ -318,7 +347,7 @@ The key used for this example is in {{int-key}}.
 
 When using the JWE JSON Serialization,
 recipients using Key Encryption with HPKE can be added alongside other recipients
-(e.g., those using `ECDH-ES+A128KW` or `RSA-OAEP-256`),
+(e.g., those using "ECDH-ES+A128KW" or "RSA-OAEP-256"),
 since HPKE is used to encrypt the Content Encryption Key (CEK).
 
 When using Key Encryption with HPKE:
@@ -327,14 +356,14 @@ When using Key Encryption with HPKE:
 - The header parameter "psk_id" MAY be present.
 - The header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated secret.
 - The HPKE aad parameter defaults to the empty octet sequence.
-- The HPKE info parameter is set to the value of the Recipient_structure defined below.
+- The HPKE info parameter is set to the value of the "Recipient_structure" defined below.
 - THE HPKE plaintext MUST be set to the CEK.
 - The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
   as defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 
 ## Recipient_structure {#recipient_structure}
 
-The `Recipient_structure` used as the value of the HPKE info parameter
+The "Recipient_structure" used as the value of the HPKE info parameter
 when performing Key Encryption with HPKE
 provides context information used in key derivation.
 To ensure compactness and interoperability,
@@ -369,11 +398,11 @@ Where:
   Mutually known private information (a concept also utilized in {{NIST.SP.800-56Ar3}}) MAY be used in this input parameter.
   If no additional context information is provided, this field MUST be the empty octet sequence.
 
-Note that Integrated Encryption does not use the `Recipient_structure` because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.
+Note that Integrated Encryption does not use the "Recipient_structure" because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.
 
 ### Recipient_structure Example
 
-The Recipient_structure encoded in binary as specified in {{recipient_structure}}, and using the field values
+The "Recipient_structure" encoded in binary as specified in {{recipient_structure}}, and using the field values
 (content_encryption_alg = "A128GCM", recipient_extra_info = ""),
 results in the following byte sequence:
 
@@ -387,7 +416,7 @@ The corresponding hexadecimal representation is:
 4a4f53452d48504b452072637074ff4131323847434dff
 ~~~
 
-This value is used as the HPKE `info` parameter when performing Key Encryption with HPKE.
+This value is used as the HPKE "info" parameter when performing Key Encryption with HPKE.
 
 
 ## Key Encryption Algorithms using HPKE {#ke-algs}
@@ -396,18 +425,26 @@ The following JWE algorithms using HPKE are defined for use with
 Key Encryption as the Key Management Mode:
 
 ~~~
-+-----------+----------------------------+-------------+------------------+
-| "alg"     | HPKE KEM                   | HPKE KDF    | HPKE AEAD        |
-+-----------+----------------------------+-------------+------------------+
-| HPKE-0-KE | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-1-KE | DHKEM(P-384, HKDF-SHA384)  | HKDF-SHA384 | AES-256-GCM      |
-| HPKE-2-KE | DHKEM(P-521, HKDF-SHA512)  | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-3-KE | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-4-KE | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | ChaCha20Poly1305 |
-| HPKE-5-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-6-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
-| HPKE-7-KE | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
-+-----------+----------------------------+-------------+------------------+
++-----------+------------------+-------------+------------------+
+| "alg"     | HPKE KEM         | HPKE KDF    | HPKE AEAD        |
++-----------+------------------+-------------+------------------+
+| HPKE-0-KE | DHKEM(P-256,     | HKDF-SHA256 | AES-128-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-1-KE | DHKEM(P-384,     | HKDF-SHA384 | AES-256-GCM      |
+|           |   HKDF-SHA384)   |             |                  |
+| HPKE-2-KE | DHKEM(P-521,     | HKDF-SHA512 | AES-256-GCM      |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-3-KE | DHKEM(X25519,    | HKDF-SHA256 | AES-128-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-4-KE | DHKEM(X25519,    | HKDF-SHA256 | ChaCha20Poly1305 |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-5-KE | DHKEM(X448,      | HKDF-SHA512 | AES-256-GCM      |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-6-KE | DHKEM(X448,      | HKDF-SHA512 | ChaCha20Poly1305 |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-7-KE | DHKEM(P-256,     | HKDF-SHA256 | AES-256-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
++-----------+------------------+-------------+------------------+
 ~~~
 {: #ciphersuite-ke-algs title="Algorithms using HPKE for Key Encryption"}
 
@@ -419,7 +456,13 @@ Below is an example of a JWE using the General JSON Serialization and Key Encryp
 
 ~~~
 {
-  "ciphertext": "uF1XBbVZWhYm_pDbeJvI_fkuqFJiKd1WMP3O_BAGOP-LkpTLE3Et2VQNcOpPAIBfyx8rUzshGqiOFOWzcoWZ3mIwYuDvvAW3-P1RCS8Dtq70JRvahO5O8sAN1vzJg8_dyBPnwsQY6Cy3RhMD6sSSCjjSw0FYmmx67IiI2zJ6Wr8z69k0f34ZTh43k4C-pTwaUSvjl2XI_YrUgdDVYmY_MJ5vmlPTcceMaefP8Onz_fx5xOcGfnVBVz2gpMQPuQL8k5Rk5KJvPGfFfN6hrgWkK_LDzi4lrfnIrvNsk3BCBeZPpc-n19-u7W4-GQxLjAlVyMHeGk5K4tU6gHB8PnnQ4ND5ZTtyXrJWQW-Qr1iFev6g",
+  "ciphertext": "uF1XBbVZWhYm_pDbeJvI_fkuqFJiKd1WMP3O_BAGOP-L
+    kpTLE3Et2VQNcOpPAIBfyx8rUzshGqiOFOWzcoWZ3mIwYuDvvAW3-P1RC
+    S8Dtq70JRvahO5O8sAN1vzJg8_dyBPnwsQY6Cy3RhMD6sSSCjjSw0FYmm
+    x67IiI2zJ6Wr8z69k0f34ZTh43k4C-pTwaUSvjl2XI_YrUgdDVYmY_MJ5
+    vmlPTcceMaefP8Onz_fx5xOcGfnVBVz2gpMQPuQL8k5Rk5KJvPGfFfN6hr
+    gWkK_LDzi4lrfnIrvNsk3BCBeZPpc-n19-u7W4-GQxLjAlVyMHeGk5K4tU
+    6gHB8PnnQ4ND5ZTtyXrJWQW-Qr1iFev6g",
   "iv": "mLiHjYaQA42nPm1L",
   "recipients": [
     {
@@ -427,7 +470,8 @@ Below is an example of a JWE using the General JSON Serialization and Key Encryp
       "header": {
         "alg": "HPKE-0-KE",
         "kid": "9CfUPiGcAcTp7oXgVbDStw2FEjka-_KHU_i-X3XMCEA",
-        "ek": "BGWPWLoD5BUjFEDIjMS-yvtcCXBn5A-kuv2RjzUY_2hKUjgZINqtEy1aHZ8dWxAiyApV5JafG76W8O_yZzy5T54"
+        "ek": "BGWPWLoD5BUjFEDIjMS-yvtcCXBn5A-kuv2RjzUY_2hKUjg
+          ZINqtEy1aHZ8dWxAiyApV5JafG76W8O_yZzy5T54"
       }
     }
   ],
@@ -436,6 +480,8 @@ Below is an example of a JWE using the General JSON Serialization and Key Encryp
   "protected": "eyJlbmMiOiJBMTI4R0NNIn0"
 }
 ~~~
+
+Note: Line breaks are for display purposes only.
 
 The key used for this example is in {{ke-key}}.
 
@@ -455,7 +501,7 @@ there are no dependencies between the inputs and outputs of the steps.
 1.  Determine the Key Management Mode employed by the algorithm
     used to determine the Content Encryption Key value.
     (This is the algorithm recorded in the
-    `alg` (algorithm)
+    "alg" (algorithm)
     Header Parameter of the resulting JWE.)
 
 1.  When Key Wrapping, Key Encryption,
@@ -505,7 +551,7 @@ there are no dependencies between the inputs and outputs of the steps.
 1.  Compute the encoded Initialization Vector value
     BASE64URL(JWE Initialization Vector).
 
-1.  If a `zip` parameter was included,
+1.  If a "zip" parameter was included,
     compress the plaintext using the specified compression algorithm
     and let M be the octet sequence representing the compressed plaintext;
     otherwise, let M be the octet sequence representing the plaintext.
@@ -519,7 +565,7 @@ there are no dependencies between the inputs and outputs of the steps.
     BASE64URL(UTF8(JWE Protected Header)).
     If the JWE Protected Header is not present
     (which can only happen when using the JWE JSON Serialization
-    and no `protected` member is present),
+    and no "protected" member is present),
     let this value be the empty string.
 
 1.  Let the Additional Authenticated Data encryption parameter be
@@ -638,12 +684,12 @@ MUST successfully validate or the JWE MUST be considered invalid.
     all fields that it is required to support,
     whether required by this specification,
     by the algorithms being used,
-    or by the `crit` Header Parameter value,
+    or by the "crit" Header Parameter value,
     and that the values of those parameters are also understood and supported.
 
 1.  Determine the Key Management Mode employed by the algorithm
     specified by the
-    `alg` (algorithm) Header Parameter.
+    "alg" (algorithm) Header Parameter.
 
 1.  If using Integrated Encryption, Direct Encryption or Direct Key Agreement,
     verify that there is exactly one recipient.
@@ -689,7 +735,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     BASE64URL(UTF8(JWE Protected Header)).
     If the JWE Protected Header is not present
     (which can only happen when using the JWE JSON Serialization
-    and no `protected` member is present),
+    and no "protected" member is present),
     let this value be the empty string.
 
 1.  Let the Additional Authenticated Data encryption parameter be
@@ -721,7 +767,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     rejecting the input without emitting any decrypted output
     if the decryption fails.
 
-1.  If a `zip` parameter was included,
+1.  If a "zip" parameter was included,
     uncompress the decrypted plaintext using the specified compression algorithm.
 
 1.  If there was no recipient for which all of the decryption steps succeeded,
@@ -743,8 +789,8 @@ to the application, it SHOULD consider the JWE to be invalid.
 * The JOSE Header for a JWS can also be distinguished from
   the JOSE Header for a JWE by
   determining whether an
-  `enc` (encryption algorithm) member exists.
-  If the `enc` member exists, it is a JWE;
+  "enc" (encryption algorithm) member exists.
+  If the "enc" member exists, it is a JWE;
   otherwise, it is a JWS.
 
 The deleted test no longer works when Integrated Encryption is used.
