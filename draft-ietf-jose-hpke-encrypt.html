@@ -1066,7 +1066,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 11 November 2026</td>
+<td class="center">Expires 12 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1082,12 +1082,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7516" class="eref">7516</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-10" class="published">10 May 2026</time>
+<time datetime="2026-05-11" class="published">11 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-11">11 November 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-12">12 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1160,7 +1160,7 @@ Integrated Encryption as a Key Management Mode.<a href="#section-abstract-2" cla
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1610,18 +1610,26 @@ Integrated Encryption as the Key Management Mode:<a href="#section-5.1-1" class=
 <figure id="figure-1">
           <div class="alignLeft art-text artwork" id="section-5.1-2.1">
 <pre>
-+--------+----------------------------+-------------+------------------+
-| "alg"  | HPKE KEM                   | HPKE KDF    | HPKE AEAD        |
-+--------+----------------------------+-------------+------------------+
-| HPKE-0 | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-1 | DHKEM(P-384, HKDF-SHA384)  | HKDF-SHA384 | AES-256-GCM      |
-| HPKE-2 | DHKEM(P-521, HKDF-SHA512)  | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-3 | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-4 | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | ChaCha20Poly1305 |
-| HPKE-5 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-6 | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
-| HPKE-7 | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
-+--------+----------------------------+-------------+------------------+
++--------+------------------+-------------+------------------+
+| "alg"  | HPKE KEM         | HPKE KDF    | HPKE AEAD        |
++--------+------------------+-------------+------------------+
+| HPKE-0 | DHKEM(P-256,     | HKDF-SHA256 | AES-128-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-1 | DHKEM(P-384,     | HKDF-SHA384 | AES-256-GCM      |
+|        |   HKDF-SHA384)   |             |                  |
+| HPKE-2 | DHKEM(P-521,     | HKDF-SHA512 | AES-256-GCM      |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-3 | DHKEM(X25519,    | HKDF-SHA256 | AES-128-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-4 | DHKEM(X25519,    | HKDF-SHA256 | ChaCha20Poly1305 |
+|        |   HKDF-SHA256)   |             |                  |
+| HPKE-5 | DHKEM(X448,      | HKDF-SHA512 | AES-256-GCM      |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-6 | DHKEM(X448,      | HKDF-SHA512 | ChaCha20Poly1305 |
+|        |   HKDF-SHA512)   |             |                  |
+| HPKE-7 | DHKEM(P-256,     | HKDF-SHA256 | AES-256-GCM      |
+|        |   HKDF-SHA256)   |             |                  |
++--------+------------------+-------------+------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1639,10 +1647,20 @@ Integrated Encryption as the Key Management Mode:<a href="#section-5.1-1" class=
 <p id="section-5.2-1">Below is an example of a JWE using the Compact Serialization and Integrated Encryption with HPKE:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-2">
 <pre>
-eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jEH3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmXXNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMraa9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkgy2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ37A0Hr5esPLwHRTTrBFw.
+eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJS
+Q0IxdnhWb3F2NHVtSjRXSzhSWWprIn0.BLAJX8adrFsDKaoJAc3iy2dq-6jE
+H3Uv-bSgqIoDeREqpWglMoTS67XsXere1ZYxiQKEFU6MbWe8O7vmdlSmcUk..
+NcN9ew5aijn8W7piLVRU8r2cOP0JKqxOF4RllVsJM4qsAfVXW5Ka6so9zdUmX
+XNOXyCEk0wV_s8ICAnD4LbRa5TkhTeuhijIfAt9bQ2fMLOeyed3WyArs8yaMra
+a9Zbh4i6SaHunM7jU_xoz_N2WbykSOSySmCO49H4mP3jLW9L_TYQfeVfYsrB8
+clqokZ8h-3eQGNwmOPtkjWdpAfaHUsp4-HC9nRd6yrTU6mV65Nn2iYynu3Xkg
+y2Lm-kQKDavIEW3PBpEeiw6mtPJE9o8sT-0lZ9kpWtqog2XbNGEfjSOjujvNe
+1b0g4-FdNFMFO_fo0rxe902W1pGT7znv4Q-xBkIydK4ZwjiFN6dAXutnococ3
+7A0Hr5esPLwHRTTrBFw.
 </pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-3">The key used for this example is in <a href="#int-key" class="auto internal xref">Appendix A.1</a>.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Note: Line breaks are for display purposes only.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">The key used for this example is in <a href="#int-key" class="auto internal xref">Appendix A.1</a>.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="flattened-example">
@@ -1654,14 +1672,23 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
 <div class="alignLeft art-text artwork" id="section-5.3-2">
 <pre>
 {
-  "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0heU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1vEzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQonx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsfUa2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
-  "encrypted_key": "BAOlZ-VnbhQu4NOlTlDAVYwUJB-Q6YcWwnRNWK6YLSiHHlW4rN0qUzBJ3Rc2_y8nkasn8nUVGBzdq7OhdKKiLq4",
+  "ciphertext": "LabI8_KIPDbymUSbyVctj8AfISXQ07sMt1xQ1lrS-0h
+    eU2jjejpQIK75K1KXcvwn15E6Kil_tJ6LBcYCu02O1H8_aooJGuoLw1v
+    EzQn16h498YX9e2SA2IcVrJTkcCjL7YpF9fsAF3JEzGfsmmrpZPPVdxCn
+    7g8dkGRcyulnHrNvBu4BFtub-URtf-nYCFIJHZ4k-ul9fDddquicFzCxQ
+    onx66-ZX5nbj6azHG65tAZntd6VFkRgihdxTvIpvTS4gfulQeKyShbiw-
+    OCJNbzFdEnOKEMnsyqRjwG7iVrFEilFAMsvLJ14-lcuR5btIkUntIwlnsf
+    Ua2Ytk33znCfAFN0wYukdDvJe-V0nnNUFlOeLyYV0eEGisgC9dQQ1kFu3g",
+  "encrypted_key": "BAOlZ-VnbhQu4NOlTlDAVYwUJB-Q6YcWwnRNWK6Y
+    LSiHHlW4rN0qUzBJ3Rc2_y8nkasn8nUVGBzdq7OhdKKiLq4",
   "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
-  "protected": "eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0"
+  "protected": "eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpj
+    V3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRXSzhSWWprIn0"
 }
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-3">The key used for this example is in <a href="#int-key" class="auto internal xref">Appendix A.1</a>.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">Note: Line breaks are for display purposes only.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">The key used for this example is in <a href="#int-key" class="auto internal xref">Appendix A.1</a>.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1673,7 +1700,7 @@ eyJhbGciOiJIUEtFLTAiLCJraWQiOiJ5Q25mYm1ZTVpjV3JLRHRfRGpOZWJSQ0IxdnhWb3F2NHVtSjRX
       </h2>
 <p id="section-6-1">When using the JWE JSON Serialization,
 recipients using Key Encryption with HPKE can be added alongside other recipients
-(e.g., those using <code>ECDH-ES+A128KW</code> or <code>RSA-OAEP-256</code>),
+(e.g., those using "ECDH-ES+A128KW" or "RSA-OAEP-256"),
 since HPKE is used to encrypt the Content Encryption Key (CEK).<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">When using Key Encryption with HPKE:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1690,7 +1717,7 @@ since HPKE is used to encrypt the Content Encryption Key (CEK).<a href="#section
           <p id="section-6-3.4.1">The HPKE aad parameter defaults to the empty octet sequence.<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.5">
-          <p id="section-6-3.5.1">The HPKE info parameter is set to the value of the Recipient_structure defined below.<a href="#section-6-3.5.1" class="pilcrow">¶</a></p>
+          <p id="section-6-3.5.1">The HPKE info parameter is set to the value of the "Recipient_structure" defined below.<a href="#section-6-3.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.6">
           <p id="section-6-3.6.1">THE HPKE plaintext <span class="bcp14">MUST</span> be set to the CEK.<a href="#section-6-3.6.1" class="pilcrow">¶</a></p>
@@ -1705,7 +1732,7 @@ as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hp
         <h3 id="name-recipient_structure">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-recipient_structure" class="section-name selfRef">Recipient_structure</a>
         </h3>
-<p id="section-6.1-1">The <code>Recipient_structure</code> used as the value of the HPKE info parameter
+<p id="section-6.1-1">The "Recipient_structure" used as the value of the HPKE info parameter
 when performing Key Encryption with HPKE
 provides context information used in key derivation.
 To ensure compactness and interoperability,
@@ -1746,13 +1773,13 @@ Mutually known private information (a concept also utilized in <span>[<a href="#
 If no additional context information is provided, this field <span class="bcp14">MUST</span> be the empty octet sequence.<a href="#section-6.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-6.1-5">Note that Integrated Encryption does not use the <code>Recipient_structure</code> because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1-5">Note that Integrated Encryption does not use the "Recipient_structure" because the JWE Protected Header and JWE AAD are included in the HPKE aad value, which binds these parameters to the ciphertext.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <div id="recipientstructure-example">
 <section id="section-6.1.1">
           <h4 id="name-recipient_structure-example">
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-recipient_structure-example" class="section-name selfRef">Recipient_structure Example</a>
           </h4>
-<p id="section-6.1.1-1">The Recipient_structure encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
+<p id="section-6.1.1-1">The "Recipient_structure" encoded in binary as specified in <a href="#recipient_structure" class="auto internal xref">Section 6.1</a>, and using the field values
 (content_encryption_alg = "A128GCM", recipient_extra_info = ""),
 results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1.1-2">
@@ -1766,7 +1793,7 @@ results in the following byte sequence:<a href="#section-6.1.1-1" class="pilcrow
 4a4f53452d48504b452072637074ff4131323847434dff
 </pre><a href="#section-6.1.1-4" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1.1-5">This value is used as the HPKE <code>info</code> parameter when performing Key Encryption with HPKE.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-5">This value is used as the HPKE "info" parameter when performing Key Encryption with HPKE.<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1782,18 +1809,26 @@ Key Encryption as the Key Management Mode:<a href="#section-6.2-1" class="pilcro
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-6.2-2.1">
 <pre>
-+-----------+----------------------------+-------------+------------------+
-| "alg"     | HPKE KEM                   | HPKE KDF    | HPKE AEAD        |
-+-----------+----------------------------+-------------+------------------+
-| HPKE-0-KE | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-1-KE | DHKEM(P-384, HKDF-SHA384)  | HKDF-SHA384 | AES-256-GCM      |
-| HPKE-2-KE | DHKEM(P-521, HKDF-SHA512)  | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-3-KE | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | AES-128-GCM      |
-| HPKE-4-KE | DHKEM(X25519, HKDF-SHA256) | HKDF-SHA256 | ChaCha20Poly1305 |
-| HPKE-5-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | AES-256-GCM      |
-| HPKE-6-KE | DHKEM(X448, HKDF-SHA512)   | HKDF-SHA512 | ChaCha20Poly1305 |
-| HPKE-7-KE | DHKEM(P-256, HKDF-SHA256)  | HKDF-SHA256 | AES-256-GCM      |
-+-----------+----------------------------+-------------+------------------+
++-----------+------------------+-------------+------------------+
+| "alg"     | HPKE KEM         | HPKE KDF    | HPKE AEAD        |
++-----------+------------------+-------------+------------------+
+| HPKE-0-KE | DHKEM(P-256,     | HKDF-SHA256 | AES-128-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-1-KE | DHKEM(P-384,     | HKDF-SHA384 | AES-256-GCM      |
+|           |   HKDF-SHA384)   |             |                  |
+| HPKE-2-KE | DHKEM(P-521,     | HKDF-SHA512 | AES-256-GCM      |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-3-KE | DHKEM(X25519,    | HKDF-SHA256 | AES-128-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-4-KE | DHKEM(X25519,    | HKDF-SHA256 | ChaCha20Poly1305 |
+|           |   HKDF-SHA256)   |             |                  |
+| HPKE-5-KE | DHKEM(X448,      | HKDF-SHA512 | AES-256-GCM      |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-6-KE | DHKEM(X448,      | HKDF-SHA512 | ChaCha20Poly1305 |
+|           |   HKDF-SHA512)   |             |                  |
+| HPKE-7-KE | DHKEM(P-256,     | HKDF-SHA256 | AES-256-GCM      |
+|           |   HKDF-SHA256)   |             |                  |
++-----------+------------------+-------------+------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1812,7 +1847,13 @@ Key Encryption as the Key Management Mode:<a href="#section-6.2-1" class="pilcro
 <div class="alignLeft art-text artwork" id="section-6.3-2">
 <pre>
 {
-  "ciphertext": "uF1XBbVZWhYm_pDbeJvI_fkuqFJiKd1WMP3O_BAGOP-LkpTLE3Et2VQNcOpPAIBfyx8rUzshGqiOFOWzcoWZ3mIwYuDvvAW3-P1RCS8Dtq70JRvahO5O8sAN1vzJg8_dyBPnwsQY6Cy3RhMD6sSSCjjSw0FYmmx67IiI2zJ6Wr8z69k0f34ZTh43k4C-pTwaUSvjl2XI_YrUgdDVYmY_MJ5vmlPTcceMaefP8Onz_fx5xOcGfnVBVz2gpMQPuQL8k5Rk5KJvPGfFfN6hrgWkK_LDzi4lrfnIrvNsk3BCBeZPpc-n19-u7W4-GQxLjAlVyMHeGk5K4tU6gHB8PnnQ4ND5ZTtyXrJWQW-Qr1iFev6g",
+  "ciphertext": "uF1XBbVZWhYm_pDbeJvI_fkuqFJiKd1WMP3O_BAGOP-L
+    kpTLE3Et2VQNcOpPAIBfyx8rUzshGqiOFOWzcoWZ3mIwYuDvvAW3-P1RC
+    S8Dtq70JRvahO5O8sAN1vzJg8_dyBPnwsQY6Cy3RhMD6sSSCjjSw0FYmm
+    x67IiI2zJ6Wr8z69k0f34ZTh43k4C-pTwaUSvjl2XI_YrUgdDVYmY_MJ5
+    vmlPTcceMaefP8Onz_fx5xOcGfnVBVz2gpMQPuQL8k5Rk5KJvPGfFfN6hr
+    gWkK_LDzi4lrfnIrvNsk3BCBeZPpc-n19-u7W4-GQxLjAlVyMHeGk5K4tU
+    6gHB8PnnQ4ND5ZTtyXrJWQW-Qr1iFev6g",
   "iv": "mLiHjYaQA42nPm1L",
   "recipients": [
     {
@@ -1820,7 +1861,8 @@ Key Encryption as the Key Management Mode:<a href="#section-6.2-1" class="pilcro
       "header": {
         "alg": "HPKE-0-KE",
         "kid": "9CfUPiGcAcTp7oXgVbDStw2FEjka-_KHU_i-X3XMCEA",
-        "ek": "BGWPWLoD5BUjFEDIjMS-yvtcCXBn5A-kuv2RjzUY_2hKUjgZINqtEy1aHZ8dWxAiyApV5JafG76W8O_yZzy5T54"
+        "ek": "BGWPWLoD5BUjFEDIjMS-yvtcCXBn5A-kuv2RjzUY_2hKUjg
+          ZINqtEy1aHZ8dWxAiyApV5JafG76W8O_yZzy5T54"
       }
     }
   ],
@@ -1830,7 +1872,8 @@ Key Encryption as the Key Management Mode:<a href="#section-6.2-1" class="pilcro
 }
 </pre><a href="#section-6.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3-3">The key used for this example is in <a href="#ke-key" class="auto internal xref">Appendix A.2</a>.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">Note: Line breaks are for display purposes only.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">The key used for this example is in <a href="#ke-key" class="auto internal xref">Appendix A.2</a>.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1856,7 +1899,7 @@ there are no dependencies between the inputs and outputs of the steps.<a href="#
             <p id="section-7.1-2.1.1">Determine the Key Management Mode employed by the algorithm
 used to determine the Content Encryption Key value.
 (This is the algorithm recorded in the
-<code>alg</code> (algorithm)
+"alg" (algorithm)
 Header Parameter of the resulting JWE.)<a href="#section-7.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.1-2.2">
@@ -1917,7 +1960,7 @@ otherwise, let the JWE Initialization Vector be the empty octet sequence.<a href
 BASE64URL(JWE Initialization Vector).<a href="#section-7.1-2.11.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.1-2.12">
-            <p id="section-7.1-2.12.1">If a <code>zip</code> parameter was included,
+            <p id="section-7.1-2.12.1">If a "zip" parameter was included,
 compress the plaintext using the specified compression algorithm
 and let M be the octet sequence representing the compressed plaintext;
 otherwise, let M be the octet sequence representing the plaintext.<a href="#section-7.1-2.12.1" class="pilcrow">¶</a></p>
@@ -1933,7 +1976,7 @@ Header, and the JWE Per-Recipient Unprotected Header.<a href="#section-7.1-2.13.
 BASE64URL(UTF8(JWE Protected Header)).
 If the JWE Protected Header is not present
 (which can only happen when using the JWE JSON Serialization
-and no <code>protected</code> member is present),
+and no "protected" member is present),
 let this value be the empty string.<a href="#section-7.1-2.14.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.1-2.15">
@@ -2069,13 +2112,13 @@ distinct JSON object values that together comprise the JOSE Header.<a href="#sec
 all fields that it is required to support,
 whether required by this specification,
 by the algorithms being used,
-or by the <code>crit</code> Header Parameter value,
+or by the "crit" Header Parameter value,
 and that the values of those parameters are also understood and supported.<a href="#section-7.2-3.5.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.2-3.6">
             <p id="section-7.2-3.6.1">Determine the Key Management Mode employed by the algorithm
 specified by the
-<code>alg</code> (algorithm) Header Parameter.<a href="#section-7.2-3.6.1" class="pilcrow">¶</a></p>
+"alg" (algorithm) Header Parameter.<a href="#section-7.2-3.6.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.2-3.7">
             <p id="section-7.2-3.7.1">If using Integrated Encryption, Direct Encryption or Direct Key Agreement,
@@ -2130,7 +2173,7 @@ for each recipient contained in the representation.<a href="#section-7.2-3.14.1"
 BASE64URL(UTF8(JWE Protected Header)).
 If the JWE Protected Header is not present
 (which can only happen when using the JWE JSON Serialization
-and no <code>protected</code> member is present),
+and no "protected" member is present),
 let this value be the empty string.<a href="#section-7.2-3.15.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.2-3.16">
@@ -2167,7 +2210,7 @@ rejecting the input without emitting any decrypted output
 if the decryption fails.<a href="#section-7.2-3.19.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.2-3.20">
-            <p id="section-7.2-3.20.1">If a <code>zip</code> parameter was included,
+            <p id="section-7.2-3.20.1">If a "zip" parameter was included,
 uncompress the decrypted plaintext using the specified compression algorithm.<a href="#section-7.2-3.20.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-7.2-3.21">
@@ -2198,8 +2241,8 @@ to the application, it <span class="bcp14">SHOULD</span> consider the JWE to be 
           <p id="section-8-2.1.1">The JOSE Header for a JWS can also be distinguished from
 the JOSE Header for a JWE by
 determining whether an
-<code>enc</code> (encryption algorithm) member exists.
-If the <code>enc</code> member exists, it is a JWE;
+"enc" (encryption algorithm) member exists.
+If the "enc" member exists, it is a JWE;
 otherwise, it is a JWS.<a href="#section-8-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
