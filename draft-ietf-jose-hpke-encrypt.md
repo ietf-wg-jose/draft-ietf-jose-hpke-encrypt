@@ -856,11 +856,11 @@ The guidance on randomness in {{RFC8937}} applies.
 
 ## Key Management
 
-A KEM key pair can be used with multiple modes and multiple 
-HPKE algorithm suites in parallel, as the HPKE key schedule 
-takes both the "suite_id" variable, which encodes the 
-full ciphersuite, and the mode byte as inputs, ensuring that 
-cryptographically distinct keys are derived for each 
+A KEM key pair can be used with multiple modes and multiple
+HPKE algorithm suites in parallel, as the HPKE key schedule
+takes both the "suite_id" variable, which encodes the
+full ciphersuite, and the mode byte as inputs, ensuring that
+cryptographically distinct keys are derived for each
 combination of ciphersuite and mode. However, there
 is no formal proof of security for this at the time of writing
 (see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}).
