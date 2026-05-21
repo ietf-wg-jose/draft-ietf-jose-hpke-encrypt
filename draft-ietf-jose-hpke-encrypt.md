@@ -878,7 +878,7 @@ security of the content is limited by the weakest algorithm used
 to encrypt the CEK. Therefore, implementations SHOULD NOT combine
 HPKE Key Encryption with weaker Key Encryption algorithms to
 protect the same CEK, as the effective security is reduced to
-that of the weakest algorithm.
+that of the weakest algorithm. An exception may be necessary when interoperability with legacy recipients requires the use of weaker algorithms.
 
 ## JWT Best Current Practices
 
