@@ -863,7 +863,8 @@ full ciphersuite, and the mode byte as inputs, ensuring that
 cryptographically distinct keys are derived for each
 combination of ciphersuite and mode. However, there
 is no formal proof of security for this at the time of writing
-(see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}).
+(see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}),
+therefore, this practice is NOT RECOMMENDED.
 
 Additionally, the same key SHOULD NOT be used for both
 Key Encryption and Integrated Encryption.
