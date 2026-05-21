@@ -2325,10 +2325,12 @@ The guidance on randomness in <span>[<a href="#RFC8937" class="cite xref">RFC893
         <h3 id="name-key-management">
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-key-management" class="section-name selfRef">Key Management</a>
         </h3>
-<p id="section-10.1-1">A KEM key pair can be used with multiple HPKE algorithm
-suites in parallel, as the HPKE key schedule uses the "suite_id"
-variable, which encodes the full ciphersuite, to derive
-cryptographically distinct keys for each suite. However, as there
+<p id="section-10.1-1">A KEM key pair can be used with multiple modes and multiple
+HPKE algorithm suites in parallel, as the HPKE key schedule
+takes both the "suite_id" variable, which encodes the
+full ciphersuite, and the mode byte as inputs, ensuring that
+cryptographically distinct keys are derived for each
+combination of ciphersuite and mode. However, there
 is no formal proof of security for this at the time of writing
 (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-03#section-9.2.2" class="relref">Section 9.2.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>).<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 <p id="section-10.1-2">Additionally, the same key <span class="bcp14">SHOULD NOT</span> be used for both
