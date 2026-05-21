@@ -875,7 +875,7 @@ outside the HPKE security model.
 
 When using Key Encryption in a multi-recipient scenario, the
 security of the content is limited by the weakest algorithm used
-to encrypt the CEK. Therefore, implementations MUST NOT combine
+to encrypt the CEK. Therefore, implementations SHOULD NOT combine
 HPKE Key Encryption with weaker Key Encryption algorithms to
 protect the same CEK, as the effective security is reduced to
 that of the weakest algorithm.
