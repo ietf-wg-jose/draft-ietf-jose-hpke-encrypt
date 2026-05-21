@@ -2344,7 +2344,7 @@ security of the content is limited by the weakest algorithm used
 to encrypt the CEK. Therefore, implementations <span class="bcp14">SHOULD NOT</span> combine
 HPKE Key Encryption with weaker Key Encryption algorithms to
 protect the same CEK, as the effective security is reduced to
-that of the weakest algorithm.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
+that of the weakest algorithm. An exception may be necessary when interoperability with legacy recipients requires the use of weaker algorithms.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="jwt-best-current-practices">
