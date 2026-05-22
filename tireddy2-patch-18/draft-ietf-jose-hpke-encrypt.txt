@@ -881,12 +881,8 @@ Table of Contents
    for this at the time of writing; see Section 9.2.2 of
    [I-D.ietf-hpke-hpke].
 
-   Additionally, the same key SHOULD NOT be used for both Key Encryption
-   and Integrated Encryption.
-
-   The same key SHOULD NOT be used with both HPKE and non-HPKE
-   algorithms (e.g., "ECDH-ES" or "ECDH-ES+A128KW"), as this is outside
-   the HPKE security model.
+   Likewise,the same key SHOULD NOT be used with both HPKE and non-HPKE
+   algorithms (e.g., "ECDH-ES" or "ECDH-ES+A128KW").
 
    When using Key Encryption in a multi-recipient scenario, the security
    of the content is limited by the weakest algorithm used to encrypt

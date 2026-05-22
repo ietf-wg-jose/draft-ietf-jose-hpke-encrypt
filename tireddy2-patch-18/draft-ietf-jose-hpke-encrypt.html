@@ -2336,14 +2336,11 @@ ensuring that cryptographically distinct keys are derived
 for each combination of ciphersuite and mode. However, there
 is no formal proof of security for this at the time of
 writing; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-hpke-hpke-03#section-9.2.2" class="relref">Section 9.2.2</a> of [<a href="#I-D.ietf-hpke-hpke" class="cite xref">I-D.ietf-hpke-hpke</a>]</span>.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">Additionally, the same key <span class="bcp14">SHOULD NOT</span> be used for both
-Key Encryption and Integrated Encryption.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
-<p id="section-10.1-4">The same key <span class="bcp14">SHOULD NOT</span> be used with both HPKE and non-HPKE
-algorithms (e.g., "ECDH-ES" or "ECDH-ES+A128KW"), as this is
-outside the HPKE security model.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
-<p id="section-10.1-5">When using Key Encryption in a multi-recipient scenario, the
+<p id="section-10.1-3">Likewise,the same key <span class="bcp14">SHOULD NOT</span> be used with both HPKE and
+non-HPKE algorithms (e.g., "ECDH-ES" or "ECDH-ES+A128KW").<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-4">When using Key Encryption in a multi-recipient scenario, the
 security of the content is limited by the weakest algorithm used
-to encrypt the CEK.<a href="#section-10.1-5" class="pilcrow">¶</a></p>
+to encrypt the CEK.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="jwt-best-current-practices">
