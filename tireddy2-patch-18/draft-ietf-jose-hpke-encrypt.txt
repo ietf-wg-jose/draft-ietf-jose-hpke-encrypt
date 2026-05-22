@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 22 November 2026                                    A. Banerjee
+Expires: 23 November 2026                                    A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                             21 May 2026
+                                                             22 May 2026
 
 
   Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 November 2026.
+   This Internet-Draft will expire on 23 November 2026.
 
 Copyright Notice
 
@@ -868,14 +868,18 @@ Table of Contents
 
 10.1.  Key Management
 
-   A KEM key pair can be used with multiple modes and multiple HPKE
-   algorithm suites in parallel, as the HPKE key schedule takes both the
-   "suite_id" variable, which encodes the full ciphersuite, and the mode
-   byte as inputs, ensuring that cryptographically distinct keys are
-   derived for each combination of ciphersuite and mode.  However, there
-   is no formal proof of security for this at the time of writing (see
-   Section 9.2.2 of [I-D.ietf-hpke-hpke]), therefore, this practice is
-   NOT RECOMMENDED.
+   A KEM key pair used with HPKE is intended for use with a specific
+   mode and HPKE algorithm suite.  Using the same KEM key pair with
+   multiple modes or multiple HPKE algorithm suites in parallel is NOT
+   RECOMMENDED.
+
+   In principle, such use could be supported by the HPKE key schedule,
+   since it takes both the suite_id variable, which encodes the full
+   ciphersuite, and the mode byte as inputs, ensuring that
+   cryptographically distinct keys are derived for each combination of
+   ciphersuite and mode.  However, there is no formal proof of security
+   for this at the time of writing; see Section 9.2.2 of
+   [I-D.ietf-hpke-hpke].
 
    Additionally, the same key SHOULD NOT be used for both Key Encryption
    and Integrated Encryption.
