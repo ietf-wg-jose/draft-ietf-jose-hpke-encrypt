@@ -859,7 +859,7 @@ The guidance on randomness in {{RFC8937}} applies.
 A KEM key pair used with HPKE is intended for use with a
 specific mode and HPKE algorithm suite. Using the same
 KEM key pair with multiple modes or multiple HPKE algorithm
-suites in parallel is NOT RECOMMENDED. 
+suites in parallel is NOT RECOMMENDED.
 
 In principle, such use could be supported by the HPKE key
 schedule, since it takes both the suite_id variable, which
