@@ -856,19 +856,25 @@ The guidance on randomness in {{RFC8937}} applies.
 
 ## Key Management
 
-A single key MUST NOT be used with multiple KEM algorithms.
-Each key and its associated HPKE algorithm suite, comprising the KEM, KDF, and AEAD,
-SHOULD be managed independently.
-This separation prevents unintended interactions or vulnerabilities between algorithms,
-ensuring the integrity and security guarantees of each algorithm are preserved.
-Additionally, the same key SHOULD NOT be used for both
-Key Encryption and Integrated Encryption.
-While HPKE remains secure across parallel modes
-(see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}),
-wrapping the same content encryption key under a weaker
-alternative key agreement algorithm bound to the shared key
-reduces the effective security of the protected content to that
-weakest alternative.
+A KEM key pair used with HPKE is intended for use with a
+specific mode and HPKE algorithm suite. Using the same
+KEM key pair with multiple modes or multiple HPKE algorithm
+suites in parallel is NOT RECOMMENDED.
+
+In principle, such use could be supported by the HPKE key
+schedule, since it takes both the suite_id variable, which
+encodes the full ciphersuite, and the mode byte as inputs,
+ensuring that cryptographically distinct keys are derived
+for each combination of ciphersuite and mode. However, there
+is no formal proof of security for this at the time of
+writing; see {{Section 9.2.2 of I-D.ietf-hpke-hpke}}.
+
+Likewise,the same key SHOULD NOT be used with both HPKE and
+non-HPKE algorithms (e.g., "ECDH-ES" or "ECDH-ES+A128KW").
+
+When using Key Encryption in a multi-recipient scenario, the
+security of the content is limited by the weakest algorithm used
+to encrypt the CEK.
 
 ## JWT Best Current Practices
 
