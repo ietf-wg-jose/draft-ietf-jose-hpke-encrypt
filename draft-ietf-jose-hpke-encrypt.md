@@ -154,7 +154,7 @@ This specification defines the following terms:
 Key Management Mode
 : A method of determining whether a Content Encryption Key (CEK) value is used
   and, if so, what CEK value to use.
-  Each method used for making these determinations uses a
+  Each algorithm used for making these determinations uses a
   specific Key Management Mode.
   Key Management Modes employed by this specification are
   Key Encryption,
@@ -352,12 +352,12 @@ since HPKE is used to encrypt the Content Encryption Key (CEK).
 
 When using Key Encryption with HPKE:
 
-- The "alg" header parameter MUST be a HPKE JWE algorithm using Key Encryption.
+- The "alg" header parameter MUST be an HPKE JWE algorithm using Key Encryption.
 - The header parameter "psk_id" MAY be present.
 - The header parameter "ek" MUST be present and contain the base64url-encoded HPKE encapsulated secret.
 - The HPKE aad parameter defaults to the empty octet sequence.
 - The HPKE info parameter is set to the value of the "Recipient_structure" defined below.
-- THE HPKE plaintext MUST be set to the CEK.
+- The HPKE plaintext MUST be set to the CEK.
 - The recipient's JWE Encrypted Key is the ciphertext from the HPKE Encryption,
   as defined in {{Section 5.2 of I-D.ietf-hpke-hpke}}.
 
@@ -505,7 +505,7 @@ there are no dependencies between the inputs and outputs of the steps.
     Header Parameter of the resulting JWE.)
 
 1.  When Key Wrapping, Key Encryption,
-    or Key Agreement with Key Wrapping are employed,
+    or Key Agreement with Key Wrapping is employed,
     generate a random CEK value to use for subsequent steps
     unless one was already generated for a previously
     processed recipient, in which case, let that be the one used
@@ -516,7 +516,7 @@ there are no dependencies between the inputs and outputs of the steps.
     required for the content encryption algorithm.
 
 1.  When Direct Key Agreement or Key Agreement with Key Wrapping
-    are employed, use the key agreement algorithm
+    is employed, use the key agreement algorithm
     to compute the value of the agreed upon key.
     When Direct Key Agreement is employed,
     let the CEK be the agreed upon key.
@@ -524,11 +524,11 @@ there are no dependencies between the inputs and outputs of the steps.
     the agreed upon key will be used to wrap the CEK.
 
 1.  When Key Wrapping, Key Encryption,
-    or Key Agreement with Key Wrapping are employed,
+    or Key Agreement with Key Wrapping is employed,
     encrypt the CEK to the recipient and let the result be the
     JWE Encrypted Key.
 
-1.  When Direct Key Agreement or Direct Encryption are employed,
+1.  When Direct Key Agreement or Direct Encryption is employed,
     let the JWE Encrypted Key be the empty octet sequence.
 
 1.  When Direct Encryption is employed,
@@ -552,7 +552,7 @@ there are no dependencies between the inputs and outputs of the steps.
     BASE64URL(JWE Initialization Vector).
 
 1.  If a "zip" parameter was included,
-    compress the plaintext using the specified compression algorithm
+    compress the plaintext using the specified compression algorithm,
     and let M be the octet sequence representing the compressed plaintext;
     otherwise, let M be the octet sequence representing the plaintext.
 
@@ -632,10 +632,10 @@ MUST successfully validate or the JWE MUST be considered invalid.
     the JWE Encrypted Key,
     the JWE Initialization Vector,
     the JWE Ciphertext, and
-    the JWE Authentication Tag,
-    and when using the JWE JSON Serialization,
+    the JWE Authentication Tag.
+    When using the JWE JSON Serialization,
     these components also include the base64url-encoded representation of
-    the JWE AAD and the unencoded
+    the JWE AAD, along with the unencoded
     JWE Shared Unprotected Header and
     JWE Per-Recipient Unprotected Header values.
     When using the JWE Compact Serialization,
@@ -691,13 +691,13 @@ MUST successfully validate or the JWE MUST be considered invalid.
     specified by the
     "alg" (algorithm) Header Parameter.
 
-1.  If using Integrated Encryption, Direct Encryption or Direct Key Agreement,
+1.  If using Integrated Encryption, Direct Encryption, or Direct Key Agreement,
     verify that there is exactly one recipient.
 
 1.  Verify that the JWE uses a key known to the recipient.
 
 1.  When Direct Key Agreement or Key Agreement with Key Wrapping
-    are employed, use the key agreement algorithm
+    is employed, use the key agreement algorithm
     to compute the value of the agreed upon key.
     When Direct Key Agreement is employed,
     let the CEK be the agreed upon key.
@@ -705,7 +705,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     the agreed upon key will be used to decrypt the JWE Encrypted Key.
 
 1.  When Key Wrapping, Key Encryption,
-    or Key Agreement with Key Wrapping are employed,
+    or Key Agreement with Key Wrapping is employed,
     decrypt the JWE Encrypted Key to produce the CEK.
     The CEK MUST have a length equal to that
     required for the content encryption algorithm.
@@ -717,7 +717,7 @@ MUST successfully validate or the JWE MUST be considered invalid.
     Also, see {{Section 11.5 of RFC7516}} for security considerations
     on mitigating timing attacks.
 
-1.  When Direct Key Agreement or Direct Encryption are employed,
+1.  When Direct Key Agreement or Direct Encryption is employed,
     verify that the JWE Encrypted Key value is an empty octet sequence.
 
 1.  When Direct Encryption is employed,
@@ -838,11 +838,11 @@ used with Integrated Encryption as the Key Management Mode:
 
 # Security Considerations
 
-This specification uses HPKE and the security considerations of
+This specification uses HPKE, and the security considerations of
 {{I-D.ietf-hpke-hpke}} are therefore applicable.
 
 HPKE assumes the sender is in possession of the public key of the recipient and
-HPKE JOSE makes the same assumptions. Hence, some form of public key distribution
+HPKE JOSE makes the same assumption. Hence, some form of public key distribution
 mechanism is assumed to exist but outside the scope of this document.
 
 HPKE in Base mode does not provide proof of sender origin
@@ -894,7 +894,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 ### HPKE-0
 
 - Algorithm Name: HPKE-0
-- Algorithm Description: Integrated Encryption with HPKE using DHKEM(P-256, HKDF-SHA256) KEM, HKDF-SHA256 KDF and AES-128-GCM AEAD
+- Algorithm Description: Integrated Encryption with HPKE using DHKEM(P-256, HKDF-SHA256) KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -974,7 +974,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 ### HPKE-0-KE
 
 - Algorithm Name: HPKE-0-KE
-- Algorithm Description: Key Encryption with HPKE using DHKEM(P-256, HKDF-SHA256) KEM, HKDF-SHA256 KDF and AES-128-GCM AEAD
+- Algorithm Description: Key Encryption with HPKE using DHKEM(P-256, HKDF-SHA256) KEM, HKDF-SHA256 KDF, and AES-128-GCM AEAD
 - Algorithm Usage Location(s): "alg"
 - JOSE Implementation Requirements: Optional
 - Change Controller: IETF
@@ -1144,6 +1144,8 @@ Deb Cooley,
 and
 Sebastian Stenzel
 for their contributions to the specification.
+
+Thanks to Peter Yee for the Genart review.
 
 # Document History
 {: numbered="false"}
