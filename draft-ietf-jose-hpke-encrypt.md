@@ -195,6 +195,9 @@ corresponding JWE algorithm identifiers for both modes. Distinct JWE algorithms
 are defined for Key Encryption and Integrated Encryption
 so that they are fully specified, as required by {{RFC9864}}.
 
+Test vectors for all algorithms defined in this document are provided in
+{{test-vectors}}.
+
 When the Key Management Mode is Integrated Encryption, HPKE is used to directly
 encrypt the plaintext, and the "enc" header parameter MUST NOT be included.
 This specification updates the definition of the "enc" header parameter in
@@ -255,7 +258,7 @@ When using Integrated Encryption with HPKE:
 - The "enc" header parameter MUST NOT be present.
   This is because no separate content encryption algorithm is used in this mode.
 - The protected header parameter "psk_id" MAY be present.
-- The protected header parameter "ek" MUST NOT be present.
+- The header parameter "ek" MUST NOT be present.
 - There MUST be exactly one recipient.
 - The JWE Encrypted Key MUST be the encapsulated secret, as defined in {{Section 5 of I-D.ietf-hpke-hpke}}.
 - The JWE Initialization Vector and JWE Authentication Tag MUST be the empty octet sequence.
@@ -946,7 +949,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 
 ## JSON Web Signature and Encryption Header Parameters
 
-The following entries are added to the IANA "JSON Web Key Parameters" registry {{IANA.JOSE}}:
+The following entries are added to the IANA "JSON Web Signature and Encryption Header Parameters" registry {{IANA.JOSE}}:
 
 ### ek
 {: toc="exclude"}
