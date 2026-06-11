@@ -1053,7 +1053,7 @@ The following entries are added to the IANA "JSON Web Signature and Encryption A
 
 ## JSON Web Signature and Encryption Header Parameters
 
-The following entries are added to the IANA "JSON Web Key Parameters" registry {{IANA.JOSE}}:
+The following entries are added to the IANA "JSON Web Signature and Encryption Header Parameters" registry {{IANA.JOSE}}:
 
 ### ek
 
