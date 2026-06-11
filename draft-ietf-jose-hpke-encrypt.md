@@ -42,7 +42,6 @@ author:
     email: "kondtir@gmail.com"
 
 -
-    ins: H. Tschofenig
     fullname: Hannes Tschofenig
     organization: University of the Bundeswehr Munich
     abbrev: UniBw M.
