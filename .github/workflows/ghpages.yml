@@ -34,11 +34,10 @@ jobs:
         path: |
           .refcache
           .venv
-          .gems
           node_modules
           .targets.mk
-        key: i-d-${{ steps.setup.outputs.date }}
-        restore-keys: i-d-
+        key: i-d-nogems-${{ steps.setup.outputs.date }}
+        restore-keys: i-d-nogems-
 
     - name: "Build Drafts"
       uses: martinthomson/i-d-template@v1

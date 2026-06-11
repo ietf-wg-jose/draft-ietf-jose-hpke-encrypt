@@ -1,4 +1,7 @@
 LIBDIR := lib
+BUNDLE_PATH := $(CURDIR)/.gems
+kramdown-rfc := env BUNDLE_GEMFILE=$(CURDIR)/Gemfile \
+    BUNDLE_PATH=$(BUNDLE_PATH) bundle exec kramdown-rfc
 include $(LIBDIR)/main.mk
 
 $(LIBDIR)/main.mk:
