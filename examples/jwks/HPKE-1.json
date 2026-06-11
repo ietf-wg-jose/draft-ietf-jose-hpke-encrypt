@@ -1,0 +1,10 @@
+{
+  "kty": "EC",
+  "crv": "P-384",
+  "x": "CTphb4EF35SSZgrk9rYHXkdalQLTGRApFRiAF8eVteQtOIZRbZKV0iEv9eiSElLT",
+  "y": "6KddFD8aAVzoJNq1Jr_4oZ3t7SGZm3qgXMHN7sB_KAlxTydxRaVXArFKQyyffOj6",
+  "d": "UzFpz5G-_kWkiCKWCWdRXFxVoz9fTY4u9I_XmfPoOI7eEf0glEARLbsx06wb1EYu",
+  "alg": "HPKE-1",
+  "use": "enc",
+  "kid": "K4P-SJHnqUpz-qTXlYCBV6ITFu8sH_gsx2KGMEcjk9s"
+}

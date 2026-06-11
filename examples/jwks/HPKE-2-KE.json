@@ -1,0 +1,10 @@
+{
+  "kty": "EC",
+  "crv": "P-521",
+  "x": "AKA9Ra4-VaZVMoXlIbU2DNQSiKe92-zXuGI73CtGpibQbmyTpuLV4TN3UWcGHpO8krMaStuxuJOToVLqVUWm0zmF",
+  "y": "Ac-o4fIpIKZqPQKtEi7f04_vXnW-3BH2K14WSUp_tWsgSuHai8CGuWcwGkB5iKNpwOvh77Br0Vk69orojXETMy7W",
+  "d": "AdeDTmkW31gpYbnoI9V297i0tA28dNYR1VS2lRyn04x9UQItmnUG7fp2Wc9CQgGd1XCWYjtJsl9IQx8q0ylTKD2T",
+  "alg": "HPKE-2-KE",
+  "use": "enc",
+  "kid": "hsRjjUtVSsbXZr5gfmhzqZ-RSs-K_ofzOV09sHt6x8w"
+}

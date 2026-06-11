@@ -4,6 +4,7 @@
 *.redxml
 *.swp
 *.txt
+!examples/**/*.txt
 *.upload
 *~
 /.*.mk

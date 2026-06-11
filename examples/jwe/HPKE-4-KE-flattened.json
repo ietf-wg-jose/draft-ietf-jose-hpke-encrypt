@@ -1,0 +1,8 @@
+{
+  "protected": "eyJhbGciOiJIUEtFLTQtS0UiLCJraWQiOiJZSjR5am53QVBCaVBnLXM5YkZMamhsX1NBeXhYTmtwZTJiQTlHbDFLa1R3IiwiZW5jIjoiQTI1NkdDTSIsImVrIjoiaFlQREVkNVFHX1p0N2plUVJlUWV5UXM2alhnbTdzSG5hOEdCWGM1emlHZyJ9",
+  "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
+  "iv": "Q6ghT_T-ekzU-ubv",
+  "ciphertext": "FMwgTqXftAE2lENAgnoQD9tObqWUWHATOTl7SXrUqmwX0jjhXObcRjFT73QFH9KVdcEzQROLAIWnrEnyfCbjwhM6Leiwq-xw8VgHS3f9xxCcS407gyZ0Sv8qAPgsnusNUEBOQ5lxXJCNNZ_Z_CANxOCct5CiZUtZumTMp2x-vzIkHWxtXG1NRbLgRbHJg9SVBs69-6q7Lp8vGJKHkivtDNVVOfuyGC_GM8HX4bdmadsQpCa_spT8g5RVZ13TKqrBYc9u2HJNt7km0lCqQHCM0rBODrmAvCNuTCWp-Cwklkbg19ovTzAskfXJFvxAhj0ipTaWKGXVPMSdAh1fhsxdyl03HoS4bN8zMoT-NYg",
+  "tag": "LG7QdrXWME2XEyln5Hu5SA",
+  "encrypted_key": "MgJbcJi5vnrj23QyoNwOq_I_w0K4vsvDnctDl0LCKC35jWTG0EQA7dCYQj8JTh1F"
+}

@@ -1,0 +1,10 @@
+{
+  "kty": "EC",
+  "crv": "P-256",
+  "x": "1nm4Hz__urAJOmnQoT4-Cddab4mIgwNPFpo_mq__Huk",
+  "y": "0zf-qAB9KJP6qgtYNSP6MTdVBxzgBachQ2XdgCsOk8o",
+  "d": "8CpCdkAF51G_YJPb29O3LKLBKTibK4FHWO9lYehzLqE",
+  "alg": "HPKE-7-KE",
+  "use": "enc",
+  "kid": "SMa7O1lSKSi2LJCin1PfZRYA7KGKky5oSfaMO9UOYWA"
+}
