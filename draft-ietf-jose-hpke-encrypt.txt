@@ -5,7 +5,7 @@
 JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
-Intended status: Standards Track                                   H-BRS
+Intended status: Standards Track                                UniBw M.
 Expires: 14 December 2026                                    A. Banerjee
                                                                    Nokia
                                                                O. Steele
@@ -1586,7 +1586,8 @@ Authors' Addresses
 
 
    Hannes Tschofenig
-   University of Applied Sciences Bonn-Rhein-Sieg
+   University of the Bundeswehr Munich
+   85577 Neubiberg
    Germany
    Email: hannes.tschofenig@gmx.net
 
