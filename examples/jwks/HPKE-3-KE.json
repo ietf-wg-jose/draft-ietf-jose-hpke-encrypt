@@ -1,0 +1,9 @@
+{
+  "kty": "OKP",
+  "crv": "X25519",
+  "x": "4XxzVQ5b1_2KId4eH7vCgtTMFS-xpFQdlewl7Ldgwmc",
+  "d": "nV8mMuP37Pu7zvd7i-Fqg8HLYpu2wWOZFb1FdkpV6iY",
+  "alg": "HPKE-3-KE",
+  "use": "enc",
+  "kid": "rZvhw8SPuKMGlrnzm-J4DZ-G4niXcJkKvb8tAbz4jJc"
+}

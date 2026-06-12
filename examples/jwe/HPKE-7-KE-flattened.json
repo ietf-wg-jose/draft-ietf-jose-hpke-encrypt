@@ -1,0 +1,8 @@
+{
+  "protected": "eyJhbGciOiJIUEtFLTctS0UiLCJraWQiOiJTTWE3TzFsU0tTaTJMSkNpbjFQZlpSWUE3S0dLa3k1b1NmYU1POVVPWVdBIiwiZW5jIjoiQTI1NkdDTSIsImVrIjoiQkFyRmpzNzhKekJ0aTM0a2toZ3NCanRHOGFGSWduSDBSclRtczZ2ck00QnVFMUVFajY4RGJBallMenVjWmJnSFpZTk50NjJQOFJTaU5mVWsycjFURFZRIn0",
+  "aad": "VGhlIEZlbGxvd3NoaXAgb2YgdGhlIFJpbmc",
+  "iv": "sXE8-PM-BegS6637",
+  "ciphertext": "ge8gDn9qTkGUqH53xmrFgSKAqcmduhDJolm9-sm-tQs5HBc2vgCWwCZbeHc3P64tRAYUTqqlAHrgqYaMxT7EIawB_WVr5yAOdMu4zPsysaUikKAG6aZLywpdEaOGn6TxCdTUczJQ59bza8JxscPGzPdko8z73QUBnuYnr1lUlJWy9pWj29mwVwGJA0T9AvQucNdgb8lQEEcpPiaajGSPYIXV6XeKUQlblUstGl1S6dScULaCw5RAX7gAlHmLDMF0QMG8Hpiehok1bfDOE0gRqhlu1ywc69-X_4ESQFc9v4tph7r6nYBdy9qa-dP_qeVBstgDuvud0kcQH6Xmozg9PTAoS-W7_LA7aIuEmuE",
+  "tag": "I7DBYo_2YzG2JC3mWifjFw",
+  "encrypted_key": "BcEhfoYFVMDky_AjhhCCAm97yYO-JgiClODO0rLqq0k0lIPut-RPfaqHKITbK8ng"
+}

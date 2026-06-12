@@ -1,0 +1,9 @@
+{
+  "kty": "OKP",
+  "crv": "X448",
+  "x": "xyUAS71Bmja8Pq141pc1z965w6_RGV-QxfN_tFm1Jj4LsApo3Cn9xnWwPJRGFnS10LPZeniEcmQ",
+  "d": "r0PYBotYGdlzz8YM3OvV8PYf0zHbdhPJ--UJRs_asGTTQgIS7HYRo9AVPDnAs5_cU8EUNDfB4NQ",
+  "alg": "HPKE-6-KE",
+  "use": "enc",
+  "kid": "aaGcRsxhcVOUTm89NpDuhDFh3HZRq3nyf7nabjmBEJ0"
+}
