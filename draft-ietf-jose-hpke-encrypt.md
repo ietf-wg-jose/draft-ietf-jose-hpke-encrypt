@@ -1303,19 +1303,33 @@ We would like to thank
 Richard Barnes,
 Brian Campbell,
 Matt Chanda,
+Deb Cooley,
+David Dong,
 Ilari Liusvaara,
 Neil Madden,
 Aaron Parecki,
 Filip Skokan,
-Deb Cooley,
+Sebastian Stenzel,
 and
-Sebastian Stenzel
+Peter Yee
 for their contributions to the specification.
-
-Thanks to Peter Yee for the Genart review.
 
 # Document History
 {: numbered="false"}
+
+-20
+
+* Added a complete set of test vectors.
+* Cleaned up presentation of tables and examples.
+* Corrected text referring to the IANA "JSON Web Signature and Encryption Header Parameters" registry.
+
+-19
+
+* Applied editorial improvements suggested by Peter Yee.
+
+-18
+
+* Rewrote Key Management guidance in Security Considerations section.
 
 -17
 
