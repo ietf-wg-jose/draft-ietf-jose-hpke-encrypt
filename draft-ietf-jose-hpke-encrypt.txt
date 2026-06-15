@@ -6,13 +6,13 @@ JOSE                                                            T. Reddy
 Internet-Draft                                                     Nokia
 Updates: 7516 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                UniBw M.
-Expires: 14 December 2026                                    A. Banerjee
+Expires: 17 December 2026                                    A. Banerjee
                                                                    Nokia
                                                                O. Steele
                                                             Tradeverifyd
                                                                 M. Jones
                                                   Self-Issued Consulting
-                                                            12 June 2026
+                                                            15 June 2026
 
 
   Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 December 2026.
+   This Internet-Draft will expire on 17 December 2026.
 
 Copyright Notice
 
@@ -231,16 +231,15 @@ Table of Contents
    Certain JWE features are only supported in specific serializations.
    For example, the JWE Compact Serialization does not support:
 
-   *  the additional authenticated data header parameter "aad",
+   *  the JWE AAD value conveyed by the "aad" member,
 
    *  multiple recipients, and
 
    *  unprotected header parameters.
 
-   Key Encryption can be used with the "aad" header parameter when using
-   the JWE JSON Serialization.  Single recipient Key Encryption with no
-   "aad" header parameter can be expressed in the JWE Compact
-   Serialization.
+   Key Encryption can be used with a JWE AAD value when using the JWE
+   JSON Serialization.  Single recipient Key Encryption with no JWE AAD
+   value can be expressed in the JWE Compact Serialization.
 
 4.1.  Encapsulated Secrets
 
@@ -2094,14 +2093,32 @@ A.16.  HPKE-7-KE
 Acknowledgments
 
    This specification leverages text from [I-D.ietf-cose-hpke].  We
-   would like to thank Richard Barnes, Brian Campbell, Matt Chanda,
-   Ilari Liusvaara, Neil Madden, Aaron Parecki, Filip Skokan, Deb
-   Cooley, and Sebastian Stenzel for their contributions to the
-   specification.
-
-   Thanks to Peter Yee for the Genart review.
+   would like to thank Richard Barnes, Brian Campbell, Matt Chanda, Deb
+   Cooley, David Dong, Ilari Liusvaara, Neil Madden, Aaron Parecki,
+   Filip Skokan, Sebastian Stenzel, and Peter Yee for their
+   contributions to the specification.
 
 Document History
+
+   -20
+
+   *  Added a complete set of test vectors.
+
+   *  Cleaned up presentation of tables and examples.
+
+   *  Corrected text referring to the IANA "JSON Web Signature and
+      Encryption Header Parameters" registry.
+
+   *  Corrected text referring to the "aad" JWE parameter.
+
+   -19
+
+   *  Applied editorial improvements suggested by Peter Yee.
+
+   -18
+
+   *  Rewrote Key Management guidance in Security Considerations
+      section.
 
    -17
 
