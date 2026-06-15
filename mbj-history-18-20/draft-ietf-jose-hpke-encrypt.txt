@@ -2110,6 +2110,8 @@ Document History
    *  Corrected text referring to the IANA "JSON Web Signature and
       Encryption Header Parameters" registry.
 
+   *  Corrected text referring to the "aad" JWE parameter.
+
    -19
 
    *  Applied editorial improvements suggested by Peter Yee.
