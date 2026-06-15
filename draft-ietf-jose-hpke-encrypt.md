@@ -1322,6 +1322,7 @@ for their contributions to the specification.
 * Added a complete set of test vectors.
 * Cleaned up presentation of tables and examples.
 * Corrected text referring to the IANA "JSON Web Signature and Encryption Header Parameters" registry.
+* Corrected text referring to the "aad" JWE parameter.
 
 -19
 
