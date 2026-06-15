@@ -232,13 +232,13 @@ JWE supports two kinds of serializations:
 Certain JWE features are only supported in specific serializations.
 For example, the JWE Compact Serialization does not support:
 
-- the additional authenticated data header parameter "aad",
+- the JWE AAD value conveyed by the "aad" member,
 - multiple recipients, and
 - unprotected header parameters.
 
-Key Encryption can be used with the "aad" header parameter
+Key Encryption can be used with a JWE AAD value
 when using the JWE JSON Serialization.
-Single recipient Key Encryption with no "aad" header parameter can be expressed
+Single recipient Key Encryption with no JWE AAD value can be expressed
 in the JWE Compact Serialization.
 
 ## Encapsulated Secrets {#encapsulated-secrets}
